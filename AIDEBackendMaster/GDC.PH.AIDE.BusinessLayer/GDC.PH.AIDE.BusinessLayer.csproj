@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C6FD9F84-A18E-472D-BA4B-7ED274F5B276}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GDC.Weserv.DCSFramework.BusinessLayer</RootNamespace>
+    <AssemblyName>GDC.Weserv.DCSFramework.BusinessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjectBase.cs" />
+    <Compile Include="clsActionLists.cs" />
+    <Compile Include="clsActionListsFactory.cs" />
+    <Compile Include="clsActionListsKeys.cs" />
+    <Compile Include="clsAssignedProjects.cs" />
+    <Compile Include="clsAssignedProjectsFactory.cs" />
+    <Compile Include="clsAssignedProjectsKeys.cs" />
+    <Compile Include="clsAttendance.cs" />
+    <Compile Include="clsAttendanceFactory.cs" />
+    <Compile Include="clsAttendanceKeys.cs" />
+    <Compile Include="clsBillables.cs" />
+    <Compile Include="clsBillablesFactory.cs" />
+    <Compile Include="clsBillablesKeys.cs" />
+    <Compile Include="clsBirthday.cs" />
+    <Compile Include="clsBirthdayFactory.cs" />
+    <Compile Include="clsBirthdayKeys.cs" />
+    <Compile Include="clsAssets.cs" />
+    <Compile Include="clsAssetsFactory.cs" />
+    <Compile Include="clsAssetsKeys.cs" />
+    <Compile Include="clsConcern.cs" />
+    <Compile Include="clsConcernFactory.cs" />
+    <Compile Include="clsConcernKeys.cs" />
+    <Compile Include="clsCommendations.cs" />
+    <Compile Include="clsContacts.cs" />
+    <Compile Include="clsCommendationsFactory.cs" />
+    <Compile Include="clsContactsFactory.cs" />
+    <Compile Include="clsCommendationsKeys.cs" />
+    <Compile Include="clsContactsKeys.cs" />
+    <Compile Include="clsEmployee.cs" />
+    <Compile Include="clsEmployeeAttendance.cs" />
+    <Compile Include="clsEmployeeAttendanceFACTORY.cs" />
+    <Compile Include="clsEmployeeFactory.cs" />
+    <Compile Include="clsEmployeeKeys.cs" />
+    <Compile Include="clsLessonLearnt.cs" />
+    <Compile Include="clsLessonLearntFactory.cs" />
+    <Compile Include="clsLessonLearntKeys.cs" />
+    <Compile Include="clsProfile.cs" />
+    <Compile Include="clsProfileFactory.cs" />
+    <Compile Include="clsProfileKeys.cs" />
+    <Compile Include="clsProject.cs" />
+    <Compile Include="clsProjectFactory.cs" />
+    <Compile Include="clsProjectKeys.cs" />
+    <Compile Include="clsResourcePlanner.cs" />
+    <Compile Include="clsResourcePlannerFactory.cs" />
+    <Compile Include="clsResourcePlannerKeys.cs" />
+    <Compile Include="clsSkills.cs" />
+    <Compile Include="clsSkillsFactory.cs" />
+    <Compile Include="clsSkillsKeys.cs" />
+    <Compile Include="clsSuccessRegister.cs" />
+    <Compile Include="clsSuccessRegisterFactory.cs" />
+    <Compile Include="clsSuccessRegisterKeys.cs" />
+    <Compile Include="clsTasks.cs" />
+    <Compile Include="clsTasksFactory.cs" />
+    <Compile Include="clsTasksKeys.cs" />
+    <Compile Include="clsTasks_sp.cs" />
+    <Compile Include="DataLayer\clsActionListsSql.cs" />
+    <Compile Include="DataLayer\clsAssignedProjectsSql.cs" />
+    <Compile Include="DataLayer\clsAttendanceSql.cs" />
+    <Compile Include="DataLayer\clsBillablesSql.cs" />
+    <Compile Include="DataLayer\clsBirthdaySql.cs" />
+    <Compile Include="DataLayer\clsAssetsSql.cs" />
+    <Compile Include="DataLayer\clsConcernSql.cs" />
+    <Compile Include="DataLayer\clsCommendationsSql.cs" />
+    <Compile Include="DataLayer\clsContactsSql.cs" />
+    <Compile Include="DataLayer\clsEmployeeAttendanceSql.cs" />
+    <Compile Include="DataLayer\clsEmployeeSql.cs" />
+    <Compile Include="DataLayer\clsLessonLearntSql.cs" />
+    <Compile Include="DataLayer\clsProfileSql.cs" />
+    <Compile Include="DataLayer\clsProjectSql.cs" />
+    <Compile Include="DataLayer\clsResourcePlannerSql.cs" />
+    <Compile Include="DataLayer\clsSkillsSql.cs" />
+    <Compile Include="DataLayer\clsSuccessRegisterSql.cs" />
+    <Compile Include="DataLayer\clsTasksSql.cs" />
+    <Compile Include="DataLayer\DataLayerBase.cs" />
+    <Compile Include="InvalidBusinessObjectException.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\BrokenRule.cs" />
+    <Compile Include="Validation\BrokenRulesList.cs" />
+    <Compile Include="Validation\ValidateRuleBase.cs" />
+    <Compile Include="Validation\ValidateRuleNotNull.cs" />
+    <Compile Include="Validation\ValidateRuleRegexMatching.cs" />
+    <Compile Include="Validation\ValidateRuleStringMaxLength.cs" />
+    <Compile Include="Validation\ValidateRuleStringRequired.cs" />
+    <Compile Include="Validation\ValidationRules.cs" />
+    <Compile Include="DataLayer\clsStatusSql.cs" />
+    <Compile Include="clsStatus.cs" />
+    <Compile Include="clsStatusFactory.cs" />
+    <Compile Include="clsStatusKeys.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
