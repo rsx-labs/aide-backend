@@ -74,6 +74,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetCommendations(deptID);
         }
 
+        public List<clsCommendations> GetCommendationsBySearch(int empID, int month, int year)
+        {
+            return _dataObject.GetCommendationsBySearch(empID, month, year);
+        }
+
         #endregion
 
     }

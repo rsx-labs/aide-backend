@@ -48,6 +48,25 @@ Public Class SkillsManagement
         Return state
     End Function
 
+    Public Function UpdateAllSkills(ByVal skills As Skills) As StateData
+        Dim skillSet As New SkillSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            SetFields(skillSet, skills)
+            If skillSet.UpdateAllSkills(skillSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update Skills Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
     Public Function GetSkillsList() As StateData
         Dim skillSet As New SkillSet
         Dim skillSetList As List(Of SkillSet)

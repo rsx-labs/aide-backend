@@ -1,5 +1,4 @@
-﻿#Region "IAideService"
-
+﻿
 #Region "Operation Contracts"
 <ServiceContract(SessionMode:=SessionMode.Required, CallbackContract:=GetType(IAIDEServiceCallback))>
 Public Interface IAideService
@@ -43,6 +42,9 @@ Public Interface IAideService
     <OperationContract()>
     Function GetAttendanceToday(ByVal email As String) As List(Of MyAttendance)
 
+    <OperationContract()>
+    Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of MyAttendance)
+
 #End Region
 
 #Region "NonBillability Hours Operation Contracts"
@@ -52,7 +54,6 @@ Public Interface IAideService
     Function GetNonBillabilityHoursAll(ByVal userChoice As Short) As List(Of NonBillableHours)
     <OperationContract()>
     Function GetNonBillabilityHoursSummary(ByVal dateInput As Date) As List(Of NonBillableSummary)
-
 #End Region
 
 #Region "Contacts Operation Contracts"
@@ -96,10 +97,10 @@ Public Interface IAideService
     ''' <returns></returns>
     ''' <remarks></remarks>
     <OperationContract()>
-    Function GetAllListOfProject() As List(Of Project)
+    Function GetAllListOfProject(ByVal empID As Integer) As List(Of Project)
 
     <OperationContract()>
-    Function GetProjectList() As List(Of Project)
+    Function GetProjectList(ByVal empID As Integer) As List(Of Project)
 
     <OperationContract(IsOneWay:=True)>
     Sub CreateProject(ByVal project As Project)
@@ -132,7 +133,7 @@ Public Interface IAideService
     ''' <returns></returns>
     ''' <remarks></remarks>
     <OperationContract()>
-    Function ViewProjectListofEmployee() As List(Of ViewProject)
+    Function ViewProjectListofEmployee(ByVal empID As Integer) As List(Of ViewProject)
 
     'For the list of employee per project displayed in Combobox
     <OperationContract()>
@@ -178,6 +179,8 @@ Public Interface IAideService
     <OperationContract(IsOneWay:=True)>
     Sub UpdateCommendations(ByVal task As Commendations)
 
+    <OperationContract()>
+    Function GetCommendationsBySearch(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of Commendations)
 #End Region
 
 #Region "Assets Operation Contracts"
@@ -317,6 +320,9 @@ Public Interface IAideService
     <OperationContract()>
     Function ViewBirthdayListByCurrentMonth(ByVal email As String) As List(Of BirthdayList)
 
+    <OperationContract()>
+    Function ViewBirthdayListByCurrentDay(ByVal email As String) As List(Of BirthdayList)
+
 #End Region
 
 #Region "Concern Data Contracts"
@@ -441,6 +447,9 @@ Public Interface IAideService
     <OperationContract(IsOneWay:=True)>
     Sub UpdateSkills(ByVal skills As Skills)
 
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateAllSkills(ByVal skills As Skills)
+
     <OperationContract()>
     Function ViewEmpSKills(ByVal empID As Integer) As List(Of Skills)
 
@@ -456,7 +465,7 @@ Public Interface IAideService
 
 #Region "Resource Planner Operation Contract"
     ''' <summary>
-    ''' By Jhunell G. Barcenas
+    ''' By Jhunell G. Barcenas / John Harvey Sanchez
     ''' </summary>
     ''' <remarks></remarks>
 
@@ -485,8 +494,47 @@ Public Interface IAideService
     Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
 
     <OperationContract()>
-    Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer) As List(Of ResourcePlanner)
+    Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
+    Function GetBillableHoursByMonth(ByVal empID As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
+    Function GetBillableHoursByWeek(ByVal empID As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
+    Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 #End Region
+
+#Region "Announcements Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAnnouncements(ByVal announcements As Announcements)
+
+    <OperationContract()>
+    Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+#End Region
+
+#Region "Late Operation Contracts"
+    <OperationContract()>
+    Function GetLate(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal toDisplay As Integer) As List(Of Late)
+#End Region
+
+#Region "Saba Learning Operation Contracts"
+
+    <OperationContract()>
+    Function GetAllSabaCourses(ByVal empID As Integer) As List(Of SabaLearning)
+    <OperationContract()>
+    Function GetAllSabaXref(ByVal empID As Integer, ByVal sabaID As Integer) As List(Of SabaLearning)
+    <OperationContract()>
+    Sub InsertSabaCourses(ByVal obj As SabaLearning)
+    <OperationContract()>
+    Sub UpdateSabaCourses(ByVal obj As SabaLearning)
+    <OperationContract()>
+    Sub UpdateSabaXref(ByVal obj As SabaLearning)
+    <OperationContract()>
+    Function GetAllSabaCourseByTitle(ByVal message As String, ByVal empID As Integer) As List(Of SabaLearning)
+#End Region
+
 
 End Interface
 #End Region
@@ -664,7 +712,6 @@ Public Class Profile
     <DataMember()>
     Public Property Department As String
 
-
     <DataMember()>
     Public Property Division As String
 
@@ -701,8 +748,8 @@ Public Class Profile
     <DataMember()>
     Public Property CivilStatus As String
 
-
-
+    <DataMember()>
+    Public Property ShiftStatus As String
 
 End Class
 #End Region
@@ -784,7 +831,7 @@ Public Class Tasks
     Public Property EmpID As Integer
 
     <DataMember()>
-    Public Property IncidentID As Integer
+    Public Property IncidentID As String
 
     <DataMember()>
     Public Property TaskType As Short
@@ -1190,7 +1237,7 @@ End Class
 
 #Region "Resource Planner Data Contracts"
 ''' <summary>
-''' By Jhunell G. Barcenas
+''' By Jhunell G. Barcenas / John Harvey A. Sanchez
 ''' </summary>
 ''' <remarks></remarks>
 Public Class ResourcePlanner
@@ -1208,7 +1255,16 @@ Public Class ResourcePlanner
     Public Property dateTo As Date
 
     <DataMember()>
-    Public Property Status As Integer
+    Public Property Status As Double
+
+    <DataMember()>
+    Public Property UsedLeaves As Double
+
+    <DataMember()>
+    Public Property TotalBalance As Double
+
+    <DataMember()>
+    Public Property HalfBalance As Double
 
     <DataMember()>
     Public Property DESCR As String
@@ -1218,6 +1274,15 @@ Public Class ResourcePlanner
 
     <DataMember()>
     Public Property DateEntry As Date
+
+    <DataMember()>
+    Public Property holidayHours As Double
+
+    <DataMember()>
+    Public Property vlHours As Double
+
+    <DataMember()>
+    Public Property slHours As Double
 
 End Class
 #End Region
@@ -1266,6 +1331,9 @@ Public Class AttendanceSummary
 
     <DataMember()>
     Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property TimeIn As DateTime
 
     <DataMember()>
     Public Property Name As String
@@ -1432,11 +1500,117 @@ Public Class Assets
 End Class
 #End Region
 
+#Region "Announcements Data Contract"
+<DataContract()>
+Public Class Announcements
+
+    <DataMember()>
+    Public Property EMP_ID As Integer
+    <DataMember()>
+    Public Property MESSAGE As String
+    <DataMember()>
+    Public Property TITLE As String
+    <DataMember()>
+    Public Property END_DATE As Date
+
+End Class
+#End Region
+
+#Region "Late Data Contract"
+<DataContract()>
+Public Class Late
+
+    <DataMember()>
+    Public Property FIRST_NAME As String
+
+    <DataMember()>
+    Public Property STATUS As Integer
+
+    <DataMember()>
+    Public Property MONTH As String
+
+    <DataMember()>
+    Public Property NUMBER_OF_LATE As Integer
+
+End Class
+#End Region
+
+#Region "Saba Learning Data Contract"
+<DataContract()>
+Public Class SabaLearning
+
+    <DataMember()>
+    Public Property SABA_ID As Integer
+    <DataMember()>
+    Public Property EMP_ID As Integer
+    <DataMember()>
+    Public Property TITLE As String
+    <DataMember()>
+    Public Property END_DATE As Date
+    <DataMember()>
+    Public Property DATE_COMPLETED As String
+    <DataMember()>
+    Public Property IMAGE_PATH As String
+
+End Class
+#End Region
+#Region "Non-Billability Hours Data Contracts"
+<DataContract()>
+Public Class NonBillableSummary
+
+    <DataMember()>
+    Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property Name As String
+
+    <DataMember()>
+    Public Property SickLeave As Double
+
+    <DataMember()>
+    Public Property VacationLeave As Double
+
+    <DataMember()>
+    Public Property Holiday As Short
+
+    '<DataMember()>
+    'Public Property InBetween As Short
+
+    <DataMember()>
+    Public Property HalfdayVL As Double
+
+    <DataMember()>
+    Public Property HalfdaySL As Double
+
+    <DataMember()>
+    Public Property HalfDay As Double
+
+    <DataMember()>
+    Public Property Total As Double
+End Class
+
+<DataContract()>
+Public Class NonBillableHours
+
+    <DataMember()>
+    Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property Name As String
+
+    <DataMember()>
+    Public Property TotalHours As Short
+
+    <DataMember()>
+    Public Property Month As String
+
+    <DataMember()>
+    Public Property Year As Short
+
+End Class
 #End Region
 
 #End Region
-
-
 
 <ServiceContract()>
 Public Interface IAideService2
@@ -1620,62 +1794,6 @@ Public Class DashboardEmployee
 
 End Class
 
-#End Region
-
-#Region "Non-Billability Hours Data Contracts"
-<DataContract()>
-Public Class NonBillableSummary
-
-    <DataMember()>
-    Public Property EmployeeID As Integer
-
-    <DataMember()>
-    Public Property Name As String
-
-    <DataMember()>
-    Public Property SickLeave As Double
-
-    <DataMember()>
-    Public Property VacationLeave As Double
-
-    <DataMember()>
-    Public Property Holiday As Short
-
-    '<DataMember()>
-    'Public Property InBetween As Short
-
-    <DataMember()>
-    Public Property HalfdayVL As Double
-
-    <DataMember()>
-    Public Property HalfdaySL As Double
-
-    <DataMember()>
-    Public Property HalfDay As Double
-
-    <DataMember()>
-    Public Property Total As Double
-End Class
-
-<DataContract()>
-Public Class NonBillableHours
-
-    <DataMember()>
-    Public Property EmployeeID As Integer
-
-    <DataMember()>
-    Public Property Name As String
-
-    <DataMember()>
-    Public Property TotalHours As Short
-
-    <DataMember()>
-    Public Property Month As String
-
-    <DataMember()>
-    Public Property Year As Short
-
-End Class
 #End Region
 
 

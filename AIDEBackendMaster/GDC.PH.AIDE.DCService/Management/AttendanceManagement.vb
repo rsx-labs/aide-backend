@@ -127,10 +127,38 @@ Public Class AttendanceManagement
         Return state
     End Function
 
+    Public Function GetAttendanceTodayBySearch(email As String, input As String) As StateData
+        Dim AttendanceSet As New AttendanceSet
+        Dim AttendanceSetLst As List(Of AttendanceSet)
+        Dim objAttendance As New List(Of MyAttendance)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            AttendanceSetLst = AttendanceSet.GetAttendanceTodayBySearch(email, input)
+
+            If Not IsNothing(AttendanceSetLst) Then
+                For Each objList As AttendanceSet In AttendanceSetLst
+                    objAttendance.Add(DirectCast(GetMappedFields3(objList), MyAttendance))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAttendance, message)
+        Return state
+    End Function
+
     Public Overrides Sub SetFields(ByRef objResult As Object, objData As Object)
         Dim objAttendance As AttendanceSummary = DirectCast(objData, AttendanceSummary)
         Dim attendanceData As New AttendanceSet
         attendanceData.EmployeeID = objAttendance.EmployeeID
+        attendanceData.DATE_ENTRY = objAttendance.TimeIn
         'attendanceData.EmployeeName = objAttendance.Name
         attendanceData.Month = objAttendance.Month
         attendanceData.Year = objAttendance.Year

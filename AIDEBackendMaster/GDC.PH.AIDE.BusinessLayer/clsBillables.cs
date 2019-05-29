@@ -34,8 +34,8 @@ namespace GDC.PH.AIDE.BusinessLayer
 		#region Data Members
 
         int _eMPID;
-			int _mONTH;
-			int _yEAR;
+		int _mONTH;
+		int _yEAR;
         decimal _hOURS;
         string _nICK_NAME;
         decimal _hOLIDAY;
@@ -75,7 +75,6 @@ namespace GDC.PH.AIDE.BusinessLayer
                     }
                 }
             }
-
 
         public decimal HOURS
         {
@@ -226,6 +225,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 			ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMPID", "EMPID"));
 			ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MONTH", "MONTH"));
 			ValidationRules.AddRules(new Validation.ValidateRuleNotNull("YEAR", "YEAR"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("STATUS", "STATUS"));
 		}
 
 		#endregion

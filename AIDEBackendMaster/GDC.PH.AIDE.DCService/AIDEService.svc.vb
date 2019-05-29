@@ -90,6 +90,10 @@ Public Class AIDEService
         Return MyBase.GetAttendanceToday(email)
     End Function
 
+    Public Function GetAttendanceTodayBySearchs(email As String, input As String) As List(Of MyAttendance) Implements IAideService.GetAttendanceTodayBySearch
+        Return MyBase.GetAttendanceTodayBySearch(email, input)
+    End Function
+
 #End Region
 
 #Region "Billability Functions"
@@ -350,6 +354,10 @@ Public Class AIDEService
     Public Function ViewBirthdayListByCurrentMonth(ByVal email As String) As List(Of BirthdayList) Implements IAideService.ViewBirthdayListByCurrentMonth
         Return MyBase.GetBirthdayListByMonth(email)
     End Function
+
+    Public Function ViewBirthdayListByCurrentDay(ByVal email As String) As List(Of BirthdayList) Implements IAideService.ViewBirthdayListByCurrentDay
+        Return MyBase.GetBirthdayListByDay(email)
+    End Function
 #End Region
 
 #Region "Concern"
@@ -514,6 +522,10 @@ Public Class AIDEService
         MyBase.UpdateSkills(skills)
     End Sub
 
+    Public Sub UpdateAllSkill(skills As Skills) Implements IAideService.UpdateAllSkills
+        MyBase.UpdateAllSkills(skills)
+    End Sub
+
     Public Function GetSkillsLastReviewByEmpIDSkillIDs(empID As Integer, skillID As Integer) As Skills Implements IAideService.GetSkillsLastReviewByEmpIDSkillID
         Dim objSkills As Skills = Nothing
         MyBase.GetSkillsLastReviewByEmpIDSkillID(empID, skillID, objSkills)
@@ -554,8 +566,8 @@ Public Class AIDEService
 
 
 
-    Public Function GetAllListOfProjects() As List(Of Project) Implements IAideService.GetAllListOfProject
-        Return MyBase.GetAllListOfProject()
+    Public Function GetAllListOfProjects(ByVal empID As Integer) As List(Of Project) Implements IAideService.GetAllListOfProject
+        Return MyBase.GetAllListOfProject(empID)
     End Function
 
 
@@ -570,9 +582,9 @@ Public Class AIDEService
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetProjectList() As List(Of Project) Implements IAideService.GetProjectList
+    Public Function GetProjectList(ByVal EmpID As Integer) As List(Of Project) Implements IAideService.GetProjectList
         Dim lstProject As List(Of Project) = Nothing
-        MyBase.GetProjectsList(lstProject)
+        MyBase.GetProjectsList(lstProject, EmpID)
         Return lstProject
     End Function
 
@@ -583,9 +595,9 @@ Public Class AIDEService
     ''' VIEW PROJECT  - GIANN CARLO CAMILO / LEMUELA ABULENCIA
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function ViewProjectListofEmployees() As List(Of ViewProject) Implements IAideService.ViewProjectListofEmployee
+    Public Function ViewProjectListofEmployees(ByVal EmpID As Integer) As List(Of ViewProject) Implements IAideService.ViewProjectListofEmployee
         Dim lstViewProject As List(Of ViewProject) = Nothing
-        MyBase.ViewProjectListofEmployee(lstViewProject)
+        MyBase.ViewProjectListofEmployee(EmpID, lstViewProject)
         Return lstViewProject
     End Function
 
@@ -618,7 +630,7 @@ Public Class AIDEService
 #End Region
 
     ''' <summary>
-    ''' By Harvey Sanchez
+    ''' By John Harvey Sanchez
     ''' </summary>
 #Region "Task"
     Public Sub CreateTask(task As Tasks) Implements IAideService.CreateTask
@@ -686,7 +698,7 @@ Public Class AIDEService
 #End Region
 
     ''' <summary>
-    ''' By Jhunell Barcenas
+    ''' By Jhunell Barcenas / John Harvey Sanchez
     ''' </summary>
 #Region "Resource Planner"
     Public Sub InsertResourcePlanners(resource As ResourcePlanner) Implements IAideService.InsertResourcePlanner
@@ -721,12 +733,23 @@ Public Class AIDEService
         Return MyBase.GetAllStatusResourcePlanners
     End Function
 
-    Public Function GetResourcePlanners(email As String, status As Integer, toBeDisplayed As Integer) As List(Of ResourcePlanner) Implements IAideService.GetResourcePlanner
-        Return MyBase.GetResourcePlanner(email, status, toBeDisplayed)
+    Public Function GetResourcePlanners(email As String, status As Integer, toBeDisplayed As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetResourcePlanner
+        Return MyBase.GetResourcePlanner(email, status, toBeDisplayed, year)
+    End Function
+
+    Public Function GetBillableHoursByWeeks(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByWeek
+        Return MyBase.GetBillableHoursByWeek(empID)
+    End Function
+
+    Public Function GetBillableHoursByMonths(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByMonth
+        Return MyBase.GetBillableHoursByMonth(empID)
+    End Function
+
+    Public Overrides Function GetNonBillableHours(email As String, display As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetNonBillableHours
+        Return MyBase.GetNonBillableHours(email, display, month, year)
     End Function
 
 #End Region
-
 
     ''' <summary>
     ''' By Jhunell Barcenas
@@ -743,6 +766,10 @@ Public Class AIDEService
     Public Sub UpdateCommendationss(commendations As Commendations) Implements IAideService.UpdateCommendations
         MyBase.UpdateCommendations(commendations)
     End Sub
+
+    Public Function GetCommendationsBySearchs(empID As Integer, month As Integer, year As Integer) As List(Of Commendations) Implements IAideService.GetCommendationsBySearch
+        Return MyBase.GetCommendationsBySearch(empID, month, year)
+    End Function
 #End Region
 
     ''' <summary>
@@ -820,6 +847,57 @@ Public Class AIDEService
 
     Public Function GetAssetManufacturers() As List(Of Assets) Implements IAideService.GetAssetManufacturer
         Return MyBase.GetAssetManufacturer()
+    End Function
+
+#End Region
+
+    ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "Announcements Functions"
+    Public Sub InsertAnnouncementss(commendations As Announcements) Implements IAideService.InsertAnnouncements
+        MyBase.InsertAnnouncements(commendations)
+    End Sub
+
+    Public Function GetAnnouncementss(empID As Integer) As List(Of Announcements) Implements IAideService.GetAnnouncements
+        Return MyBase.GetAnnouncements(empID)
+    End Function
+
+#End Region
+
+    ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "Late Functions"
+    Public Function GetLates(empID As Integer, month As Integer, year As Integer, toDisplay As Integer) As List(Of Late) Implements IAideService.GetLate
+        Return MyBase.GetLate(empID, month, year, toDisplay)
+    End Function
+#End Region
+
+#Region "SABA Learning"
+
+    Public Function GetAllSabaCoursess(empID As Integer) As List(Of SabaLearning) Implements IAideService.GetAllSabaCourses
+        Return MyBase.GetAllSabaCourses(empID)
+    End Function
+
+    Public Function GetAllSabaXrefs(empID As Integer, sabaID As Integer) As List(Of SabaLearning) Implements IAideService.GetAllSabaXref
+        Return MyBase.GetAllSabaXref(empID, sabaID)
+    End Function
+
+    Public Sub UpdateSabaCoursess(obj As SabaLearning) Implements IAideService.UpdateSabaCourses
+        MyBase.UpdateSabaCourses(obj)
+    End Sub
+
+    Public Sub InsertSabaCoursess(obj As SabaLearning) Implements IAideService.InsertSabaCourses
+        MyBase.InsertSabaCourses(obj)
+    End Sub
+
+    Public Sub UpdateSabaXrefs(obj As SabaLearning) Implements IAideService.UpdateSabaXref
+        MyBase.UpdateSabaXref(obj)
+    End Sub
+
+    Public Function GetAllSabaCourseByTitles(saba_message As String, empID As Integer) As List(Of SabaLearning) Implements IAideService.GetAllSabaCourseByTitle
+        Return MyBase.GetAllSabaCourseByTitle(saba_message, empID)
     End Function
 
 #End Region

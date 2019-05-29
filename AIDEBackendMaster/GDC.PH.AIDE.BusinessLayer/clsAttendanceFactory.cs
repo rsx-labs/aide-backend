@@ -144,6 +144,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAttendanceToday(email);
         }
 
+        public List<clsAttendance> GetAttendanceTodayBySearch(string email, string input)
+        {
+            return _dataObject.GetAttendanceTodayBySearch(email, input);
+        }
+
         #endregion
 
     }

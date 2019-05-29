@@ -156,8 +156,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="dataReader">data reader</param>
         internal void PopulateBusinessObjectFromReader(clsProfile businessObject, IDataReader dataReader)
         {
-
-
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsProfile.clsProfileFields.EMP_ID.ToString()));
 
             businessObject.WS_EMP_ID = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.WS_EMP_ID.ToString()));
@@ -197,14 +195,9 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.BIRTHDATE = DateTime.Today;
             }
-           
 
             //DATEHIRED
             businessObject.DATE_HIRED = dataReader.GetDateTime(dataReader.GetOrdinal(clsProfile.clsProfileFields.DATE_HIRED.ToString()));
-
-
-         
-
         
             //IMAGE_PATH
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.IMAGE_PATH.ToString())))
@@ -216,9 +209,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.IMAGE_PATH = String.Empty;
             }
 
-      
-
-
             //DEPARTMENT
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.DEPARTMENT.ToString())))
             {
@@ -228,9 +218,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.DEPARTMENT = string.Empty;
             }
-            
-            
-          
 
             //DIVISION
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.DIVISION.ToString())))
@@ -262,7 +249,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.EMAIL_ADDRESS = string.Empty;
             }
 
-
             //EMAIL_ADDRESS2
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.EMAIL_ADDRESS2.ToString())))
             {
@@ -283,7 +269,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.LOCATION = string.Empty;
             }
 
-
             //CEL_NO
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.CEL_NO.ToString())))
             {
@@ -294,12 +279,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.CEL_NO = string.Empty;
             }
 
-
-
             //LOCAL
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.LOCAL.ToString())))
             {
-                businessObject.LOCAL = (byte)dataReader.GetInt32(dataReader.GetOrdinal(clsProfile.clsProfileFields.LOCAL.ToString()));
+                businessObject.LOCAL = dataReader.GetInt32(dataReader.GetOrdinal(clsProfile.clsProfileFields.LOCAL.ToString()));
             }
             else
             {
@@ -337,7 +320,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.DT_REVIEWED = DateTime.Now;
             }
 
-
             //OTHERPHONE
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.Permission.ToString())))
             {
@@ -348,7 +330,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.PERMISSION = string.Empty;
             }
 
-
             //CIVILSTATUS
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.CivilStatus.ToString())))
             {
@@ -357,11 +338,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             else
             {
                 businessObject.CIVILSTATUS = string.Empty;
-            }      
-        }
+            }
 
-        
-        
+            businessObject.SHIFT_STATUS = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.SHIFT_STATUS.ToString()));
+        }
         #endregion
     }
 }

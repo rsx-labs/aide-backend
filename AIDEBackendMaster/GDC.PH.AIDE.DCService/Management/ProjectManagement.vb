@@ -129,7 +129,7 @@ Public Class ProjectManagement
     End Function
 
     ' Get this Function
-    Public Function GetProjectLists()
+    Public Function GetProjectLists(ByVal EmpID As Integer)
         Dim projectSet As New ProjectSet
         Dim lstProject As List(Of ProjectSet)
         Dim objProject As New List(Of Project)
@@ -138,7 +138,7 @@ Public Class ProjectManagement
         Dim status As NotifyType
 
         Try
-            lstProject = projectSet.GetProjectLists()
+            lstProject = projectSet.GetProjectLists(EmpID)
 
             If Not IsNothing(lstProject) Then
                 For Each objList As ProjectSet In lstProject
@@ -203,7 +203,7 @@ Public Class ProjectManagement
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function ViewProjectListofEmployee() As StateData
+    Public Function ViewProjectListofEmployee(ByVal empID As Integer) As StateData
         Dim projSet As New ProjectSet
         Dim lstProject As List(Of ProjectSet)
         Dim objProjects As New List(Of ViewProject)
@@ -213,7 +213,7 @@ Public Class ProjectManagement
 
         Try
 
-            lstProject = projSet.ViewProjectListofEmployee()
+            lstProject = projSet.ViewProjectListofEmployee(empID)
 
             If Not IsNothing(lstProject) Then
                 For Each objProject As ProjectSet In lstProject

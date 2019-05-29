@@ -44,7 +44,6 @@ Public Class NonBillabilityManagement
         Return state
     End Function
 
-
     Public Overrides Function GetMappedFields(objData As Object) As Object
         Dim objNonbillables As BillableSet = DirectCast(objData, BillableSet)
         Dim nonBillableData As New NonBillableSummary

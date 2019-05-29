@@ -107,6 +107,7 @@
   <ItemGroup>
     <Compile Include="Management\ActionManagement.vb" />
     <Compile Include="AMainService.vb" />
+    <Compile Include="Management\AnnouncementsManagement.vb" />
     <Compile Include="Management\AttendanceManagement.vb" />
     <Compile Include="Management\BirthdayManagement.vb" />
     <Compile Include="Management\AssetsManagement.vb" />
@@ -121,10 +122,12 @@
     <Compile Include="IAideService.vb" />
     <Compile Include="IAIDEServiceCallback.vb" />
     <Compile Include="MainService.vb" />
+    <Compile Include="Management\LateManagement.vb" />
     <Compile Include="Management\LessonLearntManagement.vb" />
     <Compile Include="Management\ManagementBase.vb" />
     <Compile Include="Management\ProjectManagement.vb" />
     <Compile Include="Management\ResourcePlannerManagement.vb" />
+    <Compile Include="Management\SabaLearningManagement.vb" />
     <Compile Include="Management\SkillsManagement.vb" />
     <Compile Include="Management\SuccessRegisterManagement.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

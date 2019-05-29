@@ -83,7 +83,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@ACTION_TEXT", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_MESSAGE));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACTION_ASSIGNEE", SqlDbType.Int, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACTION_DUE_DATE", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DUE_DATE));
-                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_DATE_CLOSED", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_CLOSED));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_DATE_CLOSED", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_CLOSED));
                 sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
                
                 MainConnection.Open();
@@ -197,14 +197,12 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.NICK_NAME = "";
             }
+
             businessObject.DUE_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.DUE_DATE.ToString()));
+
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.DATE_CLOSED.ToString())))
             {
                 businessObject.DATE_CLOSED = dataReader.GetString(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.DATE_CLOSED.ToString()));
-            }
-            else
-            {
-                businessObject.DATE_CLOSED = "";
             }
 
         }

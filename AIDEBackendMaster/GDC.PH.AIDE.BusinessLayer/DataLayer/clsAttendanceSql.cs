@@ -46,6 +46,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 			{
                 
 				sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_ENTRY", SqlDbType.DateTime, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_ENTRY));
 	
                 MainConnection.Open();
 				
@@ -476,6 +477,34 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public List<clsAttendance> GetAttendanceTodayBySearch(string email, string input)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAttendanceTodayBySearch]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+                sqlCommand.Parameters.Add(new SqlParameter("@INPUT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, input));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader3(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAttendance::GetAttendanceTodayBySearch::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
         #endregion
 
         #region Private Methods

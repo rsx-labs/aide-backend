@@ -49,6 +49,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.SelectByMonth(email);
         }
 
+        public List<clsBirthday> GetAllByDay(string email)
+        {
+            return _dataObject.SelectByDay(email);
+        }
+
 
         #endregion
 
