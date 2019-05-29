@@ -39,6 +39,8 @@ Public Class ProfileManagement
         profileData.Dt_Reviewed = objProfile.DtReviewed
         profileData.Permission = objProfile.Permission
         profileData.CivilStatus = objProfile.CivilStatus
+        profileData.ShiftStatus = objProfile.ShiftStatus
+
         Return profileData
     End Function
 
@@ -55,7 +57,6 @@ Public Class ProfileManagement
         Dim status As NotifyType
 
         Try
-
             profileSet = profileSet.GetProfile(emp_id)
 
             If Not IsNothing(profileSet) Then
@@ -91,7 +92,6 @@ Public Class ProfileManagement
             status = NotifyType.IsError
             message = GetExceptionMessage(ex)
         End Try
-
 
         state = GetStateData(status, objprofile, message)
         Return state
@@ -150,6 +150,8 @@ Public Class ProfileManagement
         profileData.DtReviewed = objProfile.Dt_Reviewed
         profileData.Permission = objProfile.Permission
         profileData.CivilStatus = objProfile.CivilStatus
+        profileData.ShiftStatus = objProfile.ShiftStatus
+
         objResult = profileData
     End Sub
 End Class

@@ -190,7 +190,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords   -- GIANN CARLO CAMILO
         /// </summary>
         /// <returns>list of clsPROJECT</returns>
-        public List<clsProject> GetAllProjectListofEmployee()
+        public List<clsProject> GetAllProjectListofEmployee(int empID)
         {
 
             SqlCommand sqlCommand = new SqlCommand();
@@ -203,6 +203,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
@@ -267,7 +269,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// GIANN CARLO CAMILO- DISPLAY ALL PROJECTS IN COMBO BOX
         /// </summary>
         /// <returns></returns>
-        public List<clsProject> SelectAllProjects()
+        public List<clsProject> SelectAllProjects(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAllProjects]";
@@ -279,6 +281,9 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 

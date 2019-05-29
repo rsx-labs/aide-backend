@@ -36,6 +36,7 @@
     MustOverride Function InsertAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
     MustOverride Function UpdateAttendanceByEmp(ByVal empid As Integer, ByVal day As Integer, ByVal attstatus As Integer) As Boolean
     MustOverride Function GetAttendanceToday(ByVal email As String) As List(Of MyAttendance)
+    MustOverride Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of MyAttendance)
     MustOverride Function GetAssetDescription() As List(Of Assets)
     MustOverride Function GetAssetManufacturer() As List(Of Assets)
 #End Region
@@ -54,7 +55,7 @@
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    MustOverride Function GetAllListOfProject() As List(Of Project)
+    MustOverride Function GetAllListOfProject(ByVal EmpID As Integer) As List(Of Project)
     MustOverride Function CreateNewProject(ByVal project As Project) As Boolean
     ''' <summary>
     ''' GIANN CARLO CAMILO / LEMUELA ABULENCIA
@@ -65,7 +66,7 @@
     MustOverride Function CreateNewAssignedProject(ByVal assignProject As List(Of AssignedProject)) As Boolean
     MustOverride Function ViewProjectList(ByRef objResult As List(Of ViewProject)) As Boolean
     MustOverride Function GetProjectByProjID(ByVal projID As Integer, ByRef objResult As Project) As Boolean
-    MustOverride Function GetProjectsList(ByRef objResult As List(Of Project)) As Boolean
+    MustOverride Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer) As Boolean
     MustOverride Function UpdateAssignedProject(ByVal project As Project) As Boolean
     ''' <summary>
     ''' GIANN CARLO CAMILO / LEMUELA ABULENCIA
@@ -80,7 +81,7 @@
     ''' <param name="objResult"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    MustOverride Function ViewProjectListofEmployee(ByRef objResult As List(Of ViewProject)) As Boolean
+    MustOverride Function ViewProjectListofEmployee(ByVal empID As Integer, ByRef objResult As List(Of ViewProject)) As Boolean
 
     'List of Employee per Project For Combobox
     MustOverride Function GetEmployeePerProject(ByVal empID As Integer, ByVal projID As Integer) As List(Of Nickname)
@@ -101,6 +102,7 @@
     MustOverride Function InsertCommendations(ByVal commendations As Commendations) As Boolean
     MustOverride Function GetCommendations(ByVal deptID As Integer) As List(Of Commendations)
     MustOverride Function UpdateCommendations(ByVal commendations As Commendations) As Boolean
+    MustOverride Function GetCommendationsBySearch(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of Commendations)
 #End Region
 
 #Region "Status List methods"
@@ -151,6 +153,7 @@
 #Region "Birthday List Methods"
     MustOverride Function GetBirthdayListAll(email As String) As List(Of BirthdayList)
     MustOverride Function GetBirthdayListByMonth(email As String) As List(Of BirthdayList)
+    MustOverride Function GetBirthdayListByDay(email As String) As List(Of BirthdayList)
 #End Region
 
 #Region "Concern Learnt Methods"
@@ -260,17 +263,20 @@
 #End Region
 
 #Region "Resource Planner Methods"
-    ''' <summary>
-    ''' By Jhunell G. Barcenas
+    '''<summary>
+    ''' By Jhunell G. Barcenas / John Harvey Sanchez 
     ''' </summary>
-    ''' <remarks></remarks
+    ''' <remarks></remarks>
     MustOverride Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlanner)
     MustOverride Function GetStatusResourcePlanner() As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlanner(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
-    MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetBillableHoursByMonth(ByVal empID As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetBillableHoursByWeek(ByVal empID As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 
 #End Region
 
@@ -294,4 +300,21 @@
 
 #End Region
 
+#Region "Announcements methods"
+    MustOverride Function InsertAnnouncements(ByVal commendations As Announcements) As Boolean
+    MustOverride Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+#End Region
+
+#Region "Late methods"
+    MustOverride Function GetLate(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal toDisplay As Integer) As List(Of Late)
+#End Region
+
+#Region "Saba Learning methods"
+    MustOverride Function GetAllSabaCourses(ByVal empID As Integer) As List(Of SabaLearning)
+    MustOverride Function GetAllSabaXref(ByVal empID As Integer, ByVal sabaID As Integer) As List(Of SabaLearning)
+    MustOverride Function InsertSabaCourses(ByVal obj As SabaLearning) As Boolean
+    MustOverride Function UpdateSabaCourses(ByVal obj As SabaLearning) As Boolean
+    MustOverride Function UpdateSabaXref(ByVal obj As SabaLearning) As Boolean
+    MustOverride Function GetAllSabaCourseByTitle(ByVal message As String, ByVal empID As Integer) As List(Of SabaLearning)
+#End Region
 End Class

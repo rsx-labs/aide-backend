@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 /// <summary>
-/// By Jhunell G. Barcenas
+/// By Jhunell G. Barcenas / John Harvey Sanchez
 /// </summary>
 namespace GDC.PH.AIDE.BusinessLayer
 {
@@ -17,9 +17,15 @@ namespace GDC.PH.AIDE.BusinessLayer
             from,
             to,
             STATUS,
+            USEDLEAVES,
+            TOTALBALANCE,
+            HALFBALANCE,
             DESCR,
             IMAGE_PATH,
             DATE_ENTRY,
+            HOLIDAYHOURS,
+            VLHOURS,
+            SLHOURS
         }
         #endregion
 
@@ -30,8 +36,14 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _from;
         DateTime _to;
         double _status;
+        double _usedLeaves;
+        double _totalBalance;
+        double _halfBalance;
         string _description;
         string _IMAGE_PATH;
+        double _holidayHours;
+        double _slHours;
+        double _vlHours;
         DateTime _dateEntry;
         #endregion
 
@@ -72,6 +84,45 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _status = value;
                     PropertyHasChanged("STATUS");
+                }
+            }
+        }
+
+        public double USEDLEAVES
+        {
+            get { return _usedLeaves ; }
+            set
+            {
+                if (_usedLeaves != value)
+                {
+                    _usedLeaves = value;
+                    PropertyHasChanged("USEDLEAVES");
+                }
+            }
+        }
+
+        public double TOTALBALANCE
+        {
+            get { return _totalBalance; }
+            set
+            {
+                if (_totalBalance != value)
+                {
+                    _totalBalance = value;
+                    PropertyHasChanged("TOTALBALANCE");
+                }
+            }
+        }
+
+        public double HALFBALANCE
+        {
+            get { return _halfBalance; }
+            set
+            {
+                if (_halfBalance != value)
+                {
+                    _halfBalance = value;
+                    PropertyHasChanged("HALFBALANCE");
                 }
             }
         }
@@ -137,6 +188,45 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _dateEntry = value;
                     PropertyHasChanged("DATE_ENTRY");
+                }
+            }
+        }
+
+        public double HOLIDAYHOURS
+        {
+            get { return _holidayHours; }
+            set
+            {
+                if (_holidayHours != value)
+                {
+                    _holidayHours = value;
+                    PropertyHasChanged("HOLIDAYHOURS");
+                }
+            }
+        }
+
+        public double VLHOURS
+        {
+            get { return _vlHours; }
+            set
+            {
+                if (_vlHours != value)
+                {
+                    _vlHours = value;
+                    PropertyHasChanged("VLHOURS");
+                }
+            }
+        }
+
+        public double SLHOURS
+        {
+            get { return _slHours; }
+            set
+            {
+                if (_slHours != value)
+                {
+                    _slHours = value;
+                    PropertyHasChanged("SLHOURS");
                 }
             }
         }

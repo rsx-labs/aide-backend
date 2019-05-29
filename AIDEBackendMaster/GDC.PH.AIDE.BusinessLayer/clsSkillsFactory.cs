@@ -58,6 +58,21 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
 
         /// <summary>
+        /// Update existing clsLessonLearnt
+        /// </summary>
+        /// <param name="businessObject">clsLessonLearnt object</param>
+        /// <returns>true for successfully saved</returns>
+        public bool UpdateAllSkills(clsSkills businessObject)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }
+
+            return _dataObject.UpdateAllSkills(businessObject);
+        }
+
+        /// <summary>
         /// get clsLessonLearnt by primary key.
         /// </summary>
         /// <param name="keys">primary key</param>

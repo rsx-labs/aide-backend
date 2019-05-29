@@ -14,6 +14,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         String _userChoice = " ";
         int _month;
         int _year;
+        int _status;
 		#endregion
 
 		#region Constructor

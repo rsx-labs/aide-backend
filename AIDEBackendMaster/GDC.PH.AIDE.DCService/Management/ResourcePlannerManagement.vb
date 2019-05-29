@@ -214,7 +214,7 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
-    Public Function GetResourcePlanner(email As String, status As Integer, toBeDisplayed As Integer) As StateData
+    Public Function GetResourcePlanner(email As String, status As Integer, toBeDisplayed As Integer, year As Integer) As StateData
         Dim ResourceSet As New ResourcePlannerSet
         Dim ResourceSetLst As List(Of ResourcePlannerSet)
         Dim objResource As New List(Of ResourcePlanner)
@@ -223,7 +223,7 @@ Public Class ResourcePlannerManagement
         Dim statusS As NotifyType
 
         Try
-            ResourceSetLst = ResourceSet.GetResourcePlanner(email, status, toBeDisplayed)
+            ResourceSetLst = ResourceSet.GetResourcePlanner(email, status, toBeDisplayed, year)
 
             If Not IsNothing(ResourceSetLst) Then
                 For Each objList As ResourcePlannerSet In ResourceSetLst
@@ -235,6 +235,87 @@ Public Class ResourcePlannerManagement
 
         Catch ex As Exception
             statusS = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
+    Public Function GetBillableHoursByWeek(empID As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetBillableHoursByWeek(empID)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFields(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
+    Public Function GetBillableHoursByMonth(empID As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetBillableHoursByMonth(empID)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFields(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
+    Public Function GetNonBillableHours(email As String, display As Integer, month As Integer, year As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetNonBillableHours(email, display, month, year)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFields(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
             message = GetExceptionMessage(ex)
         End Try
         state = GetStateData(status, objResource, message)
@@ -257,6 +338,12 @@ Public Class ResourcePlannerManagement
         resourceData.DESCR = objResource.Description
         resourceData.Image_Path = objResource.Image_Path
         resourceData.DateEntry = objResource.Date_Entry
+        resourceData.UsedLeaves = objResource.UsedLeaves
+        resourceData.TotalBalance = objResource.TotalBalance
+        resourceData.HalfBalance = objResource.HalfBalance
+        resourceData.holidayHours = objResource.holidayHours
+        resourceData.vlHours = objResource.vlHours
+        resourceData.slHours = objResource.slHours
 
         Return resourceData
     End Function

@@ -75,7 +75,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                     sqlCommand.Parameters.Add(new SqlParameter("@REMARKS", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REMARKS));
                 }
 
-                sqlCommand.Parameters.Add(new SqlParameter("@DATE_STARTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_STARTED));
+                if (businessObject.DATE_STARTED == default(DateTime).Date)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@DATE_STARTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@DATE_STARTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_STARTED));
+                }
 
 
                 if (businessObject.TARGET_DATE ==  default(DateTime).Date)
@@ -167,9 +174,29 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@TASKS_ID", SqlDbType.Int, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TASK_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@TARGET_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TARGET_DATE));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
+                sqlCommand.Parameters.Add(new SqlParameter("@EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EFFORT_EST));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_EFFORT_EST));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_EST_WK", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_EFFORT_EST_WK));
 
+                if (businessObject.INC_ID == null)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_ID", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_ID", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.INC_ID));
+                }
+                
+                if (businessObject.TARGET_DATE == default(DateTime).Date)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@TARGET_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@TARGET_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TARGET_DATE));
+                }
+                
                 if (businessObject.COMPLTD_DATE == default(DateTime).Date)
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@COMPLTD_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
@@ -178,10 +205,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@COMPLTD_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMPLTD_DATE));
                 }
-                
-                sqlCommand.Parameters.Add(new SqlParameter("@EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EFFORT_EST));
-                sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_EFFORT_EST));
-                sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_EST_WK", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_EFFORT_EST_WK));
+
+                if (businessObject.DATE_STARTED == default(DateTime).Date)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@DATE_STARTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@DATE_STARTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_STARTED));
+                }
                 
                 if (businessObject.INC_DESCR == null)
                 {
@@ -200,8 +232,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@REMARKS", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REMARKS));
                 }
-                MainConnection.Open();
 
+                MainConnection.Open();
                 sqlCommand.ExecuteNonQuery();
                 return true;
             }
@@ -552,15 +584,16 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.TASK_DESCR = dataReader.GetString(dataReader.GetOrdinal(clsTasks.clsTASKSFields.TASK_DESCR.ToString()));
             }
 
-            businessObject.DATE_STARTED = dataReader.GetDateTime(dataReader.GetOrdinal(clsTasks.clsTASKSFields.DATE_STARTED.ToString()));
-
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsTasks.clsTASKSFields.TARGET_DATE.ToString())))
             {
                 businessObject.TARGET_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsTasks.clsTASKSFields.TARGET_DATE.ToString()));
             }
 
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsTasks.clsTASKSFields.DATE_STARTED.ToString())))
+            {
+                businessObject.DATE_STARTED = dataReader.GetDateTime(dataReader.GetOrdinal(clsTasks.clsTASKSFields.DATE_STARTED.ToString()));
+            }
             
-
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsTasks.clsTASKSFields.COMPLTD_DATE.ToString())))
             {
                 businessObject.COMPLTD_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsTasks.clsTASKSFields.COMPLTD_DATE.ToString()));

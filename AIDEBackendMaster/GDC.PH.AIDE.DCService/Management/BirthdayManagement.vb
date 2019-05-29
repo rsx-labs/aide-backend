@@ -78,6 +78,31 @@ Public Class BirthdayManagement
         state = GetStateData(status, objBirthday, message)
         Return state
     End Function
+    Public Function GetBirthdayListAllByDay(email As String) As StateData
+        Dim birthdayListSet As New BirthdaySet
+        Dim lstBirthday As List(Of BirthdaySet)
+        Dim objBirthday As New List(Of BirthdayList)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstBirthday = birthdayListSet.GetBirthdayByDay(email)
+
+            If Not IsNothing(lstBirthday) Then
+                For Each objList As BirthdaySet In lstBirthday
+                    objBirthday.Add(DirectCast(GetMappedFields(objList), BirthdayList))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objBirthday, message)
+        Return state
+    End Function
 
     Public Overrides Function GetStateData(status As NotifyType, Optional ByVal data As Object = Nothing, Optional ByVal message As String = "") As StateData
         Dim state As New StateData

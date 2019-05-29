@@ -41,7 +41,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             if (!businessObject.IsValid)
             {
                 throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
-            }
+            }   
 
 
             return _dataObject.UpdateProfile(businessObject);

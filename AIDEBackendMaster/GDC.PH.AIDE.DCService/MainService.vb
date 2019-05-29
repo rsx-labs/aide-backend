@@ -3,8 +3,6 @@
 Public MustInherit Class MainService
     Inherits AMainService
 
-
-
     Private Shared ActionMgmt As ActionManagement
     Private Shared AssetsMgmt As AssetsManagement
     Private Shared ProfileMgmt As ProfileManagement
@@ -22,12 +20,14 @@ Public MustInherit Class MainService
     Private Shared ResourceMgmt As ResourcePlannerManagement
     Private Shared BirthdayMgmt As BirthdayManagement
     Private Shared CommendationsMgmt As CommendationsManagement
+    Private Shared AnnouncementsMgmt As AnnouncementsManagement
+    Private Shared LateMgmt As LateManagement
+    Private Shared SabaLearningMgmt As SabaLearningManagement
     Private _getActionLstByMessage As List(Of Action)
-
-
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
     Public Event ResponseReceived As ResponseReceivedEventHandler
+
     Public Sub New()
         ActionMgmt = New ActionManagement()
         AssetsMgmt = New AssetsManagement()
@@ -46,6 +46,9 @@ Public MustInherit Class MainService
         ResourceMgmt = New ResourcePlannerManagement()
         BirthdayMgmt = New BirthdayManagement()
         CommendationsMgmt = New CommendationsManagement()
+        AnnouncementsMgmt = New AnnouncementsManagement()
+        LateMgmt = New LateManagement()
+        SabaLearningMgmt = New SabaLearningManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -168,18 +171,6 @@ Public MustInherit Class MainService
     'Public Overrides Function AssignProjectToEmployee(Project As AssignedProject) As Boolean
     '    Throw New NotImplementedException()
     'End Function
-
-
-    Public Function getNonBillableHoursAllList(inputDate As Date, ByRef objResult As List(Of NonBillableSummary)) As Boolean
-        Dim state As StateData = NonBillabilityMgmt.getNonBillableData(inputDate)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = False
-            objResult = state.Data
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
 
     Public Function GetGenericStatusList(ByVal GroupID As Short, ByRef objResult As List(Of StatusGroup)) As Boolean
         Dim state As StateData = StatusMgmt.getGenericStatus(GroupID)
@@ -492,6 +483,27 @@ Public MustInherit Class MainService
 
     Public Overrides Function GetBirthdayListByMonth(email As String) As List(Of BirthdayList)
         Dim state As StateData = BirthdayMgmt.GetBirthdayListAllByMonth(email)
+        Dim lstBirthdayList As New List(Of BirthdayList)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstContacts As List(Of BirthdayList) = DirectCast(state.Data, List(Of BirthdayList))
+            For Each _list As BirthdayList In lstContacts
+                Dim item As New BirthdayList
+
+                item.EmpID = _list.EmpID
+                item.BIRTHDAY = _list.BIRTHDAY
+                item.FIRST_NAME = _list.FIRST_NAME
+                item.LAST_NAME = _list.LAST_NAME
+                item.IMAGE_PATH = _list.IMAGE_PATH
+
+                lstBirthdayList.Add(item)
+            Next
+        End If
+        Return lstBirthdayList
+    End Function
+
+    Public Overrides Function GetBirthdayListByDay(email As String) As List(Of BirthdayList)
+        Dim state As StateData = BirthdayMgmt.GetBirthdayListAllByDay(email)
         Dim lstBirthdayList As New List(Of BirthdayList)
 
         If Not IsNothing(state.Data) Then
@@ -848,6 +860,16 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Function UpdateAllSkills(skills As Skills) As Boolean
+        Dim state As StateData = SkillsMgmt.UpdateAllSkills(skills)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        'ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Function ViewAllEmpSkills(empID As Integer) As List(Of Skills)
         Dim state As StateData = SkillsMgmt.ViewAllEmpSKills(empID)
         Dim skillsLst As New List(Of Skills)
@@ -922,8 +944,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetProjectsList(ByRef objResult As List(Of Project)) As Boolean
-        Dim state As StateData = ProjectMgmt.GetProjectLists()
+    Public Overrides Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer) As Boolean
+        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             objResult = state.Data
@@ -940,8 +962,8 @@ Public MustInherit Class MainService
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function GetAllListOfProject() As List(Of Project)
-        Dim state As StateData = ProjectMgmt.GetProjectLists()
+    Public Overrides Function GetAllListOfProject(ByVal EmpID As Integer) As List(Of Project)
+        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID)
         Dim lstConcernList As New List(Of Project)
 
         If Not IsNothing(state.Data) Then
@@ -997,8 +1019,8 @@ Public MustInherit Class MainService
     ''' <param name="objResult"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function ViewProjectListofEmployee(ByRef objResult As List(Of ViewProject)) As Boolean
-        Dim state As StateData = ProjectMgmt.ViewProjectListofEmployee()
+    Public Overrides Function ViewProjectListofEmployee(ByVal empID As Integer, ByRef objResult As List(Of ViewProject)) As Boolean
+        Dim state As StateData = ProjectMgmt.ViewProjectListofEmployee(empID)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             objResult = state.Data
@@ -1137,7 +1159,8 @@ Public MustInherit Class MainService
                 item.IncidentDescr = _list.IncidentDescr
                 item.TaskType = _list.TaskType
                 item.ProjectID = _list.ProjectID
-                item.DateStarted = _list.DateCreated
+                item.DateStarted = _list.DateStarted
+                item.DateCreated = _list.DateCreated
                 item.TargetDate = _list.TargetDate
                 item.CompletedDate = _list.CompletedDate
                 item.Status = _list.Status
@@ -1236,7 +1259,7 @@ Public MustInherit Class MainService
 
 #Region "Resource Planner"
     ''' <summary>
-    ''' By Jhunell G. Barcenas
+    ''' By Jhunell G. Barcenas / John Harvey Sanchez
     ''' </summary>
     ''' <remarks></remarks>
     Public Function UpdateResourcePlanner(resource As ResourcePlanner) As Boolean
@@ -1372,8 +1395,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Overrides Function GetResourcePlanner(email As String, status As Integer, toBeDisplayed As Integer) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetResourcePlanner(email, status, toBeDisplayed)
+    Public Overrides Function GetResourcePlanner(email As String, status As Integer, toBeDisplayed As Integer, year As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetResourcePlanner(email, status, toBeDisplayed, year)
         Dim resourceLst As New List(Of ResourcePlanner)
 
         If Not IsNothing(state.Data) Then
@@ -1383,6 +1406,65 @@ Public MustInherit Class MainService
 
                 item.NAME = _list.NAME
                 item.Status = _list.Status
+                item.UsedLeaves = _list.UsedLeaves
+                item.TotalBalance = _list.TotalBalance
+                item.HalfBalance = _list.HalfBalance
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
+    Public Overrides Function GetBillableHoursByWeek(empID As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetBillableHoursByWeek(empID)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.NAME = _list.NAME
+                item.Status = _list.Status
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
+    Public Overrides Function GetBillableHoursByMonth(empID As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetBillableHoursByMonth(empID)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.NAME = _list.NAME
+                item.Status = _list.Status
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
+    Public Overrides Function GetNonBillableHours(email As String, display As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetNonBillableHours(email, display, month, year)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.NAME = _list.NAME
+                item.holidayHours = _list.holidayHours
+                item.vlHours = _list.vlHours
+                item.slHours = _list.slHours
 
                 resourceLst.Add(item)
             Next
@@ -1467,6 +1549,28 @@ Public MustInherit Class MainService
         End If
         Return attendanceLst
     End Function
+
+    Public Overrides Function GetAttendanceTodayBySearch(email As String, input As String) As List(Of MyAttendance)
+        Dim state As StateData = AttendanceMgmt.GetAttendanceTodayBySearch(email, input)
+        Dim attendanceLst As New List(Of MyAttendance)
+
+        If Not IsNothing(state.Data) Then
+            Dim attendance As List(Of MyAttendance) = DirectCast(state.Data, List(Of MyAttendance))
+            For Each _list As MyAttendance In attendance
+                Dim item As New MyAttendance
+
+                item.EmployeeID = _list.EmployeeID
+                item.Name = _list.Name
+                item.Descr = _list.Descr
+                item.DateEntry = _list.DateEntry
+                item.Status = _list.Status
+                item.Image_Path = _list.Image_Path
+
+                attendanceLst.Add(item)
+            Next
+        End If
+        Return attendanceLst
+    End Function
 #End Region
 
 #Region "Commendations"
@@ -1492,6 +1596,29 @@ Public MustInherit Class MainService
 
     Public Overrides Function GetCommendations(ByVal deptID As Integer) As List(Of Commendations)
         Dim state As StateData = CommendationsMgmt.GetCommendations(deptID)
+        Dim commendationsLst As New List(Of Commendations)
+
+        If Not IsNothing(state.Data) Then
+            Dim commendations As List(Of Commendations) = DirectCast(state.Data, List(Of Commendations))
+            For Each _list As Commendations In commendations
+                Dim item As New Commendations
+
+                item.COMMEND_ID = _list.COMMEND_ID
+                item.DEPT_ID = _list.DEPT_ID
+                item.EMPLOYEE = _list.EMPLOYEE
+                item.PROJECT = _list.PROJECT
+                item.DATE_SENT = _list.DATE_SENT
+                item.SENT_BY = _list.SENT_BY
+                item.REASON = _list.REASON
+
+                commendationsLst.Add(item)
+            Next
+        End If
+        Return commendationsLst
+    End Function
+
+    Public Overrides Function GetCommendationsBySearch(ByVal empID As Integer, month As Integer, year As Integer) As List(Of Commendations)
+        Dim state As StateData = CommendationsMgmt.GetCommendationsBySearch(empID, month, year)
         Dim commendationsLst As New List(Of Commendations)
 
         If Not IsNothing(state.Data) Then
@@ -1893,6 +2020,162 @@ Public MustInherit Class MainService
         Return assetsLst
     End Function
 
+#End Region
+
+#Region "Billability"
+    Public Function getNonBillableHoursAllList(inputDate As Date, ByRef objResult As List(Of NonBillableSummary)) As Boolean
+        Dim state As StateData = NonBillabilityMgmt.getNonBillableData(inputDate)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+#End Region
+
+#Region "Announcements"
+    Public Overrides Function InsertAnnouncements(announcements As Announcements) As Boolean
+        Dim state As StateData = AnnouncementsMgmt.InsertAnnouncements(announcements)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+        Dim state As StateData = AnnouncementsMgmt.GetAnnouncements(empID)
+        Dim announcementsLst As New List(Of Announcements)
+
+        If Not IsNothing(state.Data) Then
+            Dim announcements As List(Of Announcements) = DirectCast(state.Data, List(Of Announcements))
+            For Each _list As Announcements In announcements
+                Dim item As New Announcements
+                item.EMP_ID = _list.EMP_ID
+                item.MESSAGE = _list.MESSAGE
+                item.TITLE = _list.TITLE
+                item.END_DATE = _list.END_DATE
+
+                announcementsLst.Add(item)
+            Next
+        End If
+        Return announcementsLst
+    End Function
+#End Region
+
+#Region "Late"
+    Public Overrides Function GetLate(ByVal empID As Integer, month As Integer, year As Integer, toDisplay As Integer) As List(Of Late)
+        Dim state As StateData = LateMgmt.GetLate(empID, month, year, toDisplay)
+        Dim LateLst As New List(Of Late)
+
+        If Not IsNothing(state.Data) Then
+            Dim late As List(Of Late) = DirectCast(state.Data, List(Of Late))
+            For Each _list As Late In late
+                Dim item As New Late
+
+                item.FIRST_NAME = _list.FIRST_NAME
+                item.STATUS = _list.STATUS
+                item.MONTH = _list.MONTH
+                item.NUMBER_OF_LATE = _list.NUMBER_OF_LATE
+
+                LateLst.Add(item)
+            Next
+        End If
+        Return LateLst
+    End Function
+
+#End Region
+
+#Region "Saba learning"
+    Public Overrides Function GetAllSabaCourses(ByVal empID As Integer) As List(Of SabaLearning)
+        Dim state As StateData = SabaLearningMgmt.GetAllSabaCourses(empID)
+        Dim sabalearningLst As New List(Of SabaLearning)
+
+        If Not IsNothing(state.Data) Then
+            Dim sabalearning As List(Of SabaLearning) = DirectCast(state.Data, List(Of SabaLearning))
+            For Each _list As SabaLearning In sabalearning
+                Dim item As New SabaLearning
+                item.SABA_ID = _list.SABA_ID
+                item.EMP_ID = _list.EMP_ID
+                item.TITLE = _list.TITLE
+                item.END_DATE = _list.END_DATE
+
+                sabalearningLst.Add(item)
+            Next
+        End If
+        Return sabalearningLst
+    End Function
+
+    Public Overrides Function GetAllSabaXref(ByVal empID As Integer, ByVal sabaID As Integer) As List(Of SabaLearning)
+        Dim state As StateData = SabaLearningMgmt.GetAllSabaXref(empID, sabaID)
+        Dim sabalearningLst As New List(Of SabaLearning)
+
+        If Not IsNothing(state.Data) Then
+            Dim sabalearning As List(Of SabaLearning) = DirectCast(state.Data, List(Of SabaLearning))
+            For Each _list As SabaLearning In sabalearning
+                Dim item As New SabaLearning
+                item.SABA_ID = _list.SABA_ID
+                item.EMP_ID = _list.EMP_ID
+                item.DATE_COMPLETED = _list.DATE_COMPLETED
+                item.IMAGE_PATH = _list.IMAGE_PATH
+
+                sabalearningLst.Add(item)
+            Next
+        End If
+        Return sabalearningLst
+    End Function
+
+    Public Overrides Function InsertSabaCourses(ByVal _obj As SabaLearning) As Boolean
+        Dim state As StateData = SabaLearningMgmt.InsertSabaCourses(_obj)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+
+    End Function
+
+    Public Overrides Function UpdateSabaCourses(ByVal _obj As SabaLearning) As Boolean
+        Dim state As StateData = SabaLearningMgmt.UpdateSabaCourses(_obj)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateSabaXref(ByVal _obj As SabaLearning) As Boolean
+        Dim state As StateData = SabaLearningMgmt.UpdateSabaXref(_obj)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+    Public Overrides Function GetAllSabaCourseByTitle(ByVal saba_message As String, ByVal empID As Integer) As List(Of SabaLearning)
+        Dim state As StateData = SabaLearningMgmt.GetAllSabaCourseByTitle(saba_message, empID)
+        Dim sabalearningLst As New List(Of SabaLearning)
+
+        If Not IsNothing(state.Data) Then
+            Dim sabalearning As List(Of SabaLearning) = DirectCast(state.Data, List(Of SabaLearning))
+            For Each _list As SabaLearning In sabalearning
+                Dim item As New SabaLearning
+                item.SABA_ID = _list.SABA_ID
+                item.EMP_ID = _list.EMP_ID
+                item.TITLE = _list.TITLE
+                item.END_DATE = _list.END_DATE
+
+                sabalearningLst.Add(item)
+            Next
+        End If
+        Return sabalearningLst
+    End Function
 #End Region
 
 End Class

@@ -12,32 +12,34 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         public enum clsProfileFields
         {
-            EMP_ID,
-      WS_EMP_ID,
-      DEPT_ID,
-      LAST_NAME,
-      FIRST_NAME,
-      MIDDLE_NAME,
-      NICK_NAME,
-      BIRTHDATE,
-      DATE_HIRED,
-      IMAGE_PATH,
-      DEPARTMENT,
-      DIVISION,
-      POSITION,
-      EMAIL_ADDRESS,
-      EMAIL_ADDRESS2,
-      LOCATION,
-      CEL_NO,
-      LOCAL,
-      HOMEPHONE,
-      OTHER_PHONE,
-      DT_REVIEWED,
-      Permission,
-      CivilStatus
+          EMP_ID,
+          WS_EMP_ID,
+          DEPT_ID,
+          LAST_NAME,
+          FIRST_NAME,
+          MIDDLE_NAME,
+          NICK_NAME,
+          BIRTHDATE,
+          DATE_HIRED,
+          IMAGE_PATH,
+          DEPARTMENT,
+          DIVISION,
+          POSITION,
+          EMAIL_ADDRESS,
+          EMAIL_ADDRESS2,
+          LOCATION,
+          CEL_NO,
+          LOCAL,
+          HOMEPHONE,
+          OTHER_PHONE,
+          DT_REVIEWED,
+          Permission,
+          CivilStatus,
+          SHIFT_STATUS
         }
 
         #endregion
+        
         #region Data Members
         int _eMP_ID;
         string wS_EMP_ID;
@@ -61,8 +63,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _oTHER_PHONE;
         DateTime _dT_REVIEWED;
         string _pERMISSION;
-        string _cIVILSTATUS;     
-       
+        string _cIVILSTATUS;
+        string _SHIFT_STATUS;
      
         #endregion
 
@@ -375,6 +377,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public String SHIFT_STATUS
+        {
+            get { return _SHIFT_STATUS; }
+            set
+            {
+                if (_SHIFT_STATUS != value)
+                {
+                    _SHIFT_STATUS = value;
+                    PropertyHasChanged("SHIFT_STATUS");
+                }
+            }
+        }
 
         #endregion
 
@@ -402,6 +416,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_REVIEWED,", "DT_REVIEWED,"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION,", "PERMISSION,"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("CIVILSTATUS,", "CIVILSTATUS,"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("SHIFT_STATUS,", "SHIFT_STATUS,"));
 
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("Department", "Department", 20));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("LAST_NAME", "LAST_NAME", 20));

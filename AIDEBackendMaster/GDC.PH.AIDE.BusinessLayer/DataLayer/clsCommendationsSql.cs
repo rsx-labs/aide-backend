@@ -148,6 +148,36 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
+        public List<clsCommendations> GetCommendationsBySearch(int empID, int month, int year)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetCommendationsBySearch]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsCommendations::GetCommendationsBySearch::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         #endregion
 
         #region Private Methods

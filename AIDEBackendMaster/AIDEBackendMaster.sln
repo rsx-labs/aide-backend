@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDC.PH.AIDE.BusinessLayer", "GDC.PH.AIDE.BusinessLayer\GDC.PH.AIDE.BusinessLayer.csproj", "{C6FD9F84-A18E-472D-BA4B-7ED274F5B276}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GDC.PH.AIDE.DCService", "GDC.PH.AIDE.DCService\GDC.PH.AIDE.DCService.vbproj", "{47ABCA6B-6882-4B97-85B7-6E63EF1B5269}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GDC.PH.AIDE.Entity", "GDC.PH.AIDE.Entity\GDC.PH.AIDE.Entity.vbproj", "{4B1BDF59-7859-47B1-874D-1C001C8EBC51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{47ABCA6B-6882-4B97-85B7-6E63EF1B5269}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47ABCA6B-6882-4B97-85B7-6E63EF1B5269}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47ABCA6B-6882-4B97-85B7-6E63EF1B5269}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B1BDF59-7859-47B1-874D-1C001C8EBC51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B1BDF59-7859-47B1-874D-1C001C8EBC51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B1BDF59-7859-47B1-874D-1C001C8EBC51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B1BDF59-7859-47B1-874D-1C001C8EBC51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

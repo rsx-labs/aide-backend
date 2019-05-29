@@ -98,6 +98,41 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         }
 
         /// <summary>
+        /// update row in the table
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <returns>true for successfully updated</returns>
+        public bool UpdateAllSkills(clsSkills businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_UpdateAllSkillsByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 5, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LAST_REVIEWED", SqlDbType.Date, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LAST_REVIEWED));
+
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsSkills::Update::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        /// <summary>
         /// Select by primary key
         /// </summary>
         /// <param name="keys">primary keys</param>

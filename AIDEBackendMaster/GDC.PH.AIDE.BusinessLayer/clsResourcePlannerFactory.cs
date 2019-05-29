@@ -88,9 +88,24 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAllStatusResourcePlanner();
         }
 
-        public List<clsResourcePlanner> GetResourcePlanner(string email, int status, int toBeDisplayed)
+        public List<clsResourcePlanner> GetResourcePlanner(string email, int status, int toBeDisplayed, int year)
         {
-            return _dataObject.GetResourcePlanner(email, status, toBeDisplayed);
+            return _dataObject.GetResourcePlanner(email, status, toBeDisplayed, year);
+        }
+
+        public List<clsResourcePlanner> GetBillableHoursByMonth(int empID)
+        {
+            return _dataObject.GetBillableHoursByMonth(empID);
+        }
+
+        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID)
+        {
+            return _dataObject.GetBillableHoursByWeek(empID);
+        }
+
+        public List<clsResourcePlanner> GetNonBillableHours(string email, int display, int month, int year)
+        {
+            return _dataObject.GetNonBillableHours(email, display, month, year);
         }
 
         #endregion

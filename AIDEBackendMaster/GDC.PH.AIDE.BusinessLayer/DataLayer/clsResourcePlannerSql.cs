@@ -280,7 +280,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetResourcePlanner(string email, int STATUS, int ToDisplay)
+        public List<clsResourcePlanner> GetResourcePlanner(string email, int STATUS, int ToDisplay, int year)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetResourcePlanner]";
@@ -294,6 +294,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, STATUS));
                 sqlCommand.Parameters.Add(new SqlParameter("@ToDisplay", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, ToDisplay));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
@@ -302,6 +303,93 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             catch (Exception ex)
             {
                 throw new Exception("clsResourcePlanner::GetResourcePlanner::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsResourcePlanner> GetBillableHoursByMonth(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetBillableHoursByMonth]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID)); 
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsRPFromReader8(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetBillableHoursByMonth::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetBillableHoursByWeek]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsRPFromReader8(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetBillableHoursByWeek::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsResourcePlanner> GetNonBillableHours(string email, int display, int month, int year)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetNonBillableHours]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+                sqlCommand.Parameters.Add(new SqlParameter("@DISPLAY", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, display));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year));
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsRPFromReaderNonBillable(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetNonBillableHours::Error occured.", ex);
             }
             finally
             {
@@ -341,8 +429,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMP_ID.ToString()));
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
-            businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString()));
-            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString())))
+            {
+                businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString()));
+            }
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString())))
+            {
+                businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            }
         }
 
         internal void PopulateBusinessObjectRPFromReader5(clsResourcePlanner businessObject, IDataReader dataReader)
@@ -363,6 +457,23 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
             businessObject.STATUS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.USEDLEAVES = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.USEDLEAVES.ToString()));
+            businessObject.TOTALBALANCE = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.TOTALBALANCE.ToString()));
+            businessObject.HALFBALANCE = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.HALFBALANCE.ToString()));
+        }
+
+        internal void PopulateBusinessObjectRPFromReader8(clsResourcePlanner businessObject, IDataReader dataReader)
+        {
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
+            businessObject.STATUS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+        }
+
+        internal void PopulateObjectsRPFromReaderNonBillable(clsResourcePlanner businessObject, IDataReader dataReader)
+        {
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
+            businessObject.HOLIDAYHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.HOLIDAYHOURS.ToString()));
+            businessObject.VLHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.VLHOURS.ToString()));
+            businessObject.SLHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.SLHOURS.ToString()));
         }
 
         /// <summary>
@@ -460,6 +571,34 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsResourcePlanner businessObject = new clsResourcePlanner();
                 PopulateBusinessObjectRPFromReader7(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsResourcePlanner> PopulateObjectsRPFromReader8(IDataReader dataReader)
+        {
+
+            List<clsResourcePlanner> list = new List<clsResourcePlanner>();
+
+            while (dataReader.Read())
+            {
+                clsResourcePlanner businessObject = new clsResourcePlanner();
+                PopulateBusinessObjectRPFromReader8(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsResourcePlanner> PopulateObjectsRPFromReaderNonBillable(IDataReader dataReader)
+        {
+
+            List<clsResourcePlanner> list = new List<clsResourcePlanner>();
+
+            while (dataReader.Read())
+            {
+                clsResourcePlanner businessObject = new clsResourcePlanner();
+                PopulateObjectsRPFromReaderNonBillable(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;

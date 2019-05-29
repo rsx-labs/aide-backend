@@ -101,6 +101,42 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
+        /// <summary>
+        /// Select all records by day
+        /// </summary>
+        /// <returns>list of clsContacts</returns>
+        public List<clsBirthday> SelectByDay(string email)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetBirthdayListAllByDay]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsBirthday::SelectByDay::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+
         #endregion
 
         #region Private Methods
