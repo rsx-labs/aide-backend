@@ -317,4 +317,11 @@
     MustOverride Function UpdateSabaXref(ByVal obj As SabaLearning) As Boolean
     MustOverride Function GetAllSabaCourseByTitle(ByVal message As String, ByVal empID As Integer) As List(Of SabaLearning)
 #End Region
+
+#Region "Comcell methods"
+    MustOverride Function InsertComcellMeeting(ByVal comcell As Comcell) As Boolean
+    MustOverride Function GetComcellMeeting(ByVal empID As Integer, ByVal year As Integer) As List(Of Comcell)
+    MustOverride Function UpdateComcellMeeting(ByVal comcell As Comcell) As Boolean
+#End Region
+
 End Class

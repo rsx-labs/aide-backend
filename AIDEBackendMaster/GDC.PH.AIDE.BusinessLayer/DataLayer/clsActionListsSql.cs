@@ -40,9 +40,9 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@REFERENCE", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACTREF));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACTION_TEXT", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_MESSAGE));
-                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_ASSIGNEE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_DUE_DATE", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DUE_DATE));
-                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_ASSIGNEE", SqlDbType.Int, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACTION_DUE_DATE", SqlDbType.DateTime, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DUE_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
                
 
                 MainConnection.Open();

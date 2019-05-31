@@ -73,10 +73,10 @@ namespace  GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Open();
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAILADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
                 //sqlCommand.Parameters.Add(new SqlParameter("@REF_ID", SqlDbType.VarChar, 30, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REF_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@CONCERN", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CONCERN));
-                sqlCommand.Parameters.Add(new SqlParameter("@CAUSE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CAUSE));
-                sqlCommand.Parameters.Add(new SqlParameter("@COUNTERMEASURE", SqlDbType.VarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COUNTERMEASURE));
-                sqlCommand.Parameters.Add(new SqlParameter("@DUE_DATE", SqlDbType.DateTime, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DUE_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@CONCERN", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CONCERN));
+                sqlCommand.Parameters.Add(new SqlParameter("@CAUSE", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CAUSE));
+                sqlCommand.Parameters.Add(new SqlParameter("@COUNTERMEASURE", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COUNTERMEASURE));
+                sqlCommand.Parameters.Add(new SqlParameter("@DUE_DATE", SqlDbType.DateTime, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DUE_DATE));
                
 
                 sqlCommand.ExecuteNonQuery();

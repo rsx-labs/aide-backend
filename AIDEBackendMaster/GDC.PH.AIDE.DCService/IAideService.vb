@@ -535,6 +535,17 @@ Public Interface IAideService
     Function GetAllSabaCourseByTitle(ByVal message As String, ByVal empID As Integer) As List(Of SabaLearning)
 #End Region
 
+#Region "Comcell Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertComcellMeeting(ByVal comcell As Comcell)
+
+    <OperationContract()>
+    Function GetComcellMeeting(ByVal empID As Integer, ByVal year As Integer) As List(Of Comcell)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateComcellMeeting(ByVal comcell As Comcell)
+
+#End Region
 
 End Interface
 #End Region
@@ -1554,6 +1565,40 @@ Public Class SabaLearning
 
 End Class
 #End Region
+
+#Region "Comcell Data Contract"
+<DataContract()>
+Public Class Comcell
+
+    <DataMember()>
+    Public Property COMCELL_ID As Integer
+
+    <DataMember()>
+    Public Property EMP_ID As Integer
+
+    <DataMember()>
+    Public Property MONTH As String
+
+    <DataMember()>
+    Public Property FACILITATOR As String
+
+    <DataMember()>
+    Public Property MINUTES_TAKER As String
+
+    <DataMember()>
+    Public Property SCHEDULE As String
+
+    <DataMember()>
+    Public Property FY_START As DateTime
+
+    <DataMember()>
+    Public Property FY_END As DateTime
+
+    <DataMember()>
+    Public Property YEAR As Integer
+End Class
+#End Region
+
 #Region "Non-Billability Hours Data Contracts"
 <DataContract()>
 Public Class NonBillableSummary

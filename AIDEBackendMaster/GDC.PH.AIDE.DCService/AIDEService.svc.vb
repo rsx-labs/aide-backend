@@ -899,6 +899,23 @@ Public Class AIDEService
     Public Function GetAllSabaCourseByTitles(saba_message As String, empID As Integer) As List(Of SabaLearning) Implements IAideService.GetAllSabaCourseByTitle
         Return MyBase.GetAllSabaCourseByTitle(saba_message, empID)
     End Function
+#End Region
+
+    ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "Commendations Functions"
+    Public Sub InsertComcellMeetings(comcell As Comcell) Implements IAideService.InsertComcellMeeting
+        MyBase.InsertComcellMeeting(comcell)
+    End Sub
+
+    Public Function GetComcellMeetings(empID As Integer, year As Integer) As List(Of Comcell) Implements IAideService.GetComcellMeeting
+        Return MyBase.GetComcellMeeting(empID, year)
+    End Function
+
+    Public Sub UpdateComcellMeetings(comcell As Comcell) Implements IAideService.UpdateComcellMeeting
+        MyBase.UpdateComcellMeeting(comcell)
+    End Sub
 
 #End Region
 End Class
