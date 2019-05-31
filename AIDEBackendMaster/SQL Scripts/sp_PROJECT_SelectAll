@@ -1,0 +1,16 @@
+USE [AIDE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_PROJECT_SelectAll]    Script Date: 5/31/2019 4:18:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_PROJECT_SelectAll]
+AS
+
+	SELECT 
+		[PROJ_ID], [PROJ_NAME], [CATEGORY], [BILLABILITY]
+	FROM [dbo].[PROJECT]
+
+
