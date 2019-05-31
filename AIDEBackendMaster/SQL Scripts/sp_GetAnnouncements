@@ -1,0 +1,51 @@
+USE [AIDE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAnnouncements]    Script Date: 5/31/2019 3:41:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[sp_GetAnnouncements]
+	-- Add the parameters for the stored procedure here
+	@EMP_ID INT
+AS
+DECLARE @COUNTS INT
+SET @COUNTS = (SELECT COUNT(A.END_DATE) 
+				FROM dbo.[ANNOUNCEMENTS] A INNER JOIN EMPLOYEE B
+				ON A.EMP_ID = B.EMP_ID
+				WHERE A.END_DATE >= DATEADD(MONTH, -1, GETDATE())
+				AND B.DEPT_ID = (SELECT DEPT_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID)
+				AND B.DIV_ID = (SELECT DIV_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID))
+
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+
+    -- Insert statements for procedure here
+	IF @COUNTS = 1
+		BEGIN 
+			SELECT A.EMP_ID, A.MESSAGE, A.TITLE, A.END_DATE
+			FROM ANNOUNCEMENTS A
+			INNER JOIN [dbo].[EMPLOYEE] B 
+			on A.EMP_ID = B.EMP_ID 
+			WHERE B.DEPT_ID = (SELECT DEPT_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID)
+			AND B.DIV_ID = (SELECT DIV_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID)
+			ORDER BY A.END_DATE DESC
+		END	
+	ELSE
+		BEGIN
+			SELECT A.EMP_ID, A.MESSAGE, A.TITLE, A.END_DATE
+			FROM ANNOUNCEMENTS A
+			INNER JOIN [dbo].[EMPLOYEE] B 
+			on A.EMP_ID = B.EMP_ID 
+			WHERE A.END_DATE >= DATEADD(MONTH, -1, GETDATE()) 
+			AND B.DEPT_ID = (SELECT DEPT_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID)
+			AND B.DIV_ID = (SELECT DIV_ID FROM EMPLOYEE WHERE EMP_ID = @EMP_ID)
+			ORDER BY A.END_DATE DESC
+		END
+END
