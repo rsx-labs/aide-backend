@@ -1,0 +1,16 @@
+USE [AIDE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_DeleteProjectByPrimaryKey]    Script Date: 5/31/2019 3:19:13 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_DeleteProjectByPrimaryKey]
+	@PROJ_ID int
+AS
+
+DELETE FROM [dbo].[PROJECT]
+ WHERE 
+	[PROJ_ID] = @PROJ_ID
+
+
