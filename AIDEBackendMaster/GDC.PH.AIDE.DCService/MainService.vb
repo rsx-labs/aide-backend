@@ -24,6 +24,7 @@ Public MustInherit Class MainService
     Private Shared LateMgmt As LateManagement
     Private Shared SabaLearningMgmt As SabaLearningManagement
     Private Shared ComcellMgmt As ComcellManagement
+    Private Shared ComcellClockMgmt As ComcellClockManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -51,7 +52,7 @@ Public MustInherit Class MainService
         LateMgmt = New LateManagement()
         SabaLearningMgmt = New SabaLearningManagement()
         ComcellMgmt = New ComcellManagement()
-
+        ComcellClockMgmt = New ComcellClockManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2224,6 +2225,34 @@ Public MustInherit Class MainService
             Next
         End If
         Return comcellLst
+    End Function
+
+#End Region
+
+#Region "Comcell Clock"
+
+    ''' </summary>
+    ''' <remarks></remarks>
+
+    Public Overrides Function GetClockTimeByEmployee(empID As Integer, ByRef objResult As ComcellClock) As Boolean
+        Dim state As StateData = ComcellClockMgmt.GetClockTime(empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateComcellClock(ComClock As ComcellClock) As Boolean
+        Dim state As StateData = ComcellClockMgmt.UpdateClockTime(ComClock)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 
 #End Region

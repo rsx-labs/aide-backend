@@ -547,6 +547,16 @@ Public Interface IAideService
 
 #End Region
 
+#Region "ComcellClock Operation Contracts"
+
+    <OperationContract()>
+    Function GetClockTimeByEmployee(ByVal empid As Integer) As ComcellClock
+
+    <OperationContract()>
+    Sub UpdateComcellClock(ByVal obj As ComcellClock)
+
+#End Region
+
 End Interface
 #End Region
 
@@ -1596,6 +1606,29 @@ Public Class Comcell
 
     <DataMember()>
     Public Property YEAR As Integer
+End Class
+#End Region
+
+#Region "ComcellClock Data Contracts"
+''' <summary>
+''' By Jester Sanchez/ Lemuela Abulencia
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class ComcellClock
+
+    <DataMember()>
+    Public Property Clock_Day As Integer
+
+    <DataMember()>
+    Public Property Clock_Hour As Integer
+
+    <DataMember()>
+    Public Property Clock_Minute As Integer
+
+    <DataMember()>
+    Public Property Emp_ID As Integer
+
 End Class
 #End Region
 

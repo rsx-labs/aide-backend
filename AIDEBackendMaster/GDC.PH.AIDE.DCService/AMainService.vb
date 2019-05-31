@@ -324,4 +324,9 @@
     MustOverride Function UpdateComcellMeeting(ByVal comcell As Comcell) As Boolean
 #End Region
 
+#Region "ComcellClock Method"
+    MustOverride Function GetClockTimeByEmployee(ByVal empID As Integer, ByRef objResult As ComcellClock) As Boolean
+    MustOverride Function UpdateComcellClock(ByVal obj As ComcellClock) As Boolean
+#End Region
+
 End Class

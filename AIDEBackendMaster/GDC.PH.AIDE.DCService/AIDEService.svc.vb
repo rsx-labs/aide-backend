@@ -904,7 +904,7 @@ Public Class AIDEService
     ''' <summary>
     ''' By Jhunell Barcenas
     ''' </summary>
-#Region "Commendations Functions"
+#Region "Comcell Functions"
     Public Sub InsertComcellMeetings(comcell As Comcell) Implements IAideService.InsertComcellMeeting
         MyBase.InsertComcellMeeting(comcell)
     End Sub
@@ -917,5 +917,17 @@ Public Class AIDEService
         MyBase.UpdateComcellMeeting(comcell)
     End Sub
 
+#End Region
+
+#Region "Comcell Clock"
+    Public Function GetClockTimeByEmployees(empid As Integer) As ComcellClock Implements IAideService.GetClockTimeByEmployee
+        Dim objComcellClock As ComcellClock = Nothing
+        MyBase.GetClockTimeByEmployee(empid, objComcellClock)
+        Return objComcellClock
+    End Function
+
+    Public Sub UpdateComcellClocks(obj As ComcellClock) Implements IAideService.UpdateComcellClock
+        MyBase.UpdateComcellClock(obj)
+    End Sub
 #End Region
 End Class

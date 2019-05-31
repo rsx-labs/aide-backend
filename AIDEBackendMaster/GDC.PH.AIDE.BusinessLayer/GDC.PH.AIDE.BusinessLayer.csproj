@@ -66,6 +66,12 @@
     <Compile Include="clsAssets.cs" />
     <Compile Include="clsAssetsFactory.cs" />
     <Compile Include="clsAssetsKeys.cs" />
+    <Compile Include="clsComcell.cs" />
+    <Compile Include="clsComcellClock.cs" />
+    <Compile Include="clsComcellClockFactory.cs" />
+    <Compile Include="clsComcellClockKeys.cs" />
+    <Compile Include="clsComcellFactory.cs" />
+    <Compile Include="clsComcellKeys.cs" />
     <Compile Include="clsConcern.cs" />
     <Compile Include="clsConcernFactory.cs" />
     <Compile Include="clsConcernKeys.cs" />
@@ -115,6 +121,8 @@
     <Compile Include="DataLayer\clsBillablesSql.cs" />
     <Compile Include="DataLayer\clsBirthdaySql.cs" />
     <Compile Include="DataLayer\clsAssetsSql.cs" />
+    <Compile Include="DataLayer\clsComcellClockSql.cs" />
+    <Compile Include="DataLayer\clsComcellSql.cs" />
     <Compile Include="DataLayer\clsConcernKeys.cs" />
     <Compile Include="DataLayer\clsConcernSql.cs" />
     <Compile Include="DataLayer\clsCommendationsSql.cs" />
