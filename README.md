@@ -10,7 +10,7 @@ This is the backend component of AIDE.
 ### Frontend
 - .Net Framework
 - WPF
-- WCF
+- WCF.
 
 ### Backend
 - .Net Framework
