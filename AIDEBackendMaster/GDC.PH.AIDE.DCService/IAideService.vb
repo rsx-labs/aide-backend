@@ -497,10 +497,10 @@ Public Interface IAideService
     Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
-    Function GetBillableHoursByMonth(ByVal empID As Integer) As List(Of ResourcePlanner)
+    Function GetBillableHoursByMonth(ByVal empID As Integer, ByVal month As Integer, year As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
-    Function GetBillableHoursByWeek(ByVal empID As Integer) As List(Of ResourcePlanner)
+    Function GetBillableHoursByWeek(ByVal empID As Integer, ByVal currentDate As Date) As List(Of ResourcePlanner)
 
     <OperationContract()>
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
@@ -555,6 +555,29 @@ Public Interface IAideService
     <OperationContract()>
     Sub UpdateComcellClock(ByVal obj As ComcellClock)
 
+#End Region
+
+#Region "Weekly Report Operation Contracts"
+    ''' <summary>
+    ''' By John Harvey Sanchez
+    ''' </summary>
+    <OperationContract(IsOneWay:=True)>
+    Sub CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport))
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport))
+
+    <OperationContract(IsOneWay:=True)>
+    Sub CreateWeekRange(ByVal weekRange As WeekRange)
+
+    <OperationContract()>
+    Function GetWeekRange(ByVal currentDate As Date, ByVal empID As Integer) As List(Of WeekRange)
+
+    <OperationContract()>
+    Function GetWeeklyReportsByEmpID(ByVal empID As Integer) As List(Of WeekRange)
+
+    <OperationContract()>
+    Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer) As List(Of WeeklyReport)
 #End Region
 
 End Interface
@@ -1632,6 +1655,92 @@ Public Class ComcellClock
 End Class
 #End Region
 
+#Region "Weekly Report Data Contracts"
+
+<DataContract()>
+Public Class WeeklyReport
+
+    <DataMember()>
+    Public Property WeekID As Integer
+
+    <DataMember()>
+    Public Property WeekRangeID As Integer
+
+    <DataMember()>
+    Public Property ProjectID As Short
+
+    <DataMember()>
+    Public Property Rework As Short
+
+    <DataMember()>
+    Public Property ReferenceID As String
+
+    <DataMember()>
+    Public Property Subject As String
+
+    <DataMember()>
+    Public Property Severity As Short
+
+    <DataMember()>
+    Public Property IncidentType As Short
+
+    <DataMember()>
+    Public Property EmpID As Integer
+
+    <DataMember()>
+    Public Property Phase As Short
+
+    <DataMember()>
+    Public Property Status As Short
+
+    <DataMember()>
+    Public Property DateStarted As Date
+
+    <DataMember()>
+    Public Property DateTarget As Date
+
+    <DataMember()>
+    Public Property DateFinished As Date
+
+    <DataMember()>
+    Public Property DateCreated As Date
+
+    <DataMember()>
+    Public Property EffortEst As Decimal
+
+    <DataMember()>
+    Public Property ActualEffortWk As Decimal
+
+    <DataMember()>
+    Public Property ActualEffort As Decimal
+
+    <DataMember()>
+    Public Property Comments As String
+
+    <DataMember()>
+    Public Property InboundContacts As Short
+End Class
+
+<DataContract()>
+Public Class WeekRange
+    <DataMember()>
+    Public Property WeekRangeID As Integer
+
+    <DataMember()>
+    Public Property StartWeek As Date
+
+    <DataMember()>
+    Public Property EndWeek As Date
+
+    <DataMember()>
+    Public Property DateCreated As Date
+
+    <DataMember()>
+    Public Property DateRange As String
+End Class
+
+#End Region
+
 #Region "Non-Billability Hours Data Contracts"
 <DataContract()>
 Public Class NonBillableSummary
@@ -1689,6 +1798,7 @@ End Class
 #End Region
 
 #End Region
+
 
 <ServiceContract()>
 Public Interface IAideService2

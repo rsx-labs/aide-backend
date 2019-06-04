@@ -114,6 +114,10 @@
     <Compile Include="clsTasksFactory.cs" />
     <Compile Include="clsTasksKeys.cs" />
     <Compile Include="clsTasks_sp.cs" />
+    <Compile Include="clsWeeklyReport.cs" />
+    <Compile Include="clsWeeklyReportFactory.cs" />
+    <Compile Include="clsWeeklyReportKeys.cs" />
+    <Compile Include="clsWeekRange.cs" />
     <Compile Include="DataLayer\clsActionListsSql.cs" />
     <Compile Include="DataLayer\clsAnnouncementsSql.cs" />
     <Compile Include="DataLayer\clsAssignedProjectsSql.cs" />
@@ -138,6 +142,7 @@
     <Compile Include="DataLayer\clsSkillsSql.cs" />
     <Compile Include="DataLayer\clsSuccessRegisterSql.cs" />
     <Compile Include="DataLayer\clsTasksSql.cs" />
+    <Compile Include="DataLayer\clsWeeklyReportSql.cs" />
     <Compile Include="DataLayer\DataLayerBase.cs" />
     <Compile Include="InvalidBusinessObjectException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

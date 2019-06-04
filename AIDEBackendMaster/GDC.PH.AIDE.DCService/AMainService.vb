@@ -274,8 +274,8 @@
     MustOverride Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
-    MustOverride Function GetBillableHoursByMonth(ByVal empID As Integer) As List(Of ResourcePlanner)
-    MustOverride Function GetBillableHoursByWeek(ByVal empID As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetBillableHoursByMonth(ByVal empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetBillableHoursByWeek(ByVal empID As Integer, ByVal currentDate As Date) As List(Of ResourcePlanner)
     MustOverride Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 
 #End Region
@@ -329,4 +329,16 @@
     MustOverride Function UpdateComcellClock(ByVal obj As ComcellClock) As Boolean
 #End Region
 
+#Region "Weekly Report methods"
+    ''' <summary>
+    ''' John Harvey Sanchez 
+    ''' </summary>
+    ''' <remarks></remarks>
+    MustOverride Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport)) As Boolean
+    MustOverride Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport)) As Boolean
+    MustOverride Function CreateWeekRange(ByVal weekRange As WeekRange) As Boolean
+    MustOverride Function GetWeekRange(ByVal currentDate As Date, ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+    MustOverride Function GetWeeklyReportsByEmpID(ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+    MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
+#End Region
 End Class

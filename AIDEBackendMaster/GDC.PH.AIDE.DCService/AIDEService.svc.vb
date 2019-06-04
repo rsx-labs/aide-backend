@@ -19,8 +19,6 @@ Public Class AIDEService
     Implements IAideService
     Implements IAideService2
 
-
-
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()
     '  number of current users - 0 to begin with
     Private Shared _registeredUsers As Integer = 0
@@ -737,12 +735,12 @@ Public Class AIDEService
         Return MyBase.GetResourcePlanner(email, status, toBeDisplayed, year)
     End Function
 
-    Public Function GetBillableHoursByWeeks(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByWeek
-        Return MyBase.GetBillableHoursByWeek(empID)
+    Public Function GetBillableHoursByWeeks(empID As Integer, currentDate As Date) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByWeek
+        Return MyBase.GetBillableHoursByWeek(empID, currentDate)
     End Function
 
-    Public Function GetBillableHoursByMonths(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByMonth
-        Return MyBase.GetBillableHoursByMonth(empID)
+    Public Function GetBillableHoursByMonths(empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByMonth
+        Return MyBase.GetBillableHoursByMonth(empID, month, year)
     End Function
 
     Public Overrides Function GetNonBillableHours(email As String, display As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetNonBillableHours
@@ -930,4 +928,41 @@ Public Class AIDEService
         MyBase.UpdateComcellClock(obj)
     End Sub
 #End Region
+
+    ''' <summary>
+    ''' By John Harvey Sanchez
+    ''' </summary>
+#Region "Weekly Report Functions"
+    Public Sub CreateWeeklyReports(weeklyReport As List(Of WeeklyReport)) Implements IAideService.CreateWeeklyReport
+        MyBase.CreateWeeklyReport(weeklyReport)
+    End Sub
+
+    Public Sub CreateNewWeekRange(weekRange As WeekRange) Implements IAideService.CreateWeekRange
+        MyBase.CreateWeekRange(weekRange)
+    End Sub
+
+    Public Sub UpdateWeeklyReports(weeklyReport As List(Of WeeklyReport)) Implements IAideService.UpdateWeeklyReport
+        MyBase.UpdateWeeklyReport(weeklyReport)
+    End Sub
+
+    Public Function GetTheWeekRange(currentDate As Date, empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRange
+        Dim lstWeekRange As List(Of WeekRange) = Nothing
+        MyBase.GetWeekRange(currentDate, empID, lstWeekRange)
+        Return lstWeekRange
+    End Function
+
+    Public Function GetTheWeeklyReportsByEmpID(empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeeklyReportsByEmpID
+        Dim lstWeekRange As List(Of WeekRange) = Nothing
+        MyBase.GetWeeklyReportsByEmpID(empID, lstWeekRange)
+        Return lstWeekRange
+    End Function
+
+    Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
+        Dim lstWeeklyReport As List(Of WeeklyReport) = Nothing
+        MyBase.GetWeeklyReportsByWeekRangeID(weekRangeID, empID, lstWeeklyReport)
+        Return lstWeeklyReport
+    End Function
+
+#End Region
+
 End Class

@@ -379,12 +379,12 @@ Public Class ResourcePlannerSet
     End Function
 
 
-    Public Function GetBillableHoursByMonth(empID As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByMonth
+    Public Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByMonth
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)
             Dim ResourceSetLst As New List(Of ResourcePlannerSet)
 
-            ResourceLst = cResourcePlannerFactory.GetBillableHoursByMonth(empID)
+            ResourceLst = cResourcePlannerFactory.GetBillableHoursByMonth(empID, month, year)
 
             If Not IsNothing(ResourceLst) Then
                 For Each cList As clsResourcePlanner In ResourceLst
@@ -405,12 +405,12 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
-    Public Function GetBillableHoursByWeek(empID As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByWeek
+    Public Function GetBillableHoursByWeek(empID As Integer, currentDate As Date) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByWeek
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)
             Dim ResourceSetLst As New List(Of ResourcePlannerSet)
 
-            ResourceLst = cResourcePlannerFactory.GetBillableHoursByWeek(empID)
+            ResourceLst = cResourcePlannerFactory.GetBillableHoursByWeek(empID, currentDate)
 
             If Not IsNothing(ResourceLst) Then
                 For Each cList As clsResourcePlanner In ResourceLst

@@ -29,8 +29,8 @@ Public Interface IResourcePlanner
     Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlannerSet)
     Function GetAllStatusResourcePlanner() As List(Of ResourcePlannerSet)
     Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
-    Function GetBillableHoursByMonth(ByVal status As Integer) As List(Of ResourcePlannerSet)
-    Function GetBillableHoursByWeek(ByVal status As Integer) As List(Of ResourcePlannerSet)
+    Function GetBillableHoursByMonth(ByVal status As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
+    Function GetBillableHoursByWeek(ByVal status As Integer, ByVal currentDate As Date) As List(Of ResourcePlannerSet)
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
 
 End Interface

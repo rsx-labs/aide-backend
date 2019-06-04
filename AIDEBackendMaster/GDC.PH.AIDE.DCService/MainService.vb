@@ -25,6 +25,7 @@ Public MustInherit Class MainService
     Private Shared SabaLearningMgmt As SabaLearningManagement
     Private Shared ComcellMgmt As ComcellManagement
     Private Shared ComcellClockMgmt As ComcellClockManagement
+	Private Shared WeeklyReportMgmt As WeeklyReportManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -53,6 +54,7 @@ Public MustInherit Class MainService
         SabaLearningMgmt = New SabaLearningManagement()
         ComcellMgmt = New ComcellManagement()
         ComcellClockMgmt = New ComcellClockManagement()
+		WeeklyReportMgmt = New WeeklyReportManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -1420,8 +1422,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Overrides Function GetBillableHoursByWeek(empID As Integer) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetBillableHoursByWeek(empID)
+    Public Overrides Function GetBillableHoursByWeek(empID As Integer, currentDate As Date) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetBillableHoursByWeek(empID, currentDate)
         Dim resourceLst As New List(Of ResourcePlanner)
 
         If Not IsNothing(state.Data) Then
@@ -1438,8 +1440,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Overrides Function GetBillableHoursByMonth(empID As Integer) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetBillableHoursByMonth(empID)
+    Public Overrides Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetBillableHoursByMonth(empID, month, year)
         Dim resourceLst As New List(Of ResourcePlanner)
 
         If Not IsNothing(state.Data) Then
@@ -2257,4 +2259,69 @@ Public MustInherit Class MainService
 
 #End Region
 
+#Region "WeeklyReport"
+    Public Overrides Function CreateWeeklyReport(weeklyReport As List(Of WeeklyReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.CreateWeeklyReport(weeklyReport)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateWeeklyReport(weeklyReport As List(Of WeeklyReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.UpdateWeeklyReport(weeklyReport)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function CreateWeekRange(weekRange As WeekRange) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.CreateWeekRange(weekRange)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetWeekRange(currentDate As Date, empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeekRange(currentDate, empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetWeeklyReportsByEmpID(empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByEmpID(empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+#End Region
 End Class
