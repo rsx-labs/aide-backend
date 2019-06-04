@@ -311,7 +311,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetBillableHoursByMonth(int empID)
+        public List<clsResourcePlanner> GetBillableHoursByMonth(int empID, int month, int year)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetBillableHoursByMonth]";
@@ -322,7 +322,9 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID)); 
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 5, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 5, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year)); 
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
@@ -339,7 +341,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID)
+        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID, DateTime currentDate)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetBillableHoursByWeek]";
@@ -350,7 +352,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", currentDate));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
@@ -379,9 +382,9 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
-                sqlCommand.Parameters.Add(new SqlParameter("@DISPLAY", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, display));
-                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, month));
-                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year));
+                sqlCommand.Parameters.Add(new SqlParameter("@DISPLAY", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, display));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, year));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();

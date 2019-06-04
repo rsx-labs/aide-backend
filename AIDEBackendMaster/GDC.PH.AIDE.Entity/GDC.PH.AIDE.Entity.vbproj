@@ -91,6 +91,8 @@
     <Compile Include="Entity\TasksSet.vb" />
     <Compile Include="Entity\TasksSummarySet.vb" />
     <Compile Include="Exception\ComCellClockNotFoundException.vb" />
+    <Compile Include="Entity\WeeklyReportSet.vb" />
+    <Compile Include="Entity\WeekRangeSet.vb" />
     <Compile Include="Exception\DatabaseConnExceptionFailed.vb" />
     <Compile Include="Exception\EmployeeNotFoundException.vb" />
     <Compile Include="Exception\InsertFailedException.vb" />
@@ -124,6 +126,7 @@
     <Compile Include="Interface\ITasks.vb" />
     <Compile Include="Interface\ITasksSummary.vb" />
     <Compile Include="Interface\IWeeklyReport.vb" />
+    <Compile Include="Interface\IWeekRange.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

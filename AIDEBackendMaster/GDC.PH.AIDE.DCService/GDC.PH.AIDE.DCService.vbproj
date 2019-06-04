@@ -132,6 +132,7 @@
     <Compile Include="Management\SabaLearningManagement.vb" />
     <Compile Include="Management\SkillsManagement.vb" />
     <Compile Include="Management\SuccessRegisterManagement.vb" />
+    <Compile Include="Management\WeeklyReportManagement.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
