@@ -109,6 +109,7 @@
     <Compile Include="AMainService.vb" />
     <Compile Include="Management\AnnouncementsManagement.vb" />
     <Compile Include="Management\AttendanceManagement.vb" />
+    <Compile Include="Management\AuditSchedManagement.vb" />
     <Compile Include="Management\BirthdayManagement.vb" />
     <Compile Include="Management\AssetsManagement.vb" />
     <Compile Include="Management\ComcellClockManagement.vb" />

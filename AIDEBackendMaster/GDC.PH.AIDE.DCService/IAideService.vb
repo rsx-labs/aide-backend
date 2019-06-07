@@ -278,7 +278,7 @@ Public Interface IAideService
 
     'For the list of Nickname displayed in Combobox
     <OperationContract()>
-    Function ViewNicknameByDeptID(ByVal email As String) As List(Of Nickname)
+    Function ViewNicknameByDeptID(ByVal email As String, ByVal toDisplay As Integer) As List(Of Nickname)
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateSuccessRegisterByEmpID(ByVal success As SuccessRegister)
@@ -578,6 +578,18 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer) As List(Of WeeklyReport)
+#End Region
+
+#Region "AuditSched Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAuditSched(ByVal auditSched As AuditSched)
+
+    <OperationContract()>
+    Function GetAuditSched(ByVal empID As Integer, ByVal year As Integer) As List(Of AuditSched)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateAuditSched(ByVal auditSched As AuditSched)
+
 #End Region
 
 End Interface
@@ -1655,6 +1667,45 @@ Public Class ComcellClock
 End Class
 #End Region
 
+#Region "AuditSched Data Contract"
+<DataContract()>
+Public Class AuditSched
+
+    <DataMember()>
+    Public Property AUDIT_SCHED_ID As Integer
+
+    <DataMember()>
+    Public Property EMP_ID As Integer
+
+    <DataMember()>
+    Public Property FY_WEEK As Integer
+
+    <DataMember()>
+    Public Property PERIOD_START As DateTime
+
+    <DataMember()>
+    Public Property PERIOD_END As DateTime
+
+    <DataMember()>
+    Public Property DAILY As String
+
+    <DataMember()>
+    Public Property WEEKLY As String
+
+    <DataMember()>
+    Public Property MONTHLY As String
+
+    <DataMember()>
+    Public Property FY_START As DateTime
+
+    <DataMember()>
+    Public Property FY_END As DateTime
+
+    <DataMember()>
+    Public Property YEAR As Integer
+End Class
+#End Region
+
 #Region "Weekly Report Data Contracts"
 
 <DataContract()>
@@ -1798,7 +1849,6 @@ End Class
 #End Region
 
 #End Region
-
 
 <ServiceContract()>
 Public Interface IAideService2

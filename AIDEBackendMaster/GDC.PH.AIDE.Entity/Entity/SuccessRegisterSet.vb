@@ -271,13 +271,23 @@ Public Class NicknameSet
         End Set
     End Property
 
-    Public Function GetNicknameByDeptID(email As String) As List(Of NicknameSet) Implements INicknameSet.GetNicknameByDeptID
+    Public Property ToDisplay As Integer Implements INicknameSet.ToDisplay
+        Get
+            Return Me.cNickname.TO_DISPLAY
+        End Get
+        Set(value As Integer)
+            Me.cNickname.TO_DISPLAY = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Function GetNicknameByDeptID(email As String, toDisplay As Integer) As List(Of NicknameSet) Implements INicknameSet.GetNicknameByDeptID
         Try
 
             Dim lstNickname As List(Of clsNickname)
             Dim lstNicknameSet As New List(Of NicknameSet)
 
-            lstNickname = Me.cNicknamefactory.getNicknameByDeptID(email)
+            lstNickname = Me.cNicknamefactory.getNicknameByDeptID(email, toDisplay)
 
             If Not IsNothing(lstNickname) Then
                 For Each cList As clsNickname In lstNickname

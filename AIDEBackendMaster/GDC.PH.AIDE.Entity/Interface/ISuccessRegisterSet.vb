@@ -27,8 +27,9 @@ Public Interface INicknameSet
 
     Property EmpID As Integer
     Property Nick_Name As String
+    Property ToDisplay As Integer
 
-    Function GetNicknameByDeptID(ByVal email As String) As List(Of NicknameSet)
+    Function GetNicknameByDeptID(ByVal email As String, ByVal ToDisplay As Integer) As List(Of NicknameSet)
     Function GetEmployeePerProject(ByVal empID As Integer, ByVal projID As Integer) As List(Of NicknameSet)
     Function GetAllManagers(ByVal empID As Integer) As List(Of NicknameSet)
 End Interface

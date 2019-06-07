@@ -68,6 +68,7 @@
     <Compile Include="Entity\ActionListSet.vb" />
     <Compile Include="Entity\AssignedProjectSet.vb" />
     <Compile Include="Entity\AttendanceSet.vb" />
+    <Compile Include="Entity\AuditSchedSet.vb" />
     <Compile Include="Entity\BillableSet.vb" />
     <Compile Include="Entity\BirthdaySet.vb" />
     <Compile Include="Entity\AssetsSet.vb" />
@@ -103,6 +104,7 @@
     <Compile Include="Interface\IActionLists.vb" />
     <Compile Include="Interface\IAssignedProjects.vb" />
     <Compile Include="Interface\IAttendance.vb" />
+    <Compile Include="Interface\IAuditSchedSet.vb" />
     <Compile Include="Interface\IBillables.vb" />
     <Compile Include="Interface\IBirthday.vb" />
     <Compile Include="Interface\IAssetsSet.vb" />
