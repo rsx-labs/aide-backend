@@ -316,8 +316,8 @@ Public Class AIDEService
         MyBase.CreateSuccessRegister(success)
     End Sub
 
-    Public Function ViewNicknameByDeptID(email As String) As List(Of Nickname) Implements IAideService.ViewNicknameByDeptID
-        Return MyBase.GetNicknameByDeptID(email)
+    Public Function ViewNicknameByDeptID(email As String, toDisplay As Integer) As List(Of Nickname) Implements IAideService.ViewNicknameByDeptID
+        Return MyBase.GetNicknameByDeptID(email, toDisplay)
     End Function
 
     Public Sub DeleteSuccessRegisterBySuccessID(successId As Integer) Implements IAideService.DeleteSuccessRegisterBySuccessID
@@ -904,7 +904,7 @@ Public Class AIDEService
     ''' <summary>
     ''' By Jhunell Barcenas
     ''' </summary>
-#Region "Commendations Functions"
+#Region "Comcell Functions"
     Public Sub InsertComcellMeetings(comcell As Comcell) Implements IAideService.InsertComcellMeeting
         MyBase.InsertComcellMeeting(comcell)
     End Sub
@@ -918,4 +918,23 @@ Public Class AIDEService
     End Sub
 
 #End Region
+
+    ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "AuditSched Functions"
+    Public Sub InsertAuditScheds(auditSched As AuditSched) Implements IAideService.InsertAuditSched
+        MyBase.InsertAuditSched(AuditSched)
+    End Sub
+
+    Public Function GetAuditScheds(empID As Integer, year As Integer) As List(Of AuditSched) Implements IAideService.GetAuditSched
+        Return MyBase.GetAuditSched(empID, year)
+    End Function
+
+    Public Sub UpdateAuditScheds(auditSched As AuditSched) Implements IAideService.UpdateAuditSched
+        MyBase.UpdateAuditSched(AuditSched)
+    End Sub
+
+#End Region
+
 End Class

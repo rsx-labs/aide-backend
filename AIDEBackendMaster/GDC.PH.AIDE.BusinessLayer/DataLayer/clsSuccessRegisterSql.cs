@@ -55,7 +55,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsNickname> getNicknameByDeptID(string email)
+        public List<clsNickname> getNicknameByDeptID(string email, int toDisplay)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "[dbo].[sp_GetNicknameByDeptID]";
@@ -70,6 +70,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Open();
 
                 sqlCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+                sqlCommand.Parameters.Add(new SqlParameter("@TO_DISPLAY", SqlDbType.Int, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, toDisplay));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 

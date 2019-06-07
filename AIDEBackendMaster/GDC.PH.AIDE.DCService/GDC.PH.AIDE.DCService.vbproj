@@ -111,6 +111,8 @@
     <Compile Include="Management\AttendanceManagement.vb" />
     <Compile Include="Management\BirthdayManagement.vb" />
     <Compile Include="Management\AssetsManagement.vb" />
+    <Compile Include="Management\AuditSchedManagement.vb" />
+    <Compile Include="Management\ComcellManagement.vb" />
     <Compile Include="Management\ConcernManagement.vb" />
     <Compile Include="Management\CommendationsManagement.vb" />
     <Compile Include="Management\ContactListManagement.vb" />

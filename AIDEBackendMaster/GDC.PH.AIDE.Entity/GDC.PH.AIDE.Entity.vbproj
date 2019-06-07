@@ -72,6 +72,8 @@
     <Compile Include="Entity\BirthdaySet.vb" />
     <Compile Include="Entity\AssetsSet.vb" />
     <Compile Include="Entity\AnnouncementsSet.vb" />
+    <Compile Include="Entity\AuditSchedSet.vb" />
+    <Compile Include="Entity\ComcellSet.vb" />
     <Compile Include="Entity\LateSet.vb" />
     <Compile Include="Entity\ConcernSet.vb" />
     <Compile Include="Entity\CommendationsSet.vb" />
@@ -102,6 +104,8 @@
     <Compile Include="Interface\IBirthday.vb" />
     <Compile Include="Interface\IAssetsSet.vb" />
     <Compile Include="Interface\IAnnouncementsSet.vb" />
+    <Compile Include="Interface\IAuditSchedSet.vb" />
+    <Compile Include="Interface\IComcellSet.vb" />
     <Compile Include="Interface\ILateSet.vb" />
     <Compile Include="Interface\IConcernSet.vb" />
     <Compile Include="Interface\ICommendationsSet.vb" />

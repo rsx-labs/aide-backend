@@ -24,6 +24,7 @@ Public MustInherit Class MainService
     Private Shared LateMgmt As LateManagement
     Private Shared SabaLearningMgmt As SabaLearningManagement
     Private Shared ComcellMgmt As ComcellManagement
+    Private Shared AuditSchedMgmt As AuditSchedManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -51,7 +52,7 @@ Public MustInherit Class MainService
         LateMgmt = New LateManagement()
         SabaLearningMgmt = New SabaLearningManagement()
         ComcellMgmt = New ComcellManagement()
-
+        AuditSchedMgmt = New AuditSchedManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -387,8 +388,8 @@ Public MustInherit Class MainService
     End Function
 
     'For the list of Nickname for the combobox
-    Public Overrides Function GetNicknameByDeptID(email As String) As List(Of Nickname)
-        Dim state As StateData = SuccessRegisterMgmt.GetNicknameByDeptID(email)
+    Public Overrides Function GetNicknameByDeptID(email As String, toDisplay As Integer) As List(Of Nickname)
+        Dim state As StateData = SuccessRegisterMgmt.GetNicknameByDeptID(email, toDisplay)
         Dim lstNicknameList As New List(Of Nickname)
 
         If Not IsNothing(state.Data) Then
@@ -2224,6 +2225,55 @@ Public MustInherit Class MainService
             Next
         End If
         Return comcellLst
+    End Function
+
+#End Region
+
+#Region "Audit Sched"
+    Public Overrides Function InsertAuditSched(audtiSched As AuditSched) As Boolean
+        Dim state As StateData = AuditSchedMgmt.InsertAuditSched(audtiSched)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateAuditSched(audtiSched As AuditSched) As Boolean
+        Dim state As StateData = AuditSchedMgmt.UpdateAuditSched(audtiSched)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAuditSched(ByVal empID As Integer, ByVal year As Integer) As List(Of AuditSched)
+        Dim state As StateData = AuditSchedMgmt.GetAuditSched(empID, year)
+        Dim audtiSchedLst As New List(Of AuditSched)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of AuditSched) = DirectCast(state.Data, List(Of AuditSched))
+            For Each _list As AuditSched In audtiSched
+                Dim item As New AuditSched
+
+                item.AUDIT_SCHED_ID = _list.AUDIT_SCHED_ID
+                item.FY_WEEK = _list.FY_WEEK
+                item.EMP_ID = _list.EMP_ID
+                item.PERIOD_START = _list.PERIOD_START
+                item.PERIOD_END = _list.PERIOD_END
+                item.DAILY = _list.DAILY
+                item.WEEKLY = _list.WEEKLY
+                item.MONTHLY = _list.MONTHLY
+                item.FY_START = _list.FY_START
+                item.FY_END = _list.FY_END
+
+                audtiSchedLst.Add(item)
+            Next
+        End If
+        Return audtiSchedLst
     End Function
 
 #End Region

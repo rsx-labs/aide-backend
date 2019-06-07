@@ -57,7 +57,7 @@ Public Class SuccessRegisterManagement
         Return state
     End Function
 
-    Public Function GetNicknameByDeptID(email As String) As StateData
+    Public Function GetNicknameByDeptID(email As String, toDisplay As Integer) As StateData
         Dim nicknameSet As New NicknameSet
         Dim lstNickname As List(Of NicknameSet)
         Dim objNickname As New List(Of Nickname)
@@ -66,7 +66,7 @@ Public Class SuccessRegisterManagement
         Dim status As NotifyType
 
         Try
-            lstNickname = nicknameSet.GetNicknameByDeptID(email)
+            lstNickname = nicknameSet.GetNicknameByDeptID(email, toDisplay)
 
             If Not IsNothing(lstNickname) Then
                 For Each objNicknameList As NicknameSet In lstNickname
