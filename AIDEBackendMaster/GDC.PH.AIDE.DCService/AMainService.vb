@@ -135,7 +135,7 @@
     MustOverride Function UpdateSuccessRegister(success As SuccessRegister) As Boolean
     MustOverride Function DeleteSuccessRegister(successID As Integer) As Boolean
     'List of Nickname For Combobox
-    MustOverride Function GetNicknameByDeptID(email As String) As List(Of Nickname)
+    MustOverride Function GetNicknameByDeptID(email As String, toDisplay As Integer) As List(Of Nickname)
 #End Region
 
     ''' <summary>
@@ -341,4 +341,11 @@
     MustOverride Function GetWeeklyReportsByEmpID(ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
 #End Region
+
+#Region "AuditSched methods"
+    MustOverride Function InsertAuditSched(ByVal auditSched As AuditSched) As Boolean
+    MustOverride Function GetAuditSched(ByVal empID As Integer, ByVal year As Integer) As List(Of AuditSched)
+    MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
+#End Region
+
 End Class

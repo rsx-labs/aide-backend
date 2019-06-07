@@ -57,6 +57,9 @@
     <Compile Include="clsAttendance.cs" />
     <Compile Include="clsAttendanceFactory.cs" />
     <Compile Include="clsAttendanceKeys.cs" />
+    <Compile Include="clsAuditSched.cs" />
+    <Compile Include="clsAuditSchedFactory.cs" />
+    <Compile Include="clsAuditSchedKeys.cs" />
     <Compile Include="clsBillables.cs" />
     <Compile Include="clsBillablesFactory.cs" />
     <Compile Include="clsBillablesKeys.cs" />
@@ -122,6 +125,7 @@
     <Compile Include="DataLayer\clsAnnouncementsSql.cs" />
     <Compile Include="DataLayer\clsAssignedProjectsSql.cs" />
     <Compile Include="DataLayer\clsAttendanceSql.cs" />
+    <Compile Include="DataLayer\clsAuditSchedSql.cs" />
     <Compile Include="DataLayer\clsBillablesSql.cs" />
     <Compile Include="DataLayer\clsBirthdaySql.cs" />
     <Compile Include="DataLayer\clsAssetsSql.cs" />

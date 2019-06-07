@@ -175,7 +175,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum clsNicknameFields
         {
             EMP_ID,
-            NICK_NAME
+            NICK_NAME,
+            TO_DISPLAY
         }
 
         #endregion
@@ -184,7 +185,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         private int _EMP_ID;
         private string _NICKNAME;
-
+        private int _TO_DISPLAY;
         #endregion
 
         #region "Properties"
@@ -215,6 +216,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public int TO_DISPLAY
+        {
+            get { return _TO_DISPLAY; }
+            set
+            {
+                if (_TO_DISPLAY != value)
+                {
+                    _TO_DISPLAY = value;
+                    PropertyHasChanged("TO_DISPLAY");
+                }
+            }
+        }
 
         #endregion
 
@@ -241,9 +254,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             _dataObject3 = new clsAssetsSql();
         }
 
-        public List<clsNickname> getNicknameByDeptID(string email)
+        public List<clsNickname> getNicknameByDeptID(string email, int toDisplay)
         {
-            return _dataObject.getNicknameByDeptID(email);
+            return _dataObject.getNicknameByDeptID(email, toDisplay);
         }
         
         /// <summary>
