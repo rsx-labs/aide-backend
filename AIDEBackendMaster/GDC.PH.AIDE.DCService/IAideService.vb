@@ -1718,7 +1718,7 @@ Public Class WeeklyReport
     Public Property WeekRangeID As Integer
 
     <DataMember()>
-    Public Property ProjectID As Short
+    Public Property ProjectID As Integer
 
     <DataMember()>
     Public Property Rework As Short

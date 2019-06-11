@@ -218,7 +218,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
-
+                sqlCommand.Parameters.Add(new SqlParameter("@TO_DISPLAY", SqlDbType.Int, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, 1));
                 MainConnection.Open();
                 IDataReader dataReader = sqlCommand.ExecuteReader();
                 return PopulateObjectsFromReader2(dataReader);
