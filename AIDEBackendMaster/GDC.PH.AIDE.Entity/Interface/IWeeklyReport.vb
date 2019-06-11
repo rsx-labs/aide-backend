@@ -4,7 +4,7 @@
 
     Property WK_ID As Integer
     Property WK_RANGE_ID As Integer
-    Property PROJ_ID As Short
+    Property PROJ_ID As Integer
     Property REWORK As Short
     Property REF_ID As String
     Property SUBJECT As String

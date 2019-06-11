@@ -161,11 +161,11 @@ Public Class AIDEService
                 objProfile = DirectCast(objResult, Profile)
 
                 'MyBase.UpdateAttendanceByEmp(objProfile.Emp_ID, Date.Now.Day, 0)
-                _callbackList.ForEach(Sub(callback As IAIDEServiceCallback)
-                                          callback.NotifyPresent(objProfile.FirstName & " " & objProfile.LastName)
-                                          _registeredUsers += 1
+                '_callbackList.ForEach(Sub(callback As IAIDEServiceCallback)
+                '                          callback.NotifyPresent(objProfile.FirstName & " " & objProfile.LastName)
+                '                          _registeredUsers += 1
 
-                                      End Sub)
+                '                      End Sub)
             End If
         Catch ex As Exception
             MsgBox(ex.Message)

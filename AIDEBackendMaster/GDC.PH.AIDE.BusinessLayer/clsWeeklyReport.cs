@@ -36,7 +36,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         int _wk_ID;
         int _wk_range_ID;
-        short _proj_ID;
+        int _proj_ID;
         short _rework;
         string _ref_ID;
         string _subject;
@@ -85,7 +85,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 			 }
 		}
 
-        public short WR_PROJ_ID
+        public int WR_PROJ_ID
         {
             get { return _proj_ID; }
             set

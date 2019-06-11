@@ -42,7 +42,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@WR_RANGE_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_WEEK_RANGE_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_PROJ_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_PROJ_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@REWORK", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_REWORK));
                 sqlCommand.Parameters.Add(new SqlParameter("@SUBJECT", SqlDbType.VarChar, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_SUBJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@SEVERITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_SEVERITY));
@@ -179,7 +179,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@WR_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@WR_RANGE_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_WEEK_RANGE_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_PROJ_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_PROJ_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@REWORK", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_REWORK));
 
                 if (businessObject.WR_REF_ID == null)
@@ -588,7 +588,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.WR_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_ID.ToString()));
             businessObject.WR_WEEK_RANGE_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_WEEK_RANGE_ID.ToString()));
-            businessObject.WR_PROJ_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_ID.ToString()));
+            businessObject.WR_PROJ_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_ID.ToString()));
             businessObject.WR_SUBJECT = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_SUBJECT.ToString()));
 
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_REWORK.ToString())))

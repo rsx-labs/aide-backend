@@ -40,11 +40,11 @@ Public Class WeeklyReportSet
         End Set
     End Property
 
-    Public Property PROJ_ID As Short Implements IWeeklyReport.PROJ_ID
+    Public Property PROJ_ID As Integer Implements IWeeklyReport.PROJ_ID
         Get
             Return cWeeklyReport.WR_PROJ_ID
         End Get
-        Set(ByVal value As Short)
+        Set(ByVal value As Integer)
             cWeeklyReport.WR_PROJ_ID = value
         End Set
     End Property
