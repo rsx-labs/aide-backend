@@ -133,7 +133,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACT_EFFORT_EST));
                 }
-               
+                
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJECT_CODE", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT_CODE));
                 sqlCommand.Parameters.Add(new SqlParameter("@REWORK", SqlDbType.TinyInt, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REWORK));
                 sqlCommand.Parameters.Add(new SqlParameter("@PHASE", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PHASE));
@@ -232,6 +232,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@REMARKS", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REMARKS));
                 }
+                
+                sqlCommand.Parameters.Add(new SqlParameter("@REWORK", SqlDbType.TinyInt, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REWORK));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJECT_CODE", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT_CODE));
+                sqlCommand.Parameters.Add(new SqlParameter("@TASK_TYPE", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TASK_TYPE));
 
                 MainConnection.Open();
                 sqlCommand.ExecuteNonQuery();
