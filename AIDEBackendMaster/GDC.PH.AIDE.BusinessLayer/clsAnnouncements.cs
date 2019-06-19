@@ -12,6 +12,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         #region InnerClass
         public enum clsAnnouncementsFields
         {
+            ANNOUNCEMENT_ID,
             EMP_ID,
             MESSAGE,
             TITLE,
@@ -21,6 +22,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #region Data Members
 
+        int _announcementID;
         int _empID;
         string _message;
         string _title;
@@ -29,6 +31,19 @@ namespace GDC.PH.AIDE.BusinessLayer
         #endregion
 
         #region Properties
+
+        public int ANNOUNCEMENT_ID
+        {
+            get { return _announcementID; }
+            set
+            {
+                if (_announcementID != value)
+                {
+                    _announcementID = value;
+                    PropertyHasChanged("ANNOUNCEMENT_ID");
+                }
+            }
+        }
 
         public int EMP_ID
         {
@@ -90,6 +105,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         internal override void AddValidationRules()
         {
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ANNOUNCEMENT_ID", "ANNOUNCEMENT_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MESSAGE", "MESSAGE"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("TITLE", "TITLE"));

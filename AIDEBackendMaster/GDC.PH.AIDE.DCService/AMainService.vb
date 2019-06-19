@@ -303,6 +303,7 @@
 #Region "Announcements methods"
     MustOverride Function InsertAnnouncements(ByVal commendations As Announcements) As Boolean
     MustOverride Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+    MustOverride Function UpdateAnnouncements(ByVal commendations As Announcements) As Boolean
 #End Region
 
 #Region "Late methods"

@@ -512,6 +512,9 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateAnnouncements(ByVal announcements As Announcements)
 #End Region
 
 #Region "Late Operation Contracts"
@@ -1560,6 +1563,8 @@ End Class
 <DataContract()>
 Public Class Announcements
 
+    <DataMember()>
+    Public Property ANNOUNCEMENT_ID As Integer
     <DataMember()>
     Public Property EMP_ID As Integer
     <DataMember()>

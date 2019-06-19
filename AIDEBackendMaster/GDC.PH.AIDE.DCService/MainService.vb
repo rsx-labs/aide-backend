@@ -2062,6 +2062,7 @@ Public MustInherit Class MainService
             Dim announcements As List(Of Announcements) = DirectCast(state.Data, List(Of Announcements))
             For Each _list As Announcements In announcements
                 Dim item As New Announcements
+                item.ANNOUNCEMENT_ID = _list.ANNOUNCEMENT_ID
                 item.EMP_ID = _list.EMP_ID
                 item.MESSAGE = _list.MESSAGE
                 item.TITLE = _list.TITLE
@@ -2071,6 +2072,16 @@ Public MustInherit Class MainService
             Next
         End If
         Return announcementsLst
+    End Function
+
+    Public Overrides Function UpdateAnnouncements(announcements As Announcements) As Boolean
+        Dim state As StateData = AnnouncementsMgmt.UpdateAnnouncements(announcements)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 #End Region
 

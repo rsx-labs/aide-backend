@@ -13,6 +13,7 @@ Public Class AnnouncementsManagement
     Public Overrides Function GetMappedFields(ByVal objData As Object) As Object
         Dim objAnnouncements As AnnouncementsSet = DirectCast(objData, AnnouncementsSet)
         Dim announcementsData As New Announcements
+        announcementsData.ANNOUNCEMENT_ID = objAnnouncements.ANNOUNCEMENT_ID
         announcementsData.EMP_ID = objAnnouncements.EMP_ID
         announcementsData.MESSAGE = objAnnouncements.MESSAGE
         announcementsData.TITLE = objAnnouncements.TITLE
@@ -37,6 +38,25 @@ Public Class AnnouncementsManagement
             If AnnouncementsSet.InsertAnnouncements(AnnouncementsSet) Then
                 status = NotifyType.IsSuccess
                 message = "Create Announcements Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function UpdateAnnouncements(ByVal Announcements As Announcements) As StateData
+        Dim AnnouncementsSet As New AnnouncementsSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            SetFields(AnnouncementsSet, Announcements)
+            If AnnouncementsSet.UpdateAnnouncements(AnnouncementsSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update Announcements Successful!"
             End If
         Catch ex As Exception
             status = NotifyType.IsError
@@ -84,6 +104,7 @@ Public Class AnnouncementsManagement
     Public Overrides Sub SetFields(ByRef objResult As Object, objData As Object)
         Dim objAnnouncements As Announcements = DirectCast(objData, Announcements)
         Dim announcementsData As New AnnouncementsSet
+        announcementsData.ANNOUNCEMENT_ID = objAnnouncements.ANNOUNCEMENT_ID
         announcementsData.EMP_ID = objAnnouncements.EMP_ID
         announcementsData.MESSAGE = objAnnouncements.MESSAGE
         announcementsData.TITLE = objAnnouncements.TITLE

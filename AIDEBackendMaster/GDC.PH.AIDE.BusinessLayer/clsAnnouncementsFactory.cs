@@ -56,6 +56,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAnnouncements(empID);
         }
 
+        public bool UpdateAnnouncements(clsAnnouncements businessObject)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }
+
+
+            return _dataObject.Update(businessObject);
+
+        }
+
         #endregion
 
     }

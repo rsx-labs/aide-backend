@@ -17,6 +17,7 @@ End Enum
 Public Class AIDEService
     Inherits MainService
     Implements IAideService
+
     Implements IAideService2
 
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()
@@ -853,14 +854,16 @@ Public Class AIDEService
     ''' By Jhunell Barcenas
     ''' </summary>
 #Region "Announcements Functions"
-    Public Sub InsertAnnouncementss(commendations As Announcements) Implements IAideService.InsertAnnouncements
-        MyBase.InsertAnnouncements(commendations)
+    Public Sub InsertAnnouncementss(announcements As Announcements) Implements IAideService.InsertAnnouncements
+        MyBase.InsertAnnouncements(announcements)
     End Sub
 
     Public Function GetAnnouncementss(empID As Integer) As List(Of Announcements) Implements IAideService.GetAnnouncements
         Return MyBase.GetAnnouncements(empID)
     End Function
-
+    Public Sub UpdateAnnouncementss(announcements As Announcements) Implements IAideService.UpdateAnnouncements
+        MyBase.UpdateAnnouncements(announcements)
+    End Sub
 #End Region
 
     ''' <summary>
@@ -970,7 +973,7 @@ Public Class AIDEService
     ''' </summary>
 #Region "AuditSched Functions"
     Public Sub InsertAuditScheds(auditSched As AuditSched) Implements IAideService.InsertAuditSched
-        MyBase.InsertAuditSched(AuditSched)
+        MyBase.InsertAuditSched(auditSched)
     End Sub
 
     Public Function GetAuditScheds(empID As Integer, year As Integer) As List(Of AuditSched) Implements IAideService.GetAuditSched
@@ -978,9 +981,10 @@ Public Class AIDEService
     End Function
 
     Public Sub UpdateAuditScheds(auditSched As AuditSched) Implements IAideService.UpdateAuditSched
-        MyBase.UpdateAuditSched(AuditSched)
+        MyBase.UpdateAuditSched(auditSched)
     End Sub
 
 #End Region
+
 
 End Class
