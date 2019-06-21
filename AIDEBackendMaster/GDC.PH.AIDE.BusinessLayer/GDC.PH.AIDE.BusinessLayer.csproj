@@ -95,6 +95,8 @@
     <Compile Include="clsLessonLearnt.cs" />
     <Compile Include="clsLessonLearntFactory.cs" />
     <Compile Include="clsLessonLearntKeys.cs" />
+    <Compile Include="clsMailConfig.cs" />
+    <Compile Include="clsMailConfigFactory.cs" />
     <Compile Include="clsProfile.cs" />
     <Compile Include="clsProfileFactory.cs" />
     <Compile Include="clsProfileKeys.cs" />
@@ -107,6 +109,9 @@
     <Compile Include="clsSabaLearning.cs" />
     <Compile Include="clsSabaLearningFactory.cs" />
     <Compile Include="clsSabaLearningKeys.cs" />
+    <Compile Include="clsSendCode.cs" />
+    <Compile Include="clsSendCodeFactory.cs" />
+    <Compile Include="clsSendCodeKey.cs" />
     <Compile Include="clsSkills.cs" />
     <Compile Include="clsSkillsFactory.cs" />
     <Compile Include="clsSkillsKeys.cs" />
@@ -139,10 +144,12 @@
     <Compile Include="DataLayer\clsEmployeeSql.cs" />
     <Compile Include="DataLayer\clsLateSql.cs" />
     <Compile Include="DataLayer\clsLessonLearntSql.cs" />
+    <Compile Include="DataLayer\clsMailConfigSql.cs" />
     <Compile Include="DataLayer\clsProfileSql.cs" />
     <Compile Include="DataLayer\clsProjectSql.cs" />
     <Compile Include="DataLayer\clsResourcePlannerSql.cs" />
     <Compile Include="DataLayer\clsSabaLearningSql.cs" />
+    <Compile Include="DataLayer\clsSendCodeSql.cs" />
     <Compile Include="DataLayer\clsSkillsSql.cs" />
     <Compile Include="DataLayer\clsSuccessRegisterSql.cs" />
     <Compile Include="DataLayer\clsTasksSql.cs" />

@@ -1,0 +1,26 @@
+USE AIDE
+
+GO
+
+/****** Object:  Table [dbo].[SEND_CODE_CONFIG]    Script Date: 6/10/2019 2:25:09 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+DELETE FROM SEND_CODE_CONFIG
+
+DECLARE @EncryptBin VARBINARY(200)
+SET @EncryptBin = ENCRYPTBYPASSPHRASE('fujitsu.key.001', 'aide123!')
+
+INSERT INTO SEND_CODE_CONFIG
+VALUES('aide.autosendemailcode@gmail.com','AIDE Access Code','ACCESS CODE : ',587,'smtp.gmail.com',1,30000,0,(Select CONVERT(VARCHAR(MAX), @EncryptBin,1)),120)
+
+GO
+
+SET ANSI_PADDING OFF
+GO

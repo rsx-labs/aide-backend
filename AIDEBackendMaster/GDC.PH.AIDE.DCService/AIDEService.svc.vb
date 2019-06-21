@@ -986,5 +986,20 @@ Public Class AIDEService
 
 #End Region
 
+#Region "Send Email Code"
+    Public Function GetWorkEmailByEmails(email As String) As SendCode Implements IAideService.GetWorkEmailbyEmail
+        Dim SendCodeItem As SendCode = Nothing
+        MyBase.GetWorkEmailbyEmail(email, SendCodeItem)
+        Return SendCodeItem
+    End Function
+#End Region
+
+#Region "Mail Config"
+    Public Function GetMailConfigs() As MailConfig Implements IAideService.GetMailConfig
+        Dim MailConfigItem As MailConfig = Nothing
+        MyBase.GetMailConfig(MailConfigItem)
+        Return MailConfigItem
+    End Function
+#End Region
 
 End Class

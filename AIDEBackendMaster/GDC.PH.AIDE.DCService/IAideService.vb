@@ -594,6 +594,19 @@ Public Interface IAideService
     Sub UpdateAuditSched(ByVal auditSched As AuditSched)
 
 #End Region
+#Region "SendCode Operation Contracts"
+
+    <OperationContract()>
+    Function GetWorkEmailbyEmail(ByVal email As String) As SendCode
+
+#End Region
+
+#Region "MailConfig Operation Contracts"
+
+    <OperationContract()>
+    Function GetMailConfig() As MailConfig
+
+#End Region
 
 End Interface
 #End Region
@@ -1849,6 +1862,67 @@ Public Class NonBillableHours
 
     <DataMember()>
     Public Property Year As Short
+
+End Class
+#End Region
+
+#Region "SendCode Data Contracts"
+''' <summary>
+''' By Jester Sanchez/ Lemuela Abulencia
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class SendCode
+
+    <DataMember()>
+    Public Property Work_Email As String
+
+    <DataMember()>
+    Public Property FName As String
+
+    <DataMember()>
+    Public Property LName As String
+
+End Class
+#End Region
+#Region "Mail Config Data Contracts"
+''' <summary>
+''' By Jester Sanchez/ Lemuela Abulencia
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class MailConfig
+
+    <DataMember()>
+    Public Property SenderEmail As String
+
+    <DataMember()>
+    Public Property Subject As String
+
+    <DataMember()>
+    Public Property Body As String
+
+    <DataMember()>
+    Public Property Port As Integer
+
+    <DataMember()>
+    Public Property Host As String
+
+    <DataMember()>
+    Public Property EnableSSL As Integer
+
+    <DataMember()>
+    Public Property Timeout As Integer
+
+    <DataMember()>
+    Public Property UseDfltCredentials As Integer
+
+    <DataMember()>
+    Public Property SenderPassword As String
+
+    <DataMember()>
+    Public Property PasswordExpiry As Integer
+
 
 End Class
 #End Region

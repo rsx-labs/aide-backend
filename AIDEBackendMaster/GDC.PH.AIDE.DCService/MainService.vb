@@ -27,6 +27,8 @@ Public MustInherit Class MainService
     Private Shared ComcellClockMgmt As ComcellClockManagement
 	Private Shared WeeklyReportMgmt As WeeklyReportManagement
 	Private Shared AuditSchedMgmt As AuditSchedManagement
+    Private Shared SendCodeMgmt As SendCodeManagement
+    Private Shared MailConfigMgmt As MailConfigManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -57,6 +59,8 @@ Public MustInherit Class MainService
 		AuditSchedMgmt = New AuditSchedManagement()
         ComcellClockMgmt = New ComcellClockManagement()
 		WeeklyReportMgmt = New WeeklyReportManagement()
+        SendCodeMgmt = New SendCodeManagement()
+        MailConfigMgmt = New MailConfigManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2383,6 +2387,42 @@ Public MustInherit Class MainService
             Next
         End If
         Return audtiSchedLst
+    End Function
+
+#End Region
+
+#Region "Send Code"
+
+    ''' </summary>
+    ''' <remarks></remarks>
+
+    Public Overrides Function GetWorkEmailbyEmail(email As String, ByRef objResult As SendCode) As Boolean
+        Dim state As StateData = SendCodeMgmt.GetWorkEmailbyEmail(email)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+#End Region
+
+#Region "Mail Config"
+
+    ''' </summary>
+    ''' <remarks></remarks>
+
+    Public Overloads Overrides Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
+        Dim state As StateData = MailConfigMgmt.GetMailConfig()
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 
 #End Region

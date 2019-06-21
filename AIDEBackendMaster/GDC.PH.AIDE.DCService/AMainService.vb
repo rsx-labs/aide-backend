@@ -349,4 +349,11 @@
     MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
 #End Region
 
+#Region "SendCode Method"
+    MustOverride Function GetWorkEmailbyEmail(ByVal email As String, ByRef objResult As SendCode) As Boolean
+#End Region
+
+#Region "MailConfig Method"
+    MustOverride Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
+#End Region
 End Class
