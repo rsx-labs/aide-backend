@@ -29,6 +29,7 @@ Public MustInherit Class MainService
 	Private Shared AuditSchedMgmt As AuditSchedManagement
     Private Shared SendCodeMgmt As SendCodeManagement
     Private Shared MailConfigMgmt As MailConfigManagement
+	Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -61,6 +62,7 @@ Public MustInherit Class MainService
 		WeeklyReportMgmt = New WeeklyReportManagement()
         SendCodeMgmt = New SendCodeManagement()
         MailConfigMgmt = New MailConfigManagement()
+		WorkplaceAuditMgmt = New WorkplaceAuditManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2423,6 +2425,72 @@ Public MustInherit Class MainService
         End If
         ReceivedData(state)
         Return bSuccess
+    End Function
+
+#End Region
+
+#Region "Workplace Audit"
+    Public Overrides Function InsertAuditDaily(workplaceAudit As WorkplaceAudit) As Boolean
+        Dim state As StateData = WorkplaceAuditMgmt.InsertAuditDaily(workplaceAudit)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    'Public Overrides Function UpdateAuditSched(audtiSched As AuditSched) As Boolean
+    '    Dim state As StateData = AuditSchedMgmt.UpdateAuditSched(audtiSched)
+    '    Dim bSuccess As Boolean = False
+    '    If state.NotifyType = NotifyType.IsSuccess Then
+    '        bSuccess = True
+    '    End If
+    '    ReceivedData(state)
+    '    Return bSuccess
+    'End Function
+
+    Public Overrides Function GetAuditDaily(ByVal empID As Integer, ByVal parmData As Date) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAuditDaily(empID, parmData)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.AUDIT_DAILY_ID = _list.AUDIT_DAILY_ID
+                item.FY_WEEK = _list.FY_WEEK
+                item.EMP_ID = _list.EMP_ID
+                item.AUDIT_QUESTIONS_ID = _list.AUDIT_QUESTIONS_ID
+                item.STATUS = _list.STATUS
+                item.DT_CHECKED = _list.DT_CHECKED
+
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+
+    Public Overrides Function GetAuditQuestions(ByVal empID As Integer, ByVal questionsGroup As String) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAuditQuestions(empID, questionsGroup)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.AUDIT_QUESTIONS_ID = _list.AUDIT_QUESTIONS_ID
+                item.EMP_ID = _list.EMP_ID
+                item.AUDIT_QUESTIONS = _list.AUDIT_QUESTIONS
+                item.OWNER = _list.OWNER
+                item.AUDIT_QUESTIONS_GROUP = _list.AUDIT_QUESTIONS_GROUP
+
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
     End Function
 
 #End Region

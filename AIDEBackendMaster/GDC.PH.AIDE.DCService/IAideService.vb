@@ -608,6 +608,21 @@ Public Interface IAideService
 
 #End Region
 
+#Region "Workplace Audit Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAuditDaily(ByVal auditSched As WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetAuditDaily(ByVal empID As Integer, ByVal parmDate As Date) As List(Of WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
+
+    '<OperationContract(IsOneWay:=True)>
+    'Sub UpdateAuditSched(ByVal auditSched As AuditSched)
+
+#End Region
+
 End Interface
 #End Region
 
@@ -1924,6 +1939,39 @@ Public Class MailConfig
     Public Property PasswordExpiry As Integer
 
 
+End Class
+#End Region
+
+#Region "Wokrplace Audit Data Contract"
+<DataContract()>
+Public Class WorkplaceAudit
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS_ID As Integer
+
+    <DataMember()>
+    Public Property EMP_ID As Integer
+
+    <DataMember()>
+    Public Property FY_WEEK As Integer
+
+    <DataMember()>
+    Public Property AUDIT_DAILY_ID As Integer
+
+    <DataMember()>
+    Public Property STATUS As Integer
+
+    <DataMember()>
+    Public Property DT_CHECKED As Date
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS As String
+
+    <DataMember()>
+    Public Property OWNER As String
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS_GROUP As String
 End Class
 #End Region
 

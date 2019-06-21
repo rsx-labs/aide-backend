@@ -93,6 +93,7 @@
     <Compile Include="Entity\SuccessRegisterSet.vb" />
     <Compile Include="Entity\TasksSet.vb" />
     <Compile Include="Entity\TasksSummarySet.vb" />
+    <Compile Include="Entity\WorkplaceAuditSet.vb" />
     <Compile Include="Exception\ComCellClockNotFoundException.vb" />
     <Compile Include="Entity\WeeklyReportSet.vb" />
     <Compile Include="Entity\WeekRangeSet.vb" />
@@ -135,6 +136,7 @@
     <Compile Include="Interface\ITasksSummary.vb" />
     <Compile Include="Interface\IWeeklyReport.vb" />
     <Compile Include="Interface\IWeekRange.vb" />
+    <Compile Include="Interface\IWorkplaceAuditSet.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

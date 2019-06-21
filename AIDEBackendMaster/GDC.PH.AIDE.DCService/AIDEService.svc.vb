@@ -1002,4 +1002,26 @@ Public Class AIDEService
     End Function
 #End Region
 
+   ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "Workplace Audit Functions"
+    Public Sub InsertAuditDailys(auditSched As WorkplaceAudit) Implements IAideService.InsertAuditDaily
+        MyBase.InsertAuditDaily(auditSched)
+    End Sub
+
+    Public Function GetAuditDailys(empID As Integer, parmDate As Date) As List(Of WorkplaceAudit) Implements IAideService.GetAuditDaily
+        Return MyBase.GetAuditDaily(empID, parmDate)
+    End Function
+
+    Public Function GetAuditQuestionss(empID As Integer, questionGroup As String) As List(Of WorkplaceAudit) Implements IAideService.GetAuditQuestions
+        Return MyBase.GetAuditQuestions(empID, questionGroup)
+    End Function
+
+    'Public Sub UpdateAuditScheds(auditSched As WorkplaceAudit) Implements IAideService.UpdateAuditSched
+    '    MyBase.UpdateAuditSched(auditSched)
+    'End Sub
+
+#End Region
+
 End Class

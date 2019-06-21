@@ -356,4 +356,11 @@
 #Region "MailConfig Method"
     MustOverride Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
 #End Region
+
+#Region "Workplace Audit methods"
+    MustOverride Function InsertAuditDaily(ByVal auditSched As WorkplaceAudit) As Boolean
+    MustOverride Function GetAuditDaily(ByVal empID As Integer, ByVal parmDate As Date) As List(Of WorkplaceAudit)
+    MustOverride Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
+    'MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
+#End Region
 End Class
