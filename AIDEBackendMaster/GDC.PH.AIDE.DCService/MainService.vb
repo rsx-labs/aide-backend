@@ -27,6 +27,9 @@ Public MustInherit Class MainService
     Private Shared ComcellClockMgmt As ComcellClockManagement
 	Private Shared WeeklyReportMgmt As WeeklyReportManagement
 	Private Shared AuditSchedMgmt As AuditSchedManagement
+    Private Shared SendCodeMgmt As SendCodeManagement
+    Private Shared MailConfigMgmt As MailConfigManagement
+	Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -57,6 +60,9 @@ Public MustInherit Class MainService
 		AuditSchedMgmt = New AuditSchedManagement()
         ComcellClockMgmt = New ComcellClockManagement()
 		WeeklyReportMgmt = New WeeklyReportManagement()
+        SendCodeMgmt = New SendCodeManagement()
+        MailConfigMgmt = New MailConfigManagement()
+		WorkplaceAuditMgmt = New WorkplaceAuditManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -403,6 +409,7 @@ Public MustInherit Class MainService
 
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
 
                 lstNicknameList.Add(item)
             Next
@@ -427,8 +434,8 @@ Public MustInherit Class MainService
                 item.EmpID = _list.EmpID
                 item.EMADDRESS = _list.EMADDRESS
                 item.EMADDRESS2 = _list.EMADDRESS2
-                item.POS_ID = _list.POS_ID
-                item.DESCRIPTION = _list.DESCRIPTION
+                item.POSITION = _list.POSITION
+                item.MARITAL_STATUS = _list.MARITAL_STATUS
                 item.HOUSEPHONE = _list.HOUSEPHONE
                 item.OTHERPHONE = _list.OTHERPHONE
                 item.LOC = _list.LOC
@@ -438,6 +445,15 @@ Public MustInherit Class MainService
                 item.FIRST_NAME = _list.FIRST_NAME
                 item.LAST_NAME = _list.LAST_NAME
                 item.IMAGE_PATH = _list.IMAGE_PATH
+                item.MIDDLE_NAME = _list.MIDDLE_NAME
+                item.Nick_Name = _list.Nick_Name
+                item.STATUS = _list.STATUS
+                item.PERMISSION_GROUP = _list.PERMISSION_GROUP
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.DIVISION = _list.DIVISION
+                item.SHIFT = _list.SHIFT
+                item.BIRTHDATE = _list.BIRTHDATE
+                item.DT_HIRED = _list.DT_HIRED
 
                 lstContactList.Add(item)
             Next
@@ -1904,6 +1920,7 @@ Public MustInherit Class MainService
 
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
 
                 lstNicknameList.Add(item)
             Next
@@ -2062,6 +2079,7 @@ Public MustInherit Class MainService
             Dim announcements As List(Of Announcements) = DirectCast(state.Data, List(Of Announcements))
             For Each _list As Announcements In announcements
                 Dim item As New Announcements
+                item.ANNOUNCEMENT_ID = _list.ANNOUNCEMENT_ID
                 item.EMP_ID = _list.EMP_ID
                 item.MESSAGE = _list.MESSAGE
                 item.TITLE = _list.TITLE
@@ -2071,6 +2089,16 @@ Public MustInherit Class MainService
             Next
         End If
         Return announcementsLst
+    End Function
+
+    Public Overrides Function UpdateAnnouncements(announcements As Announcements) As Boolean
+        Dim state As StateData = AnnouncementsMgmt.UpdateAnnouncements(announcements)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 #End Region
 
@@ -2235,8 +2263,8 @@ Public MustInherit Class MainService
 
 #Region "Comcell Clock"
 
-    ''' </summary>
-    ''' <remarks></remarks>
+    ' </summary>
+    ' <remarks></remarks>
 
     Public Overrides Function GetClockTimeByEmployee(empID As Integer, ByRef objResult As ComcellClock) As Boolean
         Dim state As StateData = ComcellClockMgmt.GetClockTime(empID)
@@ -2372,6 +2400,108 @@ Public MustInherit Class MainService
             Next
         End If
         Return audtiSchedLst
+    End Function
+
+#End Region
+
+#Region "Send Code"
+
+    '</summary>
+    ' <remarks></remarks>
+
+    Public Overrides Function GetWorkEmailbyEmail(email As String, ByRef objResult As SendCode) As Boolean
+        Dim state As StateData = SendCodeMgmt.GetWorkEmailbyEmail(email)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+#End Region
+
+#Region "Mail Config"
+
+    ' </summary>
+    ' <remarks></remarks>
+
+    Public Overloads Overrides Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
+        Dim state As StateData = MailConfigMgmt.GetMailConfig()
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = False
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+#End Region
+
+#Region "Workplace Audit"
+    Public Overrides Function InsertAuditDaily(workplaceAudit As WorkplaceAudit) As Boolean
+        Dim state As StateData = WorkplaceAuditMgmt.InsertAuditDaily(workplaceAudit)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    'Public Overrides Function UpdateAuditSched(audtiSched As AuditSched) As Boolean
+    '    Dim state As StateData = AuditSchedMgmt.UpdateAuditSched(audtiSched)
+    '    Dim bSuccess As Boolean = False
+    '    If state.NotifyType = NotifyType.IsSuccess Then
+    '        bSuccess = True
+    '    End If
+    '    ReceivedData(state)
+    '    Return bSuccess
+    'End Function
+
+    Public Overrides Function GetAuditDaily(ByVal empID As Integer, ByVal parmData As Date) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAuditDaily(empID, parmData)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.AUDIT_DAILY_ID = _list.AUDIT_DAILY_ID
+                item.FY_WEEK = _list.FY_WEEK
+                item.EMP_ID = _list.EMP_ID
+                item.AUDIT_QUESTIONS_ID = _list.AUDIT_QUESTIONS_ID
+                item.STATUS = _list.STATUS
+                item.DT_CHECKED = _list.DT_CHECKED
+
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+
+    Public Overrides Function GetAuditQuestions(ByVal empID As Integer, ByVal questionsGroup As String) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAuditQuestions(empID, questionsGroup)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.AUDIT_QUESTIONS_ID = _list.AUDIT_QUESTIONS_ID
+                item.EMP_ID = _list.EMP_ID
+                item.AUDIT_QUESTIONS = _list.AUDIT_QUESTIONS
+                item.OWNER = _list.OWNER
+                item.AUDIT_QUESTIONS_GROUP = _list.AUDIT_QUESTIONS_GROUP
+
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
     End Function
 
 #End Region

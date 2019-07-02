@@ -303,6 +303,7 @@
 #Region "Announcements methods"
     MustOverride Function InsertAnnouncements(ByVal commendations As Announcements) As Boolean
     MustOverride Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+    MustOverride Function UpdateAnnouncements(ByVal commendations As Announcements) As Boolean
 #End Region
 
 #Region "Late methods"
@@ -348,4 +349,18 @@
     MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
 #End Region
 
+#Region "SendCode Method"
+    MustOverride Function GetWorkEmailbyEmail(ByVal email As String, ByRef objResult As SendCode) As Boolean
+#End Region
+
+#Region "MailConfig Method"
+    MustOverride Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
+#End Region
+
+#Region "Workplace Audit methods"
+    MustOverride Function InsertAuditDaily(ByVal auditSched As WorkplaceAudit) As Boolean
+    MustOverride Function GetAuditDaily(ByVal empID As Integer, ByVal parmDate As Date) As List(Of WorkplaceAudit)
+    MustOverride Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
+    'MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
+#End Region
 End Class

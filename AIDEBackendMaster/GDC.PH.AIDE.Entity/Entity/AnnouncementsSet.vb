@@ -102,4 +102,24 @@ Public Class AnnouncementsSet
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    End Class
+    Public Property ANNOUNCEMENT_ID As Integer Implements IAnnouncementsSet.ANNOUNCEMENT_ID
+        Get
+            Return Me.cAnnouncements.ANNOUNCEMENT_ID
+        End Get
+        Set(value As Integer)
+            cAnnouncements.ANNOUNCEMENT_ID = value
+        End Set
+    End Property
+
+    Public Function UpdateAnnouncements(message As AnnouncementsSet) As Boolean Implements IAnnouncementsSet.UpdateAnnouncements
+        Try
+            Return Me.cAnnouncementsFactory.UpdateAnnouncements(cAnnouncements)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Update Announcement Register Failed!")
+            End If
+        End Try
+    End Function
+End Class

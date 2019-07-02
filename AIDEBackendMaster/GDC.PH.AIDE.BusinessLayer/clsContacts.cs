@@ -21,11 +21,21 @@ namespace GDC.PH.AIDE.BusinessLayer
             HOMEPHONE,
             OTHER_PHONE,
             DT_REVIEWED,
-            POS_ID,
-            DESCR,
+            POSITION,
+            MARITAL_STATUS,
             FIRST_NAME,
             LAST_NAME,
-            IMAGE_PATH
+            MIDDLE_NAME,
+            IMAGE_PATH,
+            NICK_NAME,
+            BIRTHDATE,
+            DT_HIRED,
+            STATUS,
+            PERMISSION_GROUP,
+            DEPARTMENT,
+            DIVISION,
+            SHIFT
+
         }
         #endregion
 
@@ -40,12 +50,20 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _hOMEPHONE;
         string _oTHER_PHONE;
         DateTime _dT_REVIEWED;
-        int _pos_ID;
-        string _descr;
+        string _POSITION;
+        string _MARITAL_STATUS;
         string _first_name;
         string _last_name;
+        string _middle_name;
         object _image_path;
-
+        string _nick_name;
+        DateTime _birthdate;
+        DateTime _dtHired;
+        string _status;
+        string _permission_group;
+        string _department;
+        string _division;
+        string _shift;
         #endregion
 
         #region Properties
@@ -167,28 +185,28 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public int POS_ID
+        public string POSITION
         {
-            get { return _pos_ID; }
+            get { return _POSITION; }
             set
             {
-                if (_pos_ID != value)
+                if (_POSITION != value)
                 {
-                    _pos_ID = value;
-                    PropertyHasChanged("POS_ID");
+                    _POSITION = value;
+                    PropertyHasChanged("POSITION");
                 }
             }
         }
 
-        public string DESCR
+        public string MARITAL_STATUS
         {
-            get { return _descr; }
+            get { return MARITAL_STATUS; }
             set
             {
-                if (_descr != value)
+                if (_MARITAL_STATUS != value)
                 {
-                    _descr = value;
-                    PropertyHasChanged("DESCR");
+                    _MARITAL_STATUS = value;
+                    PropertyHasChanged("MARITAL_STATUS");
                 }
             }
         }
@@ -232,6 +250,122 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public string NICK_NAME
+        {
+            get { return _nick_name; }
+            set
+            {
+                if (_nick_name != value)
+                {
+                    _nick_name = value;
+                    PropertyHasChanged("NICK_NAME");
+                }
+            }
+        }
+
+        public string MIDDLE_NAME
+        {
+            get { return _middle_name; }
+            set
+            {
+                if (_middle_name != value)
+                {
+                    _middle_name = value;
+                    PropertyHasChanged("MIDDLE_NAME");
+                }
+            }
+        }
+
+        public DateTime BIRTHDATE
+        {
+            get { return _birthdate; }
+            set
+            {
+                if (_birthdate != value)
+                {
+                    _birthdate = value;
+                    PropertyHasChanged("BIRTHDATE");
+                }
+            }
+        }
+
+        public DateTime DT_HIRED
+        {
+            get { return _dtHired; }
+            set
+            {
+                if (_dtHired != value)
+                {
+                    _dtHired = value;
+                    PropertyHasChanged("DT_HIRED");
+                }
+            }
+        }
+
+        public string STATUS
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    PropertyHasChanged("STATUS");
+                }
+            }
+        }
+
+        public string PERMISSION_GROUP
+        {
+            get { return _permission_group; }
+            set
+            {
+                if (_permission_group != value)
+                {
+                    _permission_group = value;
+                    PropertyHasChanged("PERMISSION_GROUP");
+                }
+            }
+        }
+
+        public string DEPARTMENT
+        {
+            get { return _department; }
+            set
+            {
+                if (_department != value)
+                {
+                    _department = value;
+                    PropertyHasChanged("DEPARTMENT");
+                }
+            }
+        }
+
+        public string DIVISION
+        {
+            get { return _division; }
+            set
+            {
+                if (_division != value)
+                {
+                    _division = value;
+                    PropertyHasChanged("DIVISION");
+                }
+            }
+        }
+
+        public string SHIFT
+        {
+            get { return _shift; }
+            set
+            {
+                if (_shift != value)
+                {
+                    _shift = value;
+                    PropertyHasChanged("SHIFT");
+                }
+            }
+        }
         #endregion
 
         #region Validation
@@ -249,7 +383,15 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("HOMEPHONE", "HOMEPHONE", 10));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("OTHER_PHONE", "OTHER_PHONE", 15));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_REVIEWED", "DT_REVIEWED"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("POS_ID", "POS_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("POSITION", "POSITION"));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICK_NAME", "NICK_NAME", 50));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("DT_HIRED", "DT_HIRED", 15));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_HIRED", "DT_HIRED"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("STATUS", "STATUS"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION_GROUP", "PERMISSION_GROUP"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPARTMENT", "DEPARTMENT"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DIVISION", "DIVISION"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("SHIFT", "SHIFT"));
         }
 
         #endregion

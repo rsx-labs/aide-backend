@@ -512,6 +512,9 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetAnnouncements(ByVal empID As Integer) As List(Of Announcements)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateAnnouncements(ByVal announcements As Announcements)
 #End Region
 
 #Region "Late Operation Contracts"
@@ -589,6 +592,34 @@ Public Interface IAideService
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateAuditSched(ByVal auditSched As AuditSched)
+
+#End Region
+#Region "SendCode Operation Contracts"
+
+    <OperationContract()>
+    Function GetWorkEmailbyEmail(ByVal email As String) As SendCode
+
+#End Region
+
+#Region "MailConfig Operation Contracts"
+
+    <OperationContract()>
+    Function GetMailConfig() As MailConfig
+
+#End Region
+
+#Region "Workplace Audit Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAuditDaily(ByVal auditSched As WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetAuditDaily(ByVal empID As Integer, ByVal parmDate As Date) As List(Of WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
+
+    '<OperationContract(IsOneWay:=True)>
+    'Sub UpdateAuditSched(ByVal auditSched As AuditSched)
 
 #End Region
 
@@ -1088,6 +1119,8 @@ Public Class Nickname
     Public Property Emp_ID As Integer
     <DataMember()>
     Public Property Nick_Name As String
+    <DataMember()>
+    Public Property First_Name As String
 
 End Class
 #End Region
@@ -1122,10 +1155,10 @@ Public Class ContactList
     Public Property LOC As String
 
     <DataMember()>
-    Public Property DESCRIPTION As String
+    Public Property MARITAL_STATUS As String
 
     <DataMember()>
-    Public Property POS_ID As Integer
+    Public Property POSITION As Integer
 
     <DataMember()>
     Public Property OTHERPHONE As String
@@ -1144,6 +1177,33 @@ Public Class ContactList
 
     <DataMember()>
     Public Property IMAGE_PATH As String
+
+    <DataMember()>
+    Public Property MIDDLE_NAME As String
+
+    <DataMember()>
+    Public Property Nick_Name As String
+
+    <DataMember()>
+    Public Property STATUS As String
+
+    <DataMember()>
+    Public Property PERMISSION_GROUP As String
+
+    <DataMember()>
+    Public Property DEPARTMENT As String
+
+    <DataMember()>
+    Public Property DIVISION As String
+
+    <DataMember()>
+    Public Property SHIFT As String
+
+    <DataMember()>
+    Public Property BIRTHDATE As Date
+
+    <DataMember()>
+    Public Property DT_HIRED As Date
 End Class
 #End Region
 
@@ -1561,6 +1621,8 @@ End Class
 Public Class Announcements
 
     <DataMember()>
+    Public Property ANNOUNCEMENT_ID As Integer
+    <DataMember()>
     Public Property EMP_ID As Integer
     <DataMember()>
     Public Property MESSAGE As String
@@ -1845,6 +1907,100 @@ Public Class NonBillableHours
     <DataMember()>
     Public Property Year As Short
 
+End Class
+#End Region
+
+#Region "SendCode Data Contracts"
+''' <summary>
+''' By Jester Sanchez/ Lemuela Abulencia
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class SendCode
+
+    <DataMember()>
+    Public Property Work_Email As String
+
+    <DataMember()>
+    Public Property FName As String
+
+    <DataMember()>
+    Public Property LName As String
+
+End Class
+#End Region
+#Region "Mail Config Data Contracts"
+''' <summary>
+''' By Jester Sanchez/ Lemuela Abulencia
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class MailConfig
+
+    <DataMember()>
+    Public Property SenderEmail As String
+
+    <DataMember()>
+    Public Property Subject As String
+
+    <DataMember()>
+    Public Property Body As String
+
+    <DataMember()>
+    Public Property Port As Integer
+
+    <DataMember()>
+    Public Property Host As String
+
+    <DataMember()>
+    Public Property EnableSSL As Integer
+
+    <DataMember()>
+    Public Property Timeout As Integer
+
+    <DataMember()>
+    Public Property UseDfltCredentials As Integer
+
+    <DataMember()>
+    Public Property SenderPassword As String
+
+    <DataMember()>
+    Public Property PasswordExpiry As Integer
+
+
+End Class
+#End Region
+
+#Region "Wokrplace Audit Data Contract"
+<DataContract()>
+Public Class WorkplaceAudit
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS_ID As Integer
+
+    <DataMember()>
+    Public Property EMP_ID As Integer
+
+    <DataMember()>
+    Public Property FY_WEEK As Integer
+
+    <DataMember()>
+    Public Property AUDIT_DAILY_ID As Integer
+
+    <DataMember()>
+    Public Property STATUS As Integer
+
+    <DataMember()>
+    Public Property DT_CHECKED As Date
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS As String
+
+    <DataMember()>
+    Public Property OWNER As String
+
+    <DataMember()>
+    Public Property AUDIT_QUESTIONS_GROUP As String
 End Class
 #End Region
 

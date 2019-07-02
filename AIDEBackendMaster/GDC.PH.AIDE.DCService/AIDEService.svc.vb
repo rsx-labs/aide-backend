@@ -853,14 +853,16 @@ Public Class AIDEService
     ''' By Jhunell Barcenas
     ''' </summary>
 #Region "Announcements Functions"
-    Public Sub InsertAnnouncementss(commendations As Announcements) Implements IAideService.InsertAnnouncements
-        MyBase.InsertAnnouncements(commendations)
+    Public Sub InsertAnnouncementss(announcements As Announcements) Implements IAideService.InsertAnnouncements
+        MyBase.InsertAnnouncements(announcements)
     End Sub
 
     Public Function GetAnnouncementss(empID As Integer) As List(Of Announcements) Implements IAideService.GetAnnouncements
         Return MyBase.GetAnnouncements(empID)
     End Function
-
+    Public Sub UpdateAnnouncementss(announcements As Announcements) Implements IAideService.UpdateAnnouncements
+        MyBase.UpdateAnnouncements(announcements)
+    End Sub
 #End Region
 
     ''' <summary>
@@ -970,7 +972,7 @@ Public Class AIDEService
     ''' </summary>
 #Region "AuditSched Functions"
     Public Sub InsertAuditScheds(auditSched As AuditSched) Implements IAideService.InsertAuditSched
-        MyBase.InsertAuditSched(AuditSched)
+        MyBase.InsertAuditSched(auditSched)
     End Sub
 
     Public Function GetAuditScheds(empID As Integer, year As Integer) As List(Of AuditSched) Implements IAideService.GetAuditSched
@@ -978,8 +980,46 @@ Public Class AIDEService
     End Function
 
     Public Sub UpdateAuditScheds(auditSched As AuditSched) Implements IAideService.UpdateAuditSched
-        MyBase.UpdateAuditSched(AuditSched)
+        MyBase.UpdateAuditSched(auditSched)
     End Sub
+
+#End Region
+
+#Region "Send Email Code"
+    Public Function GetWorkEmailByEmails(email As String) As SendCode Implements IAideService.GetWorkEmailbyEmail
+        Dim SendCodeItem As SendCode = Nothing
+        MyBase.GetWorkEmailbyEmail(email, SendCodeItem)
+        Return SendCodeItem
+    End Function
+#End Region
+
+#Region "Mail Config"
+    Public Function GetMailConfigs() As MailConfig Implements IAideService.GetMailConfig
+        Dim MailConfigItem As MailConfig = Nothing
+        MyBase.GetMailConfig(MailConfigItem)
+        Return MailConfigItem
+    End Function
+#End Region
+
+   ''' <summary>
+    ''' By Jhunell Barcenas
+    ''' </summary>
+#Region "Workplace Audit Functions"
+    Public Sub InsertAuditDailys(auditSched As WorkplaceAudit) Implements IAideService.InsertAuditDaily
+        MyBase.InsertAuditDaily(auditSched)
+    End Sub
+
+    Public Function GetAuditDailys(empID As Integer, parmDate As Date) As List(Of WorkplaceAudit) Implements IAideService.GetAuditDaily
+        Return MyBase.GetAuditDaily(empID, parmDate)
+    End Function
+
+    Public Function GetAuditQuestionss(empID As Integer, questionGroup As String) As List(Of WorkplaceAudit) Implements IAideService.GetAuditQuestions
+        Return MyBase.GetAuditQuestions(empID, questionGroup)
+    End Function
+
+    'Public Sub UpdateAuditScheds(auditSched As WorkplaceAudit) Implements IAideService.UpdateAuditSched
+    '    MyBase.UpdateAuditSched(auditSched)
+    'End Sub
 
 #End Region
 
