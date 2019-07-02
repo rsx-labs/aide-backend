@@ -20,6 +20,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             WHOSINVOLVE,
             ADDITIONALINFORMATION,
             NICK_NAME,
+            FIRST_NAME,
             DEPT_ID
         }
 
@@ -34,6 +35,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         private string _detailsofsuccess;
         private string _whosinvolve;
         private string _nickname;
+        private string _firstname;
         private string _additionalinformation;
 
         #endregion
@@ -91,6 +93,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public string FIRST_NAME
+        {
+            get { return _firstname; }
+            set
+            {
+                if (_firstname != value)
+                {
+                    _firstname = value;
+                    PropertyHasChanged("FIRST_NAME");
+                }
+            }
+        }
+        
         public System.Nullable<DateTime> DATE_INPUT
         {
             get { return _date_input; }
@@ -155,7 +170,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("DETAILSOFSUCCESS", "DETAILSOFSUCCESS", 160));
 
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICK_NAME", "NICK_NAME", 160));
-
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("FIRST_NAME", "FIRST_NAME", 160));
+            
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WHOSINVOLVE", "WHOSINVOLVE"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("WHOSINVOLVE", "WHOSINVOLVE", 160));
 
@@ -176,6 +192,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             EMP_ID,
             NICK_NAME,
+            FIRST_NAME,
             TO_DISPLAY
         }
 
@@ -185,6 +202,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         private int _EMP_ID;
         private string _NICKNAME;
+        private string _firstname;
         private int _TO_DISPLAY;
         #endregion
 
@@ -216,6 +234,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public string FIRST_NAME
+        {
+            get { return _firstname; }
+            set
+            {
+                if (_firstname != value)
+                {
+                    _firstname = value;
+                    PropertyHasChanged("FIRST_NAME");
+                }
+            }
+        }
+
         public int TO_DISPLAY
         {
             get { return _TO_DISPLAY; }
@@ -237,6 +268,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("NICKNAME", "NICKNAME"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICKNAME", "NICKNAME", 50));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("FIRST_NAME", "FIRST_NAME", 160));
         }
 
         #endregion

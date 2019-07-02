@@ -10,6 +10,7 @@ Public Interface ISuccessRegisterSet
     Property DetailsOfSuccess As String
     Property AdditionalInformation As String
     Property Nick_Name As String
+    Property First_Name As String
     Property DateInput As Date
     Property SuccessID As Integer
     Property DeptID As Integer
@@ -28,6 +29,7 @@ Public Interface INicknameSet
     Property EmpID As Integer
     Property Nick_Name As String
     Property ToDisplay As Integer
+    Property First_Name As String
 
     Function GetNicknameByDeptID(ByVal email As String, ByVal ToDisplay As Integer) As List(Of NicknameSet)
     Function GetEmployeePerProject(ByVal empID As Integer, ByVal projID As Integer) As List(Of NicknameSet)

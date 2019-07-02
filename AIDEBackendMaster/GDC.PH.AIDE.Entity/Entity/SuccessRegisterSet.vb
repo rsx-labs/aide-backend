@@ -73,6 +73,15 @@ Public Class SuccessRegisterSet
             NotifyPropertyChanged()
         End Set
     End Property
+    Public Property First_Name As String Implements ISuccessRegisterSet.First_Name
+        Get
+            Return IIf(IsDBNull(Me.cSuccessRegister.FIRST_NAME), "", Me.cSuccessRegister.FIRST_NAME)
+        End Get
+        Set(value As String)
+            Me.cSuccessRegister.FIRST_NAME = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
     Public Property WhosInvolve As String Implements ISuccessRegisterSet.WhosInvolve
         Get
             Return IIf(IsDBNull(Me.cSuccessRegister.WhosInvolve), "", Me.cSuccessRegister.WhosInvolve)
@@ -267,6 +276,16 @@ Public Class NicknameSet
         End Get
         Set(value As String)
             Me.cNickname.NICK_NAME = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property First_Name As String Implements INicknameSet.First_Name
+        Get
+            Return IIf(IsDBNull(Me.cNickname.FIRST_NAME), "", Me.cNickname.FIRST_NAME)
+        End Get
+        Set(value As String)
+            Me.cNickname.FIRST_NAME = value
             NotifyPropertyChanged()
         End Set
     End Property
