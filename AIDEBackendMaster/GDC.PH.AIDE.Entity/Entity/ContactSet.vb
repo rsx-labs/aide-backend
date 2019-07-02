@@ -97,21 +97,21 @@ Public Class ContactSet
         End Set
     End Property
 
-    Public Property DESCRIPTION As String Implements IContact.DESCR
+    Public Property MARITAL_STATUS As String Implements IContact.MARITAL_STATUS
         Get
-            Return Me.cContact.DESCR
+            Return Me.cContact.MARITAL_STATUS
         End Get
         Set(value As String)
-            Me.cContact.DESCR = value
+            Me.cContact.MARITAL_STATUS = value
         End Set
     End Property
 
-    Public Property POS_ID As Integer Implements IContact.POS_ID
+    Public Property POSITION As String Implements IContact.POSITION
         Get
-            Return Me.cContact.POS_ID
+            Return Me.cContact.POSITION
         End Get
-        Set(value As Integer)
-            Me.cContact.POS_ID = value
+        Set(value As String)
+            Me.cContact.POSITION = value
         End Set
     End Property
 
@@ -148,6 +148,95 @@ Public Class ContactSet
         End Get
         Set(value As String)
             Me.cContact.IMAGE_PATH = value
+        End Set
+    End Property
+
+    Public Property NICK_NAME As String Implements IContact.NICK_NAME
+        Get
+            Return Me.cContact.NICK_NAME
+        End Get
+        Set(value As String)
+            Me.cContact.NICK_NAME = value
+        End Set
+    End Property
+
+    Public Property MIDDLE_NAME As String Implements IContact.MIDDLE_NAME
+        Get
+            Return Me.cContact.MIDDLE_NAME
+        End Get
+        Set(value As String)
+            Me.cContact.MIDDLE_NAME = value
+        End Set
+    End Property
+
+    Public Property STATUS As String Implements IContact.STATUS
+        Get
+            Return Me.cContact.STATUS
+        End Get
+        Set(value As String)
+            Me.cContact.STATUS = value
+        End Set
+    End Property
+
+    Public Property PERMISSION_GROUP As String Implements IContact.PERMISSION_GROUP
+        Get
+            Return Me.cContact.PERMISSION_GROUP
+        End Get
+        Set(value As String)
+            Me.cContact.PERMISSION_GROUP = value
+        End Set
+    End Property
+
+    Public Property DEPARTMENT As String Implements IContact.DEPARTMENT
+        Get
+            Return Me.cContact.DEPARTMENT
+        End Get
+        Set(value As String)
+            Me.cContact.DEPARTMENT = value
+        End Set
+    End Property
+
+    Public Property DIVISION As String Implements IContact.DIVISION
+        Get
+            Return Me.cContact.DIVISION
+        End Get
+        Set(value As String)
+            Me.cContact.DIVISION = value
+        End Set
+    End Property
+
+    Public Property SHIFT As String Implements IContact.SHIFT
+        Get
+            Return Me.cContact.SHIFT
+        End Get
+        Set(value As String)
+            Me.cContact.SHIFT = value
+        End Set
+    End Property
+
+    Public Property BIRTHDATE As Date Implements IContact.BIRTHDATE
+        Get
+            If IsNothing(Me.cContact.BIRTHDATE) Then
+                Return Now.ToString()
+            Else
+                Return Me.cContact.BIRTHDATE
+            End If
+        End Get
+        Set(value As Date)
+            value = Me.cContact.BIRTHDATE
+        End Set
+    End Property
+
+    Public Property DT_HIRED As Date Implements IContact.DT_HIRED
+        Get
+            If IsNothing(Me.cContact.DT_HIRED) Then
+                Return Now.ToString()
+            Else
+                Return Me.cContact.DT_HIRED
+            End If
+        End Get
+        Set(value As Date)
+            value = Me.cContact.DT_HIRED
         End Set
     End Property
 

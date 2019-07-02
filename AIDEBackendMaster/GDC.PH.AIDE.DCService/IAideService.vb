@@ -1119,6 +1119,8 @@ Public Class Nickname
     Public Property Emp_ID As Integer
     <DataMember()>
     Public Property Nick_Name As String
+    <DataMember()>
+    Public Property First_Name As String
 
 End Class
 #End Region
@@ -1153,10 +1155,10 @@ Public Class ContactList
     Public Property LOC As String
 
     <DataMember()>
-    Public Property DESCRIPTION As String
+    Public Property MARITAL_STATUS As String
 
     <DataMember()>
-    Public Property POS_ID As Integer
+    Public Property POSITION As Integer
 
     <DataMember()>
     Public Property OTHERPHONE As String
@@ -1175,6 +1177,33 @@ Public Class ContactList
 
     <DataMember()>
     Public Property IMAGE_PATH As String
+
+    <DataMember()>
+    Public Property MIDDLE_NAME As String
+
+    <DataMember()>
+    Public Property Nick_Name As String
+
+    <DataMember()>
+    Public Property STATUS As String
+
+    <DataMember()>
+    Public Property PERMISSION_GROUP As String
+
+    <DataMember()>
+    Public Property DEPARTMENT As String
+
+    <DataMember()>
+    Public Property DIVISION As String
+
+    <DataMember()>
+    Public Property SHIFT As String
+
+    <DataMember()>
+    Public Property BIRTHDATE As Date
+
+    <DataMember()>
+    Public Property DT_HIRED As Date
 End Class
 #End Region
 

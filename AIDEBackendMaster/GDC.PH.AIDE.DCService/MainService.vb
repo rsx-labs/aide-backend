@@ -409,6 +409,7 @@ Public MustInherit Class MainService
 
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
 
                 lstNicknameList.Add(item)
             Next
@@ -433,8 +434,8 @@ Public MustInherit Class MainService
                 item.EmpID = _list.EmpID
                 item.EMADDRESS = _list.EMADDRESS
                 item.EMADDRESS2 = _list.EMADDRESS2
-                item.POS_ID = _list.POS_ID
-                item.DESCRIPTION = _list.DESCRIPTION
+                item.POSITION = _list.POSITION
+                item.MARITAL_STATUS = _list.MARITAL_STATUS
                 item.HOUSEPHONE = _list.HOUSEPHONE
                 item.OTHERPHONE = _list.OTHERPHONE
                 item.LOC = _list.LOC
@@ -444,6 +445,15 @@ Public MustInherit Class MainService
                 item.FIRST_NAME = _list.FIRST_NAME
                 item.LAST_NAME = _list.LAST_NAME
                 item.IMAGE_PATH = _list.IMAGE_PATH
+                item.MIDDLE_NAME = _list.MIDDLE_NAME
+                item.Nick_Name = _list.Nick_Name
+                item.STATUS = _list.STATUS
+                item.PERMISSION_GROUP = _list.PERMISSION_GROUP
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.DIVISION = _list.DIVISION
+                item.SHIFT = _list.SHIFT
+                item.BIRTHDATE = _list.BIRTHDATE
+                item.DT_HIRED = _list.DT_HIRED
 
                 lstContactList.Add(item)
             Next
@@ -1910,6 +1920,7 @@ Public MustInherit Class MainService
 
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
 
                 lstNicknameList.Add(item)
             Next
@@ -2252,8 +2263,8 @@ Public MustInherit Class MainService
 
 #Region "Comcell Clock"
 
-    ''' </summary>
-    ''' <remarks></remarks>
+    ' </summary>
+    ' <remarks></remarks>
 
     Public Overrides Function GetClockTimeByEmployee(empID As Integer, ByRef objResult As ComcellClock) As Boolean
         Dim state As StateData = ComcellClockMgmt.GetClockTime(empID)
@@ -2394,10 +2405,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Send Code"
-
-    ''' </summary>
-    ''' <remarks></remarks>
-
+    '</summary>
+    ' <remarks></remarks>
     Public Overrides Function GetWorkEmailbyEmail(email As String, ByRef objResult As SendCode) As Boolean
         Dim state As StateData = SendCodeMgmt.GetWorkEmailbyEmail(email)
         Dim bSuccess As Boolean = False
@@ -2412,10 +2421,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Mail Config"
-
-    ''' </summary>
-    ''' <remarks></remarks>
-
+    ' </summary>
+    ' <remarks></remarks>
     Public Overloads Overrides Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
         Dim state As StateData = MailConfigMgmt.GetMailConfig()
         Dim bSuccess As Boolean = False

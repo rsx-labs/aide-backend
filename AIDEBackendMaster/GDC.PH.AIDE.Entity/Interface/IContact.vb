@@ -9,11 +9,20 @@ Public Interface IContact
     Property HOMEPHONE As String
     Property OTHER_PHONE As String
     Property DT_REVIEWED As Date
-    Property POS_ID As Integer
-    Property DESCR As String
+    Property POSITION As String
+    Property MARITAL_STATUS As String
     Property FIRST_NAME As String
     Property LAST_NAME As String
     Property IMAGE_PATH As String
+    Property MIDDLE_NAME As String
+    Property NICK_NAME As String
+    Property BIRTHDATE As Date
+    Property DT_HIRED As Date
+    Property STATUS As String
+    Property PERMISSION_GROUP As String
+    Property DEPARTMENT As String
+    Property DIVISION As String
+    Property SHIFT As String
 
     Function GetContactsByID(ByVal EMP_ID As Integer)
     Function GetAllContacts(ByVal email As String) As List(Of ContactSet)

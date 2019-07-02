@@ -16,8 +16,8 @@ Public Class ContactListManagement
         contactData.EmpID = objContacts.EmpID
         contactData.EMADDRESS = objContacts.EMADDRESS
         contactData.EMADDRESS2 = objContacts.EMADDRESS2
-        contactData.POS_ID = objContacts.POS_ID
-        contactData.DESCRIPTION = objContacts.DESCRIPTION
+        contactData.POSITION = objContacts.POSITION
+        contactData.MARITAL_STATUS = objContacts.MARITAL_STATUS
         contactData.HOUSEPHONE = objContacts.HOUSEPHONE
         contactData.OTHERPHONE = objContacts.OTHERPHONE
         contactData.LOC = objContacts.LOC
@@ -27,6 +27,15 @@ Public Class ContactListManagement
         contactData.FIRST_NAME = objContacts.FIRST_NAME
         contactData.LAST_NAME = objContacts.LAST_NAME
         contactData.IMAGE_PATH = objContacts.IMAGE_PATH
+        contactData.Nick_Name = objContacts.NICK_NAME
+        contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
+        contactData.STATUS = objContacts.STATUS
+        contactData.PERMISSION_GROUP = objContacts.PERMISSION_GROUP
+        contactData.DEPARTMENT = objContacts.DEPARTMENT
+        contactData.DIVISION = objContacts.DIVISION
+        contactData.SHIFT = objContacts.SHIFT
+        contactData.BIRTHDATE = objContacts.BIRTHDATE
+        contactData.DT_HIRED = objContacts.DT_HIRED
 
         Return contactData
     End Function
@@ -135,14 +144,24 @@ Public Class ContactListManagement
         contactData.EmpID = objContacts.EmpID
         contactData.EMADDRESS = objContacts.EMADDRESS
         contactData.EMADDRESS2 = objContacts.EMADDRESS2
-        contactData.POS_ID = objContacts.POS_ID
-        contactData.DESCRIPTION = objContacts.DESCRIPTION
+        contactData.POSITION = objContacts.POSITION
+        contactData.MARITAL_STATUS = objContacts.MARITAL_STATUS
         contactData.HOUSEPHONE = objContacts.HOUSEPHONE
         contactData.OTHERPHONE = objContacts.OTHERPHONE
         contactData.LOC = objContacts.LOC
         contactData.lOCAL = objContacts.lOCAL
         contactData.CELL_NO = objContacts.CELL_NO
         contactData.DateReviewed = objContacts.DateReviewed
+        contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
+        contactData.NICK_NAME = objContacts.Nick_Name
+        contactData.STATUS = objContacts.STATUS
+        contactData.PERMISSION_GROUP = objContacts.PERMISSION_GROUP
+        contactData.DEPARTMENT = objContacts.DEPARTMENT
+        contactData.DIVISION = objContacts.DIVISION
+        contactData.SHIFT = objContacts.SHIFT
+        contactData.BIRTHDATE = objContacts.BIRTHDATE
+        contactData.DT_HIRED = objContacts.DT_HIRED
+
         objResult = contactData
     End Sub
 End Class
