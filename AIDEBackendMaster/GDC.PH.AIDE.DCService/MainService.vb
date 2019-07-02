@@ -2405,10 +2405,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Send Code"
-
     '</summary>
     ' <remarks></remarks>
-
     Public Overrides Function GetWorkEmailbyEmail(email As String, ByRef objResult As SendCode) As Boolean
         Dim state As StateData = SendCodeMgmt.GetWorkEmailbyEmail(email)
         Dim bSuccess As Boolean = False
@@ -2423,10 +2421,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Mail Config"
-
     ' </summary>
     ' <remarks></remarks>
-
     Public Overloads Overrides Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
         Dim state As StateData = MailConfigMgmt.GetMailConfig()
         Dim bSuccess As Boolean = False

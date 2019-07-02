@@ -17,6 +17,7 @@ End Enum
 Public Class AIDEService
     Inherits MainService
     Implements IAideService
+
     Implements IAideService2
 
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()

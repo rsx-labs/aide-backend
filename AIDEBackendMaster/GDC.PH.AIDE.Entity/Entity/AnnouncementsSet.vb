@@ -9,6 +9,8 @@ Public Class AnnouncementsSet
     Implements IAnnouncementsSet, INotifyPropertyChanged
 
 
+
+
     Private cAnnouncements As clsAnnouncements
     Private cAnnouncementsFactory As clsAnnouncementsFactory
 

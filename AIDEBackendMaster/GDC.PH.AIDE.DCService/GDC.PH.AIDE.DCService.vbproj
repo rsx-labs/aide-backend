@@ -127,13 +127,16 @@
     <Compile Include="MainService.vb" />
     <Compile Include="Management\LateManagement.vb" />
     <Compile Include="Management\LessonLearntManagement.vb" />
+    <Compile Include="Management\MailConfigManagement.vb" />
     <Compile Include="Management\ManagementBase.vb" />
     <Compile Include="Management\ProjectManagement.vb" />
     <Compile Include="Management\ResourcePlannerManagement.vb" />
     <Compile Include="Management\SabaLearningManagement.vb" />
+    <Compile Include="Management\SendCodeManagement.vb" />
     <Compile Include="Management\SkillsManagement.vb" />
     <Compile Include="Management\SuccessRegisterManagement.vb" />
     <Compile Include="Management\WeeklyReportManagement.vb" />
+    <Compile Include="Management\WorkplaceAuditManagement.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
