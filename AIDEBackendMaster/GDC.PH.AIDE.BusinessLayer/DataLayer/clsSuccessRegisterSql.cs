@@ -330,6 +330,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsNickname.clsNicknameFields.EMP_ID.ToString()));
             businessObject.NICK_NAME = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.NICK_NAME.ToString()));
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.EMPLOYEE_NAME.ToString()));
             
         }
 

@@ -410,6 +410,7 @@ Public MustInherit Class MainService
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
                 item.First_Name = _list.First_Name
+                item.Employee_Name = _list.Employee_Name
 
                 lstNicknameList.Add(item)
             Next
@@ -447,13 +448,19 @@ Public MustInherit Class MainService
                 item.IMAGE_PATH = _list.IMAGE_PATH
                 item.MIDDLE_NAME = _list.MIDDLE_NAME
                 item.Nick_Name = _list.Nick_Name
-                item.STATUS = _list.STATUS
+                item.ACTIVE = _list.ACTIVE
+                'item.STATUS = _list.STATUS
                 item.PERMISSION_GROUP = _list.PERMISSION_GROUP
                 item.DEPARTMENT = _list.DEPARTMENT
                 item.DIVISION = _list.DIVISION
                 item.SHIFT = _list.SHIFT
                 item.BIRTHDATE = _list.BIRTHDATE
                 item.DT_HIRED = _list.DT_HIRED
+                'item.MARITAL_STATUS_ID = _list.MARITAL_STATUS_ID
+                'item.POSITION_ID = _list.POSITION_ID
+                'item.PERMISSION_GROUP_ID = _list.PERMISSION_GROUP_ID
+                'item.DEPARTMENT_ID = _list.DEPARTMENT_ID
+                'item.DIVISION_ID = _list.DIVISION_ID
 
                 lstContactList.Add(item)
             Next
@@ -1921,7 +1928,7 @@ Public MustInherit Class MainService
                 item.Emp_ID = _list.Emp_ID
                 item.Nick_Name = _list.Nick_Name
                 item.First_Name = _list.First_Name
-
+                item.Employee_Name = _list.Employee_Name
                 lstNicknameList.Add(item)
             Next
         End If

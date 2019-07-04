@@ -18,11 +18,18 @@ Public Interface IContact
     Property NICK_NAME As String
     Property BIRTHDATE As Date
     Property DT_HIRED As Date
-    Property STATUS As String
+    'Property STATUS As String
     Property PERMISSION_GROUP As String
     Property DEPARTMENT As String
     Property DIVISION As String
     Property SHIFT As String
+    Property ACTIVE As Integer
+    'Property MARITAL_STATUS_ID As Integer
+    'Property POSITION_ID As Integer
+    'Property PERMISSION_GROUP_ID As Integer
+    'Property DEPARTMENT_ID As Integer
+    'Property DIVISION_ID As Integer
+
 
     Function GetContactsByID(ByVal EMP_ID As Integer)
     Function GetAllContacts(ByVal email As String) As List(Of ContactSet)

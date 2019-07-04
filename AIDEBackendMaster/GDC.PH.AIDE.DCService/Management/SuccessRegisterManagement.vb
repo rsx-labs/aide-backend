@@ -29,6 +29,7 @@ Public Class SuccessRegisterManagement
         Dim nicknamedata As New Nickname
         nicknamedata.Emp_ID = objNickname.EmpID
         nicknamedata.Nick_Name = objNickname.Nick_Name
+        nicknamedata.Employee_Name = objNickname.Employee_Name
 
         Return nicknamedata
     End Function

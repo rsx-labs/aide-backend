@@ -8,6 +8,8 @@ Public Class ContactSet
 
     Implements IContact, INotifyPropertyChanged
 
+
+
     Private cContact As clsContacts
     Private cContactFactory As clsContactsFactory
 
@@ -169,14 +171,14 @@ Public Class ContactSet
         End Set
     End Property
 
-    Public Property STATUS As String Implements IContact.STATUS
-        Get
-            Return Me.cContact.STATUS
-        End Get
-        Set(value As String)
-            Me.cContact.STATUS = value
-        End Set
-    End Property
+    'Public Property STATUS As String Implements IContact.STATUS
+    '    Get
+    '        Return Me.cContact.STATUS
+    '    End Get
+    '    Set(value As String)
+    '        Me.cContact.STATUS = value
+    '    End Set
+    'End Property
 
     Public Property PERMISSION_GROUP As String Implements IContact.PERMISSION_GROUP
         Get
@@ -239,6 +241,59 @@ Public Class ContactSet
             value = Me.cContact.DT_HIRED
         End Set
     End Property
+
+    Public Property ACTIVE As Integer Implements IContact.ACTIVE
+        Get
+            Return Me.cContact.ACTIVE
+        End Get
+        Set(value As Integer)
+            Me.cContact.ACTIVE = value
+        End Set
+    End Property
+
+    'Public Property DEPARTMENT_ID As Integer Implements IContact.DEPARTMENT_ID
+    '    Get
+    '        Return Me.cContact.DEPARTMENT_ID
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.cContact.DEPARTMENT_ID = value
+    '    End Set
+    'End Property
+
+    'Public Property DIVISION_ID As Integer Implements IContact.DIVISION_ID
+    '    Get
+    '        Return Me.cContact.DIVISION_ID
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.cContact.DIVISION_ID = value
+    '    End Set
+    'End Property
+
+    'Public Property MARITAL_STATUS_ID As Integer Implements IContact.MARITAL_STATUS_ID
+    '    Get
+    '        Return Me.cContact.MARITAL_STATUS_ID
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.cContact.MARITAL_STATUS_ID = value
+    '    End Set
+    'End Property
+
+    'Public Property PERMISSION_GROUP_ID As Integer Implements IContact.PERMISSION_GROUP_ID
+    '    Get
+    '        Return Me.cContact.PERMISSION_GROUP_ID
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.cContact.PERMISSION_GROUP_ID = value
+    '    End Set
+    'End Property
+    'Public Property POSITION_ID As Integer Implements IContact.POSITION_ID
+    '    Get
+    '        Return Me.cContact.POSITION_ID
+    '    End Get
+    '    Set(value As Integer)
+    '        Me.cContact.POSITION_ID = value
+    '    End Set
+    'End Property
 
     Public Function GetContactsByID(EMP_ID As Integer) As Object Implements IContact.GetContactsByID
         Try
@@ -330,4 +385,7 @@ Public Class ContactSet
     'End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
+
+
+
 End Class

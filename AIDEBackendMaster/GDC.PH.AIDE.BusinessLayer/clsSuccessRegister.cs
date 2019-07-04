@@ -22,6 +22,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             NICK_NAME,
             FIRST_NAME,
             DEPT_ID
+
         }
 
         #endregion
@@ -158,6 +159,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+
         #endregion
 
         #region "Validation"
@@ -193,7 +195,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             EMP_ID,
             NICK_NAME,
             FIRST_NAME,
-            TO_DISPLAY
+            TO_DISPLAY,
+            EMPLOYEE_NAME
         }
 
         #endregion
@@ -204,6 +207,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         private string _NICKNAME;
         private string _firstname;
         private int _TO_DISPLAY;
+        private string _employeename;
         #endregion
 
         #region "Properties"
@@ -260,6 +264,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public string EMPLOYEE_NAME
+        {
+            get { return _employeename; }
+            set
+            {
+                if (_employeename != value)
+                {
+                    _employeename = value;
+                    PropertyHasChanged("EMPLOYEE_NAME");
+                }
+            }
+        }
+
         #endregion
 
         #region "Validation"
@@ -269,6 +286,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("NICKNAME", "NICKNAME"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICKNAME", "NICKNAME", 50));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("FIRST_NAME", "FIRST_NAME", 160));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("EMPLOYEE_NAME", "EMPLOYEE_NAME", 160));
         }
 
         #endregion

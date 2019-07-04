@@ -332,12 +332,37 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="dataReader">data reader</param>
         internal void PopulateBusinessObjectFromReader(clsContacts businessObject, IDataReader dataReader)
         {
-            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMP_ID.ToString()));
-
-            businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMAIL_ADDRESS.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMP_ID.ToString())); //1
+            businessObject.LAST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.LAST_NAME.ToString()));          
             businessObject.FIRST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.FIRST_NAME.ToString()));
-            businessObject.LAST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.LAST_NAME.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.MIDDLE_NAME.ToString())))
+            {
+                businessObject.MIDDLE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.MIDDLE_NAME.ToString()));
+            }
+            else
+            {
+                businessObject.MIDDLE_NAME = String.Empty;
+            }
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.NICK_NAME.ToString())))
+            {
+                businessObject.NICK_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.NICK_NAME.ToString()));
+            }
+            else
+            {
+                businessObject.NICK_NAME = String.Empty;
+            }
+            businessObject.ACTIVE = dataReader.GetInt16(dataReader.GetOrdinal(clsContacts.clsContactsFields.ACTIVE.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.BIRTHDATE.ToString())))
+            {
+                businessObject.BIRTHDATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsContacts.clsContactsFields.BIRTHDATE.ToString()));
+            }
+            businessObject.POSITION = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.POSITION.ToString()));
 
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_HIRED.ToString())))
+            {
+                businessObject.DT_HIRED = dataReader.GetDateTime(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_HIRED.ToString()));
+            }
+            businessObject.MARITAL_STATUS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.MARITAL_STATUS.ToString()));
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.IMAGE_PATH.ToString())))
             {
                 businessObject.IMAGE_PATH = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.IMAGE_PATH.ToString()));
@@ -346,7 +371,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.IMAGE_PATH = String.Empty;
             }
-
+            businessObject.PERMISSION_GROUP = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.PERMISSION_GROUP.ToString()));
+            businessObject.DEPARTMENT = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.DEPARTMENT.ToString()));
+            businessObject.DIVISION = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.DIVISION.ToString()));
+            businessObject.SHIFT = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.SHIFT.ToString()));
+            businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMAIL_ADDRESS.ToString()));
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMAIL_ADDRESS2.ToString())))
             {
                 businessObject.EMAIL_ADDRESS2 = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.EMAIL_ADDRESS2.ToString()));
@@ -355,7 +384,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.EMAIL_ADDRESS2 = String.Empty;
             }
-
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.LOCATION.ToString())))
             {
                 businessObject.LOCATION = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.LOCATION.ToString()));
@@ -373,7 +401,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.CEL_NO = String.Empty;
             }
-                             
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.LOCAL.ToString())))
             {
                 businessObject.LOCAL = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.LOCAL.ToString()));
@@ -400,50 +427,18 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.OTHER_PHONE = String.Empty;
             }
-
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_REVIEWED.ToString())))
             {
                 businessObject.DT_REVIEWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_REVIEWED.ToString()));
             }
-            businessObject.POSITION = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.POSITION.ToString()));
-            businessObject.MARITAL_STATUS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.MARITAL_STATUS.ToString()));
-            businessObject.FIRST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.FIRST_NAME.ToString()));
-            businessObject.LAST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.LAST_NAME.ToString()));
+            //businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.STATUS.ToString()));
 
-            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.MIDDLE_NAME.ToString())))
-            {
-                businessObject.MIDDLE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.MIDDLE_NAME.ToString()));
-            }
-            else
-            {
-                businessObject.MIDDLE_NAME = String.Empty;
-            }
+            //businessObject.MARITAL_STATUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.MARITAL_STATUS_ID.ToString()));
+            //businessObject.POSITION_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.POSITION_ID.ToString()));
+            //businessObject.PERMISSION_GROUP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.PERMISSION_GROUP_ID.ToString()));
+            //businessObject.DEPARTMENT_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.DEPARTMENT_ID.ToString()));
+            //businessObject.DIVISION_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.DIVISION_ID.ToString()));
 
-            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.NICK_NAME.ToString())))
-            {
-                businessObject.NICK_NAME = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.NICK_NAME.ToString()));
-            }
-            else
-            {
-                businessObject.NICK_NAME = String.Empty;
-            }
-
-            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.BIRTHDATE.ToString())))
-            {
-                businessObject.BIRTHDATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsContacts.clsContactsFields.BIRTHDATE.ToString()));
-            }
-
-            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_HIRED.ToString())))
-            {
-                businessObject.DT_HIRED = dataReader.GetDateTime(dataReader.GetOrdinal(clsContacts.clsContactsFields.DT_HIRED.ToString()));
-            }
-
-            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.STATUS.ToString()));
-            businessObject.PERMISSION_GROUP = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.PERMISSION_GROUP.ToString()));
-            businessObject.DEPARTMENT = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.DEPARTMENT.ToString()));
-            businessObject.DIVISION = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.DIVISION.ToString()));
-            businessObject.SHIFT = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.SHIFT.ToString()));
-            
         }
 
         /// <summary>

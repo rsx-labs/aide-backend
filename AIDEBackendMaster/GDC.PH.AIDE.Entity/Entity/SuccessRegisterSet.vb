@@ -245,6 +245,7 @@ End Class
 Public Class NicknameSet
     Implements INotifyPropertyChanged, INicknameSet
 
+
     Private cNickname As clsNickname
     Private cNicknamefactory As clsNicknameFactory
 
@@ -296,6 +297,16 @@ Public Class NicknameSet
         End Get
         Set(value As Integer)
             Me.cNickname.TO_DISPLAY = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property Employee_Name As String Implements INicknameSet.Employee_Name
+        Get
+            Return Me.cNickname.EMPLOYEE_NAME
+        End Get
+        Set(value As String)
+            Me.cNickname.EMPLOYEE_NAME = value
             NotifyPropertyChanged()
         End Set
     End Property
@@ -390,4 +401,6 @@ Public Class NicknameSet
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
+
+    
 End Class

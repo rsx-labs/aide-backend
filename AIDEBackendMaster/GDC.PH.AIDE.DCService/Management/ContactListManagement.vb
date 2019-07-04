@@ -29,7 +29,8 @@ Public Class ContactListManagement
         contactData.IMAGE_PATH = objContacts.IMAGE_PATH
         contactData.Nick_Name = objContacts.NICK_NAME
         contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
-        contactData.STATUS = objContacts.STATUS
+        contactData.ACTIVE = objContacts.ACTIVE
+        'contactData.STATUS = objContacts.STATUS
         contactData.PERMISSION_GROUP = objContacts.PERMISSION_GROUP
         contactData.DEPARTMENT = objContacts.DEPARTMENT
         contactData.DIVISION = objContacts.DIVISION
@@ -154,7 +155,8 @@ Public Class ContactListManagement
         contactData.DateReviewed = objContacts.DateReviewed
         contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
         contactData.NICK_NAME = objContacts.Nick_Name
-        contactData.STATUS = objContacts.STATUS
+        contactData.ACTIVE = objContacts.ACTIVE
+        'contactData.STATUS = objContacts.STATUS
         contactData.PERMISSION_GROUP = objContacts.PERMISSION_GROUP
         contactData.DEPARTMENT = objContacts.DEPARTMENT
         contactData.DIVISION = objContacts.DIVISION
