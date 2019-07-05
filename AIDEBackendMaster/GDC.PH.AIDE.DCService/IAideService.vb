@@ -1210,7 +1210,7 @@ Public Class ContactList
     Public Property DT_HIRED As Date
 
     <DataMember()>
-    Public Property MARITAL_STATUS_ID As Integer
+    Public Property MARITAL_STATUS_ID As String
 
     <DataMember()>
     Public Property POSITION_ID As Integer
@@ -1223,6 +1223,9 @@ Public Class ContactList
 
     <DataMember()>
     Public Property DIVISION_ID As Integer
+
+    <DataMember()>
+    Public Property OLD_EMP_ID As Integer
 End Class
 #End Region
 

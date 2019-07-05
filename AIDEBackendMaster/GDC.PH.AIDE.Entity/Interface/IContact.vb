@@ -24,11 +24,12 @@ Public Interface IContact
     Property DIVISION As String
     Property SHIFT As String
     Property ACTIVE As Integer
-    'Property MARITAL_STATUS_ID As Integer
-    'Property POSITION_ID As Integer
-    'Property PERMISSION_GROUP_ID As Integer
-    'Property DEPARTMENT_ID As Integer
-    'Property DIVISION_ID As Integer
+    Property MARITAL_STATUS_ID As String
+    Property POSITION_ID As Integer
+    Property PERMISSION_GROUP_ID As Integer
+    Property DEPARTMENT_ID As Integer
+    Property DIVISION_ID As Integer
+    Property OLD_EMP_ID As Integer
 
 
     Function GetContactsByID(ByVal EMP_ID As Integer)

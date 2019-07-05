@@ -37,7 +37,11 @@ Public Class ContactListManagement
         contactData.SHIFT = objContacts.SHIFT
         contactData.BIRTHDATE = objContacts.BIRTHDATE
         contactData.DT_HIRED = objContacts.DT_HIRED
-
+        contactData.MARITAL_STATUS_ID = objContacts.MARITAL_STATUS_ID
+        contactData.POSITION_ID = objContacts.POSITION_ID
+        contactData.PERMISSION_GROUP_ID = objContacts.PERMISSION_GROUP_ID
+        contactData.DEPARTMENT_ID = objContacts.DEPARTMENT_ID
+        contactData.DIVISION_ID = objContacts.DIVISION_ID
         Return contactData
     End Function
 
@@ -143,26 +147,36 @@ Public Class ContactListManagement
         Dim objContacts As ContactList = DirectCast(objData, ContactList)
         Dim contactData As New ContactSet
         contactData.EmpID = objContacts.EmpID
-        contactData.EMADDRESS = objContacts.EMADDRESS
-        contactData.EMADDRESS2 = objContacts.EMADDRESS2
-        contactData.POSITION = objContacts.POSITION
-        contactData.MARITAL_STATUS = objContacts.MARITAL_STATUS
-        contactData.HOUSEPHONE = objContacts.HOUSEPHONE
-        contactData.OTHERPHONE = objContacts.OTHERPHONE
-        contactData.LOC = objContacts.LOC
-        contactData.lOCAL = objContacts.lOCAL
-        contactData.CELL_NO = objContacts.CELL_NO
-        contactData.DateReviewed = objContacts.DateReviewed
+        contactData.LAST_NAME = objContacts.LAST_NAME
+        contactData.FIRST_NAME = objContacts.FIRST_NAME
         contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
         contactData.NICK_NAME = objContacts.Nick_Name
         contactData.ACTIVE = objContacts.ACTIVE
+        contactData.BIRTHDATE = objContacts.BIRTHDATE
+        contactData.DT_HIRED = objContacts.DT_HIRED
+        contactData.IMAGE_PATH = objContacts.IMAGE_PATH
+        contactData.SHIFT = objContacts.SHIFT
+        contactData.EMADDRESS = objContacts.EMADDRESS
+        contactData.EMADDRESS2 = objContacts.EMADDRESS2
+        contactData.LOC = objContacts.LOC
+        contactData.CELL_NO = objContacts.CELL_NO
+        contactData.lOCAL = objContacts.lOCAL
+        contactData.HOUSEPHONE = objContacts.HOUSEPHONE
+        contactData.OTHERPHONE = objContacts.OTHERPHONE
+        contactData.DateReviewed = objContacts.DateReviewed
+        contactData.MARITAL_STATUS_ID = objContacts.MARITAL_STATUS_ID
+        contactData.POSITION_ID = objContacts.POSITION_ID
+        contactData.PERMISSION_GROUP_ID = objContacts.PERMISSION_GROUP_ID
+        contactData.DEPARTMENT_ID = objContacts.DEPARTMENT_ID
+        contactData.DIVISION_ID = objContacts.DIVISION_ID
+        contactData.OLD_EMP_ID = objContacts.OLD_EMP_ID
+
+        contactData.POSITION = objContacts.POSITION
+        contactData.MARITAL_STATUS = objContacts.MARITAL_STATUS
         'contactData.STATUS = objContacts.STATUS
         contactData.PERMISSION_GROUP = objContacts.PERMISSION_GROUP
         contactData.DEPARTMENT = objContacts.DEPARTMENT
         contactData.DIVISION = objContacts.DIVISION
-        contactData.SHIFT = objContacts.SHIFT
-        contactData.BIRTHDATE = objContacts.BIRTHDATE
-        contactData.DT_HIRED = objContacts.DT_HIRED
 
         objResult = contactData
     End Sub

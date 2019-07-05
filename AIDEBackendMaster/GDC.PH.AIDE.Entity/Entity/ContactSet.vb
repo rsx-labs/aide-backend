@@ -8,8 +8,6 @@ Public Class ContactSet
 
     Implements IContact, INotifyPropertyChanged
 
-
-
     Private cContact As clsContacts
     Private cContactFactory As clsContactsFactory
 
@@ -225,7 +223,7 @@ Public Class ContactSet
             End If
         End Get
         Set(value As Date)
-            value = Me.cContact.BIRTHDATE
+            Me.cContact.BIRTHDATE = value
         End Set
     End Property
 
@@ -238,7 +236,7 @@ Public Class ContactSet
             End If
         End Get
         Set(value As Date)
-            value = Me.cContact.DT_HIRED
+            Me.cContact.DT_HIRED = value
         End Set
     End Property
 
@@ -251,49 +249,59 @@ Public Class ContactSet
         End Set
     End Property
 
-    'Public Property DEPARTMENT_ID As Integer Implements IContact.DEPARTMENT_ID
-    '    Get
-    '        Return Me.cContact.DEPARTMENT_ID
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.cContact.DEPARTMENT_ID = value
-    '    End Set
-    'End Property
+    Public Property DEPARTMENT_ID As Integer Implements IContact.DEPARTMENT_ID
+        Get
+            Return Me.cContact.DEPARTMENT_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.DEPARTMENT_ID = value
+        End Set
+    End Property
 
-    'Public Property DIVISION_ID As Integer Implements IContact.DIVISION_ID
-    '    Get
-    '        Return Me.cContact.DIVISION_ID
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.cContact.DIVISION_ID = value
-    '    End Set
-    'End Property
+    Public Property DIVISION_ID As Integer Implements IContact.DIVISION_ID
+        Get
+            Return Me.cContact.DIVISION_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.DIVISION_ID = value
+        End Set
+    End Property
 
-    'Public Property MARITAL_STATUS_ID As Integer Implements IContact.MARITAL_STATUS_ID
-    '    Get
-    '        Return Me.cContact.MARITAL_STATUS_ID
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.cContact.MARITAL_STATUS_ID = value
-    '    End Set
-    'End Property
+    Public Property MARITAL_STATUS_ID As String Implements IContact.MARITAL_STATUS_ID
+        Get
+            Return Me.cContact.MARITAL_STATUS_ID
+        End Get
+        Set(value As String)
+            Me.cContact.MARITAL_STATUS_ID = value
+        End Set
+    End Property
 
-    'Public Property PERMISSION_GROUP_ID As Integer Implements IContact.PERMISSION_GROUP_ID
-    '    Get
-    '        Return Me.cContact.PERMISSION_GROUP_ID
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.cContact.PERMISSION_GROUP_ID = value
-    '    End Set
-    'End Property
-    'Public Property POSITION_ID As Integer Implements IContact.POSITION_ID
-    '    Get
-    '        Return Me.cContact.POSITION_ID
-    '    End Get
-    '    Set(value As Integer)
-    '        Me.cContact.POSITION_ID = value
-    '    End Set
-    'End Property
+    Public Property PERMISSION_GROUP_ID As Integer Implements IContact.PERMISSION_GROUP_ID
+        Get
+            Return Me.cContact.PERMISSION_GROUP_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.PERMISSION_GROUP_ID = value
+        End Set
+    End Property
+
+    Public Property POSITION_ID As Integer Implements IContact.POSITION_ID
+        Get
+            Return Me.cContact.POSITION_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.POSITION_ID = value
+        End Set
+    End Property
+
+    Public Property OLD_EMP_ID As Integer Implements IContact.OLD_EMP_ID
+        Get
+            Return Me.cContact.OLD_EMP_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.OLD_EMP_ID = value
+        End Set
+    End Property
 
     Public Function GetContactsByID(EMP_ID As Integer) As Object Implements IContact.GetContactsByID
         Try
@@ -385,7 +393,5 @@ Public Class ContactSet
     'End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
-
-
 
 End Class

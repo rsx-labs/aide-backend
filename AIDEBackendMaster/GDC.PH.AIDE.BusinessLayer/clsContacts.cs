@@ -35,11 +35,12 @@ namespace GDC.PH.AIDE.BusinessLayer
             HOMEPHONE,
             OTHER_PHONE,
             DT_REVIEWED,
-            //MARITAL_STATUS_ID,
-            //POSITION_ID,
-            //PERMISSION_GROUP_ID,
-            //DEPARTMENT_ID,
-            //DIVISION_ID
+            MARITAL_STATUS_ID,
+            POSITION_ID,
+            PERMISSION_GROUP_ID,
+            DEPARTMENT_ID,
+            DIVISION_ID,
+            OLD_EMP_ID
             //STATUS
         }
         #endregion
@@ -69,11 +70,12 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _hOMEPHONE;
         string _oTHER_PHONE;
         DateTime _dT_REVIEWED;
-        //int _marital_status_id;
-        //int _position_id;
-        //int _permission_group_id;
-        //int _department_id;
-        //int _division_id;
+        string _marital_status_id;
+        int _position_id;
+        int _permission_group_id;
+        int _department_id;
+        int _division_id;
+        int _old_emp_id;
         //string _status;
         #endregion
 
@@ -391,70 +393,82 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        //public int MARITAL_STATUS_ID
-        //{
-        //    get { return _marital_status_id; }
-        //    set
-        //    {
-        //        if (_marital_status_id != value)
-        //        {
-        //            _marital_status_id = value;
-        //            PropertyHasChanged("MARITAL_STATUS_ID");
-        //        }
-        //    }
-        //}
+        public string MARITAL_STATUS_ID
+        {
+            get { return _marital_status_id; }
+            set
+            {
+                if (_marital_status_id != value)
+                {
+                    _marital_status_id = value;
+                    PropertyHasChanged("MARITAL_STATUS_ID");
+                }
+            }
+        }
 
-        //public int POSITION_ID
-        //{
-        //    get { return _position_id; }
-        //    set
-        //    {
-        //        if (_position_id != value)
-        //        {
-        //            _position_id = value;
-        //            PropertyHasChanged("POSITION_ID");
-        //        }
-        //    }
-        //}
+        public int POSITION_ID
+        {
+            get { return _position_id; }
+            set
+            {
+                if (_position_id != value)
+                {
+                    _position_id = value;
+                    PropertyHasChanged("POSITION_ID");
+                }
+            }
+        }
 
-        //public int PERMISSION_GROUP_ID
-        //{
-        //    get { return _permission_group_id; }
-        //    set
-        //    {
-        //        if (_permission_group_id != value)
-        //        {
-        //            _permission_group_id = value;
-        //            PropertyHasChanged("PERMISSION_GROUP_ID");
-        //        }
-        //    }
-        //}
+        public int PERMISSION_GROUP_ID
+        {
+            get { return _permission_group_id; }
+            set
+            {
+                if (_permission_group_id != value)
+                {
+                    _permission_group_id = value;
+                    PropertyHasChanged("PERMISSION_GROUP_ID");
+                }
+            }
+        }
 
-        //public int DEPARTMENT_ID
-        //{
-        //    get { return _department_id; }
-        //    set
-        //    {
-        //        if (_department_id != value)
-        //        {
-        //            _department_id = value;
-        //            PropertyHasChanged("DEPARTMENT_ID");
-        //        }
-        //    }
-        //}
+        public int DEPARTMENT_ID
+        {
+            get { return _department_id; }
+            set
+            {
+                if (_department_id != value)
+                {
+                    _department_id = value;
+                    PropertyHasChanged("DEPARTMENT_ID");
+                }
+            }
+        }
 
-        //public int DIVISION_ID
-        //{
-        //    get { return _division_id; }
-        //    set
-        //    {
-        //        if (_division_id != value)
-        //        {
-        //            _division_id = value;
-        //            PropertyHasChanged("DIVISION_ID");
-        //        }
-        //    }
-        //}
+        public int DIVISION_ID
+        {
+            get { return _division_id; }
+            set
+            {
+                if (_division_id != value)
+                {
+                    _division_id = value;
+                    PropertyHasChanged("DIVISION_ID");
+                }
+            }
+        }
+        public int OLD_EMP_ID
+        {
+            get { return _old_emp_id; }
+            set
+            {
+                if (_old_emp_id != value)
+                {
+                    _old_emp_id = value;
+                    PropertyHasChanged("OLD_EMP_ID");
+                }
+            }
+        }
 
         #endregion
 
@@ -478,15 +492,13 @@ namespace GDC.PH.AIDE.BusinessLayer
             //ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("DT_HIRED", "DT_HIRED", 15));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_HIRED", "DT_HIRED"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION_GROUP", "PERMISSION_GROUP"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPARTMENT", "DEPARTMENT"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DIVISION", "DIVISION"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("SHIFT", "SHIFT"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ACTIVE", "ACTIVE"));
-            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MARITAL_STATUS_ID", "MARITAL_STATUS_ID"));
-            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("POSITION_ID", "POSITION_ID"));
-            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION_GROUP_ID", "PERMISSION_GROUP_ID"));
-            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPARTMENT_ID", "DEPARTMENT_ID"));
-            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DIVISION_ID", "DIVISION_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("POSITION_ID", "POSITION_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION_GROUP_ID", "PERMISSION_GROUP_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPARTMENT_ID", "DEPARTMENT_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DIVISION_ID", "DIVISION_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("OLD_EMP_ID", "OLD_EMP_ID"));
         }
 
         #endregion

@@ -456,11 +456,11 @@ Public MustInherit Class MainService
                 item.SHIFT = _list.SHIFT
                 item.BIRTHDATE = _list.BIRTHDATE
                 item.DT_HIRED = _list.DT_HIRED
-                'item.MARITAL_STATUS_ID = _list.MARITAL_STATUS_ID
-                'item.POSITION_ID = _list.POSITION_ID
-                'item.PERMISSION_GROUP_ID = _list.PERMISSION_GROUP_ID
-                'item.DEPARTMENT_ID = _list.DEPARTMENT_ID
-                'item.DIVISION_ID = _list.DIVISION_ID
+                item.MARITAL_STATUS_ID = _list.MARITAL_STATUS_ID
+                item.POSITION_ID = _list.POSITION_ID
+                item.PERMISSION_GROUP_ID = _list.PERMISSION_GROUP_ID
+                item.DEPARTMENT_ID = _list.DEPARTMENT_ID
+                item.DIVISION_ID = _list.DIVISION_ID
 
                 lstContactList.Add(item)
             Next

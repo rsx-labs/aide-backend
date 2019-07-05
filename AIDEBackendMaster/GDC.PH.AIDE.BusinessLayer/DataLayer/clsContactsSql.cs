@@ -46,16 +46,29 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
 
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LAST_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LAST_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@FIRST_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FIRST_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@MIDDLE_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MIDDLE_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACTIVE", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACTIVE));
+                sqlCommand.Parameters.Add(new SqlParameter("@BIRTHDATE", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BIRTHDATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@DT_HIRED", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DT_HIRED));
+                sqlCommand.Parameters.Add(new SqlParameter("@IMAGE_PATH", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IMAGE_PATH));
+                sqlCommand.Parameters.Add(new SqlParameter("@SHIFT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SHIFT));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS2", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS2));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCATION", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCATION));
-                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.VarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
+                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCAL", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCAL));
-                sqlCommand.Parameters.Add(new SqlParameter("@HOMEPHONE", SqlDbType.VarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.HOMEPHONE));
-                sqlCommand.Parameters.Add(new SqlParameter("@OTHERPHONE", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_PHONE));
-                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
-
+                sqlCommand.Parameters.Add(new SqlParameter("@HOMEPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.HOMEPHONE));
+                sqlCommand.Parameters.Add(new SqlParameter("@OTHERPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_PHONE));
+                sqlCommand.Parameters.Add(new SqlParameter("@DT_REVIEWED", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, System.DateTime.Now));
+                sqlCommand.Parameters.Add(new SqlParameter("@MARITAL_STATUS_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MARITAL_STATUS_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@POSITION_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.POSITION_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PERMISSION_GROUP_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERMISSION_GROUP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@OLD_EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OLD_EMP_ID));
+                
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
@@ -89,7 +102,16 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LAST_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LAST_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@FIRST_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FIRST_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@MIDDLE_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MIDDLE_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@ACTIVE", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ACTIVE));
+                sqlCommand.Parameters.Add(new SqlParameter("@BIRTHDATE", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BIRTHDATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@DT_HIRED", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DT_HIRED));
+                sqlCommand.Parameters.Add(new SqlParameter("@IMAGE_PATH", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.IMAGE_PATH));
+                sqlCommand.Parameters.Add(new SqlParameter("@SHIFT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SHIFT));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS2", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS2));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCATION", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCATION));
@@ -98,7 +120,13 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@HOMEPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.HOMEPHONE));
                 sqlCommand.Parameters.Add(new SqlParameter("@OTHERPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_PHONE));
                 sqlCommand.Parameters.Add(new SqlParameter("@DT_REVIEWED", SqlDbType.DateTime, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, System.DateTime.Now));
-                sqlCommand.Parameters.Add(new SqlParameter("@NICK_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.NICK_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@MARITAL_STATUS_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MARITAL_STATUS_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@POSITION_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.POSITION_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PERMISSION_GROUP_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERMISSION_GROUP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DEPARTMENT_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DEPARTMENT_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DIVISION_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DIVISION_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@OLD_EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OLD_EMP_ID));
+                
 
                 MainConnection.Open();
 
@@ -433,11 +461,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             //businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.STATUS.ToString()));
 
-            //businessObject.MARITAL_STATUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.MARITAL_STATUS_ID.ToString()));
-            //businessObject.POSITION_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.POSITION_ID.ToString()));
-            //businessObject.PERMISSION_GROUP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.PERMISSION_GROUP_ID.ToString()));
-            //businessObject.DEPARTMENT_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.DEPARTMENT_ID.ToString()));
-            //businessObject.DIVISION_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsContacts.clsContactsFields.DIVISION_ID.ToString()));
+            businessObject.MARITAL_STATUS_ID = dataReader.GetString(dataReader.GetOrdinal(clsContacts.clsContactsFields.MARITAL_STATUS_ID.ToString()));
+            businessObject.POSITION_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsContacts.clsContactsFields.POSITION_ID.ToString()));
+            businessObject.PERMISSION_GROUP_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsContacts.clsContactsFields.PERMISSION_GROUP_ID.ToString()));
+            businessObject.DEPARTMENT_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsContacts.clsContactsFields.DEPARTMENT_ID.ToString()));
+            businessObject.DIVISION_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsContacts.clsContactsFields.DIVISION_ID.ToString()));
 
         }
 
