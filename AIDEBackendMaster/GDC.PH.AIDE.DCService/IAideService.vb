@@ -300,10 +300,10 @@ Public Interface IAideService
 #Region "Contact List Operation Contracts"
 
     <OperationContract()>
-    Function ViewContactListAll(ByVal email As String) As List(Of ContactList)
+    Function ViewContactListAll(ByVal email As String, ByVal selection As Integer) As List(Of ContactList)
 
     <OperationContract(IsOneWay:=True)>
-    Sub UpdateContactListByEmpID(ByVal contact As ContactList)
+    Sub UpdateContactListByEmpID(ByVal contact As ContactList, ByVal selection As Integer)
 
     <OperationContract(IsOneWay:=True)>
     Sub CreateNewContactByEmpID(ByVal contact As ContactList)
@@ -1226,6 +1226,9 @@ Public Class ContactList
 
     <DataMember()>
     Public Property OLD_EMP_ID As Integer
+
+    <DataMember()>
+    Public Property APPROVED As Integer
 End Class
 #End Region
 

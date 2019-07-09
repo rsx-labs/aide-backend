@@ -423,8 +423,8 @@ Public MustInherit Class MainService
     ''' By Aevan Camille Batongbacal
     ''' </summary>
 #Region "Contact List "
-    Public Overrides Function GetContactListAll(email As String) As List(Of ContactList)
-        Dim state As StateData = ContactListMgmt.GetContactListAll(email)
+    Public Overrides Function GetContactListAll(email As String, selection As Integer) As List(Of ContactList)
+        Dim state As StateData = ContactListMgmt.GetContactListAll(email, selection)
         Dim lstContactList As New List(Of ContactList)
 
         If Not IsNothing(state.Data) Then
@@ -467,8 +467,8 @@ Public MustInherit Class MainService
         End If
         Return lstContactList
     End Function
-    Public Overrides Function UpdateContactList(contacts As ContactList) As Boolean
-        Dim state As StateData = ContactListMgmt.UpdateContactList(contacts)
+    Public Overrides Function UpdateContactList(contacts As ContactList, selection As Integer) As Boolean
+        Dim state As StateData = ContactListMgmt.UpdateContactList(contacts, selection)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

@@ -30,10 +30,11 @@ Public Interface IContact
     Property DEPARTMENT_ID As Integer
     Property DIVISION_ID As Integer
     Property OLD_EMP_ID As Integer
+    Property APPROVED As Integer
 
 
     Function GetContactsByID(ByVal EMP_ID As Integer)
-    Function GetAllContacts(ByVal email As String) As List(Of ContactSet)
+    Function GetAllContacts(ByVal email As String, ByRef selection As Integer) As List(Of ContactSet)
     Function CreateContacts(ByVal contact As ContactSet) As Boolean
-    Function UpdateContacts(ByVal contact As ContactSet) As Boolean
+    Function UpdateContacts(ByVal contact As ContactSet, ByVal selection As Integer) As Boolean
 End Interface

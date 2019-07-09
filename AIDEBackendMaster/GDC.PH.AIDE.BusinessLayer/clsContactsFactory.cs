@@ -52,7 +52,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// </summary>
         /// <param name="businessObject">clsContacts object</param>
         /// <returns>true for successfully saved</returns>
-        public bool Update(clsContacts businessObject)
+        public bool Update(clsContacts businessObject, int selection)
         {
             if (!businessObject.IsValid)
             {
@@ -60,7 +60,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
 
 
-            return _dataObject.Update(businessObject);
+            return _dataObject.Update(businessObject, selection);
         }
 
         /// <summary>
@@ -77,9 +77,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// get list of all clsContactss
         /// </summary>
         /// <returns>list</returns>
-        public List<clsContacts> GetAll(string email)
+        public List<clsContacts> GetAll(string email, int selection)
         {
-            return _dataObject.SelectAll(email);
+            return _dataObject.SelectAll(email, selection);
         }
 
         /// <summary>

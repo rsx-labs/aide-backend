@@ -5,7 +5,6 @@ Imports GDC.PH.AIDE.BusinessLayer
 Imports System.Data.SqlClient
 
 Public Class ContactSet
-
     Implements IContact, INotifyPropertyChanged
 
     Private cContact As clsContacts
@@ -303,6 +302,15 @@ Public Class ContactSet
         End Set
     End Property
 
+    Public Property APPROVED As Integer Implements IContact.APPROVED
+        Get
+            Return Me.cContact.APPROVED
+        End Get
+        Set(value As Integer)
+            Me.cContact.APPROVED = value
+        End Set
+    End Property
+
     Public Function GetContactsByID(EMP_ID As Integer) As Object Implements IContact.GetContactsByID
         Try
             Dim key As clsContactsKeys = New clsContactsKeys(EmpID)
@@ -334,13 +342,13 @@ Public Class ContactSet
     '    End Try
     'End Sub
 
-    Public Function GetAllContacts(email As String) As List(Of ContactSet) Implements IContact.GetAllContacts
+    Public Function GetAllContacts(email As String, ByRef selection As Integer) As List(Of ContactSet) Implements IContact.GetAllContacts
         Dim cList As List(Of clsContacts)
         Dim cListSet As New List(Of ContactSet)
         Dim key As New clsContactsKeys(email)
         Try
 
-            cList = cContactFactory.GetAll(key.EMAIL)
+            cList = cContactFactory.GetAll(key.EMAIL, selection)
 
             If Not IsNothing(cList) Then
                 For Each cContact As clsContacts In cList
@@ -376,9 +384,9 @@ Public Class ContactSet
         End Try
     End Function
 
-    Public Function UpdateContact(contacts As ContactSet) As Boolean Implements IContact.UpdateContacts
+    Public Function UpdateContacts(contact As ContactSet, selection As Integer) As Boolean Implements IContact.UpdateContacts
         Try
-            Return Me.cContactFactory.Update(cContact)
+            Return Me.cContactFactory.Update(cContact, selection)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
@@ -393,5 +401,8 @@ Public Class ContactSet
     'End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
+
+
+
 
 End Class

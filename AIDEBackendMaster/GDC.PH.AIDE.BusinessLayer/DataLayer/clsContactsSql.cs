@@ -91,7 +91,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// </summary>
         /// <param name="businessObject">business object</param>
         /// <returns>true for successfully updated</returns>
-        public bool Update(clsContacts businessObject)
+        public bool Update(clsContacts businessObject, int selection)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_UpdateContacts]";
@@ -126,6 +126,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@DEPARTMENT_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DEPARTMENT_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@DIVISION_ID", SqlDbType.SmallInt, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DIVISION_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@OLD_EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OLD_EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@SELECTION", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, selection));
                 
 
                 MainConnection.Open();
@@ -197,7 +198,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords
         /// </summary>
         /// <returns>list of clsContacts</returns>
-        public List<clsContacts> SelectAll(string email)
+        public List<clsContacts> SelectAll(string email, int selection)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetContactListAll]";
@@ -211,6 +212,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Open();
 
                 sqlCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+                sqlCommand.Parameters.Add(new SqlParameter("@selection", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, selection));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 

@@ -69,7 +69,7 @@ Public Class ContactListManagement
         Return state
     End Function
 
-    Public Function GetContactListAll(email As String) As StateData
+    Public Function GetContactListAll(email As String, selection As Integer) As StateData
         Dim contactListSet As New ContactSet
         Dim lstContacts As List(Of ContactSet)
         Dim objContacts As New List(Of ContactList)
@@ -78,7 +78,7 @@ Public Class ContactListManagement
         Dim status As NotifyType
 
         Try
-            lstContacts = contactListSet.GetAllContacts(email)
+            lstContacts = contactListSet.GetAllContacts(email, selection)
 
             If Not IsNothing(lstContacts) Then
                 For Each objList As ContactSet In lstContacts
@@ -115,7 +115,7 @@ Public Class ContactListManagement
         Return state
     End Function
 
-    Public Function UpdateContactList(ByVal contacts As ContactList) As StateData
+    Public Function UpdateContactList(ByVal contacts As ContactList, selection As Integer) As StateData
         Dim contactSet As New ContactSet
         Dim message As String = ""
         Dim state As StateData
@@ -123,7 +123,7 @@ Public Class ContactListManagement
 
         Try
             SetFields(contactSet, contacts)
-            If contactSet.UpdateContact(contactSet) Then
+            If contactSet.UpdateContacts(contactSet, selection) Then
                 status = NotifyType.IsSuccess
                 message = "Update Success Register Information successful!"
             End If

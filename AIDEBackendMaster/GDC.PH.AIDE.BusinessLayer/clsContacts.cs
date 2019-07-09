@@ -40,7 +40,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             PERMISSION_GROUP_ID,
             DEPARTMENT_ID,
             DIVISION_ID,
-            OLD_EMP_ID
+            OLD_EMP_ID,
+            APPROVED
+
             //STATUS
         }
         #endregion
@@ -76,6 +78,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _department_id;
         int _division_id;
         int _old_emp_id;
+        int _approved;
         //string _status;
         #endregion
 
@@ -469,6 +472,18 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
+        public int APPROVED
+        {
+            get { return _approved; }
+            set
+            {
+                if (_approved != value)
+                {
+                    _approved = value;
+                    PropertyHasChanged("APPROVED");
+                }
+            }
+        }
 
         #endregion
 
@@ -499,6 +514,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPARTMENT_ID", "DEPARTMENT_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DIVISION_ID", "DIVISION_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("OLD_EMP_ID", "OLD_EMP_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("APPROVED", "APPROVED"));
         }
 
         #endregion
