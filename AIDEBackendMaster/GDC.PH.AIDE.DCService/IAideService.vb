@@ -623,6 +623,20 @@ Public Interface IAideService
 
 #End Region
 
+#Region "Contributors Operation Contracts"
+
+    <OperationContract()>
+    Function GetAllContributors(ByVal level As Integer) As List(Of Contributors)
+
+#End Region
+
+#Region "Message Operation Contracts"
+
+    <OperationContract()>
+    Function GetMessage(ByVal msgID As Integer, ByVal secID As Integer) As List(Of MessageDetail)
+
+#End Region
+
 End Interface
 #End Region
 
@@ -2026,6 +2040,35 @@ Public Class WorkplaceAudit
 
     <DataMember()>
     Public Property AUDIT_QUESTIONS_GROUP As String
+End Class
+#End Region
+
+#Region "Message Data Contract"
+<DataContract()>
+Public Class MessageDetail
+
+    <DataMember()>
+    Public Property MESSAGE_DESCR As String
+    <DataMember()>
+    Public Property TITLE As String
+
+End Class
+#End Region
+
+#Region "Contributors Data Contract"
+<DataContract()>
+Public Class Contributors
+
+    <DataMember()>
+    Public Property FULL_NAME As String
+    <DataMember()>
+    Public Property DEPARTMENT As String
+    <DataMember()>
+    Public Property DIVISION As String
+    <DataMember()>
+    Public Property POSITION As String
+    <DataMember()>
+    Public Property IMAGE_PATH As String
 End Class
 #End Region
 

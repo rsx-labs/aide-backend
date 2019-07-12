@@ -1,0 +1,26 @@
+USE [AIDE]
+GO
+
+/****** Object:  Table [dbo].[EMPLOYEE]    Script Date: 07/10/2019 2:03:54 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[AIDE_MESSAGE](
+	[MESSAGE_ID] [int] NOT NULL,
+	[SEC_ID] [int] NOT NULL,
+	[MESSAGE_DESCR] [varchar](MAX) NOT NULL,
+	[TITLE] [varchar](255) NOT NULL,
+	[ORDER_BY] [int] NOT NULL
+)
+
+
+GO
+
+SET ANSI_PADDING OFF
+GO

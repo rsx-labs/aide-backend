@@ -75,6 +75,7 @@
     <Compile Include="Entity\AnnouncementsSet.vb" />
     <Compile Include="Entity\ComcellClockSet.vb" />
     <Compile Include="Entity\ComcellSet.vb" />
+    <Compile Include="Entity\ContributorsSet.vb" />
     <Compile Include="Entity\LateSet.vb" />
     <Compile Include="Entity\ConcernSet.vb" />
     <Compile Include="Entity\CommendationsSet.vb" />
@@ -83,6 +84,7 @@
     <Compile Include="Entity\EmployeeSet.vb" />
     <Compile Include="Entity\LessonLearntSet.vb" />
     <Compile Include="Entity\MailConfigSet.vb" />
+    <Compile Include="Entity\MessageSet.vb" />
     <Compile Include="Entity\ProfileSet.vb" />
     <Compile Include="Entity\ProjectSet.vb" />
     <Compile Include="Entity\ResourcePlannerSet.vb" />
@@ -116,6 +118,7 @@
     <Compile Include="Interface\IAnnouncementsSet.vb" />
     <Compile Include="Interface\IComcellClockSet.vb" />
     <Compile Include="Interface\IComcellSet.vb" />
+    <Compile Include="Interface\IContributorsSet.vb" />
     <Compile Include="Interface\ILateSet.vb" />
     <Compile Include="Interface\IConcernSet.vb" />
     <Compile Include="Interface\ICommendationsSet.vb" />
@@ -124,6 +127,7 @@
     <Compile Include="Interface\IEmployeeSet.vb" />
     <Compile Include="Interface\ILessonLearnt.vb" />
     <Compile Include="Interface\IMailConfigSet.vb" />
+    <Compile Include="Interface\IMessageSet.vb" />
     <Compile Include="Interface\IProfileSet.vb" />
     <Compile Include="Interface\IProject.vb" />
     <Compile Include="Interface\IResourcePlanner.vb" />

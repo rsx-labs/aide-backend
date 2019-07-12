@@ -29,7 +29,9 @@ Public MustInherit Class MainService
 	Private Shared AuditSchedMgmt As AuditSchedManagement
     Private Shared SendCodeMgmt As SendCodeManagement
     Private Shared MailConfigMgmt As MailConfigManagement
-	Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
+    Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
+    Private Shared ContributorsMgmt As ContributorsManagement
+    Private Shared MessageMgmt As MessageManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -62,7 +64,9 @@ Public MustInherit Class MainService
 		WeeklyReportMgmt = New WeeklyReportManagement()
         SendCodeMgmt = New SendCodeManagement()
         MailConfigMgmt = New MailConfigManagement()
-		WorkplaceAuditMgmt = New WorkplaceAuditManagement()
+        WorkplaceAuditMgmt = New WorkplaceAuditManagement()
+        ContributorsMgmt = New ContributorsManagement()
+        MessageMgmt = New MessageManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2507,5 +2511,35 @@ Public MustInherit Class MainService
         Return workplaceAuditLst
     End Function
 
+#End Region
+
+#Region "Contributors"
+    Public Overrides Function GetAllContributors(ByVal lvl As Integer) As List(Of Contributors)
+        Dim state As StateData = ContributorsMgmt.GetAllContributors(lvl)
+        Dim contributorsLst As New List(Of Contributors)
+
+        If Not IsNothing(state.Data) Then
+            Dim contrilst As List(Of Contributors) = DirectCast(state.Data, List(Of Contributors))
+            For Each objContri As Contributors In contrilst
+                contributorsLst.Add(objContri)
+            Next
+        End If
+        Return contributorsLst
+    End Function
+#End Region
+
+#Region "Contributors"
+    Public Overrides Function GetAllMessage(ByVal msgID As Integer, ByVal secID As Integer) As List(Of MessageDetail)
+        Dim state As StateData = MessageMgmt.GetAllMessage(msgID, secID)
+        Dim MessageLst As New List(Of MessageDetail)
+
+        If Not IsNothing(state.Data) Then
+            Dim msglst As List(Of MessageDetail) = DirectCast(state.Data, List(Of MessageDetail))
+            For Each objMsg As MessageDetail In msglst
+                MessageLst.Add(objMsg)
+            Next
+        End If
+        Return MessageLst
+    End Function
 #End Region
 End Class

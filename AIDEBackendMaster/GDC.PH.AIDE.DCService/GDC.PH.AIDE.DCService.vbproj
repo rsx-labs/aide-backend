@@ -117,6 +117,7 @@
     <Compile Include="Management\ConcernManagement.vb" />
     <Compile Include="Management\CommendationsManagement.vb" />
     <Compile Include="Management\ContactListManagement.vb" />
+    <Compile Include="Management\ContributorsManagement.vb" />
     <Compile Include="Management\DashboardManagement.vb" />
     <Compile Include="Management\EmployeeManagement.vb" />
     <Compile Include="AIDEService.svc.vb">
@@ -129,6 +130,7 @@
     <Compile Include="Management\LessonLearntManagement.vb" />
     <Compile Include="Management\MailConfigManagement.vb" />
     <Compile Include="Management\ManagementBase.vb" />
+    <Compile Include="Management\MessageManagement.vb" />
     <Compile Include="Management\ProjectManagement.vb" />
     <Compile Include="Management\ResourcePlannerManagement.vb" />
     <Compile Include="Management\SabaLearningManagement.vb" />

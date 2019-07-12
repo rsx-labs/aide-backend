@@ -84,6 +84,8 @@
     <Compile Include="clsContactsFactory.cs" />
     <Compile Include="clsCommendationsKeys.cs" />
     <Compile Include="clsContactsKeys.cs" />
+    <Compile Include="clsContributors.cs" />
+    <Compile Include="clsContributorsFactory.cs" />
     <Compile Include="clsEmployee.cs" />
     <Compile Include="clsEmployeeAttendance.cs" />
     <Compile Include="clsEmployeeAttendanceFACTORY.cs" />
@@ -97,6 +99,8 @@
     <Compile Include="clsLessonLearntKeys.cs" />
     <Compile Include="clsMailConfig.cs" />
     <Compile Include="clsMailConfigFactory.cs" />
+    <Compile Include="clsMessage.cs" />
+    <Compile Include="clsMessageFactory.cs" />
     <Compile Include="clsProfile.cs" />
     <Compile Include="clsProfileFactory.cs" />
     <Compile Include="clsProfileKeys.cs" />
@@ -143,11 +147,13 @@
     <Compile Include="DataLayer\clsConcernSql.cs" />
     <Compile Include="DataLayer\clsCommendationsSql.cs" />
     <Compile Include="DataLayer\clsContactsSql.cs" />
+    <Compile Include="DataLayer\clsContributorsSql.cs" />
     <Compile Include="DataLayer\clsEmployeeAttendanceSql.cs" />
     <Compile Include="DataLayer\clsEmployeeSql.cs" />
     <Compile Include="DataLayer\clsLateSql.cs" />
     <Compile Include="DataLayer\clsLessonLearntSql.cs" />
     <Compile Include="DataLayer\clsMailConfigSql.cs" />
+    <Compile Include="DataLayer\clsMessageSql.cs" />
     <Compile Include="DataLayer\clsProfileSql.cs" />
     <Compile Include="DataLayer\clsProjectSql.cs" />
     <Compile Include="DataLayer\clsResourcePlannerSql.cs" />

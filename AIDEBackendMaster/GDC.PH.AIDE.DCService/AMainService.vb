@@ -363,4 +363,12 @@
     MustOverride Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
     'MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
 #End Region
+
+#Region "Contributors methods"
+    MustOverride Function GetAllContributors(ByVal level As Integer) As List(Of Contributors)
+#End Region
+
+#Region "Message methods"
+    MustOverride Function GetAllMessage(ByVal msgID As Integer, ByVal secID As Integer) As List(Of MessageDetail)
+#End Region
 End Class

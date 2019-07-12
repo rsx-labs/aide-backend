@@ -17,7 +17,6 @@ End Enum
 Public Class AIDEService
     Inherits MainService
     Implements IAideService
-
     Implements IAideService2
 
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()
@@ -1002,7 +1001,7 @@ Public Class AIDEService
     End Function
 #End Region
 
-   ''' <summary>
+    ''' <summary>
     ''' By Jhunell Barcenas
     ''' </summary>
 #Region "Workplace Audit Functions"
@@ -1022,6 +1021,18 @@ Public Class AIDEService
     '    MyBase.UpdateAuditSched(auditSched)
     'End Sub
 
+#End Region
+
+#Region "Contributors Functions"
+    Public Function GetAllContributorss(level As Integer) As List(Of Contributors) Implements IAideService.GetAllContributors
+        Return MyBase.GetAllContributors(level)
+    End Function
+#End Region
+
+#Region "Message Functions"
+    Public Function GetMessage(msgID As Integer, secID As Integer) As List(Of MessageDetail) Implements IAideService.GetMessage
+        Return MyBase.GetAllMessage(msgID, secID)
+    End Function
 #End Region
 
 End Class
