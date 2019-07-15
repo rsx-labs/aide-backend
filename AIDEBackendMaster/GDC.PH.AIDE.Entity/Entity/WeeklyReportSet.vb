@@ -148,15 +148,6 @@ Public Class WeeklyReportSet
         End Set
     End Property
 
-    Public Property DATE_CREATED As DateTime Implements IWeeklyReport.DATE_CREATED
-        Get
-            Return cWeeklyReport.WR_DATE_CREATED
-        End Get
-        Set(ByVal value As DateTime)
-            cWeeklyReport.WR_DATE_CREATED = value
-        End Set
-    End Property
-
     Public Property EFFORT_EST As Double Implements IWeeklyReport.EFFORT_EST
         Get
             Return cWeeklyReport.WR_EFFORT_EST
@@ -296,6 +287,32 @@ Public Class WeeklyReportSet
             Dim lstWeeklyReportSet As New List(Of WeeklyReportSet)
 
             lstWeeklyReport = cWeeklyReportFactory.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+
+            If Not IsNothing(lstWeeklyReport) Then
+                For Each cList As clsWeeklyReport In lstWeeklyReport
+                    lstWeeklyReportSet.Add(New WeeklyReportSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return lstWeeklyReportSet
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetTasksDataByEmpID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReportSet) Implements IWeeklyReport.GetTasksDataByEmpID
+        Try
+            Dim lstWeeklyReport As List(Of clsWeeklyReport)
+            Dim lstWeeklyReportSet As New List(Of WeeklyReportSet)
+
+            lstWeeklyReport = cWeeklyReportFactory.GetTasksDataByEmpID(weekRangeID, empID)
 
             If Not IsNothing(lstWeeklyReport) Then
                 For Each cList As clsWeeklyReport In lstWeeklyReport

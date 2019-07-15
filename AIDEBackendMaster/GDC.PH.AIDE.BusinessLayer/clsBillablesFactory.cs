@@ -9,7 +9,7 @@ namespace GDC.PH.AIDE.BusinessLayer
     public class clsBillablesFactory
     {
 
-        #region data Members
+        #region Data Members
 
         clsBillablesSql _dataObject = null;
 
@@ -24,23 +24,22 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #endregion
 
-
         #region Public Methods
 
-        public List<clsBillables> sp_getBillabilityHoursAll(clsBillablesKeys keys)
+        public List<clsBillables> GetBillableHoursByMonth(clsBillablesKeys keys)
         {
-            return _dataObject.sp_getBillabilityHoursAll(keys);
+            return _dataObject.GetBillableHoursByMonth(keys);
         }
 
-        public List<clsBillables> sp_getBillabilityHoursByEmpID(clsBillablesKeys keys)
+        public List<clsBillables> GetBillableHoursByWeek(int empID, int weekID)
         {
-            return _dataObject.sp_getBillabilityHoursByEmpID(keys);
+            return _dataObject.GetBillableHoursByWeek(empID, weekID);
         }
 
-        public List<clsBillables> sp_getBillableSummary(clsBillablesKeys keys)
-        {
-            return _dataObject.sp_getBillableSummary(keys);
-        }
+        //public List<clsBillables> GetNonBillableHours(string email, int display, int month, int year)
+        //{
+        //    return _dataObject.GetNonBillableHours(email, display, month, year);
+        //}
         #endregion
 
     }

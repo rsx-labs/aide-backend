@@ -48,7 +48,6 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _date_started;
         DateTime _date_target;
         DateTime _date_finished;
-        DateTime _date_created;
         double _effort_est;
         double _act_effort;
         double _act_effort_wk;
@@ -237,19 +236,6 @@ namespace GDC.PH.AIDE.BusinessLayer
 				 {
                      _date_finished = value;
                      PropertyHasChanged("WR_DATE_FINISHED");
-				 }
-			 }
-		}
-
-        public DateTime WR_DATE_CREATED
-		{
-			 get { return _date_created; }
-			 set
-			 {
-                 if (_date_created != value)
-				 {
-                     _date_created = value;
-                     PropertyHasChanged("WR_DATE_CREATED");
 				 }
 			 }
 		}

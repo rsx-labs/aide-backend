@@ -53,7 +53,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_EFFORT_EST));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_WK", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_ACT_EFFORT_WK));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_ACT_EFFORT));
-                sqlCommand.Parameters.Add(new SqlParameter("@DATE_CREATED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_DATE_CREATED));
                
                 if (businessObject.WR_REF_ID == null) 
                 {
@@ -143,16 +142,49 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.StartWeek));
-
                 MainConnection.Open();
-
                 sqlCommand.ExecuteNonQuery();
-
                 return true;
             }
             catch (Exception ex)
             {
                 throw new Exception("clsWeeklyReport::InsertWeekRange::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// insert new row in the table
+        /// </summary>
+        /// <param name="currentDate">business object</param>
+        /// <returns>true of successfully insert</returns>
+        public bool InsertWeeklyReportXref(clsWeekRange businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_InsertWeeklyReportXref]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEK_RANGE", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WeekRangeID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EmpID));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Status));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_SUBMITTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Date_Submitted));
+
+                MainConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeeklyReport::InsertWeeklyReportXref::Error occured.", ex);
             }
             finally
             {
@@ -271,6 +303,42 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        /// <summary>
+        /// insert new row in the table
+        /// </summary>
+        /// <param name="currentDate">business object</param>
+        /// <returns>true of successfully insert</returns>
+        public bool UpdateWeeklyReportXref(clsWeekRange businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_UpdateWeeklyReportXref]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEK_RANGE", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WeekRangeID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EmpID));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Status));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_SUBMITTED", SqlDbType.Date, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.Date_Submitted));
+
+                MainConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeeklyReport::UpdateWeeklyReportXref::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         public List<clsWeekRange> GetWeekRange(DateTime currentDate, int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
@@ -302,7 +370,39 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsWeekRange> GetWeeklyReportsByEmpID(int empID)
+        public List<clsWeekRange> GetWeekRangeByMonthYear(int empID, int month, int year)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetWeekRangeByMonthYear]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForWeekRange(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeekRange::GetWeekRange::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsWeekRange> GetWeeklyReportsByEmpID(int empID, int month, int year)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetWeeklyReportsByEmpID]";
@@ -314,6 +414,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
 
                 MainConnection.Open();
 
@@ -363,9 +465,37 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public List<clsWeeklyReport> GetTasksDataByEmpID(int weekRangeID, int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetTasksDataByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@WK_RANGE_ID", weekRangeID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateTasksObjectsFromReader(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeekRange::GetWeekRange::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
 
         /// <summary>
-        /// Select all rescords
+        /// Select all records
         /// </summary>
         /// <returns>list of clsTASKS</returns>
         public List<clsWeeklyReport> SelectAll()
@@ -380,9 +510,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 MainConnection.Open();
-
                 IDataReader dataReader = sqlCommand.ExecuteReader();
-
                 return PopulateObjectsFromReader(dataReader);
             }
             catch (Exception ex)
@@ -413,11 +541,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empId));
-
                 MainConnection.Open();
-
                 IDataReader dataReader = sqlCommand.ExecuteReader();
-
                 return PopulateObjectsFromReader(dataReader);
             }
             catch (Exception ex)
@@ -450,9 +575,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 //sqlCommand.Parameters.Add(new SqlParameter("@TASK_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.TASK_ID));
 
                 MainConnection.Open();
-
                 sqlCommand.ExecuteNonQuery();
-
                 return true;
             }
             catch (Exception ex)
@@ -503,78 +626,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        
-        public clsWeeklyReport getTaskDetailByTaskId(clsWeeklyReportKeys keys)
-        {
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_getTaskDetailByTaskId]";
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            // Use connection object of base class
-            sqlCommand.Connection = MainConnection;
-
-            try
-            {
-                //sqlCommand.Parameters.Add(new SqlParameter("@TASK_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.TASK_ID));
-
-                MainConnection.Open();
-
-                IDataReader dataReader = sqlCommand.ExecuteReader();
-
-                if (dataReader.Read())
-                {
-                    clsWeeklyReport businessObject = new clsWeeklyReport();
-
-                    PopulateBusinessObjectFromReader(businessObject, dataReader);
-
-                    return businessObject;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("clsTASKS::SelectByPrimaryKey::Error occured.", ex);
-            }
-            finally
-            {
-                MainConnection.Close();
-                sqlCommand.Dispose();
-            }
-        }
-
-        public List<clsWeeklyReport> GetTaskDetailByIncidentId(int empID)
-        {
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_GetTaskDetailByIncidentId]";
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            // Use connection object of base class
-            sqlCommand.Connection = MainConnection;
-
-            try
-            {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
-                
-                MainConnection.Open();
-
-                IDataReader dataReader = sqlCommand.ExecuteReader();
-
-                return PopulateObjectsFromReader(dataReader);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("clsSkills::GetSkillsProfByEmpID::Error occured.", ex);
-            }
-            finally
-            {
-                MainConnection.Close();
-                sqlCommand.Dispose();
-            }
-        }
         #endregion
 
         #region Private Methods
@@ -635,65 +686,84 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.WR_DATE_FINISHED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_FINISHED.ToString()));
             }
 
-            businessObject.WR_DATE_CREATED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_CREATED.ToString()));
             businessObject.WR_EFFORT_EST = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_EFFORT_EST.ToString()));
             businessObject.WR_ACT_EFFORT = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_ACT_EFFORT.ToString()));
             businessObject.WR_ACT_EFFORT_WK = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_ACT_EFFORT_WK.ToString()));
-            businessObject.WR_COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString())))
+            {
+                businessObject.WR_COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString()));
+            }
 
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_INBOUND_CONTACTS.ToString())))
             {
                 businessObject.WR_INBOUND_CONTACTS = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_INBOUND_CONTACTS.ToString()));
             }
 
-            //businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.EMP_ID.ToString()));
+        }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.INC_ID.ToString())))
-            //{
-            //    businessObject.INC_ID = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.INC_ID.ToString()));
-            //}
+        /// <summary>
+        /// Populate business object from data reader
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <param name="dataReader">data reader</param>
+        internal void PopulateBusinessTasksObjectFromReader(clsWeeklyReport businessObject, IDataReader dataReader)
+        {
+            businessObject.WR_PROJ_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_ID.ToString()));
+            businessObject.WR_SUBJECT = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_SUBJECT.ToString()));
 
-            //businessObject.TASK_TYPE = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.TASK_TYPE.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_REWORK.ToString())))
+            {
+                businessObject.WR_REWORK = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_REWORK.ToString()));
+            }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.INC_DESCR.ToString())))
-            //{
-            //    businessObject.INC_DESCR = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.INC_DESCR.ToString()));
-            //}
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_REF_ID.ToString())))
+            {
+                businessObject.WR_REF_ID = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_REF_ID.ToString()));
+            }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.TASK_DESCR.ToString())))
-            //{
-            //    businessObject.TASK_DESCR = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.TASK_DESCR.ToString()));
-            //}
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_SEVERITY.ToString())))
+            {
+                businessObject.WR_SEVERITY = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_SEVERITY.ToString()));
+            }
 
-            //businessObject.DATE_CREATED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.DATE_CREATED.ToString()));
-            //businessObject.STATUS = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.STATUS.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_INC_TYPE.ToString())))
+            {
+                businessObject.WR_INC_TYPE = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_INC_TYPE.ToString()));
+            }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.REMARKS.ToString())))
-            //{
-            //    businessObject.REMARKS = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.REMARKS.ToString()));
-            //}
+            businessObject.WR_EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_EMP_ID.ToString()));
 
-            //businessObject.EFFORT_EST = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.EFFORT_EST.ToString()));
-            //businessObject.ACT_EFFORT_EST = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.ACT_EFFORT_EST.ToString()));
-            //businessObject.ACT_EFFORT_EST_WK = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.ACT_EFFORT_EST_WK.ToString()));
-            //businessObject.PROJECT_CODE = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.PROJECT_CODE.ToString()));
-            //businessObject.REWORK = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.REWORK.ToString()));
-            //businessObject.PHASE = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.PHASE.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PHASE.ToString())))
+            {
+                businessObject.WR_PHASE = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PHASE.ToString()));
+            }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_2.ToString())))
-            //{
-            //    businessObject.OTHERS_1 = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_1.ToString()));
-            //}
+            businessObject.WR_STATUS = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_STATUS.ToString()));
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_2.ToString())))
-            //{
-            //    businessObject.OTHERS_2 = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_2.ToString()));
-            //}
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_STARTED.ToString())))
+            {
+                businessObject.WR_DATE_STARTED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_STARTED.ToString()));
+            }
 
-            //if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_3.ToString())))
-            //{
-            //    businessObject.OTHERS_3 = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsTASKSFields.OTHERS_3.ToString()));
-            //}
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_TARGET.ToString())))
+            {
+                businessObject.WR_DATE_TARGET = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_TARGET.ToString()));
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_FINISHED.ToString())))
+            {
+                businessObject.WR_DATE_FINISHED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_DATE_FINISHED.ToString()));
+            }
+
+            businessObject.WR_EFFORT_EST = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_EFFORT_EST.ToString()));
+            businessObject.WR_ACT_EFFORT = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_ACT_EFFORT.ToString()));
+            businessObject.WR_ACT_EFFORT_WK = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_ACT_EFFORT_WK.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString())))
+            {
+                businessObject.WR_COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString()));
+            }
         }
         
         /// <summary>
@@ -719,7 +789,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.WeekRangeID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.WeekRangeID.ToString()));
             businessObject.StartWeek = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.StartWeek.ToString()));
             businessObject.EndWeek = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.EndWeek.ToString()));
-            businessObject.DateCreated = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.DateCreated.ToString()));
+            businessObject.Status = dataReader.GetInt32(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.Status.ToString()));
+            businessObject.Date_Submitted = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeekRange.clsWeekRangeFields.Date_Submitted.ToString()));
         }
 
         /// <summary>
@@ -735,6 +806,19 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsWeeklyReport businessObject = new clsWeeklyReport();
                 PopulateBusinessObjectFromReader(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsWeeklyReport> PopulateTasksObjectsFromReader(IDataReader dataReader)
+        {
+            List<clsWeeklyReport> list = new List<clsWeeklyReport>();
+
+            while (dataReader.Read())
+            {
+                clsWeeklyReport businessObject = new clsWeeklyReport();
+                PopulateBusinessTasksObjectFromReader(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;

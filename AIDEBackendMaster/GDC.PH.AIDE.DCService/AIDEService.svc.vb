@@ -95,18 +95,12 @@ Public Class AIDEService
 #End Region
 
 #Region "Billability Functions"
-    Public Function GetNonBillabilityHoursByEmpID(EmpID As Integer, userChoice As Short) As NonBillableHours Implements IAideService.GetNonBillabilityHoursByEmpID
-        Throw New NotImplementedException()
+    Public Function GetBillableHoursByWeeks(empID As Integer, weekID As Integer) As List(Of BillableHours) Implements IAideService.GetBillableHoursByWeek
+        Return MyBase.GetBillableHoursByWeek(empID, weekID)
     End Function
 
-    Public Function GetNonBillabilityHoursAll(userChoice As Short) As List(Of NonBillableHours) Implements IAideService.GetNonBillabilityHoursAll
-        Throw New NotImplementedException()
-    End Function
-
-    Public Function GetNonBillabilityHoursSummary(inputDate As Date) As List(Of NonBillableSummary) Implements IAideService.GetNonBillabilityHoursSummary
-        Dim lstNonBillabilityHoursAll As List(Of NonBillableSummary) = Nothing
-        MyBase.getNonBillableHoursAllList(inputDate, lstNonBillabilityHoursAll)
-        Return lstNonBillabilityHoursAll
+    Public Function GetBillableHoursByMonths(empID As Integer, month As Integer, year As Integer) As List(Of BillableHours) Implements IAideService.GetBillableHoursByMonth
+        Return MyBase.GetBillableHoursByMonth(empID, month, year)
     End Function
 #End Region
 
@@ -206,9 +200,9 @@ Public Class AIDEService
         Return _DashboardManagement.DashbrdGetContactList()
     End Function
 
-    Public Function DashboardGetNonBillableHours() As List(Of DashboardNonBillableHours) Implements IAideService2.DashboardGetNonBillableHours
-        Return _DashboardManagement.DashbrdGetNonBillableHours()
-    End Function
+    'Public Function DashboardGetNonBillableHours() As List(Of DashboardNonBillableHours) Implements IAideService2.DashboardGetNonBillableHours
+    '    Return _DashboardManagement.DashbrdGetNonBillableHours()
+    'End Function
 
     Public Function DashboardGetNonBillableHoursSummary() As List(Of DashboardNonBillableHoursSummary) Implements IAideService2.DashboardGetNonBillableHoursSummary
         Return _DashboardManagement.DashbrdGetNonBillableSummary()
@@ -666,8 +660,8 @@ Public Class AIDEService
         MyBase.UpdateEmployeeTask(Task)
     End Sub
 
-    Public Overrides Function GetTaskDetailByIncidentId(ByVal id As Integer) As List(Of Tasks) Implements IAideService.GetTaskDetailByIncidentId
-        Return MyBase.GetTaskDetailByIncidentId(id)
+    Public Overrides Function GetTasksByEmpID(ByVal empID As Integer) As List(Of Tasks) Implements IAideService.GetTasksByEmpID
+        Return MyBase.GetTasksByEmpID(empID)
     End Function
 
 #End Region
@@ -733,14 +727,6 @@ Public Class AIDEService
 
     Public Function GetResourcePlanners(email As String, status As Integer, toBeDisplayed As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetResourcePlanner
         Return MyBase.GetResourcePlanner(email, status, toBeDisplayed, year)
-    End Function
-
-    Public Function GetBillableHoursByWeeks(empID As Integer, currentDate As Date) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByWeek
-        Return MyBase.GetBillableHoursByWeek(empID, currentDate)
-    End Function
-
-    Public Function GetBillableHoursByMonths(empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetBillableHoursByMonth
-        Return MyBase.GetBillableHoursByMonth(empID, month, year)
     End Function
 
     Public Overrides Function GetNonBillableHours(email As String, display As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetNonBillableHours
@@ -935,16 +921,16 @@ Public Class AIDEService
     ''' By John Harvey Sanchez
     ''' </summary>
 #Region "Weekly Report Functions"
-    Public Sub CreateWeeklyReports(weeklyReport As List(Of WeeklyReport)) Implements IAideService.CreateWeeklyReport
-        MyBase.CreateWeeklyReport(weeklyReport)
+    Public Sub CreateWeeklyReports(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.CreateWeeklyReport
+        MyBase.CreateWeeklyReport(weeklyReport, weeklyReportXref)
     End Sub
 
     Public Sub CreateNewWeekRange(weekRange As WeekRange) Implements IAideService.CreateWeekRange
         MyBase.CreateWeekRange(weekRange)
     End Sub
 
-    Public Sub UpdateWeeklyReports(weeklyReport As List(Of WeeklyReport)) Implements IAideService.UpdateWeeklyReport
-        MyBase.UpdateWeeklyReport(weeklyReport)
+    Public Sub UpdateWeeklyReports(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.UpdateWeeklyReport
+        MyBase.UpdateWeeklyReport(weeklyReport, weeklyReportXref)
     End Sub
 
     Public Function GetTheWeekRange(currentDate As Date, empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRange
@@ -953,18 +939,35 @@ Public Class AIDEService
         Return lstWeekRange
     End Function
 
-    Public Function GetTheWeeklyReportsByEmpID(empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeeklyReportsByEmpID
+    Public Function GetTheWeekRangeByMonthYear(empID As Integer, month As Integer, year As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRangeByMonthYear
         Dim lstWeekRange As List(Of WeekRange) = Nothing
-        MyBase.GetWeeklyReportsByEmpID(empID, lstWeekRange)
+        MyBase.GetWeekRangeByMonthYear(empID, month, year, lstWeekRange)
         Return lstWeekRange
     End Function
 
-    Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
+    Public Function GetTheWeeklyReportsByEmpID(empID As Integer, month As Integer, year As Integer) As List(Of WeekRange) Implements IAideService.GetWeeklyReportsByEmpID
+        Dim lstWeekRange As List(Of WeekRange) = Nothing
+        MyBase.GetWeeklyReportsByEmpID(empID, month, year, lstWeekRange)
+        Return lstWeekRange
+    End Function
+
+	Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
         Dim lstWeeklyReport As List(Of WeeklyReport) = Nothing
         MyBase.GetWeeklyReportsByWeekRangeID(weekRangeID, empID, lstWeeklyReport)
         Return lstWeeklyReport
     End Function
 
+    Public Function GetTaskDataByEmpID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetTasksDataByEmpID
+        Dim lstWeeklyReport As List(Of WeeklyReport) = Nothing
+        MyBase.GetTasksDataByEmpID(weekRangeID, empID, lstWeeklyReport)
+        Return lstWeeklyReport
+    End Function
+
+    Public Function GetTheMissingReportsByEmpID(empID As Integer, currentDate As Date) As List(Of ContactList) Implements IAideService.GetMissingReportsByEmpID
+        Dim lstMissingReports As List(Of ContactList) = Nothing
+        MyBase.GetMissingReportsByEmpID(empID, currentDate, lstMissingReports)
+        Return lstMissingReports
+    End Function
 #End Region
 
     ''' <summary>

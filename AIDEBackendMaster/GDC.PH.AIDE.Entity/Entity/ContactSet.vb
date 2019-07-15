@@ -396,13 +396,35 @@ Public Class ContactSet
         End Try
     End Function
 
+    Public Function GetMissingReportsByEmpID(empID As Integer, currentDate As Date) As List(Of ContactSet) Implements IContact.GetMissingReportsByEmpID
+        Dim cList As List(Of clsContacts)
+        Dim cListSet As New List(Of ContactSet)
+
+        Try
+            cList = cContactFactory.GetMissingReportsByEmpID(empID, currentDate)
+
+            If Not IsNothing(cList) Then
+                For Each cContact As clsContacts In cList
+                    cListSet.Add(New ContactSet(cContact))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+             If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
     'Public Sub DeleteContact() Implements IContact.DeleteContact
     '    Throw New NotImplementedException()
     'End Sub
 
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
-
-
-
-
 End Class

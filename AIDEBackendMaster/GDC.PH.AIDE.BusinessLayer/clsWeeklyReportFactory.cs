@@ -58,11 +58,28 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <summary>
         /// Insert week range
         /// </summary>
-        /// <param name="currentDate">DateTime object</param>
         /// <returns>true for successfully saved</returns>
         public bool InsertWeekRange(clsWeekRange businessObject)
         {
             return _dataObject.InsertWeekRange(businessObject);
+        }
+
+        /// <summary>
+        /// Insert week range
+        /// </summary>
+        /// <returns>true for successfully saved</returns>
+        public bool InsertWeeklyReportXref(clsWeekRange businessObject)
+        {
+            return _dataObject.InsertWeeklyReportXref(businessObject);
+        }
+
+        /// <summary>
+        /// Insert week range
+        /// </summary>
+        /// <returns>true for successfully saved</returns>
+        public bool UpdateWeeklyReportXref(clsWeekRange businessObject)
+        {
+            return _dataObject.UpdateWeeklyReportXref(businessObject);
         }
 
         #region STORED PROCS
@@ -72,9 +89,14 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetWeekRange(currentDate, empID);
         }
 
-        public List<clsWeekRange> GetWeeklyReportsByEmpID(int empID)
+        public List<clsWeekRange> GetWeekRangeByMonthYear(int empID, int month, int year)
         {
-            return _dataObject.GetWeeklyReportsByEmpID(empID);
+            return _dataObject.GetWeekRangeByMonthYear(empID, month, year);
+        }
+
+        public List<clsWeekRange> GetWeeklyReportsByEmpID(int empID, int month, int year)
+        {
+            return _dataObject.GetWeeklyReportsByEmpID(empID, month, year);
         }
 
         public List<clsWeeklyReport> GetWeeklyReportsByWeekRangeID(int weekRangeID, int empID)
@@ -82,25 +104,10 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetWeeklyReportsByWeekRangeID(weekRangeID, empID);
         }
 
-        //public clsTasks getTaskDetailByTaskId(clsTasksKeys keys)
-        //{
-        //    return _dataObject.getTaskDetailByTaskId(keys);
-        //}
-
-        //public List<clsTasks_sp> getTaskSummaryAll(DateTime dateStart, string email)
-        //{
-        //    return _dataObject.getTaskSummaryAll(dateStart, email);
-        //}
-
-        //public List<clsTasks_sp> getTaskSummaryByEmpId(int empID, DateTime dateStart)
-        //{
-        //    return _dataObject.getTaskSummaryByEmpId(empID, dateStart);
-        //}
-
-        //public List<clsTasks> getTaskSummaryWeekly(int empId, DateTime dateStart)
-        //{
-        //    return _dataObject.getTaskSummaryWeekly(empId,dateStart);
-        //}
+        public List<clsWeeklyReport> GetTasksDataByEmpID(int weekRangeID, int empID)
+        {
+            return _dataObject.GetTasksDataByEmpID(weekRangeID, empID);
+        }
 
         #endregion
 
@@ -124,23 +131,6 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.Delete(keys);
         }
-
-        /// <summary>
-        /// delete clsWeeklyReport by field.
-        /// </summary>
-        /// <param name="fieldName">field name</param>
-        /// <param name="value">value</param>
-        /// <returns>true for successfully deleted</returns>
-        //public bool Delete(clsTasks.clsTASKSFields fieldName, object value)
-        //{
-        //    return _dataObject.DeleteByField(fieldName.ToString(), value);
-        //}
-
-        //public List<clsTasks> GetTaskDetailByIncidentId(int id)
-        //{
-        //    return _dataObject.GetTaskDetailByIncidentId(id);
-        //}
-
 
         #endregion
 

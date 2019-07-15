@@ -10,25 +10,24 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum clsTASKSFields
         {
             TASK_ID,
-            EMP_ID,
-            INC_ID,
-            TASK_TYPE,
             PROJ_ID,
+            PROJECT_CODE,
+            REWORK,
+            REF_ID,
             INC_DESCR,
-            TASK_DESCR,
+            SEVERITY,
+            INC_TYPE,
+            EMP_ID,
+            PHASE,
+            STATUS,
             DATE_STARTED,
             TARGET_DATE,
             COMPLTD_DATE,
             DATE_CREATED,
-            HOURSWORKED_DATE,
-            STATUS,
-            REMARKS,
             EFFORT_EST,
-            ACT_EFFORT_EST,
-            ACT_EFFORT_EST_WK,
-            PROJECT_CODE,
-            REWORK,
-            PHASE,
+            ACT_EFFORT,
+            ACT_EFFORT_WK,
+            COMMENTS,
             OTHERS_1,
             OTHERS_2,
             OTHERS_3
@@ -59,29 +58,29 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #region Data Members
 
-        int _tASK_ID;
-        int _eMP_ID;
-        string _iNC_ID;
-        byte _tASK_TYPE;
-        int _pROJ_ID;
-        string _iNC_DESCR;
-        string _tASK_DESCR;
-        DateTime _dATE_STARTED;
-        DateTime _tARGET_DATE;
-        DateTime _cOMPLTD_DATE;
-        DateTime _dATE_CREATED;
-        DateTime _hOURSWORKED_DATE;
-        byte _sTATUS;
-        string _rEMARKS;
-        double _eFFORT_EST;
-        double _aCT_EFFORT_EST;
-        double _aCT_EFFORT_EST_WK;
-        int _pROJECT_CODE;
-        short _rEWORK;
-        int _pHASE;
-        string _oTHERS_1;
-        string _oTHERS_2;
-        string _oTHERS_3;
+        int _task_ID;
+        int _proj_ID;
+        int _project_code;
+        short _rework;
+        string _ref_ID;
+        string _inc_descr;
+        short _severity;
+        short _inc_type;
+        int _emp_ID;
+        short _phase;
+        short _status;
+        DateTime _date_started;
+        DateTime _target_date;
+        DateTime _compltd_date;
+        DateTime _date_created;
+        double _effort_est;
+        double _act_effort;
+        double _act_effort_wk;
+        string _comments;
+
+        string _others_1;
+        string _others_2;
+        string _others_3;
 
         string _employeeName;
         int _lastWeekOutstanding;
@@ -107,103 +106,155 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public int TASK_ID
 		{
-			 get { return _tASK_ID; }
+			 get { return _task_ID; }
 			 set
 			 {
-				 if (_tASK_ID != value)
+                 if (_task_ID != value)
 				 {
-					_tASK_ID = value;
+                     _task_ID = value;
 					 PropertyHasChanged("TASK_ID");
 				 }
 			 }
 		}
 
-		public int  EMP_ID
+        public int PROJ_ID
+        {
+            get { return _proj_ID; }
+            set
+            {
+                if (_proj_ID != value)
+                {
+                    _proj_ID = value;
+                    PropertyHasChanged("PROJ_ID");
+                }
+            }
+        }
+
+        public int PROJECT_CODE
+        {
+            get { return _project_code; }
+            set
+            {
+                if (_project_code != value)
+                {
+                    _project_code = value;
+                    PropertyHasChanged("PROJECT_CODE");
+                }
+            }
+        }
+
+        public short REWORK
+        {
+            get { return _rework; }
+            set
+            {
+                if (_rework != value)
+                {
+                    _rework = value;
+                    PropertyHasChanged("REWORK");
+                }
+            }
+        }
+
+        public string REF_ID
+        {
+            get { return _ref_ID; }
+            set
+            {
+                if (_ref_ID != value)
+                {
+                    _ref_ID = value;
+                    PropertyHasChanged("REF_ID");
+                }
+            }
+        }
+
+        public string INC_DESCR
+        {
+            get { return _inc_descr; }
+            set
+            {
+                if (_inc_descr != value)
+                {
+                    _inc_descr = value;
+                    PropertyHasChanged("INC_DESCR");
+                }
+            }
+        }
+
+        public short SEVERITY
+        {
+            get { return _severity; }
+            set
+            {
+                if (_severity != value)
+                {
+                    _severity = value;
+                    PropertyHasChanged("SEVERITY");
+                }
+            }
+        }
+
+        public short INC_TYPE
+        {
+            get { return _inc_type; }
+            set
+            {
+                if (_inc_type != value)
+                {
+                    _inc_type = value;
+                    PropertyHasChanged("INC_TYPE");
+                }
+            }
+        }
+
+		public int EMP_ID
 		{
-			 get { return _eMP_ID; }
+			 get { return _emp_ID; }
 			 set
 			 {
-				 if (_eMP_ID != value)
+                 if (_emp_ID != value)
 				 {
-					_eMP_ID = value;
+                     _emp_ID = value;
 					 PropertyHasChanged("EMP_ID");
 				 }
 			 }
 		}
 
-		public string  INC_ID
-		{
-			 get { return _iNC_ID; }
-			 set
-			 {
-				 if (_iNC_ID != value)
-				 {
-					_iNC_ID = value;
-					 PropertyHasChanged("INC_ID");
-				 }
-			 }
-		}
+        public short PHASE
+        {
+            get { return _phase; }
+            set
+            {
+                if (_phase != value)
+                {
+                    _phase = value;
+                    PropertyHasChanged("PHASE");
+                }
+            }
+        }
 
-		public byte  TASK_TYPE
-		{
-			 get { return _tASK_TYPE; }
-			 set
-			 {
-				 if (_tASK_TYPE != value)
-				 {
-					_tASK_TYPE = value;
-					 PropertyHasChanged("TASK_TYPE");
-				 }
-			 }
-		}
-
-		public int  PROJ_ID
-		{
-			 get { return _pROJ_ID; }
-			 set
-			 {
-				 if (_pROJ_ID != value)
-				 {
-					_pROJ_ID = value;
-					 PropertyHasChanged("PROJ_ID");
-				 }
-			 }
-		}
-
-		public string  INC_DESCR
-		{
-			 get { return _iNC_DESCR; }
-			 set
-			 {
-				 if (_iNC_DESCR != value)
-				 {
-					_iNC_DESCR = value;
-					 PropertyHasChanged("INC_DESCR");
-				 }
-			 }
-		}
-
-		public string  TASK_DESCR
-		{
-			 get { return _tASK_DESCR; }
-			 set
-			 {
-				 if (_tASK_DESCR != value)
-				 {
-					_tASK_DESCR = value;
-					 PropertyHasChanged("TASK_DESCR");
-				 }
-			 }
-		}
-
+        public short STATUS
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    PropertyHasChanged("STATUS");
+                }
+            }
+        }
+		
 		public DateTime DATE_STARTED
 		{
-			 get { return _dATE_STARTED; }
+			 get { return _date_started; }
 			 set
 			 {
-				 if (_dATE_STARTED != value)
+                 if (_date_started != value)
 				 {
-					_dATE_STARTED = value;
+                     _date_started = value;
 					 PropertyHasChanged("DATE_STARTED");
 				 }
 			 }
@@ -211,12 +262,12 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public DateTime TARGET_DATE
 		{
-			 get { return _tARGET_DATE; }
+			 get { return _target_date; }
 			 set
 			 {
-				 if (_tARGET_DATE != value)
+                 if (_target_date != value)
 				 {
-					_tARGET_DATE = value;
+                     _target_date = value;
 					 PropertyHasChanged("TARGET_DATE");
 				 }
 			 }
@@ -224,12 +275,12 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public DateTime COMPLTD_DATE
 		{
-			 get { return _cOMPLTD_DATE; }
+			 get { return _compltd_date; }
 			 set
 			 {
-				 if (_cOMPLTD_DATE != value)
+                 if (_compltd_date != value)
 				 {
-					_cOMPLTD_DATE = value;
+                     _compltd_date = value;
 					 PropertyHasChanged("COMPLTD_DATE");
 				 }
 			 }
@@ -237,141 +288,77 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public DateTime  DATE_CREATED
 		{
-			 get { return _dATE_CREATED; }
+			 get { return _date_created; }
 			 set
 			 {
-				 if (_dATE_CREATED != value)
+                 if (_date_created != value)
 				 {
-					_dATE_CREATED = value;
+                     _date_created = value;
 					 PropertyHasChanged("DATE_CREATED");
 				 }
 			 }
 		}
 
-        public DateTime HOURSWORKED_DATE
-        {
-            get { return _hOURSWORKED_DATE; }
-            set
-            {
-                if (_hOURSWORKED_DATE != value)
-                {
-                    _hOURSWORKED_DATE = value;
-                    PropertyHasChanged("HOURSWORKED_DATE");
-                }
-            }
-        }
-        public byte  STATUS
+		public double EFFORT_EST
 		{
-			 get { return _sTATUS; }
+			 get { return _effort_est; }
 			 set
 			 {
-				 if (_sTATUS != value)
+                 if (_effort_est != value)
 				 {
-					_sTATUS = value;
-					 PropertyHasChanged("STATUS");
-				 }
-			 }
-		}
-
-		public string  REMARKS
-		{
-			 get { return _rEMARKS; }
-			 set
-			 {
-				 if (_rEMARKS != value)
-				 {
-					_rEMARKS = value;
-					 PropertyHasChanged("REMARKS");
-				 }
-			 }
-		}
-
-		public double  EFFORT_EST
-		{
-			 get { return _eFFORT_EST; }
-			 set
-			 {
-				 if (_eFFORT_EST != value)
-				 {
-					_eFFORT_EST = value;
+                     _effort_est = value;
 					 PropertyHasChanged("EFFORT_EST");
 				 }
 			 }
 		}
 
-		public double  ACT_EFFORT_EST
+		public double  ACT_EFFORT
 		{
-			 get { return _aCT_EFFORT_EST; }
+			 get { return _act_effort; }
 			 set
 			 {
-				 if (_aCT_EFFORT_EST != value)
+                 if (_act_effort != value)
 				 {
-					_aCT_EFFORT_EST = value;
-					 PropertyHasChanged("ACT_EFFORT_EST");
+                     _act_effort = value;
+					 PropertyHasChanged("ACT_EFFORT");
 				 }
 			 }
 		}
 
-		public double  ACT_EFFORT_EST_WK
+		public double  ACT_EFFORT_WK
 		{
-			 get { return _aCT_EFFORT_EST_WK; }
+			 get { return _act_effort_wk; }
 			 set
 			 {
-				 if (_aCT_EFFORT_EST_WK != value)
+                 if (_act_effort_wk != value)
 				 {
-					_aCT_EFFORT_EST_WK = value;
-					 PropertyHasChanged("ACT_EFFORT_EST_WK");
+                     _act_effort_wk = value;
+					 PropertyHasChanged("ACT_EFFORT_WK");
 				 }
 			 }
 		}
 
-		public int  PROJECT_CODE
-		{
-			 get { return _pROJECT_CODE; }
-			 set
-			 {
-				 if (_pROJECT_CODE != value)
-				 {
-					_pROJECT_CODE = value;
-					 PropertyHasChanged("PROJECT_CODE");
-				 }
-			 }
-		}
-
-		public short  REWORK
-		{
-			 get { return _rEWORK; }
-			 set
-			 {
-				 if (_rEWORK != value)
-				 {
-					_rEWORK = value;
-					 PropertyHasChanged("REWORK");
-				 }
-			 }
-		}
-
-		public int  PHASE
-		{
-			 get { return _pHASE; }
-			 set
-			 {
-				 if (_pHASE != value)
-				 {
-					_pHASE = value;
-					 PropertyHasChanged("PHASE");
-				 }
-			 }
-		}
+        public string COMMENTS
+        {
+            get { return _comments; }
+            set
+            {
+                if (_comments != value)
+                {
+                    _comments = value;
+                    PropertyHasChanged("COMMENTS");
+                }
+            }
+        }
 
 		public string  OTHERS_1
 		{
-			 get { return _oTHERS_1; }
+			 get { return _others_1; }
 			 set
 			 {
-				 if (_oTHERS_1 != value)
+                 if (_others_1 != value)
 				 {
-					_oTHERS_1 = value;
+                     _others_1 = value;
 					 PropertyHasChanged("OTHERS_1");
 				 }
 			 }
@@ -379,12 +366,12 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public string  OTHERS_2
 		{
-			 get { return _oTHERS_2; }
+			 get { return _others_2; }
 			 set
 			 {
-				 if (_oTHERS_2 != value)
+                 if (_others_2 != value)
 				 {
-					_oTHERS_2 = value;
+                     _others_2 = value;
 					 PropertyHasChanged("OTHERS_2");
 				 }
 			 }
@@ -392,12 +379,12 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public string  OTHERS_3
 		{
-			 get { return _oTHERS_3; }
+			 get { return _others_3; }
 			 set
 			 {
-				 if (_oTHERS_3 != value)
+                 if (_others_3 != value)
 				 {
-					_oTHERS_3 = value;
+                     _others_3 = value;
 					 PropertyHasChanged("OTHERS_3");
 				 }
 			 }

@@ -94,6 +94,15 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
 
         /// <summary>
+        /// get list of all clsContactss
+        /// </summary>
+        /// <returns>list</returns>
+        public List<clsContacts> GetMissingReportsByEmpID(int empID, DateTime currentDate)
+        {
+            return _dataObject.GetMissingReportsByEmpID(empID, currentDate);
+        }
+
+        /// <summary>
         /// delete by primary key
         /// </summary>
         /// <param name="keys">primary key</param>

@@ -241,7 +241,7 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
-    Public Function GetBillableHoursByWeek(empID As Integer, currentDate As Date) As StateData
+    Public Function GetBillableHoursByWeek(empID As Integer, weekID As Integer) As StateData
         Dim ResourceSet As New ResourcePlannerSet
         Dim ResourceSetLst As List(Of ResourcePlannerSet)
         Dim objResource As New List(Of ResourcePlanner)
@@ -250,7 +250,7 @@ Public Class ResourcePlannerManagement
         Dim status As NotifyType
 
         Try
-            ResourceSetLst = ResourceSet.GetBillableHoursByWeek(empID, currentDate)
+            ResourceSetLst = ResourceSet.GetBillableHoursByWeek(empID, weekID)
 
             If Not IsNothing(ResourceSetLst) Then
                 For Each objList As ResourcePlannerSet In ResourceSetLst

@@ -341,7 +341,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID, DateTime currentDate)
+        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID, int weekID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetBillableHoursByWeek]";
@@ -353,7 +353,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMPID", empID));
-                sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", currentDate));
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEKID", weekID));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();

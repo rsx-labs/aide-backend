@@ -11,14 +11,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             WeekRangeID,
             StartWeek,
             EndWeek,
-            DateCreated,
+            EmpID,
+            Status,
+            Date_Submitted,
             DateRange
         }
 
         int _weekRangeID;
         DateTime _startWeek;
         DateTime _endWeek;
-        DateTime _dateCreated;
+        int _empID;
+        int _status;
+        DateTime _dateSubmitted;
         string _dateRange;
         
         #region StoredProcSetters&Getters
@@ -62,15 +66,41 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public DateTime DateCreated
+        public int EmpID
         {
-            get { return _dateCreated; }
+            get { return _empID; }
             set
             {
-                if (_dateCreated != value)
+                if (_empID != value)
                 {
-                    _dateCreated = value;
-                    PropertyHasChanged("DateCreated");
+                    _empID = value;
+                    PropertyHasChanged("EmpID");
+                }
+            }
+        }
+
+        public int Status
+        {
+            get { return _status; }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    PropertyHasChanged("Status");
+                }
+            }
+        }
+
+        public DateTime Date_Submitted
+        {
+            get { return _dateSubmitted; }
+            set
+            {
+                if (_dateSubmitted != value)
+                {
+                    _dateSubmitted = value;
+                    PropertyHasChanged("Date_Submitted");
                 }
             }
         }

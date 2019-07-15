@@ -116,9 +116,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.DeleteByField(fieldName.ToString(), value);
         }
 
-        public List<clsTasks> GetTaskDetailByIncidentId(int id)
+        public List<clsTasks> GetTasksByEmpID(int empID)
         {
-            return _dataObject.GetTaskDetailByIncidentId(id);
+            return _dataObject.GetTasksByEmpID(empID);
         }
 
 

@@ -405,12 +405,12 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
-    Public Function GetBillableHoursByWeek(empID As Integer, currentDate As Date) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByWeek
+    Public Function GetBillableHoursByWeek(empID As Integer, weekID As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetBillableHoursByWeek
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)
             Dim ResourceSetLst As New List(Of ResourcePlannerSet)
 
-            ResourceLst = cResourcePlannerFactory.GetBillableHoursByWeek(empID, currentDate)
+            ResourceLst = cResourcePlannerFactory.GetBillableHoursByWeek(empID, weekID)
 
             If Not IsNothing(ResourceLst) Then
                 For Each cList As clsResourcePlanner In ResourceLst
