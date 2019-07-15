@@ -4,17 +4,17 @@ Imports GDC.PH.AIDE.Entity
 Public Class DashboardManagement
     Private _AttendanceMgmt As AttendanceManagement
     Private _EmployeeMgmt As EmployeeManagement
-    Private _NonBillableMgmt As NonBillabilityManagement
+    Private _NonBillableMgmt As BillabilityManagement
     Private _TaskMgmt As TasksManagement
     Private _ProjectMgmt As ProjectManagement
-    Private _NonBillableHoursMgmt As NonBillabilityManagement
+    Private _BillableHoursMgmt As BillabilityManagement
     Public Sub New()
         _AttendanceMgmt = New AttendanceManagement()
         _EmployeeMgmt = New EmployeeManagement()
-        _NonBillableMgmt = New NonBillabilityManagement()
+        _NonBillableMgmt = New BillabilityManagement()
         _TaskMgmt = New TasksManagement()
         _ProjectMgmt = New ProjectManagement()
-        _NonBillableHoursMgmt = New NonBillabilityManagement()
+        _BillableHoursMgmt = New BillabilityManagement()
     End Sub
 
     Public Function DashbrdGetEmployeeList() As List(Of DashboardEmployee)
@@ -133,26 +133,26 @@ Public Class DashboardManagement
         Return lstDbAttendanceList
     End Function
 
-    Public Function DashbrdGetNonBillableHours() As List(Of DashboardNonBillableHours)
-        Dim currDate As Date = Date.Now
-        Dim state As StateData = _NonBillableHoursMgmt.getNonBillableData(currDate)
-        Dim lstDbNonBillableHoursList As List(Of DashboardNonBillableHours) = Nothing
+    'Public Function DashbrdGetNonBillableHours() As List(Of DashboardNonBillableHours)
+    '    Dim currDate As Date = Date.Now
+    '    Dim state As StateData = _BillableHoursMgmt.getNonBillableData(currDate)
+    '    Dim lstDbNonBillableHoursList As List(Of DashboardNonBillableHours) = Nothing
 
-        If Not IsNothing(state.Data) Then
-            Dim lstNonBillableSummary As List(Of NonBillableSummary) = DirectCast(state.Data, List(Of NonBillableSummary))
-            lstDbNonBillableHoursList = New List(Of DashboardNonBillableHours)
-            For Each _nonbillable As NonBillableSummary In lstNonBillableSummary
-                Dim item As New DashboardNonBillableHours
-                item.Name = _nonbillable.Name
-                'item.IBP = _nonbillable.InBetween
-                item.Holiday = _nonbillable.Holiday
-                item.VL = _nonbillable.VacationLeave
-                item.SL = _nonbillable.SickLeave
-                lstDbNonBillableHoursList.Add(item)
-            Next
-        End If
-        Return lstDbNonBillableHoursList
-    End Function
+    '    If Not IsNothing(state.Data) Then
+    '        Dim lstNonBillableSummary As List(Of NonBillableSummary) = DirectCast(state.Data, List(Of NonBillableSummary))
+    '        lstDbNonBillableHoursList = New List(Of DashboardNonBillableHours)
+    '        For Each _nonbillable As NonBillableSummary In lstNonBillableSummary
+    '            Dim item As New DashboardNonBillableHours
+    '            item.Name = _nonbillable.Name
+    '            'item.IBP = _nonbillable.InBetween
+    '            item.Holiday = _nonbillable.Holiday
+    '            item.VL = _nonbillable.VacationLeave
+    '            item.SL = _nonbillable.SickLeave
+    '            lstDbNonBillableHoursList.Add(item)
+    '        Next
+    '    End If
+    '    Return lstDbNonBillableHoursList
+    'End Function
 
     Public Function DashbrdGetNonBillableSummary() As List(Of DashboardNonBillableHoursSummary)
         Dim lstDbNonBillableSummaryList As List(Of DashboardNonBillableHoursSummary) = Nothing

@@ -36,33 +36,6 @@ Public Class TasksSet
         End Set
     End Property
 
-    Public Property EMP_ID As Integer Implements ITasks.EMP_ID
-        Get
-            Return cTasks.EMP_ID
-        End Get
-        Set(ByVal value As Integer)
-            cTasks.EMP_ID = value
-        End Set
-    End Property
-
-    Public Property INC_ID As String Implements ITasks.INC_ID
-        Get
-            Return cTasks.INC_ID
-        End Get
-        Set(ByVal value As String)
-            cTasks.INC_ID = value
-        End Set
-    End Property
-
-    Public Property TASK_TYPE As Integer Implements ITasks.TASK_TYPE
-        Get
-            Return cTasks.TASK_TYPE
-        End Get
-        Set(ByVal value As Integer)
-            cTasks.TASK_TYPE = value
-        End Set
-    End Property
-
     Public Property PROJ_ID As Integer Implements ITasks.PROJ_ID
         Get
             Return cTasks.PROJ_ID
@@ -72,115 +45,7 @@ Public Class TasksSet
         End Set
     End Property
 
-    Public Property INC_DESCR() As String Implements ITasks.INC_DESCR
-        Get
-            Return cTasks.INC_DESCR
-        End Get
-        Set(ByVal value As String)
-            cTasks.INC_DESCR = value
-        End Set
-    End Property
-
-    Public Property TASK_DESCR() As String Implements ITasks.TASK_DESCR
-        Get
-            Return cTasks.TASK_DESCR
-        End Get
-        Set(ByVal value As String)
-            cTasks.TASK_DESCR = value
-        End Set
-    End Property
-
-    Public Property DATE_STARTED() As DateTime Implements ITasks.DATE_STARTED
-        Get
-            Return cTasks.DATE_STARTED
-        End Get
-        Set(ByVal value As DateTime)
-            cTasks.DATE_STARTED = value
-        End Set
-    End Property
-
-    Public Property TARGET_DATE() As DateTime Implements ITasks.TARGET_DATE
-        Get
-            Return cTasks.TARGET_DATE
-        End Get
-        Set(ByVal value As DateTime)
-            cTasks.TARGET_DATE = value
-        End Set
-    End Property
-
-    Public Property COMPLTD_DATE() As DateTime Implements ITasks.COMPLTD_DATE
-        Get
-            Return cTasks.COMPLTD_DATE
-        End Get
-        Set(ByVal value As DateTime)
-            cTasks.COMPLTD_DATE = value
-        End Set
-    End Property
-
-    Public Property DATE_CREATED() As DateTime Implements ITasks.DATE_CREATED
-        Get
-            Return cTasks.DATE_CREATED
-        End Get
-        Set(ByVal value As DateTime)
-            cTasks.DATE_CREATED = value
-        End Set
-    End Property
-
-    Public Property HOURSWORKED_DATE As DateTime Implements ITasks.HOURSWORKED_DATE
-        Get
-            Return cTasks.HOURSWORKED_DATE
-        End Get
-        Set(ByVal value As DateTime)
-            cTasks.HOURSWORKED_DATE = value
-        End Set
-    End Property
-
-    Public Property STATUS() As Integer Implements ITasks.STATUS
-        Get
-            Return cTasks.STATUS
-        End Get
-        Set(ByVal value As Integer)
-            cTasks.STATUS = value
-        End Set
-    End Property
-
-    Public Property REMARKS() As String Implements ITasks.REMARKS
-        Get
-            Return cTasks.REMARKS
-        End Get
-        Set(ByVal value As String)
-            cTasks.REMARKS = value
-        End Set
-    End Property
-
-    Public Property EFFORT_EST() As Double Implements ITasks.EFFORT_EST
-        Get
-            Return cTasks.EFFORT_EST
-        End Get
-        Set(ByVal value As Double)
-            cTasks.EFFORT_EST = value
-        End Set
-    End Property
-
-    Public Property ACT_EFFORT_EST() As Double Implements ITasks.ACT_EFFORT_EST
-        Get
-            Return cTasks.ACT_EFFORT_EST
-        End Get
-        Set(ByVal value As Double)
-            cTasks.ACT_EFFORT_EST = value
-        End Set
-    End Property
-
-    Public Property ACT_EFFORT_EST_WK() As Double Implements ITasks.ACT_EFFORT_EST_WK
-        Get
-            Return cTasks.ACT_EFFORT_EST_WK
-        End Get
-        Set(ByVal value As Double)
-            cTasks.ACT_EFFORT_EST_WK = value
-        End Set
-    End Property
-
-    Public Property PROJECT_CODE() As Integer Implements ITasks.PROJECT_CODE
+    Public Property PROJECT_CODE As Integer Implements ITasks.PROJECT_CODE
         Get
             Return cTasks.PROJECT_CODE
         End Get
@@ -189,25 +54,151 @@ Public Class TasksSet
         End Set
     End Property
 
-    Public Property REWORK() As Byte Implements ITasks.REWORK
+    Public Property REWORK As Short Implements ITasks.REWORK
         Get
             Return cTasks.REWORK
         End Get
-        Set(ByVal value As Byte)
+        Set(ByVal value As Short)
             cTasks.REWORK = value
         End Set
     End Property
 
-    Public Property PHASE() As String Implements ITasks.PHASE
+    Public Property REF_ID As String Implements ITasks.REF_ID
+        Get
+            Return cTasks.REF_ID
+        End Get
+        Set(ByVal value As String)
+            cTasks.REF_ID = value
+        End Set
+    End Property
+
+    Public Property INC_DESCR As String Implements ITasks.INC_DESCR
+        Get
+            Return cTasks.INC_DESCR
+        End Get
+        Set(ByVal value As String)
+            cTasks.INC_DESCR = value
+        End Set
+    End Property
+
+    Public Property SEVERITY As Short Implements ITasks.SEVERITY
+        Get
+            Return cTasks.SEVERITY
+        End Get
+        Set(ByVal value As Short)
+            cTasks.SEVERITY = value
+        End Set
+    End Property
+
+    Public Property INC_TYPE As Short Implements ITasks.INC_TYPE
+        Get
+            Return cTasks.INC_TYPE
+        End Get
+        Set(ByVal value As Short)
+            cTasks.INC_TYPE = value
+        End Set
+    End Property
+
+    Public Property EMP_ID As Integer Implements ITasks.EMP_ID
+        Get
+            Return cTasks.EMP_ID
+        End Get
+        Set(ByVal value As Integer)
+            cTasks.EMP_ID = value
+        End Set
+    End Property
+
+    Public Property PHASE As Short Implements ITasks.PHASE
         Get
             Return cTasks.PHASE
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As Short)
             cTasks.PHASE = value
         End Set
     End Property
 
-    Public Property OTHERS_1() As String Implements ITasks.OTHERS_1
+    Public Property STATUS As Short Implements ITasks.STATUS
+        Get
+            Return cTasks.STATUS
+        End Get
+        Set(ByVal value As Short)
+            cTasks.STATUS = value
+        End Set
+    End Property
+
+    Public Property DATE_STARTED As DateTime Implements ITasks.DATE_STARTED
+        Get
+            Return cTasks.DATE_STARTED
+        End Get
+        Set(ByVal value As DateTime)
+            cTasks.DATE_STARTED = value
+        End Set
+    End Property
+
+    Public Property TARGET_DATE As DateTime Implements ITasks.TARGET_DATE
+        Get
+            Return cTasks.TARGET_DATE
+        End Get
+        Set(ByVal value As DateTime)
+            cTasks.TARGET_DATE = value
+        End Set
+    End Property
+
+    Public Property COMPLTD_DATE As DateTime Implements ITasks.COMPLTD_DATE
+        Get
+            Return cTasks.COMPLTD_DATE
+        End Get
+        Set(ByVal value As DateTime)
+            cTasks.COMPLTD_DATE = value
+        End Set
+    End Property
+
+    Public Property DATE_CREATED As DateTime Implements ITasks.DATE_CREATED
+        Get
+            Return cTasks.DATE_CREATED
+        End Get
+        Set(ByVal value As DateTime)
+            cTasks.DATE_CREATED = value
+        End Set
+    End Property
+
+    Public Property EFFORT_EST As Double Implements ITasks.EFFORT_EST
+        Get
+            Return cTasks.EFFORT_EST
+        End Get
+        Set(ByVal value As Double)
+            cTasks.EFFORT_EST = value
+        End Set
+    End Property
+
+    Public Property ACT_EFFORT As Double Implements ITasks.ACT_EFFORT
+        Get
+            Return cTasks.ACT_EFFORT
+        End Get
+        Set(ByVal value As Double)
+            cTasks.ACT_EFFORT = value
+        End Set
+    End Property
+
+    Public Property ACT_EFFORT_WK As Double Implements ITasks.ACT_EFFORT_WK
+        Get
+            Return cTasks.ACT_EFFORT_WK
+        End Get
+        Set(ByVal value As Double)
+            cTasks.ACT_EFFORT_WK = value
+        End Set
+    End Property
+
+    Public Property COMMENTS As String Implements ITasks.COMMENTS
+        Get
+            Return cTasks.COMMENTS
+        End Get
+        Set(ByVal value As String)
+            cTasks.COMMENTS = value
+        End Set
+    End Property
+
+    Public Property OTHERS_1 As String Implements ITasks.OTHERS_1
         Get
             Return cTasks.OTHERS_1
         End Get
@@ -216,7 +207,7 @@ Public Class TasksSet
         End Set
     End Property
 
-    Public Property OTHERS_2() As String Implements ITasks.OTHERS_2
+    Public Property OTHERS_2 As String Implements ITasks.OTHERS_2
         Get
             Return cTasks.OTHERS_2
         End Get
@@ -225,7 +216,7 @@ Public Class TasksSet
         End Set
     End Property
 
-    Public Property OTHERS_3() As String Implements ITasks.OTHERS_3
+    Public Property OTHERS_3 As String Implements ITasks.OTHERS_3
         Get
             Return cTasks.OTHERS_3
         End Get
@@ -347,12 +338,12 @@ Public Class TasksSet
         End Try
     End Function
 
-    Public Function GetTaskDetailByIncidentId(id As Integer) As List(Of TasksSet) Implements ITasks.GetTaskDetailByIncidentId
+    Public Function GetTasksByEmpID(empID As Integer) As List(Of TasksSet) Implements ITasks.GetTasksByEmpID
         Try
             Dim TaskLst As List(Of clsTasks)
             Dim TaskSetLst As New List(Of TasksSet)
 
-            TaskLst = cTasksFactory.GetTaskDetailByIncidentId(id)
+            TaskLst = cTasksFactory.GetTasksByEmpID(empID)
 
             If Not IsNothing(TaskLst) Then
                 For Each cList As clsTasks In TaskLst

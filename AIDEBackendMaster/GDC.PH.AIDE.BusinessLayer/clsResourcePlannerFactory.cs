@@ -98,9 +98,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetBillableHoursByMonth(empID, month, year);
         }
 
-        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID, DateTime currentDate)
+        public List<clsResourcePlanner> GetBillableHoursByWeek(int empID, int weekID)
         {
-            return _dataObject.GetBillableHoursByWeek(empID, currentDate);
+            return _dataObject.GetBillableHoursByWeek(empID, weekID);
         }
 
         public List<clsResourcePlanner> GetNonBillableHours(string email, int display, int month, int year)

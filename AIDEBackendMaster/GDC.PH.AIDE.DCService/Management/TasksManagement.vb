@@ -137,7 +137,7 @@ Public Class TasksManagement
         Return state
     End Function
 
-    Public Function GetTaskDetailByIncidentId(id As Integer) As StateData
+    Public Function GetTasksByEmpID(empID As Integer) As StateData
         Dim taskSet As New TasksSet
         Dim TaskSetList As List(Of TasksSet)
         Dim objTaskAs As New List(Of Tasks)
@@ -146,7 +146,7 @@ Public Class TasksManagement
         Dim status As NotifyType
 
         Try
-            TaskSetList = taskSet.GetTaskDetailByIncidentId(id)
+            TaskSetList = taskSet.GetTasksByEmpID(empID)
 
             If Not IsNothing(TaskSetList) Then
                 For Each objList As TasksSet In TaskSetList
@@ -168,27 +168,28 @@ Public Class TasksManagement
         Dim objTasks As Tasks = DirectCast(objData, Tasks)
         Dim tasksData As New TasksSet
         tasksData.TASK_ID = objTasks.TaskID
-        tasksData.EMP_ID = objTasks.EmpID
-        tasksData.TASK_DESCR = objTasks.TaskDescr
-        tasksData.TASK_TYPE = objTasks.TaskType
         tasksData.PROJ_ID = objTasks.ProjectID
         tasksData.PROJECT_CODE = objTasks.ProjectCode
-        tasksData.STATUS = objTasks.Status
-        tasksData.REMARKS = objTasks.Remarks
         tasksData.REWORK = objTasks.Rework
-        tasksData.ACT_EFFORT_EST = objTasks.ActualEffortEst
-        tasksData.COMPLTD_DATE = objTasks.CompletedDate
-        tasksData.DATE_CREATED = objTasks.DateCreated
+        tasksData.REF_ID = objTasks.ReferenceID
+        tasksData.INC_DESCR = objTasks.IncidentDescr
+        tasksData.SEVERITY = objTasks.Severity
+        tasksData.INC_TYPE = objTasks.IncidentType
+        tasksData.EMP_ID = objTasks.EmpID
+        tasksData.PHASE = objTasks.Phase
+        tasksData.STATUS = objTasks.Status
         tasksData.DATE_STARTED = objTasks.DateStarted
         tasksData.TARGET_DATE = objTasks.TargetDate
+        tasksData.COMPLTD_DATE = objTasks.CompletedDate
+        tasksData.DATE_CREATED = objTasks.DateCreated
         tasksData.EFFORT_EST = objTasks.EffortEst
-        tasksData.ACT_EFFORT_EST_WK = objTasks.EffortEstWk
-        tasksData.INC_ID = objTasks.IncidentID
-        tasksData.INC_DESCR = objTasks.IncidentDescr
+        tasksData.ACT_EFFORT = objTasks.ActualEffort
+        tasksData.ACT_EFFORT_WK = objTasks.ActualEffortWk
+        tasksData.COMMENTS = objTasks.Comments
         tasksData.OTHERS_1 = objTasks.Others1
         tasksData.OTHERS_2 = objTasks.Others2
         tasksData.OTHERS_3 = objTasks.Others3
-        tasksData.PHASE = objTasks.Phase
+
         objResult = tasksData
     End Sub
 
@@ -200,27 +201,27 @@ Public Class TasksManagement
         Dim objTasks As TasksSet = DirectCast(objData, TasksSet)
         Dim tasksData As New Tasks
         tasksData.TaskID = objTasks.TASK_ID
-        tasksData.EmpID = objTasks.EMP_ID
-        tasksData.TaskDescr = objTasks.TASK_DESCR
-        tasksData.TaskType = objTasks.TASK_TYPE
         tasksData.ProjectID = objTasks.PROJ_ID
-        tasksData.Status = objTasks.STATUS
-        tasksData.Remarks = objTasks.REMARKS
+        tasksData.ProjectCode = objTasks.PROJECT_CODE
         tasksData.Rework = objTasks.REWORK
-        tasksData.ActualEffortEst = objTasks.ACT_EFFORT_EST
-        tasksData.CompletedDate = objTasks.COMPLTD_DATE
-        tasksData.DateCreated = objTasks.DATE_CREATED
+        tasksData.ReferenceID = objTasks.REF_ID
+        tasksData.IncidentDescr = objTasks.INC_DESCR
+        tasksData.Severity = objTasks.SEVERITY
+        tasksData.IncidentType = objTasks.INC_TYPE
+        tasksData.EmpID = objTasks.EMP_ID
+        tasksData.Phase = objTasks.PHASE
+        tasksData.Status = objTasks.STATUS
         tasksData.DateStarted = objTasks.DATE_STARTED
         tasksData.TargetDate = objTasks.TARGET_DATE
+        tasksData.CompletedDate = objTasks.COMPLTD_DATE
+        tasksData.DateCreated = objTasks.DATE_CREATED
         tasksData.EffortEst = objTasks.EFFORT_EST
-        tasksData.EffortEstWk = objTasks.ACT_EFFORT_EST_WK
-        tasksData.IncidentID = objTasks.INC_ID
-        tasksData.IncidentDescr = objTasks.INC_DESCR
+        tasksData.ActualEffort = objTasks.ACT_EFFORT
+        tasksData.ActualEffortWk = objTasks.ACT_EFFORT_WK
+        tasksData.Comments = objTasks.COMMENTS
         tasksData.Others1 = objTasks.OTHERS_1
         tasksData.Others2 = objTasks.OTHERS_2
         tasksData.Others3 = objTasks.OTHERS_3
-        tasksData.Phase = objTasks.PHASE
-        tasksData.HOURSWORKED_DATE = objTasks.HoursWorked_Date
         Return tasksData
     End Function
 

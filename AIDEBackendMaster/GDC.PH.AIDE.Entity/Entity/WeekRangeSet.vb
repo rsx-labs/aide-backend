@@ -48,12 +48,30 @@ Public Class WeekRangeSet
         End Set
     End Property
 
-    Public Property DateCreated As Date Implements IWeekRange.DateCreated
+    Public Property EmpID As Integer Implements IWeekRange.EmpID
         Get
-            Return cWeekRange.DateCreated
+            Return cWeekRange.EmpID
+        End Get
+        Set(ByVal value As Integer)
+            cWeekRange.EmpID = value
+        End Set
+    End Property
+
+    Public Property Status As Short Implements IWeekRange.Status
+        Get
+            Return cWeekRange.Status
+        End Get
+        Set(ByVal value As Short)
+            cWeekRange.Status = value
+        End Set
+    End Property
+
+    Public Property DateSubmitted As Date Implements IWeekRange.DateSubmitted
+        Get
+            Return cWeekRange.Date_Submitted
         End Get
         Set(ByVal value As Date)
-            cWeekRange.DateCreated = value
+            cWeekRange.Date_Submitted = value
         End Set
     End Property
 
@@ -73,6 +91,30 @@ Public Class WeekRangeSet
     Public Function InsertWeekRange() As Boolean Implements IWeekRange.InsertWeekRange
         Try
             Return Me.cWeeklyReportFactory.InsertWeekRange(cWeekRange)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Insert Weekly Report Failed!")
+            End If
+        End Try
+    End Function
+
+    Public Function InsertWeeklyReportXref(weekRange As WeekRangeSet) As Boolean Implements IWeekRange.InsertWeeklyReportXref
+        Try
+            Return Me.cWeeklyReportFactory.InsertWeeklyReportXref(cWeekRange)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Insert Weekly Report Failed!")
+            End If
+        End Try
+    End Function
+
+    Public Function UpdateWeeklyReportXref(weekRange As WeekRangeSet) As Boolean Implements IWeekRange.UpdateWeeklyReportXref
+        Try
+            Return Me.cWeeklyReportFactory.UpdateWeeklyReportXref(cWeekRange)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
@@ -106,10 +148,34 @@ Public Class WeekRangeSet
         End Try
     End Function
 
-    Public Function GetWeeklyReportsByEmpID(empID As Integer) As List(Of WeekRangeSet) Implements IWeekRange.GetWeeklyReportsByEmpID
+    Public Function GetWeekRangeByMonthYear(empID As Integer, month As Integer, year As Integer) As List(Of WeekRangeSet) Implements IWeekRange.GetWeekRangeByMonthYear
         Try
             Dim objWeekRangeList As List(Of clsWeekRange)
-            objWeekRangeList = cWeeklyReportFactory.GetWeeklyReportsByEmpID(empID)
+            objWeekRangeList = cWeeklyReportFactory.GetWeekRangeByMonthYear(empID, month, year)
+
+            If IsNothing(objWeekRangeList) Then
+                Throw New NoRecordFoundException("Record Not Found!")
+            End If
+
+            Dim lstWeekRange As List(Of WeekRangeSet) = New List(Of WeekRangeSet)
+            For Each weekRange As clsWeekRange In objWeekRangeList
+                lstWeekRange.Add(New WeekRangeSet(weekRange))
+            Next
+
+            Return lstWeekRange
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetWeeklyReportsByEmpID(empID As Integer, month As Integer, year As Integer) As List(Of WeekRangeSet) Implements IWeekRange.GetWeeklyReportsByEmpID
+        Try
+            Dim objWeekRangeList As List(Of clsWeekRange)
+            objWeekRangeList = cWeeklyReportFactory.GetWeeklyReportsByEmpID(empID, month, year)
 
             If IsNothing(objWeekRangeList) Then
                 Throw New NoRecordFoundException("Record Not Found!")

@@ -228,7 +228,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Close();
                 sqlCommand.Dispose();
             }
-
         }
 
         /// <summary>
@@ -271,6 +270,42 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Dispose();
             }
 
+        }
+
+        /// <summary>
+        /// Select all rescords
+        /// </summary>
+        /// <returns>list of clsContacts</returns>
+        public List<clsContacts> GetMissingReportsByEmpID(int empID, DateTime currentDate)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetMissingReportsByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", currentDate));
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsContacts::SelectAll::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
         }
 
         /// <summary>

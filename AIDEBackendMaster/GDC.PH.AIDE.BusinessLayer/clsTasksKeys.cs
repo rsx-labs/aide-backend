@@ -8,7 +8,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		#region Data Members
 
-		int _tASK_ID;
+		int _task_ID;
 
 		#endregion
 
@@ -16,7 +16,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public clsTasksKeys(int tASK_ID)
 		{
-			 _tASK_ID = tASK_ID; 
+            _task_ID = tASK_ID; 
 		}
 
 		#endregion
@@ -25,7 +25,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 		public int  TASK_ID
 		{
-			 get { return _tASK_ID; }
+            get { return _task_ID; }
 		}
 
 		#endregion

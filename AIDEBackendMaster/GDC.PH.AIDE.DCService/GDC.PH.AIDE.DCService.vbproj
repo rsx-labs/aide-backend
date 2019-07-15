@@ -110,6 +110,7 @@
     <Compile Include="Management\AnnouncementsManagement.vb" />
     <Compile Include="Management\AttendanceManagement.vb" />
     <Compile Include="Management\AuditSchedManagement.vb" />
+    <Compile Include="Management\BillabilityManagement.vb" />
     <Compile Include="Management\BirthdayManagement.vb" />
     <Compile Include="Management\AssetsManagement.vb" />
     <Compile Include="Management\ComcellClockManagement.vb" />
@@ -154,7 +155,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Management\NonBillabilityManagement.vb" />
     <Compile Include="Management\ProfileManagement.vb" />
     <Compile Include="Management\StatusManagement.vb" />
     <Compile Include="Management\TasksManagement.vb" />

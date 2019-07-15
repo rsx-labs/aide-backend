@@ -4,14 +4,18 @@ Imports GDC.PH.AIDE.Entity
 Public Class WeeklyReportManagement
     Inherits ManagementBase
 
-    Public Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport)) As StateData
+    Public Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
+        Dim weekRangeSet As New WeekRangeSet
         Dim message As String = ""
         Dim state As StateData
         Dim status As NotifyType
         Try
-            For Each objReports As WeeklyReport In weeklyReport
-                InsertWeeklyReport(objReports)
-            Next
+            SetWeekRangeFields(weekRangeSet, weeklyReportXref)
+            If weekRangeSet.InsertWeeklyReportXref(weekRangeSet) Then
+                For Each objReports As WeeklyReport In weeklyReport
+                    InsertWeeklyReport(objReports)
+                Next
+            End If
         Catch ex As Exception
             status = NotifyType.IsError
             message = GetExceptionMessage(ex)
@@ -38,15 +42,19 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport)) As StateData
+    Public Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
+        Dim weekRangeSet As New WeekRangeSet
         Dim message As String = ""
         Dim state As StateData
         Dim status As NotifyType
 
         Try
-            For Each objReports As WeeklyReport In weeklyReport
-                UpdateWeeklyReports(objReports)
-            Next
+            SetWeekRangeFields(weekRangeSet, weeklyReportXref)
+            If weekRangeSet.UpdateWeeklyReportXref(weekRangeSet) Then
+                For Each objReports As WeeklyReport In weeklyReport
+                    UpdateWeeklyReports(objReports)
+                Next
+            End If
         Catch ex As Exception
             status = NotifyType.IsError
             message = GetExceptionMessage(ex)
@@ -119,7 +127,7 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function GetWeeklyReportsByEmpID(empID As Integer) As StateData
+    Public Function GetWeekRangeByMonthYear(empID As Integer, month As Integer, year As Integer) As StateData
         Dim weekRangeSet As New WeekRangeSet
         Dim weekRangeSetList As List(Of WeekRangeSet)
         Dim objWeekRange As New List(Of WeekRange)
@@ -128,7 +136,34 @@ Public Class WeeklyReportManagement
         Dim status As NotifyType
 
         Try
-            weekRangeSetList = weekRangeSet.GetWeeklyReportsByEmpID(empID)
+            weekRangeSetList = weekRangeSet.GetWeekRangeByMonthYear(empID, month, year)
+
+            If Not IsNothing(weekRangeSetList) Then
+                For Each objList As WeekRangeSet In weekRangeSetList
+                    objWeekRange.Add(DirectCast(GetWeekRangeMappedFields(objList), WeekRange))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWeekRange, message)
+        Return state
+    End Function
+
+    Public Function GetWeeklyReportsByEmpID(empID As Integer, month As Integer, year As Integer) As StateData
+        Dim weekRangeSet As New WeekRangeSet
+        Dim weekRangeSetList As List(Of WeekRangeSet)
+        Dim objWeekRange As New List(Of WeekRange)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            weekRangeSetList = weekRangeSet.GetWeeklyReportsByEmpID(empID, month, year)
 
             If Not IsNothing(weekRangeSetList) Then
                 For Each objList As WeekRangeSet In weekRangeSetList
@@ -173,134 +208,68 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    'Public Function GetTasksAll() As StateData
-    '    Dim tasksSet As New TasksSet
-    '    Dim lstTasks As List(Of TasksSet)
-    '    Dim objTasks As New List(Of Tasks)
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
+    Public Function GetTasksDataByEmpID(weekRangeID As Integer, empID As Integer) As StateData
+        Dim weeklyReportSet As New WeeklyReportSet
+        Dim weeklyReportSetList As List(Of WeeklyReportSet)
+        Dim objWeeklyReport As New List(Of WeeklyReport)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
 
-    '    Try
-    '        lstTasks = tasksSet.GetAllTasks()
+        Try
+            weeklyReportSetList = weeklyReportSet.GetTasksDataByEmpID(weekRangeID, empID)
 
-    '        If Not IsNothing(lstTasks) Then
-    '            For Each objList As TasksSet In lstTasks
-    '                objTasks.Add(DirectCast(GetMappedFields(objList), Tasks))
-    '            Next
-    '            status = NotifyType.IsSuccess
-    '        End If
+            If Not IsNothing(weeklyReportSetList) Then
+                For Each objList As WeeklyReportSet In weeklyReportSetList
+                    objWeeklyReport.Add(DirectCast(GetMappedFields(objList), WeeklyReport))
+                Next
 
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '        message = GetExceptionMessage(ex)
-    '    End Try
-    '    state = GetStateData(status, objTasks, message)
-    '    Return state
-    'End Function
+                status = NotifyType.IsSuccess
+            End If
 
-    'Public Function ViewMyTasks(ByVal empId As Integer) As StateData
-    '    Dim tasksSet As New TasksSet
-    '    Dim lstTaskSet As New List(Of TasksSet)
-    '    Dim lstTasks As New List(Of Tasks)
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
-    '    Try
-    '        lstTaskSet = tasksSet.getMyTasks(empId)
-    '        If lstTaskSet.Count > 0 Then
-    '            For Each _taskItem As TasksSet In lstTaskSet
-    '                lstTasks.Add(DirectCast(GetMappedFields(_taskItem), Tasks))
-    '            Next
-    '            status = NotifyType.IsSuccess
-    '        End If
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '        message = GetExceptionMessage(ex)
-    '    End Try
-    '    state = GetStateData(status, lstTasks, message)
-    '    Return state
-    'End Function
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWeeklyReport, message)
+        Return state
+    End Function
 
-    'Public Function ViewTaskByEmployee(ByVal empId As Integer, ByVal dateStart As DateTime) As StateData
-    '    Dim tasksSummarySet As New TasksSummarySet
-    '    Dim lstTaskSummarySet As New List(Of TasksSummarySet)
-    '    Dim lstTaskSummary As New List(Of TaskSummary)
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
-    '    Try
-    '        lstTaskSummarySet = tasksSummarySet.getTaskSummaryByEmpId(empId, dateStart)
-    '        If lstTaskSummarySet.Count > 0 Then
-    '            For Each _taskItem As TasksSummarySet In lstTaskSummarySet
-    '                lstTaskSummary.Add(DirectCast(GetMappedFields2(_taskItem), TaskSummary))
-    '            Next
-    '            status = NotifyType.IsSuccess
-    '        End If
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '        message = GetExceptionMessage(ex)
-    '    End Try
-    '    state = GetStateData(status, lstTaskSummary, message)
-    '    Return state
-    'End Function
+    Public Function GetMissingReportsByEmpID(empID As Integer, currentDate As Date) As StateData
+        Dim contactListSet As New ContactSet
+        Dim lstContacts As List(Of ContactSet)
+        Dim objContacts As New List(Of ContactList)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
 
-    'Public Function ViewTaskAll(ByVal dateStart As DateTime, ByVal email As String) As StateData
-    '    Dim tasksSummarySet As New TasksSummarySet
-    '    Dim lstTaskSummarySet As New List(Of TasksSummarySet)
-    '    Dim lstTaskSummary As New List(Of TaskSummary)
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
-    '    Try
-    '        lstTaskSummarySet = tasksSummarySet.getTaskSummaryAll(dateStart, email)
-    '        If lstTaskSummarySet.Count > 0 Then
-    '            For Each _taskItem As TasksSummarySet In lstTaskSummarySet
-    '                lstTaskSummary.Add(DirectCast(GetMappedFields2(_taskItem), TaskSummary))
-    '            Next
-    '            status = NotifyType.IsSuccess
-    '        End If
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '        message = GetExceptionMessage(ex)
-    '    End Try
-    '    state = GetStateData(status, lstTaskSummary, message)
-    '    Return state
-    'End Function
+        Try
+            lstContacts = contactListSet.GetMissingReportsByEmpID(empID, currentDate)
 
-    'Public Function GetTaskDetailByIncidentId(id As Integer) As StateData
-    '    Dim taskSet As New TasksSet
-    '    Dim TaskSetList As List(Of TasksSet)
-    '    Dim objTaskAs As New List(Of Tasks)
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
+            If Not IsNothing(lstContacts) Then
+                For Each objList As ContactSet In lstContacts
+                    objContacts.Add(DirectCast(GetMappedFieldsWithEmpName(objList), ContactList))
+                Next
+                status = NotifyType.IsSuccess
+            End If
 
-    '    Try
-    '        TaskSetList = taskSet.GetTaskDetailByIncidentId(id)
-
-    '        If Not IsNothing(TaskSetList) Then
-    '            For Each objList As TasksSet In TaskSetList
-    '                objTaskAs.Add(DirectCast(GetMappedFields(objList), Tasks))
-    '            Next
-
-    '            status = NotifyType.IsSuccess
-    '        End If
-
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '        message = GetExceptionMessage(ex)
-    '    End Try
-    '    state = GetStateData(status, objTaskAs, message)
-    '    Return state
-    'End Function
-
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objContacts, message)
+        Return state
+    End Function
+    
     Public Sub SetWeekRangeFields(ByRef objResult As Object, objData As Object)
         Dim objWeekRange As WeekRange = DirectCast(objData, WeekRange)
         Dim weekRangeData As New WeekRangeSet
         weekRangeData.WeekRangeID = objWeekRange.WeekRangeID
         weekRangeData.StartWeek = objWeekRange.StartWeek
         weekRangeData.EndWeek = objWeekRange.EndWeek
+        weekRangeData.EmpID = objWeekRange.EmployeeID
+        weekRangeData.Status = objWeekRange.Status
+        weekRangeData.DateSubmitted = objWeekRange.DateSubmitted
         objResult = weekRangeData
     End Sub
 
@@ -321,7 +290,6 @@ Public Class WeeklyReportManagement
         weeklyReportData.DATE_STARTED = objWeeklyReport.DateStarted
         weeklyReportData.DATE_TARGET = objWeeklyReport.DateTarget
         weeklyReportData.DATE_FINISHED = objWeeklyReport.DateFinished
-        weeklyReportData.DATE_CREATED = objWeeklyReport.DateCreated
         weeklyReportData.EFFORT_EST = objWeeklyReport.EffortEst
         weeklyReportData.ACT_EFFORT_WK = objWeeklyReport.ActualEffortWk
         weeklyReportData.ACT_EFFORT = objWeeklyReport.ActualEffort
@@ -347,7 +315,6 @@ Public Class WeeklyReportManagement
         weeklyReportData.DateStarted = objWeeklyReport.DATE_STARTED
         weeklyReportData.DateTarget = objWeeklyReport.DATE_TARGET
         weeklyReportData.DateFinished = objWeeklyReport.DATE_FINISHED
-        weeklyReportData.DateCreated = objWeeklyReport.DATE_CREATED
         weeklyReportData.EffortEst = objWeeklyReport.EFFORT_EST
         weeklyReportData.ActualEffortWk = objWeeklyReport.ACT_EFFORT_WK
         weeklyReportData.ActualEffort = objWeeklyReport.ACT_EFFORT
@@ -362,9 +329,29 @@ Public Class WeeklyReportManagement
         weekRangeData.WeekRangeID = objWeekRange.WeekRangeID
         weekRangeData.StartWeek = objWeekRange.StartWeek
         weekRangeData.EndWeek = objWeekRange.EndWeek
+        weekRangeData.Status = objWeekRange.Status
         weekRangeData.DateRange = objWeekRange.DateRange
-        weekRangeData.DateCreated = objWeekRange.DateCreated
+        weekRangeData.DateSubmitted = objWeekRange.DateSubmitted
         Return weekRangeData
+    End Function
+
+    Public Function GetMappedFieldsWithEmpName(ByVal objData As Object) As Object
+        Dim objContacts As ContactSet = DirectCast(objData, ContactSet)
+        Dim contactData As New ContactList
+        contactData.EmpID = objContacts.EmpID
+        contactData.EMADDRESS = objContacts.EMADDRESS
+        contactData.EMADDRESS2 = objContacts.EMADDRESS2
+        contactData.HOUSEPHONE = objContacts.HOUSEPHONE
+        contactData.OTHERPHONE = objContacts.OTHERPHONE
+        contactData.LOC = objContacts.LOC
+        contactData.lOCAL = objContacts.lOCAL
+        contactData.CELL_NO = objContacts.CELL_NO
+        contactData.DateReviewed = objContacts.DateReviewed
+        contactData.FIRST_NAME = objContacts.FIRST_NAME
+        contactData.LAST_NAME = objContacts.LAST_NAME
+        contactData.IMAGE_PATH = objContacts.IMAGE_PATH
+
+        Return contactData
     End Function
 
     Public Overrides Function GetExceptionMessage(ex As Exception) As String

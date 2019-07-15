@@ -5,13 +5,13 @@ Public MustInherit Class MainService
 
     Private Shared ActionMgmt As ActionManagement
     Private Shared AssetsMgmt As AssetsManagement
+    Private Shared BillabilityMgmt As BillabilityManagement
     Private Shared ProfileMgmt As ProfileManagement
     Private Shared ProjectMgmt As ProjectManagement
     Private Shared StatusMgmt As StatusManagement
     Private Shared EmployeeMgmt As EmployeeManagement
     Private Shared AttendanceMgmt As AttendanceManagement
     Private Shared TasksMgmt As TasksManagement
-    Private Shared NonBillabilityMgmt As NonBillabilityManagement
     Private Shared LessonLearntMgmt As LessonLearntManagement
     Private Shared SuccessRegisterMgmt As SuccessRegisterManagement
     Private Shared ContactListMgmt As ContactListManagement
@@ -40,13 +40,13 @@ Public MustInherit Class MainService
     Public Sub New()
         ActionMgmt = New ActionManagement()
         AssetsMgmt = New AssetsManagement()
+        BillabilityMgmt = New BillabilityManagement()
         ProfileMgmt = New ProfileManagement()
         ProjectMgmt = New ProjectManagement()
         StatusMgmt = New StatusManagement()
         EmployeeMgmt = New EmployeeManagement()
         AttendanceMgmt = New AttendanceManagement()
         TasksMgmt = New TasksManagement()
-        NonBillabilityMgmt = New NonBillabilityManagement()
         LessonLearntMgmt = New LessonLearntManagement()
         SuccessRegisterMgmt = New SuccessRegisterManagement()
         ContactListMgmt = New ContactListManagement()
@@ -1178,8 +1178,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetTaskDetailByIncidentId(ByVal id As Integer) As List(Of Tasks)
-        Dim state As StateData = TasksMgmt.GetTaskDetailByIncidentId(id)
+    Public Overrides Function GetTasksByEmpID(ByVal empID As Integer) As List(Of Tasks)
+        Dim state As StateData = TasksMgmt.GetTasksByEmpID(empID)
         Dim tasksLst As New List(Of Tasks)
 
         If Not IsNothing(state.Data) Then
@@ -1187,29 +1187,28 @@ Public MustInherit Class MainService
             For Each _list As Tasks In skills
                 Dim item As New Tasks
 
-                item.EmpID = _list.EmpID
                 item.TaskID = _list.TaskID
-                item.TaskDescr = _list.TaskDescr
-                item.IncidentID = _list.IncidentID
-                item.IncidentDescr = _list.IncidentDescr
-                item.TaskType = _list.TaskType
                 item.ProjectID = _list.ProjectID
-                item.DateStarted = _list.DateStarted
-                item.DateCreated = _list.DateCreated
-                item.TargetDate = _list.TargetDate
-                item.CompletedDate = _list.CompletedDate
-                item.Status = _list.Status
-                item.Remarks = _list.Remarks
-                item.EffortEst = _list.EffortEst
-                item.ActualEffortEst = _list.ActualEffortEst
-                item.EffortEstWk = _list.EffortEstWk
                 item.ProjectCode = _list.ProjectCode
                 item.Rework = _list.Rework
+                item.ReferenceID = _list.ReferenceID
+                item.IncidentDescr = _list.IncidentDescr
+                item.Severity = _list.Severity
+                item.IncidentType = _list.IncidentType
+                item.EmpID = _list.EmpID
                 item.Phase = _list.Phase
-                item.Others1 = _list.Phase
+                item.Status = _list.Status
+                item.DateStarted = _list.DateStarted
+                item.TargetDate = _list.TargetDate
+                item.CompletedDate = _list.CompletedDate
+                item.DateCreated = _list.DateCreated
+                item.EffortEst = _list.EffortEst
+                item.ActualEffort = _list.ActualEffort
+                item.ActualEffortWk = _list.ActualEffortWk
+                item.Comments = _list.Comments
+                item.Others1 = _list.Others1
                 item.Others2 = _list.Others2
                 item.Others3 = _list.Others3
-                item.HoursWorked_Date = _list.HoursWorked_Date
 
                 tasksLst.Add(item)
             Next
@@ -1444,42 +1443,6 @@ Public MustInherit Class MainService
                 item.UsedLeaves = _list.UsedLeaves
                 item.TotalBalance = _list.TotalBalance
                 item.HalfBalance = _list.HalfBalance
-
-                resourceLst.Add(item)
-            Next
-        End If
-        Return resourceLst
-    End Function
-
-    Public Overrides Function GetBillableHoursByWeek(empID As Integer, currentDate As Date) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetBillableHoursByWeek(empID, currentDate)
-        Dim resourceLst As New List(Of ResourcePlanner)
-
-        If Not IsNothing(state.Data) Then
-            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
-            For Each _list As ResourcePlanner In resource
-                Dim item As New ResourcePlanner
-
-                item.NAME = _list.NAME
-                item.Status = _list.Status
-
-                resourceLst.Add(item)
-            Next
-        End If
-        Return resourceLst
-    End Function
-
-    Public Overrides Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetBillableHoursByMonth(empID, month, year)
-        Dim resourceLst As New List(Of ResourcePlanner)
-
-        If Not IsNothing(state.Data) Then
-            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
-            For Each _list As ResourcePlanner In resource
-                Dim item As New ResourcePlanner
-
-                item.NAME = _list.NAME
-                item.Status = _list.Status
 
                 resourceLst.Add(item)
             Next
@@ -2059,15 +2022,42 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Billability"
-    Public Function getNonBillableHoursAllList(inputDate As Date, ByRef objResult As List(Of NonBillableSummary)) As Boolean
-        Dim state As StateData = NonBillabilityMgmt.getNonBillableData(inputDate)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = False
-            objResult = state.Data
+    Public Overrides Function GetBillableHoursByWeek(empID As Integer, weekID As Integer) As List(Of BillableHours)
+        Dim state As StateData = BillabilityMgmt.GetBillableHoursByWeek(empID, weekID)
+        Dim billabilityLst As New List(Of BillableHours)
+
+        If Not IsNothing(state.Data) Then
+            Dim billables As List(Of BillableHours) = DirectCast(state.Data, List(Of BillableHours))
+            For Each _list As BillableHours In billables
+                Dim item As New BillableHours
+
+                item.Name = _list.Name
+                item.Hours = _list.Hours
+                item.Status = _list.Status
+
+                billabilityLst.Add(item)
+            Next
         End If
-        ReceivedData(state)
-        Return bSuccess
+        Return billabilityLst
+    End Function
+
+    Public Overrides Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As List(Of BillableHours)
+        Dim state As StateData = BillabilityMgmt.GetBillableHoursByMonth(empID, month, year)
+        Dim billabilityLst As New List(Of BillableHours)
+
+        If Not IsNothing(state.Data) Then
+            Dim billables As List(Of BillableHours) = DirectCast(state.Data, List(Of BillableHours))
+            For Each _list As BillableHours In billables
+                Dim item As New BillableHours
+
+                item.Name = _list.Name
+                item.Hours = _list.Hours
+                item.Status = _list.Status
+
+                billabilityLst.Add(item)
+            Next
+        End If
+        Return billabilityLst
     End Function
 #End Region
 
@@ -2274,8 +2264,7 @@ Public MustInherit Class MainService
 
 #Region "Comcell Clock"
 
-    ' </summary>
-    ' <remarks></remarks>
+    ''' <remarks></remarks>
 
     Public Overrides Function GetClockTimeByEmployee(empID As Integer, ByRef objResult As ComcellClock) As Boolean
         Dim state As StateData = ComcellClockMgmt.GetClockTime(empID)
@@ -2301,8 +2290,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "WeeklyReport"
-    Public Overrides Function CreateWeeklyReport(weeklyReport As List(Of WeeklyReport)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.CreateWeeklyReport(weeklyReport)
+    Public Overrides Function CreateWeeklyReport(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.CreateWeeklyReport(weeklyReport, weeklyReportXref)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2311,8 +2300,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function UpdateWeeklyReport(weeklyReport As List(Of WeeklyReport)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.UpdateWeeklyReport(weeklyReport)
+    Public Overrides Function UpdateWeeklyReport(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.UpdateWeeklyReport(weeklyReport, weeklyReportXref)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2342,8 +2331,19 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetWeeklyReportsByEmpID(empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByEmpID(empID)
+    Public Overrides Function GetWeekRangeByMonthYear(empID As Integer, month As Integer, year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeekRangeByMonthYear(empID, month, year)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetWeeklyReportsByEmpID(empID As Integer, month As Integer, year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByEmpID(empID, month, year)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2355,6 +2355,28 @@ Public MustInherit Class MainService
 
     Public Overrides Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
         Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetTasksDataByEmpID(weekRangeID As Integer, empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetTasksDataByEmpID(weekRangeID, empID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetMissingReportsByEmpID(empID As Integer, currentDate As Date, ByRef objResult As List(Of ContactList)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetMissingReportsByEmpID(empID, currentDate)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2416,8 +2438,9 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Send Code"
-    '</summary>
-    ' <remarks></remarks>
+
+    ''' <remarks></remarks>
+
     Public Overrides Function GetWorkEmailbyEmail(email As String, ByRef objResult As SendCode) As Boolean
         Dim state As StateData = SendCodeMgmt.GetWorkEmailbyEmail(email)
         Dim bSuccess As Boolean = False
@@ -2432,8 +2455,9 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Mail Config"
-    ' </summary>
-    ' <remarks></remarks>
+
+    ''' <remarks></remarks>
+
     Public Overloads Overrides Function GetMailConfig(ByRef objResult As MailConfig) As Boolean
         Dim state As StateData = MailConfigMgmt.GetMailConfig()
         Dim bSuccess As Boolean = False
