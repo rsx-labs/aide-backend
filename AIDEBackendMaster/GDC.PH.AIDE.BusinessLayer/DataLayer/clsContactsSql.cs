@@ -59,7 +59,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS2", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS2));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCATION", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCATION));
-                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
+                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.NVarChar, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCAL", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCAL));
                 sqlCommand.Parameters.Add(new SqlParameter("@HOMEPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.HOMEPHONE));
                 sqlCommand.Parameters.Add(new SqlParameter("@OTHERPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_PHONE));
@@ -115,7 +115,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS2", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMAIL_ADDRESS2));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCATION", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCATION));
-                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
+                sqlCommand.Parameters.Add(new SqlParameter("@CEL_NO", SqlDbType.NVarChar, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CEL_NO));
                 sqlCommand.Parameters.Add(new SqlParameter("@LOCAL", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.LOCAL));
                 sqlCommand.Parameters.Add(new SqlParameter("@HOMEPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.HOMEPHONE));
                 sqlCommand.Parameters.Add(new SqlParameter("@OTHERPHONE", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_PHONE));
