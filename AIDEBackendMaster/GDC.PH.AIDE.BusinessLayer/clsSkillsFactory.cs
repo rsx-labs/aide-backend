@@ -95,9 +95,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// get list of all clsLessonLearnt
         /// </summary>
         /// <returns>list</returns>
-        public List<clsSkills> GetSkillsList()
+        public List<clsSkills> GetSkillsList(int empID)
         {
-            return _dataObject.SelectSkillList();
+            return _dataObject.SelectSkillList(empID);
         }
 
         public List<clsSkills> GetSkillsProfByEmpID(int id)

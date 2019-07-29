@@ -15,7 +15,7 @@ Public Interface ISkill
     Function InsertNewSkills(ByVal skills As SkillSet) As Boolean
     Function UpdateSkills(ByVal skills As SkillSet) As Boolean
     Function UpdateAllSkills(ByVal skills As SkillSet) As Boolean
-    Function GetAllSkillList() As List(Of SkillSet)
+    Function GetAllSkillList(ByVal empID As Integer) As List(Of SkillSet)
     Function GetSkillsProfByEmpID(ByVal id As Integer) As List(Of SkillSet)
     Function ViewAllEmpSkills(ByVal empID As Integer) As List(Of SkillSet)
     Function GetProfLvlByEmpIDSkillID(ByVal empID As Integer, ByVal skillID As Integer) As SkillSet

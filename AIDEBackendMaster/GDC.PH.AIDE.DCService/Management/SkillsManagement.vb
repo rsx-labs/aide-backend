@@ -67,7 +67,7 @@ Public Class SkillsManagement
         Return state
     End Function
 
-    Public Function GetSkillsList() As StateData
+    Public Function GetSkillsList(empID As Integer) As StateData
         Dim skillSet As New SkillSet
         Dim skillSetList As List(Of SkillSet)
         Dim objSkills As New List(Of Skills)
@@ -76,7 +76,7 @@ Public Class SkillsManagement
         Dim status As NotifyType
 
         Try
-            skillSetList = skillSet.GetAllSkillList()
+            skillSetList = skillSet.GetAllSkillList(empID)
 
             If Not IsNothing(skillSetList) Then
                 For Each objList As SkillSet In skillSetList

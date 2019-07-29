@@ -488,8 +488,8 @@ Public Class AIDEService
     ''' By Jhunell Barcenas
     ''' </summary>
 #Region "Skills"
-    Public Overrides Function GetSkillsList() As List(Of Skills) Implements IAideService.GetSkillsList
-        Return MyBase.GetAllSkillsList
+    Public Overrides Function GetSkillsList(ByVal empID As Integer) As List(Of Skills) Implements IAideService.GetSkillsList
+        Return MyBase.GetAllSkillsList(empID)
     End Function
 
     Public Overrides Function ViewEmpSKills(ByVal empID As Integer) As List(Of Skills) Implements IAideService.ViewEmpSKills

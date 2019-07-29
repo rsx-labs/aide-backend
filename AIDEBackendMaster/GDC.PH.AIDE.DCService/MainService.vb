@@ -827,8 +827,8 @@ Public MustInherit Class MainService
     ''' By Jhunell G. Barcenas
     ''' </summary>
     ''' <remarks></remarks>
-    Public Function GetAllSkillsList() As List(Of Skills)
-        Dim state As StateData = SkillsMgmt.GetSkillsList
+    Public Function GetAllSkillsList(empID As Integer) As List(Of Skills)
+        Dim state As StateData = SkillsMgmt.GetSkillsList(empID)
         Dim skillsLst As New List(Of Skills)
 
         If Not IsNothing(state.Data) Then
