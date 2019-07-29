@@ -32,6 +32,7 @@ Public MustInherit Class MainService
     Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
     Private Shared ContributorsMgmt As ContributorsManagement
     Private Shared MessageMgmt As MessageManagement
+    Private Shared SelectionMgmt As PositionManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -67,6 +68,7 @@ Public MustInherit Class MainService
         WorkplaceAuditMgmt = New WorkplaceAuditManagement()
         ContributorsMgmt = New ContributorsManagement()
         MessageMgmt = New MessageManagement()
+        SelectionMgmt = New PositionManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2564,6 +2566,73 @@ Public MustInherit Class MainService
             Next
         End If
         Return MessageLst
+    End Function
+#End Region
+
+#Region "Contributors"
+    Public Overrides Function GetAllPosition() As List(Of PositionList)
+        Dim state As StateData = SelectionMgmt.GetAllPositions()
+        Dim objLst As New List(Of positionList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of PositionList) = DirectCast(state.Data, List(Of PositionList))
+            For Each obj As PositionList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
+    Public Overrides Function GetAllPermission() As List(Of PermissionList)
+        Dim state As StateData = SelectionMgmt.GetAllPermissions()
+        Dim objLst As New List(Of PermissionList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of PermissionList) = DirectCast(state.Data, List(Of PermissionList))
+            For Each obj As PermissionList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
+    Public Overrides Function GetAllDepartment() As List(Of DepartmentList)
+        Dim state As StateData = SelectionMgmt.GetAllDepartments()
+        Dim objLst As New List(Of DepartmentList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of DepartmentList) = DirectCast(state.Data, List(Of DepartmentList))
+            For Each obj As DepartmentList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
+    Public Overrides Function GetAllDivision() As List(Of DivisionList)
+        Dim state As StateData = SelectionMgmt.GetAllDivisions()
+        Dim objLst As New List(Of DivisionList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of DivisionList) = DirectCast(state.Data, List(Of DivisionList))
+            For Each obj As DivisionList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
+    Public Overrides Function GetAllStatus(status_name As String) As List(Of StatusList)
+        Dim state As StateData = SelectionMgmt.GetAllStatus(status_name)
+        Dim objLst As New List(Of StatusList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of StatusList) = DirectCast(state.Data, List(Of StatusList))
+            For Each obj As StatusList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
     End Function
 #End Region
 End Class

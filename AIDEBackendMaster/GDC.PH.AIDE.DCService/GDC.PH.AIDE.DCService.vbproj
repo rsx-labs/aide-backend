@@ -132,6 +132,7 @@
     <Compile Include="Management\MailConfigManagement.vb" />
     <Compile Include="Management\ManagementBase.vb" />
     <Compile Include="Management\MessageManagement.vb" />
+    <Compile Include="Management\PositionManagement.vb" />
     <Compile Include="Management\ProjectManagement.vb" />
     <Compile Include="Management\ResourcePlannerManagement.vb" />
     <Compile Include="Management\SabaLearningManagement.vb" />

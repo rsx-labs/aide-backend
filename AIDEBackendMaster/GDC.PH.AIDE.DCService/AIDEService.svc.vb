@@ -951,7 +951,7 @@ Public Class AIDEService
         Return lstWeekRange
     End Function
 
-	Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
+    Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
         Dim lstWeeklyReport As List(Of WeeklyReport) = Nothing
         MyBase.GetWeeklyReportsByWeekRangeID(weekRangeID, empID, lstWeeklyReport)
         Return lstWeeklyReport
@@ -1038,4 +1038,26 @@ Public Class AIDEService
     End Function
 #End Region
 
+#Region "Selection Function"
+    Public Function GetAllDepartments() As List(Of DepartmentList) Implements IAideService.GetAllDepartment
+        Return MyBase.GetAllDepartment()
+    End Function
+
+    Public Function GetAllDivisions() As List(Of DivisionList) Implements IAideService.GetAllDivision
+        Return MyBase.GetAllDivision()
+    End Function
+
+    Public Function GetAllPermissions() As List(Of PermissionList) Implements IAideService.GetAllPermission
+        Return MyBase.GetAllPermission()
+    End Function
+
+    Public Function GetAllPositions() As List(Of PositionList) Implements IAideService.GetAllPosition
+        Return MyBase.GetAllPosition()
+    End Function
+
+    Public Function GetAllStatuss(statusName As String) As List(Of StatusList) Implements IAideService.GetAllStatus
+        Return MyBase.GetAllStatus(statusName)
+    End Function
+#End Region
+   
 End Class

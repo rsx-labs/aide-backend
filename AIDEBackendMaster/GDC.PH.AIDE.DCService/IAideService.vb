@@ -639,6 +639,24 @@ Public Interface IAideService
 
 #End Region
 
+#Region "Selection Operation Contracts"
+
+    <OperationContract()>
+    Function GetAllPosition() As List(Of PositionList)
+
+    <OperationContract()>
+    Function GetAllPermission() As List(Of PermissionList)
+
+    <OperationContract()>
+    Function GetAllDepartment() As List(Of DepartmentList)
+
+    <OperationContract()>
+    Function GetAllDivision() As List(Of DivisionList)
+
+    <OperationContract()>
+    Function GetAllStatus(statusName As String) As List(Of StatusList)
+#End Region
+
 End Interface
 #End Region
 
@@ -2078,6 +2096,43 @@ Public Class Contributors
 End Class
 #End Region
 
+#Region "Selection Data Contract"
+<DataContract()>
+Public Class PositionList
+    <DataMember()>
+    Public Property POS_ID As Integer
+    <DataMember()>
+    Public Property POS_DESCR As String
+End Class
+
+Public Class PermissionList
+    <DataMember()>
+    Public Property GRP_ID As Integer
+    <DataMember()>
+    Public Property GRP_DESCR As String
+End Class
+
+Public Class DepartmentList
+    <DataMember()>
+    Public Property DEPT_ID As Integer
+    <DataMember()>
+    Public Property DEPT_DESCR As String
+End Class
+
+Public Class DivisionList
+    <DataMember()>
+    Public Property DIV_ID As Integer
+    <DataMember()>
+    Public Property DIV_DESCR As String
+End Class
+
+Public Class StatusList
+    <DataMember()>
+    Public Property STATUS_ID As Integer
+    <DataMember()>
+    Public Property STATUS_DESCR As String
+End Class
+#End Region
 #End Region
 
 <ServiceContract()>

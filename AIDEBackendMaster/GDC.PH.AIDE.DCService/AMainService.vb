@@ -377,4 +377,12 @@
 #Region "Message methods"
     MustOverride Function GetAllMessage(ByVal msgID As Integer, ByVal secID As Integer) As List(Of MessageDetail)
 #End Region
+
+#Region "Selection methods"
+    MustOverride Function GetAllPosition() As List(Of PositionList)
+    MustOverride Function GetAllPermission() As List(Of PermissionList)
+    MustOverride Function GetAllDepartment() As List(Of DepartmentList)
+    MustOverride Function GetAllDivision() As List(Of DivisionList)
+    MustOverride Function GetAllStatus(_statusName As String) As List(Of StatusList)
+#End Region
 End Class

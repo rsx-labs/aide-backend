@@ -414,7 +414,7 @@ Public Class ContactSet
             Return cListSet
 
         Catch ex As Exception
-             If (ex.InnerException.GetType() = GetType(SqlException)) Then
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed")
             Else
                 Throw ex.InnerException
