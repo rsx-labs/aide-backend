@@ -438,7 +438,7 @@ Public Interface IAideService
     ''' </summary>
     ''' <remarks></remarks>
     <OperationContract()>
-    Function GetSkillsList() As List(Of Skills)
+    Function GetSkillsList(ByVal empID As Integer) As List(Of Skills)
 
     <OperationContract(IsOneWay:=True)>
     Sub InsertNewSkills(ByVal skills As Skills)

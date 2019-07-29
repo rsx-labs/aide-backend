@@ -99,12 +99,12 @@ Public Class SkillSet
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
 
-    Public Function GetAllSkillList() As List(Of SkillSet) Implements ISkill.GetAllSkillList
+    Public Function GetAllSkillList(empId As Integer) As List(Of SkillSet) Implements ISkill.GetAllSkillList
         Try
             Dim SkillLst As List(Of clsSkills)
             Dim SkillSetLst As New List(Of SkillSet)
 
-            SkillLst = cSkillFactory.GetSkillsList()
+            SkillLst = cSkillFactory.GetSkillsList(empId)
 
             If Not IsNothing(SkillLst) Then
                 For Each cList As clsSkills In SkillLst

@@ -256,7 +256,7 @@
     ''' By Jhunell G. Barcenas
     ''' </summary>
     ''' <remarks></remarks>
-    MustOverride Function GetSkillsList() As List(Of Skills)
+    MustOverride Function GetSkillsList(ByVal empID As Integer) As List(Of Skills)
     MustOverride Function ViewEmpSkills(ByVal empID As Integer) As List(Of Skills)
     MustOverride Function GetProfLvlByEmpIDSkillID(ByVal id As Integer, ByVal empID As Integer, ByRef objResult As Skills) As Boolean
     MustOverride Function GetSkillsLastReviewByEmpIDSkillID(ByVal id As Integer, ByVal empID As Integer, ByRef objResult As Skills) As Boolean

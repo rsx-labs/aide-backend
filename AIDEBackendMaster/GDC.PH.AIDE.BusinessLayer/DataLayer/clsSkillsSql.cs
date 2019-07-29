@@ -228,7 +228,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords
         /// </summary>
         /// <returns>list of clsContacts</returns>
-        public List<clsSkills> SelectSkillList()
+        public List<clsSkills> SelectSkillList(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetSkillsList]";
@@ -238,6 +238,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             sqlCommand.Connection = MainConnection;
             try
             {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
