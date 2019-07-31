@@ -2043,8 +2043,8 @@ Public MustInherit Class MainService
         Return billabilityLst
     End Function
 
-    Public Overrides Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As List(Of BillableHours)
-        Dim state As StateData = BillabilityMgmt.GetBillableHoursByMonth(empID, month, year)
+    Public Overrides Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of BillableHours)
+        Dim state As StateData = BillabilityMgmt.GetBillableHoursByMonth(empID, month, year, weekID)
         Dim billabilityLst As New List(Of BillableHours)
 
         If Not IsNothing(state.Data) Then

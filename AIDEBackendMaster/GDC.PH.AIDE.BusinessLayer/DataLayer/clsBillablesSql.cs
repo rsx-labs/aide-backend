@@ -26,7 +26,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         #region Public Methods
 
-        public List<clsBillables> GetBillableHoursByMonth(clsBillablesKeys keys)
+        public List<clsBillables> GetBillableHoursByMonth(int empID, int month, int year, int weekID)
         {
 
             SqlCommand sqlCommand = new SqlCommand();
@@ -38,9 +38,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", keys.EMPID));
-                sqlCommand.Parameters.Add(new SqlParameter("@MONTH",  keys.MONTH));
-                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", keys.YEAR));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEKID", weekID));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();

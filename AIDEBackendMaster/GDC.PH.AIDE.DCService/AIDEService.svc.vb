@@ -99,8 +99,8 @@ Public Class AIDEService
         Return MyBase.GetBillableHoursByWeek(empID, weekID)
     End Function
 
-    Public Function GetBillableHoursByMonths(empID As Integer, month As Integer, year As Integer) As List(Of BillableHours) Implements IAideService.GetBillableHoursByMonth
-        Return MyBase.GetBillableHoursByMonth(empID, month, year)
+    Public Function GetBillableHoursByMonths(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of BillableHours) Implements IAideService.GetBillableHoursByMonth
+        Return MyBase.GetBillableHoursByMonth(empID, month, year, weekID)
     End Function
 #End Region
 
