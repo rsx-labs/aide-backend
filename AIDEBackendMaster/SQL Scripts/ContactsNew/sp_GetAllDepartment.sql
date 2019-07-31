@@ -18,6 +18,6 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 
-			SELECT DEPT_ID,descr as 'DEPT_DESCR' from DEPARTMENT where DEPT_ID > 0
+			SELECT DEPT_ID,descr as 'DEPT_DESC' from DEPARTMENT where DEPT_ID > 0
 END
 
