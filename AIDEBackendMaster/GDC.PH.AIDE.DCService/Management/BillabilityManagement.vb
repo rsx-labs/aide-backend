@@ -16,7 +16,7 @@ Public Class BillabilityManagement
         Return message
     End Function
 
-     Public Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer) As StateData
+    Public Function GetBillableHoursByMonth(empID As Integer, month As Integer, year As Integer, weekID As Integer) As StateData
         Dim BillablesSet As New BillableSet
         Dim BillablesSetLst As List(Of BillableSet)
         Dim objResource As New List(Of BillableHours)
@@ -25,7 +25,7 @@ Public Class BillabilityManagement
         Dim status As NotifyType
 
         Try
-            BillablesSetLst = BillablesSet.GetBillableHoursByMonth(empID, month, year)
+            BillablesSetLst = BillablesSet.GetBillableHoursByMonth(empID, month, year, weekID)
 
             If Not IsNothing(BillablesSetLst) Then
                 For Each objList As BillableSet In BillablesSetLst

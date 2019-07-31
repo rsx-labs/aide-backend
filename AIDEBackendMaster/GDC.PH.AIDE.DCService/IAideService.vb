@@ -49,10 +49,10 @@ Public Interface IAideService
 
 #Region "Billability Hours Operation Contracts"
     <OperationContract()>
-    Function GetBillableHoursByMonth(ByVal empID As Integer, ByVal month As Integer, year As Integer) As List(Of BillableHours)
+    Function GetBillableHoursByMonth(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer) As List(Of BillableHours)
 
     <OperationContract()>
-    Function GetBillableHoursByWeek(ByVal empID As Integer, weekID As Integer) As List(Of BillableHours)
+    Function GetBillableHoursByWeek(ByVal empID As Integer, ByVal weekID As Integer) As List(Of BillableHours)
 #End Region
 
 #Region "Contacts Operation Contracts"

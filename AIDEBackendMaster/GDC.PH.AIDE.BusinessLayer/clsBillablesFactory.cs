@@ -26,9 +26,9 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #region Public Methods
 
-        public List<clsBillables> GetBillableHoursByMonth(clsBillablesKeys keys)
+        public List<clsBillables> GetBillableHoursByMonth(int empID, int month, int year, int weekID)
         {
-            return _dataObject.GetBillableHoursByMonth(keys);
+            return _dataObject.GetBillableHoursByMonth(empID, month, year, weekID);
         }
 
         public List<clsBillables> GetBillableHoursByWeek(int empID, int weekID)

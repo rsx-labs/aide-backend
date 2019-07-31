@@ -109,14 +109,12 @@ Public Class BillableSet
     '    End Set
     'End Property
 
-    Public Function GetBillableHoursByMonth(employeeID As Integer, months As Integer, years As Integer) As List(Of BillableSet) Implements IBillables.GetBillableHoursByMonth
+    Public Function GetBillableHoursByMonth(employeeID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of BillableSet) Implements IBillables.GetBillableHoursByMonth
         Try
-            Dim keys As clsBillablesKeys = New clsBillablesKeys(employeeID, months, years)
-
             Dim BillablesLst As List(Of clsBillables)
             Dim BillablesSetLst As New List(Of BillableSet)
 
-            BillablesLst = cBillableFactory.GetBillableHoursByMonth(keys)
+            BillablesLst = cBillableFactory.GetBillableHoursByMonth(employeeID, month, year, weekID)
 
             If Not IsNothing(BillablesLst) Then
                 For Each cList As clsBillables In BillablesLst

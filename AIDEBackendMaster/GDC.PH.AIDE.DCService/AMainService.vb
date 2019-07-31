@@ -279,7 +279,7 @@
 #End Region
 
 #Region "Billability Methods"
-    MustOverride Function GetBillableHoursByMonth(ByVal empID As Integer, month As Integer, year As Integer) As List(Of BillableHours)
+    MustOverride Function GetBillableHoursByMonth(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer) As List(Of BillableHours)
     MustOverride Function GetBillableHoursByWeek(ByVal empID As Integer, ByVal weekID As Integer) As List(Of BillableHours)
 #End Region
 
