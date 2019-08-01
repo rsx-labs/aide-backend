@@ -1604,7 +1604,7 @@ Public MustInherit Class MainService
                 Dim item As New Commendations
 
                 item.COMMEND_ID = _list.COMMEND_ID
-                item.DEPT_ID = _list.DEPT_ID
+                item.EMP_ID = _list.EMP_ID
                 item.EMPLOYEE = _list.EMPLOYEE
                 item.PROJECT = _list.PROJECT
                 item.DATE_SENT = _list.DATE_SENT
@@ -1627,7 +1627,7 @@ Public MustInherit Class MainService
                 Dim item As New Commendations
 
                 item.COMMEND_ID = _list.COMMEND_ID
-                item.DEPT_ID = _list.DEPT_ID
+                item.EMP_ID = _list.EMP_ID
                 item.EMPLOYEE = _list.EMPLOYEE
                 item.PROJECT = _list.PROJECT
                 item.DATE_SENT = _list.DATE_SENT

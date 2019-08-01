@@ -743,8 +743,8 @@ Public Class AIDEService
         MyBase.InsertCommendations(commendations)
     End Sub
 
-    Public Function GetCommendationss(deptID As Integer) As List(Of Commendations) Implements IAideService.GetCommendations
-        Return MyBase.GetCommendations(deptID)
+    Public Function GetCommendationss(empID As Integer) As List(Of Commendations) Implements IAideService.GetCommendations
+        Return MyBase.GetCommendations(empID)
     End Function
 
     Public Sub UpdateCommendationss(commendations As Commendations) Implements IAideService.UpdateCommendations

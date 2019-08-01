@@ -13,7 +13,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum clsCommendationsFields
         {
             COMMEND_ID,
-            DEPT_ID,
+            EMP_ID,
             EMPLOYEE,
             PROJECT,
             DATE_SENT,
@@ -23,15 +23,13 @@ namespace GDC.PH.AIDE.BusinessLayer
         #endregion
 
         #region Data Members
-
         int _commendID;
-        int _deptID;
+        int _empID;
         string _employee;
         string _project;
         DateTime _dateSent;
         string _sentBy;
         string _reason;
-
         #endregion
 
         #region Properties
@@ -49,15 +47,15 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public int DEPT_ID
+        public int EMP_ID
         {
-            get { return _deptID; }
+            get { return _empID; }
             set
             {
-                if (_deptID != value)
+                if (_empID != value)
                 {
-                    _deptID = value;
-                    PropertyHasChanged("DEPT_ID");
+                    _empID = value;
+                    PropertyHasChanged("EMP_ID");
                 }
             }
         }
@@ -134,7 +132,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         internal override void AddValidationRules()
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("COMMEND_ID", "COMMEND_ID"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DEPT_ID", "DEPT_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMPLOYEE", "EMPLOYEE"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJECT", "PROJECT"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_SENT", "DATE_SENT"));

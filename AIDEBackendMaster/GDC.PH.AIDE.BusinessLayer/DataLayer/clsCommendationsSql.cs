@@ -4,9 +4,9 @@ using System.Data.SqlTypes;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
-///////////////////////////////////
-//   AEVAN CAMILLE BATONGBACAL   //
-///////////////////////////////////
+////////////////////////////////////////////////
+//AEVAN CAMILLE BATONGBACAL / JHUNELL BARCENAS//
+///////////////////////////////////////////////
 namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 {
     /// <summary>
@@ -45,9 +45,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                
-                //sqlCommand.Parameters.Add(new SqlParameter("@COMMEND_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMEND_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@DEPT_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DEPT_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMPLOYEE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMPLOYEE));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJECT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_SENT", SqlDbType.Date, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_SENT));
@@ -87,9 +85,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-
                 sqlCommand.Parameters.Add(new SqlParameter("@COMMEND_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMEND_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@DEPT_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DEPT_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMPLOYEE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMPLOYEE));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJECT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_SENT", SqlDbType.Date, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_SENT));
@@ -117,7 +114,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords
         /// </summary>
         /// <returns>list of clsContacts</returns>
-        public List<clsCommendations> GetCommendations(int deptID)
+        public List<clsCommendations> GetCommendations(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetCommendations]";
@@ -130,7 +127,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 MainConnection.Open();
 
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, deptID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
@@ -191,7 +188,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectFromReader(clsCommendations businessObject, IDataReader dataReader)
         {
             businessObject.COMMEND_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsCommendations.clsCommendationsFields.COMMEND_ID.ToString()));
-            businessObject.DEPT_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsCommendations.clsCommendationsFields.DEPT_ID.ToString()));
             businessObject.EMPLOYEE = dataReader.GetString(dataReader.GetOrdinal(clsCommendations.clsCommendationsFields.EMPLOYEE.ToString()));
             businessObject.PROJECT = dataReader.GetString(dataReader.GetOrdinal(clsCommendations.clsCommendationsFields.PROJECT.ToString()));
             businessObject.DATE_SENT = dataReader.GetDateTime(dataReader.GetOrdinal(clsCommendations.clsCommendationsFields.DATE_SENT.ToString()));
