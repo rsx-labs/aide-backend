@@ -27,7 +27,6 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #endregion
 
-
         #region Public Methods
 
         /// <summary>
@@ -69,9 +68,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// get list of all clsCommendations
         /// </summary>
         /// <returns>list</returns>
-        public List<clsCommendations> GetCommendations(int deptID)
+        public List<clsCommendations> GetCommendations(int empID)
         {
-            return _dataObject.GetCommendations(deptID);
+            return _dataObject.GetCommendations(empID);
         }
 
         public List<clsCommendations> GetCommendationsBySearch(int empID, int month, int year)

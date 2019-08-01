@@ -1,5 +1,4 @@
-﻿
-#Region "Operation Contracts"
+﻿#Region "Operation Contracts"
 <ServiceContract(SessionMode:=SessionMode.Required, CallbackContract:=GetType(IAIDEServiceCallback))>
 Public Interface IAideService
 
@@ -173,7 +172,7 @@ Public Interface IAideService
     Sub InsertCommendations(ByVal task As Commendations)
 
     <OperationContract()>
-    Function GetCommendations(ByVal deptID As Integer) As List(Of Commendations)
+    Function GetCommendations(ByVal empID As Integer) As List(Of Commendations)
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateCommendations(ByVal task As Commendations)
@@ -1329,7 +1328,7 @@ Public Class Commendations
     Public Property COMMEND_ID As Integer
 
     <DataMember()>
-    Public Property DEPT_ID As Integer
+    Public Property EMP_ID As Integer
 
     <DataMember()>
     Public Property EMPLOYEE As String

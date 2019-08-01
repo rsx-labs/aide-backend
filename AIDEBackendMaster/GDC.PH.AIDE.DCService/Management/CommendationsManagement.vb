@@ -14,7 +14,7 @@ Public Class CommendationsManagement
         Dim objCommendations As CommendationsSet = DirectCast(objData, CommendationsSet)
         Dim commendationsData As New Commendations
         commendationsData.COMMEND_ID = objCommendations.COMMEND_ID
-        commendationsData.DEPT_ID = objCommendations.DEPT_ID
+        commendationsData.EMP_ID = objCommendations.EMP_ID
         commendationsData.EMPLOYEE = objCommendations.EMPLOYEE
         commendationsData.PROJECT = objCommendations.PROJECT
         commendationsData.DATE_SENT = objCommendations.DATE_SENT
@@ -48,7 +48,7 @@ Public Class CommendationsManagement
         Return state
     End Function
 
-    Public Function GetCommendations(deptID As Integer) As StateData
+    Public Function GetCommendations(empID As Integer) As StateData
         Dim commendationsSet As New CommendationsSet
         Dim lstCommendations As List(Of CommendationsSet)
         Dim objCommendations As New List(Of Commendations)
@@ -57,7 +57,7 @@ Public Class CommendationsManagement
         Dim status As NotifyType
 
         Try
-            lstCommendations = commendationsSet.GetCommendations(deptID)
+            lstCommendations = commendationsSet.GetCommendations(empID)
 
             If Not IsNothing(lstCommendations) Then
                 For Each objList As CommendationsSet In lstCommendations
@@ -131,7 +131,7 @@ Public Class CommendationsManagement
         Dim objCommendations As Commendations = DirectCast(objData, Commendations)
         Dim commendationsData As New CommendationsSet
         commendationsData.COMMEND_ID = objCommendations.COMMEND_ID
-        commendationsData.DEPT_ID = objCommendations.DEPT_ID
+        commendationsData.EMP_ID = objCommendations.EMP_ID
         commendationsData.EMPLOYEE = objCommendations.EMPLOYEE
         commendationsData.PROJECT = objCommendations.PROJECT
         commendationsData.DATE_SENT = objCommendations.DATE_SENT

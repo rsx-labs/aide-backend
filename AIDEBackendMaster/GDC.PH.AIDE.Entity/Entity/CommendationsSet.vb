@@ -30,12 +30,12 @@ Public Class CommendationsSet
         End Set
     End Property
 
-    Public Property DEPT_ID As Integer Implements ICommendationsSet.DEPT_ID
-         Get
-            Return Me.cCommendations.DEPT_ID
+    Public Property EMP_ID As Integer Implements ICommendationsSet.EMP_ID
+        Get
+            Return Me.cCommendations.EMP_ID
         End Get
         Set(value As Integer)
-            Me.cCommendations.DEPT_ID = value
+            Me.cCommendations.EMP_ID = value
         End Set
     End Property
 

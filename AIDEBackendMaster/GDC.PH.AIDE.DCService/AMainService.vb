@@ -100,7 +100,7 @@
 
 #Region "Commendations methods"
     MustOverride Function InsertCommendations(ByVal commendations As Commendations) As Boolean
-    MustOverride Function GetCommendations(ByVal deptID As Integer) As List(Of Commendations)
+    MustOverride Function GetCommendations(ByVal empID As Integer) As List(Of Commendations)
     MustOverride Function UpdateCommendations(ByVal commendations As Commendations) As Boolean
     MustOverride Function GetCommendationsBySearch(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of Commendations)
 #End Region
