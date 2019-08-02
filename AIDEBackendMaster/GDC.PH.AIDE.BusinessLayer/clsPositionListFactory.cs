@@ -49,6 +49,12 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetAllStatus(_statusname);
         }
+
+        public List<clsLocationList> GetAllLocation()
+        {
+            return _dataObject.GetAllLocation();
+        }
+
         #endregion
     }
 }

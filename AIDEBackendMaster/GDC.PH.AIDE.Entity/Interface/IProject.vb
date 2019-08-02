@@ -16,6 +16,6 @@ Public Interface IProject
     Function UpdateProject() As Boolean
     Function ViewProject() As List(Of ProjectSet)
     Function GetProjectByID(ByVal ProjId As Integer) As ProjectSet
-    Function GetProjectLists(ByVal empID As Integer) As List(Of ProjectSet)
+    Function GetProjectLists(ByVal empID As Integer, ByVal displayStatus As Integer) As List(Of ProjectSet)
     Function ViewProjectListofEmployee(ByVal empID As Integer) As List(Of ProjectSet)
 End Interface

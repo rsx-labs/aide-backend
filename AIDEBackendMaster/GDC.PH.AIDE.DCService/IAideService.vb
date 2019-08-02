@@ -1,4 +1,5 @@
-﻿#Region "Operation Contracts"
+﻿
+#Region "Operation Contracts"
 <ServiceContract(SessionMode:=SessionMode.Required, CallbackContract:=GetType(IAIDEServiceCallback))>
 Public Interface IAideService
 
@@ -95,10 +96,10 @@ Public Interface IAideService
     ''' <returns></returns>
     ''' <remarks></remarks>
     <OperationContract()>
-    Function GetAllListOfProject(ByVal empID As Integer) As List(Of Project)
+    Function GetAllListOfProject(ByVal empID As Integer, ByVal displayStatus As Integer) As List(Of Project)
 
     <OperationContract()>
-    Function GetProjectList(ByVal empID As Integer) As List(Of Project)
+    Function GetProjectList(ByVal empID As Integer, ByVal displayStatus As Integer) As List(Of Project)
 
     <OperationContract(IsOneWay:=True)>
     Sub CreateProject(ByVal project As Project)
@@ -639,6 +640,9 @@ Public Interface IAideService
 #End Region
 
 #Region "Selection Operation Contracts"
+
+    <OperationContract()>
+    Function GetAllLocation() As List(Of LocationList)
 
     <OperationContract()>
     Function GetAllPosition() As List(Of PositionList)
@@ -1299,6 +1303,9 @@ Public Class ContactList
 
     <DataMember()>
     Public Property MARITAL_STATUS_ID As String
+
+    <DataMember()>
+    Public Property LOCATION_ID As Integer
 
     <DataMember()>
     Public Property POSITION_ID As Integer
@@ -2097,6 +2104,15 @@ End Class
 
 #Region "Selection Data Contract"
 <DataContract()>
+Public Class LocationList
+    <DataMember()>
+    Public Property LOCATION_ID As Integer
+    <DataMember()>
+    Public Property LOCATION As String
+    <DataMember()>
+    Public Property ONSITE_FLG As Short
+End Class
+
 Public Class PositionList
     <DataMember()>
     Public Property POS_ID As Integer

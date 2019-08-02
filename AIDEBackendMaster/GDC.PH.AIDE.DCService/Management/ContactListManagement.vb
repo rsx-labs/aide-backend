@@ -38,6 +38,7 @@ Public Class ContactListManagement
         contactData.BIRTHDATE = objContacts.BIRTHDATE
         contactData.DT_HIRED = objContacts.DT_HIRED
         contactData.MARITAL_STATUS_ID = objContacts.MARITAL_STATUS_ID
+        contactData.LOCATION_ID = objContacts.LOCATION_ID
         contactData.POSITION_ID = objContacts.POSITION_ID
         contactData.PERMISSION_GROUP_ID = objContacts.PERMISSION_GROUP_ID
         contactData.DEPARTMENT_ID = objContacts.DEPARTMENT_ID
@@ -165,6 +166,7 @@ Public Class ContactListManagement
         contactData.OTHERPHONE = objContacts.OTHERPHONE
         contactData.DateReviewed = objContacts.DateReviewed
         contactData.MARITAL_STATUS_ID = objContacts.MARITAL_STATUS_ID
+        contactData.LOCATION_ID = objContacts.LOCATION_ID
         contactData.POSITION_ID = objContacts.POSITION_ID
         contactData.PERMISSION_GROUP_ID = objContacts.PERMISSION_GROUP_ID
         contactData.DEPARTMENT_ID = objContacts.DEPARTMENT_ID

@@ -463,6 +463,7 @@ Public MustInherit Class MainService
                 item.BIRTHDATE = _list.BIRTHDATE
                 item.DT_HIRED = _list.DT_HIRED
                 item.MARITAL_STATUS_ID = _list.MARITAL_STATUS_ID
+                item.LOCATION_ID = _list.LOCATION_ID
                 item.POSITION_ID = _list.POSITION_ID
                 item.PERMISSION_GROUP_ID = _list.PERMISSION_GROUP_ID
                 item.DEPARTMENT_ID = _list.DEPARTMENT_ID
@@ -981,8 +982,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer) As Boolean
-        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID)
+    Public Overrides Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer, ByVal displayStatus As Integer) As Boolean
+        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID, displayStatus)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             objResult = state.Data
@@ -999,8 +1000,8 @@ Public MustInherit Class MainService
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function GetAllListOfProject(ByVal EmpID As Integer) As List(Of Project)
-        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID)
+    Public Overrides Function GetAllListOfProject(ByVal EmpID As Integer, ByVal displayStatus As Integer) As List(Of Project)
+        Dim state As StateData = ProjectMgmt.GetProjectLists(EmpID, displayStatus)
         Dim lstConcernList As New List(Of Project)
 
         If Not IsNothing(state.Data) Then
@@ -2570,9 +2571,22 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "Contributors"
+    Public Overrides Function GetAllLocation() As List(Of LocationList)
+        Dim state As StateData = SelectionMgmt.GetAllLocations()
+        Dim objLst As New List(Of LocationList)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of LocationList) = DirectCast(state.Data, List(Of LocationList))
+            For Each obj As LocationList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
     Public Overrides Function GetAllPosition() As List(Of PositionList)
         Dim state As StateData = SelectionMgmt.GetAllPositions()
-        Dim objLst As New List(Of positionList)
+        Dim objLst As New List(Of PositionList)
 
         If Not IsNothing(state.Data) Then
             Dim newObjlst As List(Of PositionList) = DirectCast(state.Data, List(Of PositionList))

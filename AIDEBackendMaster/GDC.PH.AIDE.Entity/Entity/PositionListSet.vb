@@ -3,6 +3,7 @@ Imports System.Runtime.CompilerServices
 Imports GDC.PH.AIDE.Entity
 Imports GDC.PH.AIDE.BusinessLayer
 Imports System.Data.SqlClient
+
 Public Class PositionListSet
     Implements IPositionListSet, INotifyPropertyChanged
 
@@ -66,6 +67,82 @@ Public Class PositionListSet
         End Try
     End Function
 End Class
+
+Public Class LocationListSet
+    Implements ILocationListSet, INotifyPropertyChanged
+
+    Private cLocation As clsLocationList
+    Private cSelectionFactory As clsPositionListFactory
+
+    Public Sub New()
+        cLocation = New clsLocationList()
+        cSelectionFactory = New clsPositionListFactory()
+    End Sub
+
+    Public Sub New(ByVal obj As clsLocationList)
+        cLocation = obj
+        cSelectionFactory = New clsPositionListFactory()
+    End Sub
+
+    Public Property LOCATION_ID As Integer Implements ILocationListSet.LOCATION_ID
+        Get
+            Return cLocation.LOCATION_ID
+        End Get
+        Set(value As Integer)
+            cLocation.LOCATION_ID = value
+        End Set
+    End Property
+
+    Public Property LOCATION As String Implements ILocationListSet.LOCATION
+        Get
+            Return cLocation.LOCATION
+        End Get
+        Set(value As String)
+            cLocation.LOCATION = value
+        End Set
+    End Property
+
+    Public Property ONSITE_FLG As Short Implements ILocationListSet.ONSITE_FLG
+        Get
+            Return cLocation.ONSITE_FLG
+        End Get
+        Set(value As Short)
+            cLocation.ONSITE_FLG = value
+        End Set
+    End Property
+
+    Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
+
+    Public Function GetAllLocation() As List(Of LocationListSet) Implements ILocationListSet.GetAllLocation
+        Dim cList As List(Of clsLocationList)
+        Dim cListSet As New List(Of LocationListSet)
+        Try
+
+            cList = cSelectionFactory.GetAllLocation()
+
+            If Not IsNothing(cList) Then
+                For Each cObject As clsLocationList In cList
+                    cListSet.Add(New LocationListSet(cObject))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+End Class
+
 Public Class PermissionListSet
     Implements IPermissionListSet, INotifyPropertyChanged
 

@@ -169,12 +169,12 @@ Public Class ProjectSet
         End Try
     End Function
 
-    Public Function GetProjectLists(ByVal EmpID As Integer) As List(Of ProjectSet) Implements IProject.GetProjectLists
+    Public Function GetProjectLists(ByVal EmpID As Integer, ByVal displayStatus As Integer) As List(Of ProjectSet) Implements IProject.GetProjectLists
         Try
             Dim lstProject As List(Of clsProject)
             Dim lstProjectSet As New List(Of ProjectSet)
 
-            lstProject = cProjectFactory.GetAllProjects(EmpID)
+            lstProject = cProjectFactory.GetAllProjects(EmpID, displayStatus)
 
             If Not IsNothing(lstProject) Then
                 For Each cList As clsProject In lstProject

@@ -64,6 +64,17 @@ Public Class PositionManagement
         Return classData
     End Function
 
+    Public Function GetMappedFieldsLocation(objData As Object) As Object
+        Dim objSet As LocationListSet = DirectCast(objData, LocationListSet)
+        Dim classData As New LocationList
+
+        classData.LOCATION_ID = objSet.LOCATION_ID
+        classData.LOCATION = objSet.LOCATION
+        classData.ONSITE_FLG = objSet.ONSITE_FLG
+
+        Return classData
+    End Function
+
     Public Overrides Function GetStateData(status As NotifyType, Optional data As Object = Nothing, Optional message As String = "") As StateData
         Dim state As New StateData
         state.Data = data
@@ -75,6 +86,32 @@ Public Class PositionManagement
     Public Overrides Sub SetFields(ByRef objResult As Object, objData As Object)
 
     End Sub
+
+    Public Function GetAllLocations() As StateData
+        Dim objSet As New LocationListSet
+        Dim objSetList As List(Of LocationListSet)
+        Dim classDataList As New List(Of LocationList)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            objSetList = objSet.GetAllLocation()
+
+            If Not IsNothing(objSetList) Then
+                For Each objList As LocationListSet In objSetList
+                    classDataList.Add(DirectCast(GetMappedFieldsLocation(objList), LocationList))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, classDataList, message)
+        Return state
+    End Function
 
     Public Function GetAllPositions() As StateData
         Dim objSet As New PositionListSet

@@ -36,6 +36,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             OTHER_PHONE,
             DT_REVIEWED,
             MARITAL_STATUS_ID,
+            LOCATION_ID,
             POSITION_ID,
             PERMISSION_GROUP_ID,
             DEPARTMENT_ID,
@@ -73,6 +74,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _oTHER_PHONE;
         DateTime _dT_REVIEWED;
         string _marital_status_id;
+        int _location_id;
         int _position_id;
         int _permission_group_id;
         int _department_id;
@@ -405,6 +407,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _marital_status_id = value;
                     PropertyHasChanged("MARITAL_STATUS_ID");
+                }
+            }
+        }
+
+        public int LOCATION_ID
+        {
+            get { return _location_id; }
+            set
+            {
+                if (_location_id != value)
+                {
+                    _location_id = value;
+                    PropertyHasChanged("LOCATION_ID");
                 }
             }
         }

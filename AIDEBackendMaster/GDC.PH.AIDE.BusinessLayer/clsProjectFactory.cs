@@ -75,9 +75,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.SelectAll(); 
         }
 
-        public List<clsProject> GetAllProjects(int empID)
+        public List<clsProject> GetAllProjects(int empID, int displayStatus)
         {
-            return _dataObject.SelectAllProjects(empID);
+            return _dataObject.SelectAllProjects(empID, displayStatus);
         }
 
         /// <summary>
