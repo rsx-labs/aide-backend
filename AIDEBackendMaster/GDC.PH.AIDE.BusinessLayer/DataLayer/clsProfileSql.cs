@@ -160,7 +160,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             businessObject.WS_EMP_ID = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.WS_EMP_ID.ToString()));
 
-            businessObject.DEPT_ID = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsProfile.clsProfileFields.DEPT_ID.ToString()));
+            businessObject.DEPT_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsProfile.clsProfileFields.DEPT_ID.ToString()));
 
             businessObject.LAST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.LAST_NAME.ToString()));
 
