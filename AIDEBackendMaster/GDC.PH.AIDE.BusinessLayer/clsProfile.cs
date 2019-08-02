@@ -43,7 +43,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         #region Data Members
         int _eMP_ID;
         string wS_EMP_ID;
-        byte _dEPT_ID;
+        int _dEPT_ID;
         string _lAST_NAME;
         string _fIRST_NAME;
         string _mIDDLE_NAME;
@@ -96,7 +96,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public byte DEPT_ID
+        public int DEPT_ID
         {
             get { return _dEPT_ID; }
             set
