@@ -257,19 +257,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
-
-
-
-
-
-
-
-
         /// <summary>
         /// GIANN CARLO CAMILO- DISPLAY ALL PROJECTS IN COMBO BOX
         /// </summary>
         /// <returns></returns>
-        public List<clsProject> SelectAllProjects(int empID)
+        public List<clsProject> SelectAllProjects(int empID, int displayStatus)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAllProjects]";
@@ -282,8 +274,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 MainConnection.Open();
 
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
-
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DISPLAY_STATUS", displayStatus));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 

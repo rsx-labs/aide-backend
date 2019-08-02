@@ -284,6 +284,15 @@ Public Class ContactSet
         End Set
     End Property
 
+    Public Property LOCATION_ID As Integer Implements IContact.LOCATION_ID
+        Get
+            Return Me.cContact.LOCATION_ID
+        End Get
+        Set(value As Integer)
+            Me.cContact.LOCATION_ID = value
+        End Set
+    End Property
+
     Public Property POSITION_ID As Integer Implements IContact.POSITION_ID
         Get
             Return Me.cContact.POSITION_ID

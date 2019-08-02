@@ -58,6 +58,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
         #endregion
     }
+
     public class clsPermissionList : BusinessObjectBase
     {
         #region InnerClass
@@ -112,6 +113,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
         #endregion
     }
+
     public class clsDepartmentList : BusinessObjectBase
     {
         #region InnerClass
@@ -168,6 +170,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
         #endregion
     }
+
     public class clsDivisionList : BusinessObjectBase
     {
         #region InnerClass
@@ -224,6 +227,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
         #endregion
     }
+
     public class clsStatusList : BusinessObjectBase
     {
         #region InnerClass
@@ -277,6 +281,76 @@ namespace GDC.PH.AIDE.BusinessLayer
         internal override void AddValidationRules()
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("STATUS_ID", "STATUS_ID"));
+        }
+        #endregion
+    }
+
+    public class clsLocationList : BusinessObjectBase
+    {
+        #region InnerClass
+        public enum clsLocationListFields
+        {
+            LOCATION_ID,
+            LOCATION,
+            ONSITE_FLG
+        }
+        #endregion
+
+        #region Data Members
+
+        int _locationID;
+        string _location;
+        short _onsiteFlg;
+
+        #endregion
+
+        #region Properties
+
+        public int LOCATION_ID
+        {
+            get { return _locationID; }
+            set
+            {
+                if (_locationID != value)
+                {
+                    _locationID = value;
+                    PropertyHasChanged("LOCATION_ID");
+                }
+            }
+        }
+
+        public string LOCATION
+        {
+            get { return _location; }
+            set
+            {
+                if (_location != value)
+                {
+                    _location = value;
+                    PropertyHasChanged("LOCATION");
+                }
+            }
+        }
+
+        public short ONSITE_FLG
+        {
+            get { return _onsiteFlg; }
+            set
+            {
+                if (_onsiteFlg != value)
+                {
+                    _onsiteFlg = value;
+                    PropertyHasChanged("ONSITE_FLG");
+                }
+            }
+        }
+        #endregion
+
+        #region Validation
+
+        internal override void AddValidationRules()
+        {
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("LOCATION_ID", "LOCATION_ID"));
         }
         #endregion
     }

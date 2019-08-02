@@ -51,11 +51,11 @@
 
 #Region "Projects method"
     ''' <summary>
-    ''' GIANN CARLO CAMILO , HYACINTH AMARLES , HAVEY SANCHEZ
+    ''' GIANN CARLO CAMILO , HYACINTH AMARLES , HARVEY SANCHEZ
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    MustOverride Function GetAllListOfProject(ByVal EmpID As Integer) As List(Of Project)
+    MustOverride Function GetAllListOfProject(ByVal EmpID As Integer, ByVal displayStatus As Integer) As List(Of Project)
     MustOverride Function CreateNewProject(ByVal project As Project) As Boolean
     ''' <summary>
     ''' GIANN CARLO CAMILO / LEMUELA ABULENCIA
@@ -66,7 +66,7 @@
     MustOverride Function CreateNewAssignedProject(ByVal assignProject As List(Of AssignedProject)) As Boolean
     MustOverride Function ViewProjectList(ByRef objResult As List(Of ViewProject)) As Boolean
     MustOverride Function GetProjectByProjID(ByVal projID As Integer, ByRef objResult As Project) As Boolean
-    MustOverride Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer) As Boolean
+    MustOverride Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer, ByVal displayStatus As Integer) As Boolean
     MustOverride Function UpdateAssignedProject(ByVal project As Project) As Boolean
     ''' <summary>
     ''' GIANN CARLO CAMILO / LEMUELA ABULENCIA
@@ -379,6 +379,7 @@
 #End Region
 
 #Region "Selection methods"
+    MustOverride Function GetAllLocation() As List(Of LocationList)
     MustOverride Function GetAllPosition() As List(Of PositionList)
     MustOverride Function GetAllPermission() As List(Of PermissionList)
     MustOverride Function GetAllDepartment() As List(Of DepartmentList)

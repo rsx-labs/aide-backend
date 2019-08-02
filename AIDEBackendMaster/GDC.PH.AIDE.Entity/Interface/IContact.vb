@@ -25,6 +25,7 @@ Public Interface IContact
     Property SHIFT As String
     Property ACTIVE As Integer
     Property MARITAL_STATUS_ID As String
+    Property LOCATION_ID As Integer
     Property POSITION_ID As Integer
     Property PERMISSION_GROUP_ID As Integer
     Property DEPARTMENT_ID As Integer

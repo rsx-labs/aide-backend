@@ -556,10 +556,8 @@ Public Class AIDEService
         Return objProject
     End Function
 
-
-
-    Public Function GetAllListOfProjects(ByVal empID As Integer) As List(Of Project) Implements IAideService.GetAllListOfProject
-        Return MyBase.GetAllListOfProject(empID)
+    Public Function GetAllListOfProjects(ByVal empID As Integer, ByVal displayStatus As Integer) As List(Of Project) Implements IAideService.GetAllListOfProject
+        Return MyBase.GetAllListOfProject(empID, displayStatus)
     End Function
 
 
@@ -574,9 +572,9 @@ Public Class AIDEService
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function GetProjectList(ByVal EmpID As Integer) As List(Of Project) Implements IAideService.GetProjectList
+    Public Function GetProjectList(ByVal EmpID As Integer, ByVal displayStatus As Integer) As List(Of Project) Implements IAideService.GetProjectList
         Dim lstProject As List(Of Project) = Nothing
-        MyBase.GetProjectsList(lstProject, EmpID)
+        MyBase.GetProjectsList(lstProject, EmpID, displayStatus)
         Return lstProject
     End Function
 
@@ -1057,6 +1055,10 @@ Public Class AIDEService
 
     Public Function GetAllStatuss(statusName As String) As List(Of StatusList) Implements IAideService.GetAllStatus
         Return MyBase.GetAllStatus(statusName)
+    End Function
+
+    Public Function GetAllLocations() As List(Of LocationList) Implements IAideService.GetAllLocation
+        Return MyBase.GetAllLocation()
     End Function
 #End Region
    

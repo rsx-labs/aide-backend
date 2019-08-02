@@ -56,6 +56,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
+
         #region Permission Sql
         /// <summary>
         /// Select all rescords
@@ -91,6 +92,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
+
         #region Department Sql
         /// <summary>
         /// Select all rescords
@@ -126,6 +128,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
+
         #region Division Sql
         /// <summary>
         /// Select all rescords
@@ -161,6 +164,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
+
         #region Status Sql
         /// <summary>
         /// Select all rescords
@@ -198,8 +202,39 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
-        #endregion
 
+        #region Location Sql
+        public List<clsLocationList> GetAllLocation()
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllLocation]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderLocation(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsLocationList::clsPositionList::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        #endregion
+        #endregion
 
         #region Private Methods
         #region Position Object
@@ -232,6 +267,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
         #endregion
+
         #region Permission Object
         /// <summary>
         /// Populate business object from data reader
@@ -262,6 +298,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
         #endregion
+
         #region Department Object
         /// <summary>
         /// Populate business object from data reader
@@ -270,7 +307,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="dataReader">data reader</param>
         internal void PopulateBusinessObjectFromReaderDepartment(clsDepartmentList businessObject, IDataReader dataReader)
         {
-            businessObject.DEPT_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsDepartmentList.clsDepartmentListFields.DEPT_ID.ToString()));
+            businessObject.DEPT_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsDepartmentList.clsDepartmentListFields.DEPT_ID.ToString()));
             businessObject.DEPT_DESCR = dataReader.GetString(dataReader.GetOrdinal(clsDepartmentList.clsDepartmentListFields.DEPT_DESC.ToString()));
         }
 
@@ -292,6 +329,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
         #endregion
+
         #region Division Object
         /// <summary>
         /// Populate business object from data reader
@@ -322,6 +360,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
         #endregion
+
         #region Status Object
         /// <summary>
         /// Populate business object from data reader
@@ -347,6 +386,38 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsStatusList businessObject = new clsStatusList();
                 PopulateBusinessObjectFromReaderStatus(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+        #endregion
+
+        #region Location Object
+        /// <summary>
+        /// Populate business object from data reader
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <param name="dataReader">data reader</param>
+        internal void PopulateBusinessObjectFromReaderLocation(clsLocationList businessObject, IDataReader dataReader)
+        {
+            businessObject.LOCATION_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsLocationList.clsLocationListFields.LOCATION_ID.ToString()));
+            businessObject.LOCATION = dataReader.GetString(dataReader.GetOrdinal(clsLocationList.clsLocationListFields.LOCATION.ToString()));
+            businessObject.ONSITE_FLG = dataReader.GetInt16(dataReader.GetOrdinal(clsLocationList.clsLocationListFields.ONSITE_FLG.ToString()));
+        }
+
+        /// <summary>
+        /// Populate business objects from the data reader
+        /// </summary>
+        /// <param name="dataReader">data reader</param>
+        /// <returns>list of clsPositionLists</returns>
+        internal List<clsLocationList> PopulateObjectsFromReaderLocation(IDataReader dataReader)
+        {
+            List<clsLocationList> list = new List<clsLocationList>();
+
+            while (dataReader.Read())
+            {
+                clsLocationList businessObject = new clsLocationList();
+                PopulateBusinessObjectFromReaderLocation(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;
