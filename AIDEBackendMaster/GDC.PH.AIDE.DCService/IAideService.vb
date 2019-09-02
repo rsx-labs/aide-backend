@@ -952,6 +952,9 @@ Public Class Project
     Public Property ProjectID As Integer
 
     <DataMember()>
+    Public Property ProjectCode As String
+
+    <DataMember()>
     Public Property ProjectName As String
 
     <DataMember()>

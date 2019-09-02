@@ -43,7 +43,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CD", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_CD));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJ_NAME", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_NAME));
                 sqlCommand.Parameters.Add(new SqlParameter("@CATEGORY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CATEGORY));
                 sqlCommand.Parameters.Add(new SqlParameter("@BILLABILITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BILLABILITY));
@@ -83,6 +83,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CD", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_CD));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJ_NAME", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_NAME));
                 sqlCommand.Parameters.Add(new SqlParameter("@CATEGORY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CATEGORY));
                 sqlCommand.Parameters.Add(new SqlParameter("@BILLABILITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BILLABILITY));
@@ -283,7 +284,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             catch (Exception ex)
             {
-                throw new Exception("clsPROJECT::SelectAll::Error occured.", ex);
+                throw new Exception("clsPROJECT::SelectAllProjects::Error occured.", ex);
             }
             finally
             {
@@ -414,6 +415,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectFromReader(clsProject businessObject, IDataReader dataReader)
         {
             businessObject.PROJ_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsProject.clsPROJECTFields.PROJ_ID.ToString()));
+            businessObject.PROJ_CD = dataReader.GetString(dataReader.GetOrdinal(clsProject.clsPROJECTFields.PROJ_CD.ToString()));
             businessObject.PROJ_NAME = dataReader.GetString(dataReader.GetOrdinal(clsProject.clsPROJECTFields.PROJ_NAME.ToString()));
             businessObject.CATEGORY = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsProject.clsPROJECTFields.CATEGORY.ToString()));
             businessObject.BILLABILITY = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsProject.clsPROJECTFields.BILLABILITY.ToString()));

@@ -1011,6 +1011,7 @@ Public MustInherit Class MainService
 
                 item.EmpID = _list.EmpID
                 item.ProjectID = _list.ProjectID
+                item.ProjectCode = _list.ProjectCode
                 item.ProjectName = _list.ProjectName
                 item.Category = _list.Category
                 item.Billability = _list.Billability

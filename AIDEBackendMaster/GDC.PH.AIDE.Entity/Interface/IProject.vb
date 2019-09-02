@@ -2,6 +2,7 @@
 
 Public Interface IProject
     Property ProjectId As Integer
+    Property ProjectCode As String
     Property EmpID As Integer
     Property ProjectName As String
     Property Category As Short

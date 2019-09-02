@@ -283,6 +283,7 @@ Public Class ProjectManagement
         Dim projectData As New Project
 
         projectData.ProjectID = objProject.ProjectId
+        projectData.ProjectCode = objProject.ProjectCode
         projectData.ProjectName = objProject.ProjectName
         projectData.Category = objProject.Category
         projectData.Billability = objProject.Billability
@@ -330,6 +331,7 @@ Public Class ProjectManagement
         Dim projectData As New ProjectSet
         projectData.EmpID = objProject.EmpID
         projectData.ProjectId = objProject.ProjectID
+        projectData.ProjectCode = objProject.ProjectCode
         projectData.ProjectName = objProject.ProjectName
         projectData.Billability = objProject.Billability
         projectData.Category = objProject.Category
@@ -344,8 +346,8 @@ Public Class ProjectManagement
     Public Sub SetAssignedFields(ByRef objResult As Object, objData As Object)
         Dim objProject As AssignedProject = DirectCast(objData, AssignedProject)
         Dim projectData As New AssignedProjectSet
-        projectData.ProjectID = objProject.ProjectID
-        projectData.EmpID = objProject.EmployeeID
+        projectData.ProjectId = objProject.ProjectID
+        projectData.EmpId = objProject.EmployeeID
         projectData.DateCreated = objProject.DateCreated
         projectData.StartPeriod = objProject.StartPeriod
         projectData.EndPeriod = objProject.EndPeriod
