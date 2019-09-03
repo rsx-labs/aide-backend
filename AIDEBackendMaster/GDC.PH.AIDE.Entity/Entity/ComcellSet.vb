@@ -102,6 +102,24 @@ Public Class ComcellSet
         End Set
     End Property
 
+    Public Property FACILITATOR_NAME As String Implements IComcellSet.FACILITATOR_NAME
+        Get
+            Return Me.cComcell.FACILITATOR_NAME
+        End Get
+        Set(value As String)
+            Me.cComcell.FACILITATOR_NAME = value
+        End Set
+    End Property
+
+    Public Property MINUTES_TAKER_NAME As String Implements IComcellSet.MINUTES_TAKER_NAME
+        Get
+            Return Me.cComcell.MINUTES_TAKER_NAME
+        End Get
+        Set(value As String)
+            Me.cComcell.MINUTES_TAKER_NAME = value
+        End Set
+    End Property
+
     Public Function GetComcellMeeting(empID As Integer, year As Integer) As List(Of ComcellSet) Implements IComcellSet.GetComcellMeeting
         Dim cList As List(Of clsComcell)
         Dim cListSet As New List(Of ComcellSet)

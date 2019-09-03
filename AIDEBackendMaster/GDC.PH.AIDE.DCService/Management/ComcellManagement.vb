@@ -21,7 +21,8 @@ Public Class ComcellManagement
         comcellData.SCHEDULE = objComcell.SCHEDULE
         comcellData.FY_START = objComcell.FY_START
         comcellData.FY_END = objComcell.FY_END
-
+        comcellData.FACILITATOR_NAME = objComcell.FACILITATOR_NAME
+        comcellData.MINUTES_TAKER_NAME = objComcell.MINUTES_TAKER_NAME
         Return comcellData
     End Function
 
@@ -115,7 +116,8 @@ Public Class ComcellManagement
         comcellData.MINUTES_TAKER = objComcell.MINUTES_TAKER
         comcellData.FY_START = objComcell.FY_START
         comcellData.FY_END = objComcell.FY_END
-
+        comcellData.FACILITATOR_NAME = objComcell.FACILITATOR_NAME
+        comcellData.MINUTES_TAKER_NAME = objComcell.MINUTES_TAKER_NAME
         objResult = comcellData
     End Sub
 End Class

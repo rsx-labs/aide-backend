@@ -162,6 +162,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.MINUTES_TAKER = dataReader.GetString(dataReader.GetOrdinal(clsComcell.clsComcellFields.MINUTES_TAKER.ToString()));
             businessObject.FY_START = dataReader.GetDateTime(dataReader.GetOrdinal(clsComcell.clsComcellFields.FY_START.ToString()));
             businessObject.FY_END = dataReader.GetDateTime(dataReader.GetOrdinal(clsComcell.clsComcellFields.FY_END.ToString()));
+            businessObject.FACILITATOR_NAME = dataReader.GetString(dataReader.GetOrdinal(clsComcell.clsComcellFields.FAC_NAME.ToString()));
+            businessObject.MINUTES_TAKER_NAME = dataReader.GetString(dataReader.GetOrdinal(clsComcell.clsComcellFields.MIN_NAME.ToString()));
         }
 
         /// <summary>
