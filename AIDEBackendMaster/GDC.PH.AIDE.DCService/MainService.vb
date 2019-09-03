@@ -1011,6 +1011,7 @@ Public MustInherit Class MainService
 
                 item.EmpID = _list.EmpID
                 item.ProjectID = _list.ProjectID
+                item.ProjectCode = _list.ProjectCode
                 item.ProjectName = _list.ProjectName
                 item.Category = _list.Category
                 item.Billability = _list.Billability
@@ -2256,7 +2257,8 @@ Public MustInherit Class MainService
                 item.SCHEDULE = _list.SCHEDULE
                 item.FY_START = _list.FY_START
                 item.FY_END = _list.FY_END
-
+                item.FACILITATOR_NAME = _list.FACILITATOR_NAME
+                item.MINUTES_TAKER_NAME = _list.MINUTES_TAKER_NAME
                 comcellLst.Add(item)
             Next
         End If

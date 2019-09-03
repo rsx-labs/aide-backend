@@ -952,6 +952,9 @@ Public Class Project
     Public Property ProjectID As Integer
 
     <DataMember()>
+    Public Property ProjectCode As String
+
+    <DataMember()>
     Public Property ProjectName As String
 
     <DataMember()>
@@ -1823,6 +1826,12 @@ Public Class Comcell
 
     <DataMember()>
     Public Property YEAR As Integer
+
+    <DataMember()>
+    Public Property FACILITATOR_NAME As String
+
+    <DataMember()>
+    Public Property MINUTES_TAKER_NAME As String
 End Class
 #End Region
 

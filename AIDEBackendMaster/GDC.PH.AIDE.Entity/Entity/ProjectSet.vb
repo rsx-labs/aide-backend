@@ -2,6 +2,7 @@
 Imports System.Runtime.CompilerServices
 Imports System.ComponentModel
 Imports System.Data.SqlClient
+Imports GDC.PH.AIDE.Entity
 
 Public Class ProjectSet
     Implements IProject, INotifyPropertyChanged
@@ -82,6 +83,16 @@ Public Class ProjectSet
         Set(value As Integer)
             Me.cProject.PROJ_ID = value
             NotifyPropertyChanged("ProjectId")
+        End Set
+    End Property
+
+    Public Property ProjectCode As String Implements IProject.ProjectCode
+        Get
+            Return Me.cProject.PROJ_CD
+        End Get
+        Set(value As String)
+            Me.cProject.PROJ_CD = value
+            NotifyPropertyChanged("ProjectCode")
         End Set
     End Property
     Public Property ProjectName As String Implements IProject.ProjectName

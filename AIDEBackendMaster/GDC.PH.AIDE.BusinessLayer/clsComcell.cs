@@ -20,7 +20,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             SCHEDULE,
             YEAR,
             FY_START,
-            FY_END
+            FY_END,
+            FAC_NAME,
+            MIN_NAME
         }
         #endregion
 
@@ -35,6 +37,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _year;
         DateTime _fyStart;
         DateTime _fyEnd;
+        string _facilitatorName;
+        string _minTakerName;
 
         #endregion
 
@@ -156,7 +160,32 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
- 
+
+        public string FACILITATOR_NAME
+        {
+            get { return _facilitatorName; }
+            set
+            {
+                if (_facilitatorName != value)
+                {
+                    _facilitatorName = value;
+                    PropertyHasChanged("FACILITATOR_NAME");
+                }
+            }
+        }
+
+        public string MINUTES_TAKER_NAME
+        {
+            get { return _minTakerName; }
+            set
+            {
+                if (_minTakerName != value)
+                {
+                    _minTakerName = value;
+                    PropertyHasChanged("MINUTES_TAKER_NAME");
+                }
+            }
+        }
         #endregion
 
         #region Validation

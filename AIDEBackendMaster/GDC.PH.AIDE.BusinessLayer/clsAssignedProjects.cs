@@ -15,6 +15,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             EMP_ID,
             PROJ_ID,
+            PROJ_CD,
             EMPLOYEENAME,
             PROJ_NAME,
             DATE_CREATED,
@@ -27,6 +28,7 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         int _eMP_ID;
         int _pROJ_ID;
+        string _pROJ_CD;
         string _eMPLOYEENAME;
         string _pROJ_NAME;
         DateTime _dATE_CREATED;
@@ -59,6 +61,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _pROJ_ID = value;
                     PropertyHasChanged("PROJ_ID");
+                }
+            }
+        }
+
+        public string PROJ_CD
+        {
+            get { return _pROJ_CD; }
+            set
+            {
+                if (_pROJ_CD != value)
+                {
+                    _pROJ_CD = value;
+                    PropertyHasChanged("PROJ_CD");
                 }
             }
         }
@@ -137,6 +152,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_ID", "PROJ_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_CD", "PROJ_CD"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMPLOYEENAME", "EMPLOYEENAME"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_NAME", "PROJ_NAME"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_CREATED", "DATE_CREATED"));

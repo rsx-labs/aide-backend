@@ -9,7 +9,8 @@ Public Interface IComcellSet
     Property SCHEDULE As String
     Property FY_START As DateTime
     Property FY_END As DateTime
-
+    Property FACILITATOR_NAME As String
+    Property MINUTES_TAKER_NAME As String
     Function GetComcellMeeting(ByVal empID As Integer, ByVal year As Integer) As List(Of ComcellSet)
     Function InsertComcellMeeting(ByVal comcell As ComcellSet) As Boolean
     Function UpdateComcellMeeting(ByVal comcell As ComcellSet) As Boolean

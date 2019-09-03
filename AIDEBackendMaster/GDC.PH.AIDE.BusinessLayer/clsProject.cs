@@ -10,6 +10,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum clsPROJECTFields
         {
             PROJ_ID,
+            PROJ_CD,
             PROJ_NAME,
             CATEGORY,
             BILLABILITY,
@@ -28,6 +29,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         #region Data Members
 
         int _pROJ_ID;
+        string _pROJ_CD;
         string _pROJ_NAME;
         byte _cATEGORY;
         byte _bILLABILITY;
@@ -64,6 +66,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _pROJ_ID = value;
                     PropertyHasChanged("PROJ_ID");
+                }
+            }
+        }
+
+        public string PROJ_CD
+        {
+            get { return _pROJ_CD; }
+            set
+            {
+                if (_pROJ_CD != value)
+                {
+                    _pROJ_CD = value;
+                    PropertyHasChanged("PROJ_CD");
                 }
             }
         }
@@ -175,7 +190,8 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         internal override void AddValidationRules()
         {
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_ID", "PROJ_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_CD", "PROJ_CD"));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("PROJ_CD", "PROJ_CD", 10));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_NAME", "PROJ_NAME"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("PROJ_NAME", "PROJ_NAME", 20));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("CATEGORY", "CATEGORY"));
