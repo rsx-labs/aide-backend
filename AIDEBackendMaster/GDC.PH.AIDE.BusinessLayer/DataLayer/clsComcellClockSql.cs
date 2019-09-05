@@ -38,7 +38,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@CLOCK_HOUR", SqlDbType.Int, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CLOCK_HOUR));
                 sqlCommand.Parameters.Add(new SqlParameter("@CLOCK_MINUTE", SqlDbType.Int, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CLOCK_MINUTE));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-               
+                sqlCommand.Parameters.Add(new SqlParameter("@MIDDAY", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MIDDAY));
+
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
@@ -111,6 +112,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.CLOCK_HOUR = dataReader.GetInt32(dataReader.GetOrdinal(clsComcellClock.clsComcellClockFields.CLOCK_HOUR.ToString()));
             businessObject.CLOCK_MINUTE = dataReader.GetInt32(dataReader.GetOrdinal(clsComcellClock.clsComcellClockFields.CLOCK_MINUTE.ToString()));
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsComcellClock.clsComcellClockFields.EMP_ID.ToString()));
+            businessObject.MIDDAY = dataReader.GetString(dataReader.GetOrdinal(clsComcellClock.clsComcellClockFields.MIDDAY.ToString()));
         }
 
 

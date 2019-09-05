@@ -4,6 +4,7 @@ Public Interface IComcellClockSet
     Property ClockHour As Integer
     Property ClockMinute As Integer
     Property EmpID As Integer
+    Property Midday As String
 
     Function GetSelectClockByEmpID(ByVal empid As Integer) As ComcellClockSet
     Function UpdateActionList() As Boolean

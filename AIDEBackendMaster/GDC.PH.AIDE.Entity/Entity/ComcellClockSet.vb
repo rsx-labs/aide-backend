@@ -55,7 +55,7 @@ Public Class ComcellClockSet
     End Property
 
     Public Function GetSelectClockByEmpID(empid As Integer) As ComcellClockSet Implements IComcellClockSet.GetSelectClockByEmpID
-         Try
+        Try
             Dim cComClock As clsComcellClock
             Dim keys As clsComcellClockKeys = New clsComcellClockKeys(empid)
             cComClock = cComcellClockFactory.GetByPrimaryKey(keys)
@@ -92,4 +92,13 @@ Public Class ComcellClockSet
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
+
+    Public Property Midday As String Implements IComcellClockSet.Midday
+        Get
+            Return cComcellClock.MIDDAY
+        End Get
+        Set(value As String)
+            cComcellClock.MIDDAY = value
+        End Set
+    End Property
 End Class
