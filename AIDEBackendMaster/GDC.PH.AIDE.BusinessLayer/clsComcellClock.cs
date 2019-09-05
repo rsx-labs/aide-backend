@@ -12,7 +12,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             CLOCK_DAY,
             CLOCK_HOUR,
             CLOCK_MINUTE,
-            EMP_ID
+            EMP_ID,
+            MIDDAY
         }
         #endregion
 
@@ -22,6 +23,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _clock_hour;
         int _clock_minute;
         int _emp_id;
+        string _midday;
+
         #endregion
 
         #region Properties
@@ -74,6 +77,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _emp_id = value;
                     PropertyHasChanged("EMP_ID");
+                }
+            }
+        }
+
+        public string MIDDAY
+        {
+            get { return _midday; }
+            set
+            {
+                if (_midday != value)
+                {
+                    _midday = value;
+                    PropertyHasChanged("MIDDAY");
                 }
             }
         }

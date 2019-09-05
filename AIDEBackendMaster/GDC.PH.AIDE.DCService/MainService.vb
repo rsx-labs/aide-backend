@@ -1441,6 +1441,7 @@ Public MustInherit Class MainService
             For Each _list As ResourcePlanner In resource
                 Dim item As New ResourcePlanner
 
+                item.EmpID = _list.EmpID
                 item.NAME = _list.NAME
                 item.Status = _list.Status
                 item.UsedLeaves = _list.UsedLeaves
