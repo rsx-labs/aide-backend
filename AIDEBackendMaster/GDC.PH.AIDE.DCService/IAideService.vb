@@ -1855,6 +1855,9 @@ Public Class ComcellClock
     <DataMember()>
     Public Property Emp_ID As Integer
 
+    <DataMember()>
+    Public Property MIDDAY As String
+
 End Class
 #End Region
 

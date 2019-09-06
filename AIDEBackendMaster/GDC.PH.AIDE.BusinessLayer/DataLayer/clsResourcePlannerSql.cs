@@ -458,6 +458,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         internal void PopulateBusinessObjectRPFromReader7(clsResourcePlanner businessObject, IDataReader dataReader)
         {
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMP_ID.ToString()));
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
             businessObject.STATUS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             businessObject.USEDLEAVES = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.USEDLEAVES.ToString()));
