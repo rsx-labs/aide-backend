@@ -57,11 +57,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 if (businessObject.INC_DESCR == null)
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
                 }
                 else
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.INC_DESCR));
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.INC_DESCR));
                 }
 
                 sqlCommand.Parameters.Add(new SqlParameter("@SEVERITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SEVERITY));
@@ -161,11 +161,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 if (businessObject.INC_DESCR == null)
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
                 }
                 else
                 {
-                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.INC_DESCR));
+                    sqlCommand.Parameters.Add(new SqlParameter("@INC_DESCR", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.INC_DESCR));
                 }
 
                 sqlCommand.Parameters.Add(new SqlParameter("@SEVERITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SEVERITY));
