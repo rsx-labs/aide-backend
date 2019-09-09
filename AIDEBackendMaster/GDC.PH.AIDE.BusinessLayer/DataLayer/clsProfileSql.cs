@@ -330,6 +330,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.PERMISSION = string.Empty;
             }
 
+            businessObject.PERMISSION_ID = dataReader.GetInt16(dataReader.GetOrdinal(clsProfile.clsProfileFields.PERMISSION_ID.ToString()));
+
             //CIVILSTATUS
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.CivilStatus.ToString())))
             {

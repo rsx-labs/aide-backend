@@ -24,6 +24,7 @@ Public Interface IProfileSet
     Property OtherPhone As String
     Property DtReviewed As DateTime
     Property Permission As String
+    Property Permission_ID As Integer
     Property CivilStatus As String
     Property ShiftStatus As String
 
