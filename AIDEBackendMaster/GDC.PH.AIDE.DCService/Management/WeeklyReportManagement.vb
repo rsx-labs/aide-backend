@@ -349,6 +349,7 @@ Public Class WeeklyReportManagement
         contactData.DateReviewed = objContacts.DateReviewed
         contactData.FIRST_NAME = objContacts.FIRST_NAME
         contactData.LAST_NAME = objContacts.LAST_NAME
+        contactData.MIDDLE_NAME = objContacts.MIDDLE_NAME
         contactData.IMAGE_PATH = objContacts.IMAGE_PATH
 
         Return contactData
