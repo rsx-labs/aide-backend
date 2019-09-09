@@ -38,6 +38,7 @@ Public Class ProfileManagement
         profileData.Other_Phone = objProfile.OtherPhone
         profileData.Dt_Reviewed = objProfile.DtReviewed
         profileData.Permission = objProfile.Permission
+        profileData.Permission_ID = objProfile.Permission_ID
         profileData.CivilStatus = objProfile.CivilStatus
         profileData.ShiftStatus = objProfile.ShiftStatus
 
@@ -149,6 +150,7 @@ Public Class ProfileManagement
         profileData.OtherPhone = objProfile.Other_Phone
         profileData.DtReviewed = objProfile.Dt_Reviewed
         profileData.Permission = objProfile.Permission
+        profileData.Permission_ID = objProfile.Permission_ID
         profileData.CivilStatus = objProfile.CivilStatus
         profileData.ShiftStatus = objProfile.ShiftStatus
 

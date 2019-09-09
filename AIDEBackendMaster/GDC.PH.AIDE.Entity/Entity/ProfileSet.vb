@@ -270,6 +270,16 @@ Public Class ProfileSet
         End Set
     End Property
 
+    Public Property Permission_ID As Integer Implements IProfileSet.Permission_ID
+        Get
+            Return Me.cProfile.PERMISSION_ID
+        End Get
+        Set(value As Integer)
+            Me.cProfile.PERMISSION_ID = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
     Public Function GetProfile(EmpId As String) As ProfileSet Implements IProfileSet.GetProfile
         Try
             Dim key As clsProfileKeys = New clsProfileKeys(EmpId)

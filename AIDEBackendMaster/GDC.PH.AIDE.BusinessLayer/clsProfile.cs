@@ -34,6 +34,7 @@ namespace GDC.PH.AIDE.BusinessLayer
           OTHER_PHONE,
           DT_REVIEWED,
           Permission,
+          PERMISSION_ID,
           CivilStatus,
           SHIFT_STATUS
         }
@@ -63,6 +64,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _oTHER_PHONE;
         DateTime _dT_REVIEWED;
         string _pERMISSION;
+        int _pERMISSION_ID;
         string _cIVILSTATUS;
         string _SHIFT_STATUS;
      
@@ -363,6 +365,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public int PERMISSION_ID
+        {
+            get { return _pERMISSION_ID; }
+            set
+            {
+                if (_pERMISSION_ID != value)
+                {
+                    _pERMISSION_ID = value;
+                    PropertyHasChanged("PERMISSION_ID");
+                }
+            }
+        }
+
 
         public String CIVILSTATUS
         {
@@ -415,6 +430,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("OTHER_PHONE", "OTHER_PHONE"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_REVIEWED,", "DT_REVIEWED,"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION,", "PERMISSION,"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERMISSION_ID", "PERMISSION_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("CIVILSTATUS,", "CIVILSTATUS,"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("SHIFT_STATUS,", "SHIFT_STATUS,"));
 

@@ -926,6 +926,9 @@ Public Class Profile
     Public Property Dt_Reviewed As DateTime
 
     <DataMember()>
+    Public Property Permission_ID As Integer
+
+    <DataMember()>
     Public Property Permission As String
 
     <DataMember()>
