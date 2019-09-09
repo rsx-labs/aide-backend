@@ -16,6 +16,7 @@ Public Class ComcellClockManagement
         ClockData.ClockHour = objComcellClock.Clock_Hour
         ClockData.ClockMinute = objComcellClock.Clock_Minute
         ClockData.EmpID = objComcellClock.Emp_ID
+        ClockData.Midday = objComcellClock.MIDDAY
         objResult = ClockData
     End Sub
 
@@ -31,6 +32,7 @@ Public Class ComcellClockManagement
         ClockData.Clock_Hour = objComcellClock.ClockHour
         ClockData.Clock_Minute = objComcellClock.ClockMinute
         ClockData.Emp_ID = objComcellClock.EmpID
+        ClockData.MIDDAY = objComcellClock.Midday
 
         Return ClockData
     End Function
