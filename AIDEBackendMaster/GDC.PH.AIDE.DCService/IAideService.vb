@@ -660,6 +660,17 @@ Public Interface IAideService
     Function GetAllStatus(statusName As String) As List(Of StatusList)
 #End Region
 
+#Region "KPI Targets Operation Contracts"
+    <OperationContract()>
+    Function InsertKPITarget(ByVal kpiTarget As KPITargets) As Boolean
+    <OperationContract()>
+    Function UpdatePITarget(ByVal kpiTarget As KPITargets) As Boolean
+    <OperationContract()>
+    Function GetKPITargets(ByVal Id As Integer) As List(Of KPITargets)
+    <OperationContract()>
+    Function GetAllKPITargets(ByVal FiscalYear As Date) As List(Of KPITargets)
+#End Region
+
 End Interface
 #End Region
 
@@ -2163,38 +2174,58 @@ Public Class StatusList
     Public Property STATUS_DESCR As String
 End Class
 #End Region
+
+#Region "KPI Targets Data Contract"
+<DataContract()>
+Public Class KPITargets
+    <DataMember()>
+    Public Property KPI_Id As Integer
+    <DataMember()>
+    Public Property FYStart As Date
+    <DataMember()>
+    Public Property FYEnd As Date
+    <DataMember()>
+    Public Property KPI_ReferenceNo As String
+    <DataMember()>
+    Public Property Description As String
+    <DataMember()>
+    Public Property Subject As String
+    <DataMember()>
+    Public Property DateCreated As DateTime
+End Class
+#End Region
 #End Region
 
 <ServiceContract()>
-Public Interface IAideService2
-    <OperationContract()>
-    Function DashboardGetEmployeeList() As List(Of DashboardEmployee)
+    Public Interface IAideService2
+        <OperationContract()>
+        Function DashboardGetEmployeeList() As List(Of DashboardEmployee)
 
-    <OperationContract()>
-    Function DashboardGetContactList() As List(Of DashboardContact)
+        <OperationContract()>
+        Function DashboardGetContactList() As List(Of DashboardContact)
 
-    '<OperationContract()>
-    'Function DashboardGetNonBillableHours() As List(Of DashboardNonBillableHours)
+        '<OperationContract()>
+        'Function DashboardGetNonBillableHours() As List(Of DashboardNonBillableHours)
 
-    <OperationContract()>
-    Function DashboardGetNonBillableHoursSummary() As List(Of DashboardNonBillableHoursSummary)
+        <OperationContract()>
+        Function DashboardGetNonBillableHoursSummary() As List(Of DashboardNonBillableHoursSummary)
 
-    <OperationContract()>
-    Function DashboardGetTeamAttendance() As List(Of DashboardTeamAttendance)
+        <OperationContract()>
+        Function DashboardGetTeamAttendance() As List(Of DashboardTeamAttendance)
 
-    <OperationContract()>
-    Function DashboardGetResourcePlanner() As List(Of AttendanceSummary)
+        <OperationContract()>
+        Function DashboardGetResourcePlanner() As List(Of AttendanceSummary)
 
-    <OperationContract()>
-    Function DashboardGetTaskSummary(ByVal dateStart As Date, ByVal email As String) As List(Of TaskSummary)
+        <OperationContract()>
+        Function DashboardGetTaskSummary(ByVal dateStart As Date, ByVal email As String) As List(Of TaskSummary)
 
 
-    <OperationContract()>
-    Function DashboardGetTaskSummaryTotals(ByVal dateStart As Date, ByVal email As String) As List(Of DashboardTaskSummaryTotals)
-End Interface
+        <OperationContract()>
+        Function DashboardGetTaskSummaryTotals(ByVal dateStart As Date, ByVal email As String) As List(Of DashboardTaskSummaryTotals)
+    End Interface
 
 #Region "Dashboard Contracts"
-<DataContract()>
+    <DataContract()>
 Public Class DashboardAttendance
     <DataMember()>
     Public Property Name As String

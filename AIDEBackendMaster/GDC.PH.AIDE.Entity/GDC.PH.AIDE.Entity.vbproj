@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\ActionListSet.vb" />
+    <Compile Include="Entity\KPITargetsSet.vb" />
     <Compile Include="Entity\AssignedProjectSet.vb" />
     <Compile Include="Entity\AttendanceSet.vb" />
     <Compile Include="Entity\AuditSchedSet.vb" />
@@ -110,6 +111,7 @@
     <Compile Include="Exception\SendCodeNotFoundException.vb" />
     <Compile Include="Exception\UpdateFailedException.vb" />
     <Compile Include="Interface\IActionLists.vb" />
+    <Compile Include="Interface\IKPITargetsSet.vb" />
     <Compile Include="Interface\IAssignedProjects.vb" />
     <Compile Include="Interface\IAttendance.vb" />
     <Compile Include="Interface\IAuditSchedSet.vb" />

@@ -22,6 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -107,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Management\ActionManagement.vb" />
     <Compile Include="AMainService.vb" />
+    <Compile Include="Management\KPITargetsManagement.vb" />
     <Compile Include="Management\AnnouncementsManagement.vb" />
     <Compile Include="Management\AttendanceManagement.vb" />
     <Compile Include="Management\AuditSchedManagement.vb" />

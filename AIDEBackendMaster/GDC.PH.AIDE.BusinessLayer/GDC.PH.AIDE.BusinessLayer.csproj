@@ -48,6 +48,9 @@
     <Compile Include="clsActionLists.cs" />
     <Compile Include="clsActionListsFactory.cs" />
     <Compile Include="clsActionListsKeys.cs" />
+    <Compile Include="clsKPITargetsFactory.cs" />
+    <Compile Include="clsKPITargetsKeys.cs" />
+    <Compile Include="clsKPITargets.cs" />
     <Compile Include="clsAnnouncements.cs" />
     <Compile Include="clsAnnouncementsFactory.cs" />
     <Compile Include="clsAnnouncementsKeys.cs" />
@@ -136,6 +139,7 @@
     <Compile Include="clsWorkplaceAuditFactory.cs" />
     <Compile Include="clsWorkplaceAuditKeys.cs" />
     <Compile Include="DataLayer\clsActionListsSql.cs" />
+    <Compile Include="DataLayer\clsKPITargetsSql.cs" />
     <Compile Include="DataLayer\clsAnnouncementsSql.cs" />
     <Compile Include="DataLayer\clsAssignedProjectsSql.cs" />
     <Compile Include="DataLayer\clsAttendanceSql.cs" />

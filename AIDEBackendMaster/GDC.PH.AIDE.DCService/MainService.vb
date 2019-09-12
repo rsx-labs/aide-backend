@@ -1,4 +1,5 @@
 ﻿Imports GDC.PH.AIDE.BusinessLayer
+Imports GDC.PH.AIDE.DCService
 
 Public MustInherit Class MainService
     Inherits AMainService
@@ -25,14 +26,15 @@ Public MustInherit Class MainService
     Private Shared SabaLearningMgmt As SabaLearningManagement
     Private Shared ComcellMgmt As ComcellManagement
     Private Shared ComcellClockMgmt As ComcellClockManagement
-	Private Shared WeeklyReportMgmt As WeeklyReportManagement
-	Private Shared AuditSchedMgmt As AuditSchedManagement
+    Private Shared WeeklyReportMgmt As WeeklyReportManagement
+    Private Shared AuditSchedMgmt As AuditSchedManagement
     Private Shared SendCodeMgmt As SendCodeManagement
     Private Shared MailConfigMgmt As MailConfigManagement
     Private Shared WorkplaceAuditMgmt As WorkplaceAuditManagement
     Private Shared ContributorsMgmt As ContributorsManagement
     Private Shared MessageMgmt As MessageManagement
     Private Shared SelectionMgmt As PositionManagement
+    Private Shared KPITargetsMgmt As KPITargetsManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -60,15 +62,16 @@ Public MustInherit Class MainService
         LateMgmt = New LateManagement()
         SabaLearningMgmt = New SabaLearningManagement()
         ComcellMgmt = New ComcellManagement()
-		AuditSchedMgmt = New AuditSchedManagement()
+        AuditSchedMgmt = New AuditSchedManagement()
         ComcellClockMgmt = New ComcellClockManagement()
-		WeeklyReportMgmt = New WeeklyReportManagement()
+        WeeklyReportMgmt = New WeeklyReportManagement()
         SendCodeMgmt = New SendCodeManagement()
         MailConfigMgmt = New MailConfigManagement()
         WorkplaceAuditMgmt = New WorkplaceAuditManagement()
         ContributorsMgmt = New ContributorsManagement()
         MessageMgmt = New MessageManagement()
         SelectionMgmt = New PositionManagement()
+        KPITargetsMgmt = New KPITargetsManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -124,7 +127,7 @@ Public MustInherit Class MainService
         Throw New NotImplementedException()
     End Function
 
-    
+
 
     'Public Overrides Function GetAllEmployees(ByRef objResult As List(Of Employee)) As Boolean
     '    Dim state As StateData = EmployeeMgmt.GetEmployeeList()
@@ -2222,7 +2225,7 @@ Public MustInherit Class MainService
 
 #Region "Comcell"
     Public Overrides Function InsertComcellMeeting(comcell As Comcell) As Boolean
-        Dim state As StateData = ComcellMgmt.Insertcomcell(comcell)
+        Dim state As StateData = ComcellMgmt.InsertComcell(comcell)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2650,6 +2653,54 @@ Public MustInherit Class MainService
             Next
         End If
         Return objLst
+    End Function
+#End Region
+
+#Region "KPI Targets"
+    Public Overrides Function GetAllKPITargets(FiscalYear As Date) As List(Of KPITargets)
+        Dim state As StateData = KPITargetsMgmt.GetAllKPITargets(FiscalYear)
+        Dim lstKpiTarget As New List(Of KPITargets)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstData As List(Of KPITargets) = DirectCast(state.Data, List(Of KPITargets))
+            For Each item As KPITargets In lstData
+                lstKpiTarget.Add(item)
+            Next
+        End If
+        Return lstKpiTarget
+    End Function
+
+    Public Overrides Function GetKPITarget(Id As Integer) As List(Of KPITargets)
+        Dim state As StateData = KPITargetsMgmt.GetKPITarget(Id)
+        Dim lstKpiTarget As New List(Of KPITargets)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstData As List(Of KPITargets) = DirectCast(state.Data, List(Of KPITargets))
+            For Each item As KPITargets In lstData
+                lstKpiTarget.Add(item)
+            Next
+        End If
+        Return lstKpiTarget
+    End Function
+
+    Public Overrides Function InsetKPITarget(kpi As KPITargets) As Boolean
+        Dim state As StateData = KPITargetsMgmt.InsertKPITargets(kpi)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateKPITarget(kpi As KPITargets) As Boolean
+        Dim state As StateData = KPITargetsMgmt.UpdateKPITargets(kpi)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 #End Region
 End Class

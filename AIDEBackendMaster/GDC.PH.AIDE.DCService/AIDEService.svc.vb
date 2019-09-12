@@ -1060,6 +1060,27 @@ Public Class AIDEService
     Public Function GetAllLocations() As List(Of LocationList) Implements IAideService.GetAllLocation
         Return MyBase.GetAllLocation()
     End Function
+
+
 #End Region
-   
+
+#Region "KPI Targets"
+
+    Public Function InsertKPITarget(kpiTarget As KPITargets) As Boolean Implements IAideService.InsertKPITarget
+        Return MyBase.InsetKPITarget(kpiTarget)
+    End Function
+
+    Public Function UpdatePITarget(kpiTarget As KPITargets) As Boolean Implements IAideService.UpdatePITarget
+        Return MyBase.UpdateKPITarget(kpiTarget)
+    End Function
+
+    Public Function GetKPITargets(Id As Integer) As List(Of KPITargets) Implements IAideService.GetKPITargets
+        Return MyBase.GetKPITarget(Id)
+    End Function
+
+    Public Function GetAllKPITarget(FiscalYear As Date) As List(Of KPITargets) Implements IAideService.GetAllKPITargets
+        Return MyBase.GetAllKPITargets(FiscalYear)
+    End Function
+#End Region
+
 End Class

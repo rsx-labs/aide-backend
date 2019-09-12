@@ -386,4 +386,11 @@
     MustOverride Function GetAllDivision() As List(Of DivisionList)
     MustOverride Function GetAllStatus(_statusName As String) As List(Of StatusList)
 #End Region
+
+#Region "KPI Targets Method"
+    MustOverride Function GetKPITarget(Id As Integer) As List(Of KPITargets)
+    MustOverride Function GetAllKPITargets(FiscalYear As Date) As List(Of KPITargets)
+    MustOverride Function InsetKPITarget(kpi As KPITargets) As Boolean
+    MustOverride Function UpdateKPITarget(kpi As KPITargets) As Boolean
+#End Region
 End Class
