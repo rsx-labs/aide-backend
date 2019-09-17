@@ -35,6 +35,7 @@ Public MustInherit Class MainService
     Private Shared MessageMgmt As MessageManagement
     Private Shared SelectionMgmt As PositionManagement
     Private Shared KPITargetsMgmt As KPITargetsManagement
+    Private Shared KPISummaryMgmt As KPISummaryManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -72,6 +73,7 @@ Public MustInherit Class MainService
         MessageMgmt = New MessageManagement()
         SelectionMgmt = New PositionManagement()
         KPITargetsMgmt = New KPITargetsManagement()
+        KPISummaryMgmt = New KPISummaryManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -2695,6 +2697,54 @@ Public MustInherit Class MainService
 
     Public Overrides Function UpdateKPITarget(kpi As KPITargets) As Boolean
         Dim state As StateData = KPITargetsMgmt.UpdateKPITargets(kpi)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+#End Region
+
+#Region "KPI Summary"
+    Public Overrides Function GetAllKPISummary(FY_Start As Date, FY_End As Date) As List(Of KPISummary)
+        Dim state As StateData = KPISummaryMgmt.GetAllKPISummary(FY_Start, FY_End)
+        Dim lstKpiSummary As New List(Of KPISummary)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstData As List(Of KPISummary) = DirectCast(state.Data, List(Of KPISummary))
+            For Each item As KPISummary In lstData
+                lstKpiSummary.Add(item)
+            Next
+        End If
+        Return lstKpiSummary
+    End Function
+
+    Public Overrides Function GetKPISummaryMonthly(FY_Start As Date, FY_End As Date, Month As Short) As List(Of KPISummary)
+        Dim state As StateData = KPISummaryMgmt.GetKPISummaryByMonth(FY_Start, FY_End, Month)
+        Dim lstKpiSummary As New List(Of KPISummary)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstData As List(Of KPISummary) = DirectCast(state.Data, List(Of KPISummary))
+            For Each item As KPISummary In lstData
+                lstKpiSummary.Add(item)
+            Next
+        End If
+        Return lstKpiSummary
+    End Function
+
+    Public Overrides Function UpdateSelectedKPISummary(kpi As KPISummary) As Boolean
+        Dim state As StateData = KPISummaryMgmt.UpdateKPISummary(kpi)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function InsertNewKPISummary(kpi As KPISummary) As Boolean
+        Dim state As StateData = KPISummaryMgmt.InsertKPISummary(kpi)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

@@ -1081,6 +1081,22 @@ Public Class AIDEService
     Public Function GetAllKPITarget(FiscalYear As Date) As List(Of KPITargets) Implements IAideService.GetAllKPITargets
         Return MyBase.GetAllKPITargets(FiscalYear)
     End Function
+
+    Public Function InsertKPISummary(kpi As KPISummary) As Boolean Implements IAideService.InsertKPISummary
+        Return MyBase.InsertNewKPISummary(kpi)
+    End Function
+
+    Public Function UpdateKPISummary(kpi As KPISummary) As Boolean Implements IAideService.UpdateKPISummary
+        Return MyBase.UpdateSelectedKPISummary(kpi)
+    End Function
+
+    Public Function GetKPISummaryList(FY_Start As Date, FY_End As Date) As List(Of KPISummary) Implements IAideService.GetKPISummaryList
+        Return MyBase.GetAllKPISummary(FY_Start, FY_End)
+    End Function
+
+    Public Function GetKPISummaryListMonthly(FY_Start As Date, FY_End As Date, Month As Short) As List(Of KPISummary) Implements IAideService.GetKPISummaryListMonthly
+        Return MyBase.GetKPISummaryMonthly(FY_Start, FY_End, Month)
+    End Function
 #End Region
 
 End Class

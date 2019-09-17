@@ -671,6 +671,16 @@ Public Interface IAideService
     Function GetAllKPITargets(ByVal FiscalYear As Date) As List(Of KPITargets)
 #End Region
 
+#Region "KPI Summary Operation Contracts"
+    <OperationContract()>
+    Function InsertKPISummary(ByVal kpi As KPISummary) As Boolean
+    <OperationContract()>
+    Function UpdateKPISummary(ByVal kpi As KPISummary) As Boolean
+    <OperationContract()>
+    Function GetKPISummaryList(ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
+    <OperationContract()>
+    Function GetKPISummaryListMonthly(ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short) As List(Of KPISummary)
+#End Region
 End Interface
 #End Region
 
@@ -2192,6 +2202,34 @@ Public Class KPITargets
     Public Property Subject As String
     <DataMember()>
     Public Property DateCreated As DateTime
+End Class
+#End Region
+
+#Region "KPI Summary Data Contract"
+<DataContract()>
+Public Class KPISummary
+    <DataMember()>
+    Public Property KPI_Id As Integer
+    <DataMember()>
+    Public Property FYStart As Date
+    <DataMember()>
+    Public Property FYEnd As Date
+    <DataMember()>
+    Public Property KPI_Month As Short
+    <DataMember()>
+    Public Property KPI_Reference As String
+    <DataMember()>
+    Public Property Subject As String
+    <DataMember()>
+    Public Property Description As String
+    <DataMember()>
+    Public Property KPITarget As Double
+    <DataMember()>
+    Public Property KPIActual As Double
+    <DataMember()>
+    Public Property KPIOverall As Double
+    <DataMember()>
+    Public Property DatePosted As DateTime
 End Class
 #End Region
 #End Region

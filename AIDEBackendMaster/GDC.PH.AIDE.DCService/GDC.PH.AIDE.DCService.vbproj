@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Management\ActionManagement.vb" />
     <Compile Include="AMainService.vb" />
+    <Compile Include="Management\KPISummaryManagement.vb" />
     <Compile Include="Management\KPITargetsManagement.vb" />
     <Compile Include="Management\AnnouncementsManagement.vb" />
     <Compile Include="Management\AttendanceManagement.vb" />
