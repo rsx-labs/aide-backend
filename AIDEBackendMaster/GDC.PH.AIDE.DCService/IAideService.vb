@@ -668,7 +668,7 @@ Public Interface IAideService
     <OperationContract()>
     Function GetKPITargets(ByVal Id As Integer) As List(Of KPITargets)
     <OperationContract()>
-    Function GetAllKPITargets(ByVal FiscalYear As Date) As List(Of KPITargets)
+    Function GetAllKPITargets(ByVal EmpId As Integer, ByVal FiscalYear As Date) As List(Of KPITargets)
 #End Region
 
 #Region "KPI Summary Operation Contracts"
@@ -677,9 +677,9 @@ Public Interface IAideService
     <OperationContract()>
     Function UpdateKPISummary(ByVal kpi As KPISummary) As Boolean
     <OperationContract()>
-    Function GetKPISummaryList(ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
+    Function GetKPISummaryList(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
     <OperationContract()>
-    Function GetKPISummaryListMonthly(ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short) As List(Of KPISummary)
+    Function GetKPISummaryListMonthly(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short, ByVal KPIRef As String) As List(Of KPISummary)
 #End Region
 End Interface
 #End Region
@@ -2191,6 +2191,8 @@ Public Class KPITargets
     <DataMember()>
     Public Property KPI_Id As Integer
     <DataMember()>
+    Public Property EmployeeId As Integer
+    <DataMember()>
     Public Property FYStart As Date
     <DataMember()>
     Public Property FYEnd As Date
@@ -2210,6 +2212,8 @@ End Class
 Public Class KPISummary
     <DataMember()>
     Public Property KPI_Id As Integer
+    <DataMember()>
+    Public Property EmployeeId As Integer
     <DataMember()>
     Public Property FYStart As Date
     <DataMember()>

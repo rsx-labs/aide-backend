@@ -11,6 +11,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum ClsKPISummaryFields
         {
             ID,
+            EMP_ID,
             FY_START,
             FY_END,
             KPI_REF,
@@ -27,6 +28,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         #region Data Members
 
         int _ID;
+        int _EMP_ID;
         DateTime _FYStart;
         DateTime _FYEnd;
         string _KPIRef;
@@ -55,6 +57,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public int EMP_ID
+        {
+            get { return _EMP_ID; }
+            set
+            {
+                if (_EMP_ID != value)
+                {
+                    _EMP_ID = value;
+                    PropertyHasChanged("EMP_ID");
+                }
+            }
+        }
         public DateTime FY_START
         {
             get { return _FYStart; }

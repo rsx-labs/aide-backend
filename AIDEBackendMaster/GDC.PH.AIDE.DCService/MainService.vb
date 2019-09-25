@@ -2659,8 +2659,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "KPI Targets"
-    Public Overrides Function GetAllKPITargets(FiscalYear As Date) As List(Of KPITargets)
-        Dim state As StateData = KPITargetsMgmt.GetAllKPITargets(FiscalYear)
+    Public Overrides Function GetAllKPITargets(ByVal EmpId As Integer, FiscalYear As Date) As List(Of KPITargets)
+        Dim state As StateData = KPITargetsMgmt.GetAllKPITargets(EmpId, FiscalYear)
         Dim lstKpiTarget As New List(Of KPITargets)
 
         If Not IsNothing(state.Data) Then
@@ -2707,8 +2707,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "KPI Summary"
-    Public Overrides Function GetAllKPISummary(FY_Start As Date, FY_End As Date) As List(Of KPISummary)
-        Dim state As StateData = KPISummaryMgmt.GetAllKPISummary(FY_Start, FY_End)
+    Public Overrides Function GetAllKPISummary(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
+        Dim state As StateData = KPISummaryMgmt.GetAllKPISummary(EmpId, FY_Start, FY_End)
         Dim lstKpiSummary As New List(Of KPISummary)
 
         If Not IsNothing(state.Data) Then
@@ -2720,8 +2720,8 @@ Public MustInherit Class MainService
         Return lstKpiSummary
     End Function
 
-    Public Overrides Function GetKPISummaryMonthly(FY_Start As Date, FY_End As Date, Month As Short) As List(Of KPISummary)
-        Dim state As StateData = KPISummaryMgmt.GetKPISummaryByMonth(FY_Start, FY_End, Month)
+    Public Overrides Function GetKPISummaryMonthly(ByVal EmpId As Integer, FY_Start As Date, FY_End As Date, Month As Short, ByVal KPIRef As String) As List(Of KPISummary)
+        Dim state As StateData = KPISummaryMgmt.GetKPISummaryByMonth(EmpId, FY_Start, FY_End, Month, KPIRef)
         Dim lstKpiSummary As New List(Of KPISummary)
 
         If Not IsNothing(state.Data) Then

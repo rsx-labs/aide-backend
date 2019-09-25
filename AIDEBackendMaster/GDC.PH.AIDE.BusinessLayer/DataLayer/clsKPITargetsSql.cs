@@ -42,6 +42,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_START", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FY_START));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_END", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FY_END));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_REF", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_REF));
@@ -103,7 +104,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
-        public List<ClsKPITargets> GetKPITargetByFiscalYear(DateTime fyear)
+        public List<ClsKPITargets> GetKPITargetByFiscalYear(ClsKPITargetsKeys keys)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetKPITargetByFiscalYear]";
@@ -116,7 +117,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 MainConnection.Open();
 
-                sqlCommand.Parameters.Add(new SqlParameter("@FYEAR", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, fyear));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@FYEAR", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.FISCAL_YEAR));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
@@ -147,6 +149,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
 
                 sqlCommand.Parameters.Add(new SqlParameter("@ID", SqlDbType.Int, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@SUBJECT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SUBJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@DESCRIPTION", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DESCRIPTION));
                 
@@ -179,6 +182,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectFromReader(ClsKPITargets businessObject, IDataReader dataReader)
         {
             businessObject.ID = dataReader.GetInt32(dataReader.GetOrdinal(ClsKPITargets.ClsKPITargetsFields.ID.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(ClsKPITargets.ClsKPITargetsFields.EMP_ID.ToString()));
             businessObject.FY_START = dataReader.GetDateTime(dataReader.GetOrdinal(ClsKPITargets.ClsKPITargetsFields.FY_START.ToString()));
             businessObject.FY_END = dataReader.GetDateTime(dataReader.GetOrdinal(ClsKPITargets.ClsKPITargetsFields.FY_END.ToString()));
             businessObject.KPI_REF = dataReader.GetString(dataReader.GetOrdinal(ClsKPITargets.ClsKPITargetsFields.KPI_REF.ToString()));

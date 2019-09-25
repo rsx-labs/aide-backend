@@ -31,6 +31,15 @@ Public Class KPITargetsSet
         End Set
     End Property
 
+    Public Property EmpId As Integer Implements IKPITargetsSet.Emp_Id
+        Get
+            Return _kpiTargets.EMP_ID
+        End Get
+        Set(value As Integer)
+            _kpiTargets.EMP_ID = value
+        End Set
+    End Property
+
     Public Property FYStart As Date Implements IKPITargetsSet.FYStart
         Get
             Return _kpiTargets.FY_START
@@ -108,13 +117,13 @@ Public Class KPITargetsSet
             Return Nothing
         End Try
     End Function
-
-    Public Function GetKPITargetByFiscalYear(FYear As Date) As List(Of IKPITargetsSet) Implements IKPITargetsSet.GetKPITargetByFiscalYear
+    Public Function GetKPITargetByFiscalYear(EmpId As Integer, FYear As Date) As List(Of IKPITargetsSet) Implements IKPITargetsSet.GetKPITargetByFiscalYear
         Try
+            Dim key As ClsKPITargetsKeys = New ClsKPITargetsKeys(1, EmpId, FYear)
             Dim lstKPITargets = New List(Of ClsKPITargets)
             Dim lstKPITargetsSet = New List(Of IKPITargetsSet)
 
-            lstKPITargets = _kpiTargetsFactory.GetKPITargetsByFiscalYear(FYear)
+            lstKPITargets = _kpiTargetsFactory.GetKPITargetsByFiscalYear(key)
             If Not lstKPITargets Is Nothing Then
                 For Each item In lstKPITargets
                     lstKPITargetsSet.Add(New KPITargetsSet(item))
@@ -134,7 +143,7 @@ Public Class KPITargetsSet
         End Try
     End Function
 
-    Public Function InsertKPITargets(kpiTargets As IKPITargetsSet) As Boolean Implements IKPITargetsSet.InsertKPITargets
+    Public Function InsertKPITargets() As Boolean Implements IKPITargetsSet.InsertKPITargets
         Try
             Return _kpiTargetsFactory.InsertKPITargets(_kpiTargets)
         Catch ex As Exception
@@ -146,7 +155,7 @@ Public Class KPITargetsSet
         End Try
     End Function
 
-    Public Function UpdateKPITargets(kpiTargets As IKPITargetsSet) As Boolean Implements IKPITargetsSet.UpdateKPITargets
+    Public Function UpdateKPITargets() As Boolean Implements IKPITargetsSet.UpdateKPITargets
         Try
             Return _kpiTargetsFactory.UpdateKPITargets(_kpiTargets)
         Catch ex As Exception

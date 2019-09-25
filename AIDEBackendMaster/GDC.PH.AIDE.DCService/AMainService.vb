@@ -389,14 +389,14 @@
 
 #Region "KPI Targets Method"
     MustOverride Function GetKPITarget(Id As Integer) As List(Of KPITargets)
-    MustOverride Function GetAllKPITargets(FiscalYear As Date) As List(Of KPITargets)
+    MustOverride Function GetAllKPITargets(EmpId As Integer, FiscalYear As Date) As List(Of KPITargets)
     MustOverride Function InsetKPITarget(kpi As KPITargets) As Boolean
     MustOverride Function UpdateKPITarget(kpi As KPITargets) As Boolean
 #End Region
 
-#Region "KPI Targets Method"
-    MustOverride Function GetAllKPISummary(ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
-    MustOverride Function GetKPISummaryMonthly(ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short) As List(Of KPISummary)
+#Region "KPI Summary Method"
+    MustOverride Function GetAllKPISummary(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of KPISummary)
+    MustOverride Function GetKPISummaryMonthly(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short, ByVal KPIRef As String) As List(Of KPISummary)
     MustOverride Function InsertNewKPISummary(ByVal kpi As KPISummary) As Boolean
     MustOverride Function UpdateSelectedKPISummary(ByVal kpi As KPISummary) As Boolean
 #End Region

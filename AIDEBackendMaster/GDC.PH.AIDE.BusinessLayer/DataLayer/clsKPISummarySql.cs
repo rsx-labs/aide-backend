@@ -42,13 +42,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_START", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FY_START));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_END", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FY_END));
-                sqlCommand.Parameters.Add(new SqlParameter("@KPI_REF", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_REF));
+                sqlCommand.Parameters.Add(new SqlParameter("@KPI_REF", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_REF));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_MONTH", SqlDbType.SmallInt, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_MONTH));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_TARGET", SqlDbType.Float, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_TARGET));
-                sqlCommand.Parameters.Add(new SqlParameter("@KPI_ACTUAL", SqlDbType.Float, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_TARGET));
-                sqlCommand.Parameters.Add(new SqlParameter("@KPI_OVERALL", SqlDbType.Float, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_TARGET));
+                sqlCommand.Parameters.Add(new SqlParameter("@KPI_ACTUAL", SqlDbType.Float, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_ACTUAL));
+                sqlCommand.Parameters.Add(new SqlParameter("@KPI_OVERALL", SqlDbType.Float, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_OVERALL));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_POSTED", SqlDbType.DateTime, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_POSTED));
                 
                 MainConnection.Open();
@@ -76,7 +77,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         public List<ClsKPISummary> GetKPISummaryByMonth(ClsKPISummaryKeys keys)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_GetKPITargetById]";
+            sqlCommand.CommandText = "dbo.[sp_GetKPISummaryByMonth]";
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             // Use connection object of base class
@@ -86,9 +87,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 MainConnection.Open();
 
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_START", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.FY_START));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_END", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.FY_END));
-                sqlCommand.Parameters.Add(new SqlParameter("@FY_MONTH", SqlDbType.SmallInt, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.Month));
+                sqlCommand.Parameters.Add(new SqlParameter("@KPI_MONTH", SqlDbType.SmallInt, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.Month));
+                sqlCommand.Parameters.Add(new SqlParameter("@KPI_REF", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.KPI_REF));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
@@ -97,7 +100,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             catch (Exception ex)
             {
-                throw new Exception("ClsKPISummarySql::sp_GetKPITargetById::Error occured.", ex);
+                throw new Exception("ClsKPISummarySql::sp_GetKPISummaryByMonth::Error occured.", ex);
             }
             finally
             {
@@ -123,7 +126,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 MainConnection.Open();
-
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_START", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.FY_START));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_END", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, keys.FY_END));
 
@@ -155,7 +158,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_REF", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_REF));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_MONTH", SqlDbType.SmallInt, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.KPI_MONTH));
                 sqlCommand.Parameters.Add(new SqlParameter("@KPI_FY_START", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FY_START));
@@ -193,6 +196,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectFromReader(ClsKPISummary businessObject, IDataReader dataReader)
         {
             businessObject.ID = dataReader.GetInt32(dataReader.GetOrdinal(ClsKPISummary.ClsKPISummaryFields.ID.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(ClsKPISummary.ClsKPISummaryFields.EMP_ID.ToString()));
             businessObject.FY_START = dataReader.GetDateTime(dataReader.GetOrdinal(ClsKPISummary.ClsKPISummaryFields.FY_START.ToString()));
             businessObject.FY_END = dataReader.GetDateTime(dataReader.GetOrdinal(ClsKPISummary.ClsKPISummaryFields.FY_END.ToString()));
             businessObject.KPI_MONTH = dataReader.GetInt16(dataReader.GetOrdinal(ClsKPISummary.ClsKPISummaryFields.KPI_MONTH.ToString()));

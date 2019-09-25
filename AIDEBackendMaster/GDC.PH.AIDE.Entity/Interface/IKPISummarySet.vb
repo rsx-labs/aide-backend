@@ -1,6 +1,7 @@
 ﻿Imports GDC.PH.AIDE.BusinessLayer
 Public Interface IKPISummarySet
     Property Id As Integer
+    Property Emp_Id As Integer
     Property FYStart As Date
     Property FYEnd As Date
     Property KPIMonth As Short
@@ -12,8 +13,8 @@ Public Interface IKPISummarySet
     Property KPIOverall As Double
     Property DatePosted As DateTime
 
-    Function GetKPISummaryByMonth(ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short) As List(Of IKPISummarySet)
-    Function GetAllKPISummary(ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of IKPISummarySet)
+    Function GetKPISummaryByMonth(ByVal EmpID As Integer, ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short, ByVal KPIRef As String) As List(Of IKPISummarySet)
+    Function GetAllKPISummary(ByVal EmpID As Integer, ByVal FY_Start As Date, ByVal FY_End As Date) As List(Of IKPISummarySet)
     Function InsertKPISummary() As Boolean
     Function UpdateKPISummary() As Boolean
 

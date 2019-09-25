@@ -14,6 +14,7 @@ Public Class KPITargetsManagement
         Dim kpiTargetsSet As IKPITargetsSet = DirectCast(objData, IKPITargetsSet)
         Dim kpiTargetsData As New KPITargets
         kpiTargetsData.KPI_Id = kpiTargetsSet.Id
+        kpiTargetsData.EmployeeId = kpiTargetsSet.Emp_Id
         kpiTargetsData.FYStart = kpiTargetsSet.FYStart
         kpiTargetsData.FYEnd = kpiTargetsSet.FYEnd
         kpiTargetsData.KPI_ReferenceNo = kpiTargetsSet.KPIReferenceNo
@@ -36,7 +37,7 @@ Public Class KPITargetsManagement
         Dim status As NotifyType
         Try
             SetFields(kpiSet, kpiTargetsData)
-            If kpiSet.InsertKPITargets(kpiSet) Then
+            If kpiSet.InsertKPITargets() Then
                 status = NotifyType.IsSuccess
                 message = "Create KPI Targets Successful!"
             End If
@@ -55,7 +56,7 @@ Public Class KPITargetsManagement
         Dim status As NotifyType
         Try
             SetFields(kpiSet, kpiTargetsData)
-            If kpiSet.UpdateKPITargets(kpiSet) Then
+            If kpiSet.UpdateKPITargets() Then
                 status = NotifyType.IsSuccess
                 message = "Update KPI Targets Successful!"
             End If
@@ -93,7 +94,7 @@ Public Class KPITargetsManagement
         Return state
     End Function
 
-    Public Function GetAllKPITargets(fiscalYear As Date) As StateData
+    Public Function GetAllKPITargets(EmpID As Integer, fiscalYear As Date) As StateData
         Dim kpiSet As New KPITargetsSet
         Dim lstKpiSet As List(Of IKPITargetsSet)
         Dim kpiTargetData As New List(Of KPITargets)
@@ -102,7 +103,7 @@ Public Class KPITargetsManagement
         Dim status As NotifyType
 
         Try
-            lstKpiSet = kpiSet.GetKPITargetByFiscalYear(fiscalYear)
+            lstKpiSet = kpiSet.GetKPITargetByFiscalYear(EmpID, fiscalYear)
 
             If Not IsNothing(lstKpiSet) Then
                 For Each item As IKPITargetsSet In lstKpiSet
@@ -131,6 +132,7 @@ Public Class KPITargetsManagement
         Dim kpi As KPITargets = DirectCast(objData, KPITargets)
         Dim kpiset As New KPITargetsSet
         kpiset.Id = kpi.KPI_Id
+        kpiset.EmpId = kpi.EmployeeId
         kpiset.FYStart = kpi.FYStart
         kpiset.FYEnd = kpi.FYEnd
         kpiset.KPIReferenceNo = kpi.KPI_ReferenceNo

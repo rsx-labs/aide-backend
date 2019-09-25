@@ -58,9 +58,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// get list of all ClsKPITargets by fiscal year
         /// </summary>
         /// <returns>list</returns>
-        public List<ClsKPITargets> GetKPITargetsByFiscalYear(DateTime fyear)
+        public List<ClsKPITargets> GetKPITargetsByFiscalYear(ClsKPITargetsKeys keys)
         {
-            return _dataObject.GetKPITargetByFiscalYear(fyear);
+            return _dataObject.GetKPITargetByFiscalYear(keys);
         }
 
         public bool UpdateKPITargets(ClsKPITargets businessObject)

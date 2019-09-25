@@ -11,6 +11,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum ClsKPITargetsFields
         {
             ID,
+            EMP_ID,
             FY_START,
             FY_END,
             KPI_REF,
@@ -23,6 +24,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         #region Data Members
 
         int _ID;
+        int _empID;
         DateTime _FYStart;
         DateTime _FYEnd;
         string _KPIRef;
@@ -47,6 +49,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public int EMP_ID
+        {
+            get { return _empID; }
+            set
+            {
+                if (_empID != value)
+                {
+                    _empID = value;
+                    PropertyHasChanged("EMP_ID");
+                }
+            }
+        }
         public DateTime FY_START
         {
             get { return _FYStart; }
@@ -133,6 +147,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         internal override void AddValidationRules()
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ID", "ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_START", "FY_START"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_END", "FY_END"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("KPI_REF", "KPI_REF"));

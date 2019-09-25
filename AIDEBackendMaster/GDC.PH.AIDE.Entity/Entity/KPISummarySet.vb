@@ -131,56 +131,17 @@ Public Class KPISummarySet
         End Set
     End Property
 
+    Public Property Emp_Id As Integer Implements IKPISummarySet.Emp_Id
+        Get
+            Return _kpiSummary.EMP_ID
+        End Get
+        Set(value As Integer)
+            _kpiSummary.EMP_ID = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
-
-    Public Function GetKPISummaryByMonth(FY_Start As Date, FY_End As Date, Month As Short) As List(Of IKPISummarySet) Implements IKPISummarySet.GetKPISummaryByMonth
-        Try
-            Dim keys As ClsKPISummaryKeys = New ClsKPISummaryKeys(FYStart, FY_End, Month)
-            Dim lstKPISummarySet As New List(Of IKPISummarySet)
-            Dim lstKPISummary As List(Of ClsKPISummary)
-
-            lstKPISummary = _kpiSummaryFactory.GetKPISummaryByMonth(keys)
-            If IsNothing(lstKPISummary) Then
-                Throw New NoRecordFoundException("No records found")
-            Else
-                For Each summary As ClsKPISummary In lstKPISummary
-                    lstKPISummarySet.Add(New KPISummarySet(summary))
-                Next
-            End If
-            Return lstKPISummarySet
-
-        Catch ex As Exception
-            If (ex.InnerException.GetType() = GetType(SqlException)) Then
-                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-            Else
-                Throw ex.InnerException
-            End If
-        End Try
-    End Function
-    Public Function GetAllKPISummary(FY_Start As Date, FY_End As Date) As List(Of IKPISummarySet) Implements IKPISummarySet.GetAllKPISummary
-        Try
-            Dim keys As ClsKPISummaryKeys = New ClsKPISummaryKeys(FY_Start, FY_End, 1)
-            Dim lstKPISummarySet As New List(Of IKPISummarySet)
-            Dim lstKPISummary As List(Of ClsKPISummary)
-
-            lstKPISummary = _kpiSummaryFactory.GetAllKPISummary(keys)
-            If IsNothing(lstKPISummary) Then
-                Throw New NoRecordFoundException("No records found")
-            Else
-                For Each summary As ClsKPISummary In lstKPISummary
-                    lstKPISummarySet.Add(New KPISummarySet(summary))
-                Next
-            End If
-            Return lstKPISummarySet
-
-        Catch ex As Exception
-            If (ex.InnerException.GetType() = GetType(SqlException)) Then
-                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-            Else
-                Throw ex.InnerException
-            End If
-        End Try
-    End Function
 
     Public Function InsertKPISummary() As Boolean Implements IKPISummarySet.InsertKPISummary
         Try
@@ -218,4 +179,53 @@ Public Class KPISummarySet
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
 
+    Public Function GetKPISummaryByMonth(EmpID As Integer, FY_Start As Date, FY_End As Date, Month As Short, KPIRef As String) As List(Of IKPISummarySet) Implements IKPISummarySet.GetKPISummaryByMonth
+        Try
+            Dim keys As ClsKPISummaryKeys = New ClsKPISummaryKeys(EmpID, FY_Start, FY_End, Month, KPIRef)
+            Dim lstKPISummarySet As New List(Of IKPISummarySet)
+            Dim lstKPISummary As List(Of ClsKPISummary)
+
+            lstKPISummary = _kpiSummaryFactory.GetKPISummaryByMonth(keys)
+            If IsNothing(lstKPISummary) Then
+                Throw New NoRecordFoundException("No records found")
+            Else
+                For Each summary As ClsKPISummary In lstKPISummary
+                    lstKPISummarySet.Add(New KPISummarySet(summary))
+                Next
+            End If
+            Return lstKPISummarySet
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetAllKPISummary(EmpID As Integer, FY_Start As Date, FY_End As Date) As List(Of IKPISummarySet) Implements IKPISummarySet.GetAllKPISummary
+        Try
+            Dim keys As ClsKPISummaryKeys = New ClsKPISummaryKeys(EmpID, FY_Start, FY_End)
+            Dim lstKPISummarySet As New List(Of IKPISummarySet)
+            Dim lstKPISummary As List(Of ClsKPISummary)
+
+            lstKPISummary = _kpiSummaryFactory.GetAllKPISummary(keys)
+            If IsNothing(lstKPISummary) Then
+                Throw New NoRecordFoundException("No records found")
+            Else
+                For Each summary As ClsKPISummary In lstKPISummary
+                    lstKPISummarySet.Add(New KPISummarySet(summary))
+                Next
+            End If
+            Return lstKPISummarySet
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 End Class

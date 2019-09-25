@@ -14,6 +14,7 @@ Public Class KPISummaryManagement
         Dim kpiSummarySet As IKPISummarySet = DirectCast(objData, IKPISummarySet)
         Dim kpiSummaryData As New KPISummary
         kpiSummaryData.KPI_Id = kpiSummarySet.Id
+        kpiSummaryData.EmployeeId = kpiSummarySet.Emp_Id
         kpiSummaryData.FYStart = kpiSummarySet.FYStart
         kpiSummaryData.FYEnd = kpiSummarySet.FYEnd
         kpiSummaryData.KPI_Reference = kpiSummarySet.KPIReferenceNo
@@ -71,7 +72,7 @@ Public Class KPISummaryManagement
         Return state
     End Function
 
-    Public Function GetKPISummaryByMonth(ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short) As StateData
+    Public Function GetKPISummaryByMonth(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short, KPIRef As String) As StateData
         Dim kpiSet As New KPISummarySet
         Dim lstKpiSet As List(Of IKPISummarySet)
         Dim kpiSummaryData As New List(Of KPISummary)
@@ -80,7 +81,7 @@ Public Class KPISummaryManagement
         Dim status As NotifyType
 
         Try
-            lstKpiSet = kpiSet.GetKPISummaryByMonth(FY_Start, FY_End, Month)
+            lstKpiSet = kpiSet.GetKPISummaryByMonth(EmpId, FY_Start, FY_End, Month, KPIRef)
 
             If Not IsNothing(lstKpiSet) Then
                 For Each item As IKPISummarySet In lstKpiSet
@@ -97,7 +98,7 @@ Public Class KPISummaryManagement
         Return state
     End Function
 
-    Public Function GetAllKPISummary(ByVal FY_Start As Date, ByVal FY_End As Date) As StateData
+    Public Function GetAllKPISummary(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date) As StateData
         Dim kpiSet As New KPISummarySet
         Dim lstKpiSet As List(Of IKPISummarySet)
         Dim kpiSummaryData As New List(Of KPISummary)
@@ -106,7 +107,7 @@ Public Class KPISummaryManagement
         Dim status As NotifyType
 
         Try
-            lstKpiSet = kpiSet.GetAllKPISummary(FY_Start, FY_End)
+            lstKpiSet = kpiSet.GetAllKPISummary(EmpId, FY_Start, FY_End)
 
             If Not IsNothing(lstKpiSet) Then
                 For Each item As IKPISummarySet In lstKpiSet
@@ -135,6 +136,7 @@ Public Class KPISummaryManagement
         Dim kpi As KPISummary = DirectCast(objData, KPISummary)
         Dim kpiset As New KPISummarySet
         kpiset.Id = kpi.KPI_Id
+        kpiset.Emp_Id = kpi.EmployeeId
         kpiset.FYStart = kpi.FYStart
         kpiset.FYEnd = kpi.FYEnd
         kpiset.KPIMonth = kpi.KPI_Month

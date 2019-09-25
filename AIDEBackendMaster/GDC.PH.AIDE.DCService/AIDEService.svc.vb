@@ -1078,8 +1078,8 @@ Public Class AIDEService
         Return MyBase.GetKPITarget(Id)
     End Function
 
-    Public Function GetAllKPITarget(FiscalYear As Date) As List(Of KPITargets) Implements IAideService.GetAllKPITargets
-        Return MyBase.GetAllKPITargets(FiscalYear)
+    Public Function GetAllKPITarget(ByVal EmpId As Integer, FiscalYear As Date) As List(Of KPITargets) Implements IAideService.GetAllKPITargets
+        Return MyBase.GetAllKPITargets(EmpId, FiscalYear)
     End Function
 
     Public Function InsertKPISummary(kpi As KPISummary) As Boolean Implements IAideService.InsertKPISummary
@@ -1090,12 +1090,12 @@ Public Class AIDEService
         Return MyBase.UpdateSelectedKPISummary(kpi)
     End Function
 
-    Public Function GetKPISummaryList(FY_Start As Date, FY_End As Date) As List(Of KPISummary) Implements IAideService.GetKPISummaryList
-        Return MyBase.GetAllKPISummary(FY_Start, FY_End)
+    Public Function GetKPISummaryList(ByVal EmpId As Integer, FY_Start As Date, FY_End As Date) As List(Of KPISummary) Implements IAideService.GetKPISummaryList
+        Return MyBase.GetAllKPISummary(EmpId, FY_Start, FY_End)
     End Function
 
-    Public Function GetKPISummaryListMonthly(FY_Start As Date, FY_End As Date, Month As Short) As List(Of KPISummary) Implements IAideService.GetKPISummaryListMonthly
-        Return MyBase.GetKPISummaryMonthly(FY_Start, FY_End, Month)
+    Public Function GetKPISummaryListMonthly(ByVal EmpId As Integer, FY_Start As Date, FY_End As Date, Month As Short, KPIRef As String) As List(Of KPISummary) Implements IAideService.GetKPISummaryListMonthly
+        Return MyBase.GetKPISummaryMonthly(EmpId, FY_Start, FY_End, Month, KPIRef)
     End Function
 #End Region
 
