@@ -23,7 +23,7 @@ Public Interface IResourcePlanner
     Function InsertResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
     Function UpdateResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
     Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlannerSet)
-    Function GetStatusResourcePlanner() As List(Of ResourcePlannerSet)
+    Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlannerSet)
     Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetAllEmpResourcePlanner(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlannerSet)

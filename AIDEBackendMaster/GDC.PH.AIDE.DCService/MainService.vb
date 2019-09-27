@@ -1344,8 +1344,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Function GetStatusResourcePlanners() As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetStatusResourcePlanner
+    Public Function GetStatusResourcePlanners(empID As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetStatusResourcePlanner(empID)
         Dim resourceLst As New List(Of ResourcePlanner)
 
         If Not IsNothing(state.Data) Then

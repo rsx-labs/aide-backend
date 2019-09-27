@@ -63,9 +63,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.ViewEmpResourcePlanner(email);
         }
 
-        public List<clsResourcePlanner> GetStatusResourcePlanner()
+        public List<clsResourcePlanner> GetStatusResourcePlanner(int empID)
         {
-            return _dataObject.GetStatusResourcePlanner();
+            return _dataObject.GetStatusResourcePlanner(empID);
         }
 
         public List<clsResourcePlanner> GetResourcePlannerByEmpID(int empID, int deptID, int month, int year)

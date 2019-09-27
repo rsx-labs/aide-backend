@@ -79,7 +79,7 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
-    Public Function GetStatusResourcePlanner() As StateData
+    Public Function GetStatusResourcePlanner(empID As Integer) As StateData
         Dim ResourceSet As New ResourcePlannerSet
         Dim ResourceSetLst As List(Of ResourcePlannerSet)
         Dim objResource As New List(Of ResourcePlanner)
@@ -88,7 +88,7 @@ Public Class ResourcePlannerManagement
         Dim status As NotifyType
 
         Try
-            ResourceSetLst = ResourceSet.GetStatusResourcePlanner()
+            ResourceSetLst = ResourceSet.GetStatusResourcePlanner(empID)
 
             If Not IsNothing(ResourceSetLst) Then
                 For Each objList As ResourcePlannerSet In ResourceSetLst

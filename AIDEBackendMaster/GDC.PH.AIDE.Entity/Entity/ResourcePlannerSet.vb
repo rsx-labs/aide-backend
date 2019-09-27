@@ -221,12 +221,12 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
-    Public Function GetStatusResourcePlanner() As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetStatusResourcePlanner
+    Public Function GetStatusResourcePlanner(empID As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetStatusResourcePlanner
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)
             Dim ResourceSetLst As New List(Of ResourcePlannerSet)
 
-            ResourceLst = cResourcePlannerFactory.GetStatusResourcePlanner()
+            ResourceLst = cResourcePlannerFactory.GetStatusResourcePlanner(empID)
 
             If Not IsNothing(ResourceLst) Then
                 For Each cList As clsResourcePlanner In ResourceLst

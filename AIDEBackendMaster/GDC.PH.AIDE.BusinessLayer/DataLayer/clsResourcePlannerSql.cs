@@ -133,7 +133,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetStatusResourcePlanner()
+        public List<clsResourcePlanner> GetStatusResourcePlanner(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetStatusResourcePlanner]";
@@ -143,6 +143,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             sqlCommand.Connection = MainConnection;
             try
             {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
