@@ -268,7 +268,7 @@
     ''' </summary>
     ''' <remarks></remarks>
     MustOverride Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlanner)
-    MustOverride Function GetStatusResourcePlanner() As List(Of ResourcePlanner)
+    MustOverride Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlanner(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlanner)

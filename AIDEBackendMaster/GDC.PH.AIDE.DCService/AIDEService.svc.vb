@@ -703,8 +703,8 @@ Public Class AIDEService
         Return MyBase.ViewEmpResourcePlanners(email)
     End Function
 
-    Public Overrides Function GetStatusResourcePlanner() As List(Of ResourcePlanner) Implements IAideService.GetStatusResourcePlanner
-        Return MyBase.GetStatusResourcePlanners
+    Public Overrides Function GetStatusResourcePlanner(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetStatusResourcePlanner
+        Return MyBase.GetStatusResourcePlanners(empID)
     End Function
 
     Public Function GetResourcePlannerByEmpIDs(empID As Integer, deptID As Integer, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetResourcePlannerByEmpID

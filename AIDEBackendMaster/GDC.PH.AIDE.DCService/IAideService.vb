@@ -478,7 +478,7 @@ Public Interface IAideService
     Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlanner)
 
     <OperationContract()>
-    Function GetStatusResourcePlanner() As List(Of ResourcePlanner)
+    Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
     Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
