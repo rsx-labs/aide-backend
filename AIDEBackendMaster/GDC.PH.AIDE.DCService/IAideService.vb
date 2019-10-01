@@ -583,6 +583,9 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetMissingReportsByEmpID(ByVal empID As Integer, ByVal currentDate As Date) As List(Of ContactList)
+
+    <OperationContract()>
+    Function GetWeeklyTeamStatusReport(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer) As List(Of WeeklyTeamStatusReport)
 #End Region
 
 #Region "AuditSched Operation Contracts"
@@ -2000,6 +2003,31 @@ Public Class WeekRange
 
     <DataMember()>
     Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property Status As Short
+
+    <DataMember()>
+    Public Property DateSubmitted As Date
+
+    <DataMember()>
+    Public Property DateRange As String
+
+End Class
+
+<DataContract()>
+Public Class WeeklyTeamStatusReport
+    <DataMember()>
+    Public Property WeekRangeID As Integer
+
+    <DataMember()>
+    Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property EmployeeName As String
+
+    <DataMember()>
+    Public Property TotalHours As Double
 
     <DataMember()>
     Public Property Status As Short

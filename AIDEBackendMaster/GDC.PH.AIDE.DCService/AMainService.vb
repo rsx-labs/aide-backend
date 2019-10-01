@@ -347,6 +347,7 @@
     MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
     MustOverride Function GetTasksDataByEmpID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
     MustOverride Function GetMissingReportsByEmpID(ByVal empID As Integer, ByVal currentDate As Date, ByRef objResult As List(Of ContactList)) As Boolean
+    MustOverride Function GetWeeklyTeamStatusReport(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer, ByRef objResult As List(Of WeeklyTeamStatusReport)) As Boolean
 #End Region
 
 #Region "AuditSched methods"
