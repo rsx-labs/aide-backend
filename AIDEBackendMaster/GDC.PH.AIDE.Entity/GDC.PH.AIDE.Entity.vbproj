@@ -98,6 +98,7 @@
     <Compile Include="Entity\SuccessRegisterSet.vb" />
     <Compile Include="Entity\TasksSet.vb" />
     <Compile Include="Entity\TasksSummarySet.vb" />
+    <Compile Include="Entity\WeeklyTeamStatusReportSet.vb" />
     <Compile Include="Entity\WorkplaceAuditSet.vb" />
     <Compile Include="Exception\ComCellClockNotFoundException.vb" />
     <Compile Include="Entity\WeeklyReportSet.vb" />
@@ -145,6 +146,7 @@
     <Compile Include="Interface\ITasks.vb" />
     <Compile Include="Interface\ITasksSummary.vb" />
     <Compile Include="Interface\IWeeklyReport.vb" />
+    <Compile Include="Interface\IWeeklyTeamStatusReport.vb" />
     <Compile Include="Interface\IWeekRange.vb" />
     <Compile Include="Interface\IWorkplaceAuditSet.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

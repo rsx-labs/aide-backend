@@ -137,6 +137,7 @@
     <Compile Include="clsWeeklyReport.cs" />
     <Compile Include="clsWeeklyReportFactory.cs" />
     <Compile Include="clsWeeklyReportKeys.cs" />
+    <Compile Include="clsWeeklyTeamStatusReport.cs" />
     <Compile Include="clsWeekRange.cs" />
     <Compile Include="clsWorkplaceAudit.cs" />
     <Compile Include="clsWorkplaceAuditFactory.cs" />

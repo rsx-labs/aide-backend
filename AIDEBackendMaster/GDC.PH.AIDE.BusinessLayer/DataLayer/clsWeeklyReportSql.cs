@@ -494,6 +494,39 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public List<clsWeeklyTeamStatusReport> GetWeeklyTeamStatusReport(int empID, int month, int year, int weekID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetWeeklyTeamStatusReport]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", month));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEKID", weekID));
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForWeeklyTeamStatusReport(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeeklyTeamStatus::GetWeeklyTeamStatusReport::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         /// <summary>
         /// Select all records
         /// </summary>
@@ -794,6 +827,21 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         }
 
         /// <summary>
+        /// Populate business object from data reader
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <param name="dataReader">data reader</param>
+        internal void PopulateBusinessObjectFromReaderForWeeklyTeamStatusReport(clsWeeklyTeamStatusReport businessObject, IDataReader dataReader)
+        {
+            businessObject.WeekRangeID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.WeekRangeID.ToString()));
+            businessObject.EmployeeID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.EmployeeID.ToString()));
+            businessObject.EmployeeName = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.EmployeeName.ToString()));
+            businessObject.TotalHours = dataReader.GetDouble(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.TotalHours.ToString()));
+            businessObject.Status = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.Status.ToString()));
+            businessObject.Date_Submitted = dataReader.GetDateTime(dataReader.GetOrdinal(clsWeeklyTeamStatusReport.clsWeeklyTeamStatusReportFields.Date_Submitted.ToString()));
+        }
+
+        /// <summary>
         /// Populate business objects from the data reader
         /// </summary>
         /// <param name="dataReader">data reader</param>
@@ -855,6 +903,24 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsWeekRange businessObject = new clsWeekRange();
                 PopulateBusinessObjectFromReaderForWeeklyReports(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Populate business objects from the data reader
+        /// </summary>
+        /// <param name="dataReader">data reader</param>
+        /// <returns>list of clsWeeklyTeamStatusReport</returns>
+        internal List<clsWeeklyTeamStatusReport> PopulateObjectsFromReaderForWeeklyTeamStatusReport(IDataReader dataReader)
+        {
+            List<clsWeeklyTeamStatusReport> list = new List<clsWeeklyTeamStatusReport>();
+
+            while (dataReader.Read())
+            {
+                clsWeeklyTeamStatusReport businessObject = new clsWeeklyTeamStatusReport();
+                PopulateBusinessObjectFromReaderForWeeklyTeamStatusReport(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;

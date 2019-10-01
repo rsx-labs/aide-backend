@@ -260,6 +260,33 @@ Public Class WeeklyReportManagement
         state = GetStateData(status, objContacts, message)
         Return state
     End Function
+
+    Public Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As StateData
+        Dim weeklyTeamStatusReportSet As New WeeklyTeamStatusReportSet
+        Dim weeklyTeamStatusReportSetList As List(Of WeeklyTeamStatusReportSet)
+        Dim objweeklyTeamStatusReport As New List(Of WeeklyTeamStatusReport)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            weeklyTeamStatusReportSetList = weeklyTeamStatusReportSet.GetWeeklyTeamStatusReport(empID, month, year, weekID)
+
+            If Not IsNothing(weeklyTeamStatusReportSetList) Then
+                For Each objList As WeeklyTeamStatusReportSet In weeklyTeamStatusReportSetList
+                    objweeklyTeamStatusReport.Add(DirectCast(GetWeeklyTeamStatusReportMappedFields(objList), WeeklyTeamStatusReport))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objweeklyTeamStatusReport, message)
+        Return state
+    End Function
     
     Public Sub SetWeekRangeFields(ByRef objResult As Object, objData As Object)
         Dim objWeekRange As WeekRange = DirectCast(objData, WeekRange)
@@ -353,6 +380,20 @@ Public Class WeeklyReportManagement
         contactData.IMAGE_PATH = objContacts.IMAGE_PATH
 
         Return contactData
+    End Function
+
+    Public Function GetWeeklyTeamStatusReportMappedFields(objData As Object) As Object
+        Dim objWeeklyTeamStatusReport As WeeklyTeamStatusReportSet = DirectCast(objData, WeeklyTeamStatusReportSet)
+        Dim weeklyTeamStatusReportData As New WeeklyTeamStatusReport
+
+        weeklyTeamStatusReportData.WeekRangeID = objWeeklyTeamStatusReport.WeekRangeID
+        weeklyTeamStatusReportData.EmployeeID = objWeeklyTeamStatusReport.EmployeeID
+        weeklyTeamStatusReportData.EmployeeName = objWeeklyTeamStatusReport.EmployeeName
+        weeklyTeamStatusReportData.TotalHours = objWeeklyTeamStatusReport.TotalHours
+        weeklyTeamStatusReportData.Status = objWeeklyTeamStatusReport.Status
+        weeklyTeamStatusReportData.DateSubmitted = objWeeklyTeamStatusReport.DateSubmitted
+
+        Return weeklyTeamStatusReportData
     End Function
 
     Public Overrides Function GetExceptionMessage(ex As Exception) As String
