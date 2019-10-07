@@ -1493,6 +1493,8 @@ Public MustInherit Class MainService
                 item.EndDate = _list.EndDate
                 item.Duration = _list.Duration
                 item.StatusCD = _list.StatusCD
+                item.Status = _list.Status
+                item.DESCR = _list.DESCR
 
                 resourceLst.Add(item)
             Next
@@ -1513,6 +1515,8 @@ Public MustInherit Class MainService
                 item.EndDate = _list.EndDate
                 item.Duration = _list.Duration
                 item.StatusCD = _list.StatusCD
+                item.Status = _list.Status
+                item.DESCR = _list.DESCR
 
                 resourceLst.Add(item)
             Next
