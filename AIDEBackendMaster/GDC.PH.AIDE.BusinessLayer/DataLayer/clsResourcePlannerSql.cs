@@ -580,6 +580,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.END_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.END_DATE.ToString()));
             businessObject.DURATION = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DURATION.ToString()));
             businessObject.STATUS_CD = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
+            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
         }
 
         /// <summary>

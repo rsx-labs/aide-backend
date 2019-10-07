@@ -412,7 +412,8 @@ Public Class ResourcePlannerManagement
         resourceData.EndDate = objResource.EndDate
         resourceData.Duration = objResource.Duration
         resourceData.StatusCD = objResource.StatusCD
-
+        resourceData.Status = objResource.Status
+        resourceData.DESCR = objResource.Description
         Return resourceData
     End Function
 
@@ -424,7 +425,7 @@ Public Class ResourcePlannerManagement
         resourceData.StartDate = objResource.StartDate
         resourceData.EndDate = objResource.EndDate
         resourceData.EmployeeID = objResource.EmpID
-
+        resourceData.Status = objResource.Status
         objResult = resourceData
     End Sub
 
