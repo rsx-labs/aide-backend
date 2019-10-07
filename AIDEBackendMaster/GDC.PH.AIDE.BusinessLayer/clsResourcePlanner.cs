@@ -25,7 +25,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             DATE_ENTRY,
             HOLIDAYHOURS,
             VLHOURS,
-            SLHOURS
+            SLHOURS,
+            START_DATE,
+            END_DATE,
+            DURATION,
+            STATUS_CD
         }
         #endregion
 
@@ -45,6 +49,10 @@ namespace GDC.PH.AIDE.BusinessLayer
         double _slHours;
         double _vlHours;
         DateTime _dateEntry;
+        DateTime _startDate;
+        DateTime _endDate;
+        double _duration;
+        int _statusCd;
         #endregion
 
         #region Properties
@@ -231,6 +239,58 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public DateTime START_DATE
+        {
+            get { return _startDate; }
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    PropertyHasChanged("START_DATE");
+                }
+            }
+        }
+
+        public DateTime END_DATE
+        {
+            get { return _endDate; }
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    PropertyHasChanged("END_DATE");
+                }
+            }
+        }
+
+        public double DURATION
+        {
+            get { return _duration; }
+            set
+            {
+                if (_duration != value)
+                {
+                    _duration = value;
+                    PropertyHasChanged("DURATION");
+                }
+            }
+        }
+
+        public int STATUS_CD
+        {
+            get { return _statusCd; }
+            set
+            {
+                if (_statusCd != value)
+                {
+                    _statusCd = value;
+                    PropertyHasChanged("STATUS_CD");
+                }
+            }
+        }
+
         #endregion
 
         #region Validation
@@ -245,6 +305,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DESCR", "DESCR"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("IMAGE_PATH", "IMAGE_PATH"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_ENTRY", "DATE_ENTRY"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("START_DATE", "START_DATE"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("END_DATE", "END_DATE"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DURATION", "DURATION"));
         }
 
         #endregion

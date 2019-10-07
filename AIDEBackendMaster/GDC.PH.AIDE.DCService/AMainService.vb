@@ -275,6 +275,8 @@
     MustOverride Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
 
 #End Region
 

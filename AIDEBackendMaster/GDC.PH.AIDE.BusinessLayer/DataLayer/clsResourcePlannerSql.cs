@@ -401,6 +401,99 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Dispose();
             }
         }
+
+        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType, int statusCode)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllLeavesByEmployee]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS_CODE", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, statusCode));
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsRPFromReaderLeaveList(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetAllLeavesByEmployee::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsResourcePlanner> GetAllLeavesHistoryByEmployee(int empID, int leaveType)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllLeavesHistoryByEmployee]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
+                
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsRPFromReaderLeaveList(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetAllLeavesByEmployee::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public bool UpdateLeaves(clsResourcePlanner businessObject, int statusCD, int leaveType)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_UpdateLeaves]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
+                sqlCommand.Parameters.Add(new SqlParameter("@START_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.START_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.END_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS_CD", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, statusCD));
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsContacts::Update::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -479,6 +572,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.HOLIDAYHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.HOLIDAYHOURS.ToString()));
             businessObject.VLHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.VLHOURS.ToString()));
             businessObject.SLHOURS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.SLHOURS.ToString()));
+        }
+
+        internal void PopulateBusinessObjectRPFromReaderLeaveList(clsResourcePlanner businessObject, IDataReader dataReader)
+        {
+            businessObject.START_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.START_DATE.ToString()));
+            businessObject.END_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.END_DATE.ToString()));
+            businessObject.DURATION = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DURATION.ToString()));
+            businessObject.STATUS_CD = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
         }
 
         /// <summary>
@@ -604,6 +705,20 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsResourcePlanner businessObject = new clsResourcePlanner();
                 PopulateObjectsRPFromReaderNonBillable(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsResourcePlanner> PopulateObjectsRPFromReaderLeaveList(IDataReader dataReader)
+        {
+
+            List<clsResourcePlanner> list = new List<clsResourcePlanner>();
+
+            while (dataReader.Read())
+            {
+                clsResourcePlanner businessObject = new clsResourcePlanner();
+                PopulateBusinessObjectRPFromReaderLeaveList(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;

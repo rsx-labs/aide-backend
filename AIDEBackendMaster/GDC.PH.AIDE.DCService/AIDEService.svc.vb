@@ -15,9 +15,12 @@ End Enum
 
 <ServiceBehavior(ConcurrencyMode:=ConcurrencyMode.Single, InstanceContextMode:=InstanceContextMode.PerCall)>
 Public Class AIDEService
+
     Inherits MainService
     Implements IAideService
+
     Implements IAideService2
+
 
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()
     '  number of current users - 0 to begin with
@@ -731,6 +734,16 @@ Public Class AIDEService
         Return MyBase.GetNonBillableHours(email, display, month, year)
     End Function
 
+    Public Overrides Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesByEmployee
+        Return MyBase.GetAllLeavesByEmployees(empID, leaveType, statusCode)
+    End Function
+
+    Public Overrides Function GetAllLeavesHistoryByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesHistoryByEmployee
+        Return MyBase.GetAllLeavesHistoryByEmployees(empID, leaveType)
+    End Function
+    Public Sub UpdateLeaves1(resource As ResourcePlanner, statusCD As Integer, leaveType As Integer) Implements IAideService.UpdateLeaves
+        MyBase.UpdateLeavess(resource, statusCD, leaveType)
+    End Sub
 #End Region
 
     ''' <summary>
@@ -1104,5 +1117,7 @@ Public Class AIDEService
         Return MyBase.GetKPISummaryMonthly(EmpId, FY_Start, FY_End, Month, KPIRef)
     End Function
 #End Region
+
+
 
 End Class
