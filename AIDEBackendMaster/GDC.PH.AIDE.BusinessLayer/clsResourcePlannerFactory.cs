@@ -108,6 +108,20 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetNonBillableHours(email, display, month, year);
         }
 
+        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType, int statusCode)
+        {
+            return _dataObject.GetAllLeavesByEmployee(empID, leaveType, statusCode);
+        }
+
+        public List<clsResourcePlanner> GetAllLeavesHistoryByEmployee(int empID, int leaveType)
+        {
+            return _dataObject.GetAllLeavesHistoryByEmployee(empID, leaveType);
+        }
+        public bool UpdateLeaves(clsResourcePlanner businessObject,int status_cd, int leave_type)
+        {
+            return _dataObject.UpdateLeaves(businessObject, status_cd, leave_type);
+        }
+
         #endregion
     }
 }

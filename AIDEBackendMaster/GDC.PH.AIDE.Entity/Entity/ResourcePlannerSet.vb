@@ -144,7 +144,7 @@ Public Class ResourcePlannerSet
         End Set
     End Property
 
-    Public Property vlHours As Double Implements IResourcePlanner.vlHours 
+    Public Property vlHours As Double Implements IResourcePlanner.vlHours
         Get
             Return Me.cResourcePlanner.VLHOURS
         End Get
@@ -160,6 +160,46 @@ Public Class ResourcePlannerSet
         End Get
         Set(value As Double)
             Me.cResourcePlanner.SLHOURS = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property Duration As Double Implements IResourcePlanner.Duration
+        Get
+            Return Me.cResourcePlanner.DURATION
+        End Get
+        Set(value As Double)
+            Me.cResourcePlanner.DURATION = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property EndDate As Date Implements IResourcePlanner.EndDate
+        Get
+            Return Me.cResourcePlanner.END_DATE
+        End Get
+        Set(value As Date)
+            Me.cResourcePlanner.END_DATE = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property StartDate As Date Implements IResourcePlanner.StartDate
+        Get
+            Return Me.cResourcePlanner.START_DATE
+        End Get
+        Set(value As Date)
+            Me.cResourcePlanner.START_DATE = value
+            NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property StatusCD As Integer Implements IResourcePlanner.StatusCD
+        Get
+            Return Me.cResourcePlanner.STATUS_CD
+        End Get
+        Set(value As Integer)
+            Me.cResourcePlanner.STATUS_CD = value
             NotifyPropertyChanged()
         End Set
     End Property
@@ -456,7 +496,72 @@ Public Class ResourcePlannerSet
             End If
         End Try
     End Function
+
+
+    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllLeavesByEmployee
+        Try
+            Dim ResourceLst As List(Of clsResourcePlanner)
+            Dim ResourceSetLst As New List(Of ResourcePlannerSet)
+
+            ResourceLst = cResourcePlannerFactory.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+
+            If Not IsNothing(ResourceLst) Then
+                For Each cList As clsResourcePlanner In ResourceLst
+                    ResourceSetLst.Add(New ResourcePlannerSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return ResourceSetLst
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetAllLeavesHistoryByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllLeavesHistoryByEmployee
+        Try
+            Dim ResourceLst As List(Of clsResourcePlanner)
+            Dim ResourceSetLst As New List(Of ResourcePlannerSet)
+
+            ResourceLst = cResourcePlannerFactory.GetAllLeavesHistoryByEmployee(empID, leaveType)
+
+            If Not IsNothing(ResourceLst) Then
+                For Each cList As clsResourcePlanner In ResourceLst
+                    ResourceSetLst.Add(New ResourcePlannerSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return ResourceSetLst
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+    Public Function UpdateLeaves(resource As ResourcePlannerSet, statusCD As Integer, leaveType As Integer) As Boolean Implements IResourcePlanner.UpdateLeaves
+        Try
+            Return Me.cResourcePlannerFactory.UpdateLeaves(cResourcePlanner, statusCD, leaveType)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 #End Region
+
 End Class
 
 

@@ -1480,6 +1480,56 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
+    Public Function GetAllLeavesByEmployees(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.StartDate = _list.StartDate
+                item.EndDate = _list.EndDate
+                item.Duration = _list.Duration
+                item.StatusCD = _list.StatusCD
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
+    Public Function GetAllLeavesHistoryByEmployees(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetAllLeavesHistoryByEmployee(empID, leaveType)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.StartDate = _list.StartDate
+                item.EndDate = _list.EndDate
+                item.Duration = _list.Duration
+                item.StatusCD = _list.StatusCD
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
+    Public Function UpdateLeavess(resource As ResourcePlanner, statusCD As Integer, leaveType As Integer) As Boolean
+        Dim state As StateData = ResourceMgmt.UpdateLeaves(resource, statusCD, leaveType)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        'ReceivedData(state)
+        Return bSuccess
+    End Function
+
 #End Region
 
 #Region "Attendance"

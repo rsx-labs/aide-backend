@@ -322,6 +322,62 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
+
+    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFieldsLeaves(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
+    Public Function GetAllLeavesHistoryByEmployee(empID As Integer, leaveType As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetAllLeavesHistoryByEmployee(empID, leaveType)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFieldsLeaves(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
+
     Public Overrides Function GetExceptionMessage(ex As Exception) As String
         Return ex.Message
     End Function
@@ -348,6 +404,30 @@ Public Class ResourcePlannerManagement
         Return resourceData
     End Function
 
+    Public Function GetMappedFieldsLeaves(objData As Object) As Object
+        Dim objResource As ResourcePlannerSet = DirectCast(objData, ResourcePlannerSet)
+        Dim resourceData As New ResourcePlanner
+
+        resourceData.StartDate = objResource.StartDate
+        resourceData.EndDate = objResource.EndDate
+        resourceData.Duration = objResource.Duration
+        resourceData.StatusCD = objResource.StatusCD
+
+        Return resourceData
+    End Function
+
+
+    Public Sub SetFieldsLeaves(ByRef objResult As Object, objData As Object)
+        Dim objResource As ResourcePlanner = DirectCast(objData, ResourcePlanner)
+        Dim resourceData As New ResourcePlannerSet
+
+        resourceData.StartDate = objResource.StartDate
+        resourceData.EndDate = objResource.EndDate
+        resourceData.EmployeeID = objResource.EmpID
+
+        objResult = resourceData
+    End Sub
+
     Public Overrides Function GetStateData(status As NotifyType, Optional data As Object = Nothing, Optional message As String = "") As StateData
         Dim state As New StateData
         state.Data = data
@@ -371,6 +451,27 @@ Public Class ResourcePlannerManagement
 
         objResult = resourceData
     End Sub
+
+    Public Function UpdateLeaves(ByVal rp As ResourcePlanner, ByVal statusCD As Integer, ByVal leaveType As Integer) As StateData
+        Dim rpSet As New ResourcePlannerSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            SetFieldsLeaves(rpSet, rp)
+            If rpSet.UpdateLeaves(rpSet, statusCD, leaveType) Then
+                status = NotifyType.IsSuccess
+                message = "Update Leaves Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+
+        Return state
+    End Function
 
 #End Region
 

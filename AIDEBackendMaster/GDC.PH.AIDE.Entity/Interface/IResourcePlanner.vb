@@ -19,6 +19,11 @@ Public Interface IResourcePlanner
     Property HalfBalance As Double
     Property TotalBalance As Double
     Property holidayHours As Double
+    Property StartDate As Date
+    Property EndDate As Date
+    Property Duration As Double
+    Property StatusCD As Integer
+
 
     Function InsertResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
     Function UpdateResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
@@ -32,5 +37,7 @@ Public Interface IResourcePlanner
     Function GetBillableHoursByMonth(ByVal status As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetBillableHoursByWeek(ByVal status As Integer, ByVal weekID As Integer) As List(Of ResourcePlannerSet)
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
-
+    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlannerSet)
+    Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlannerSet)
+    Function UpdateLeaves(ByVal resource As ResourcePlannerSet, ByVal statusCD As Integer, ByVal leaveType As Integer) As Boolean
 End Interface

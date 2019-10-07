@@ -497,6 +497,16 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
+    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
+    Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateLeaves(ByVal resource As ResourcePlanner, ByVal statusCD As Integer, ByVal leaveType As Integer)
+
 #End Region
 
 #Region "Announcements Operation Contracts"
@@ -1549,6 +1559,18 @@ Public Class ResourcePlanner
 
     <DataMember()>
     Public Property slHours As Double
+
+    <DataMember()>
+    Public Property StartDate As Date
+
+    <DataMember()>
+    Public Property EndDate As Date
+
+    <DataMember()>
+    Public Property Duration As Double
+
+    <DataMember()>
+    Public Property StatusCD As Integer
 
 End Class
 #End Region
