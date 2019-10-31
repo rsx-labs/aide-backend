@@ -203,7 +203,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 sqlCommand.Parameters.Add(new SqlParameter("@SABA_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SABA_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@DATE_COMPLETED", SqlDbType.DateTime, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_COMPLETED));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_COMPLETED", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_COMPLETED));
 
                 MainConnection.Open();
 
