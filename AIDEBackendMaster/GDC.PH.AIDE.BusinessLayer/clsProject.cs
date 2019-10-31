@@ -193,7 +193,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_CD", "PROJ_CD"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("PROJ_CD", "PROJ_CD", 10));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PROJ_NAME", "PROJ_NAME"));
-            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("PROJ_NAME", "PROJ_NAME", 20));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("PROJ_NAME", "PROJ_NAME", 50));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("CATEGORY", "CATEGORY"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("BILLABILITY", "BILLABILITY"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
