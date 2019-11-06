@@ -91,7 +91,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJECT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_SENT", SqlDbType.Date, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_SENT));
                 sqlCommand.Parameters.Add(new SqlParameter("@SENT_BY", SqlDbType.VarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SENT_BY));
-                sqlCommand.Parameters.Add(new SqlParameter("@REASON", SqlDbType.VarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REASON));
+                sqlCommand.Parameters.Add(new SqlParameter("@REASON", SqlDbType.Text, int.MaxValue, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.REASON));
 
                 MainConnection.Open();
 
