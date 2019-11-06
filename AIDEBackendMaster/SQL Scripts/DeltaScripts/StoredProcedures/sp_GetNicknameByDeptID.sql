@@ -8,6 +8,12 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_GetNicknameByDeptID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].sp_GetNicknameByDeptID
+GO
+
 CREATE PROCEDURE [dbo].[sp_GetNicknameByDeptID]
 	-- Add the parameters for the stored procedure here
 	@EMAIL VARCHAR(50),

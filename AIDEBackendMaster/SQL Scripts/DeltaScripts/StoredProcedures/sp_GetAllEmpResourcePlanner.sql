@@ -9,6 +9,10 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_GetAllEmpResourcePlanner]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].sp_GetAllEmpResourcePlanner
+GO
+
 -- =============================================
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>
