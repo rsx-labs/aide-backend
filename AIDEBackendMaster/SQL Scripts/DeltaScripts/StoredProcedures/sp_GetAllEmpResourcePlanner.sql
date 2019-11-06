@@ -29,6 +29,57 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
+	 
+   ---FISCAL YEAR STARTS AT APRIL
+	IF (@MONTH = 1)			--- January
+   begin
+       SET @YEAR = @YEAR + 1 
+   end
+	ELSE IF (@MONTH = 2)	---February
+   begin
+       SET @YEAR = @YEAR + 1 
+   end
+	ELSE IF (@MONTH = 3 )	---March
+   begin
+       SET @YEAR = @YEAR + 1
+   end
+	ELSE IF (@MONTH = 4)	---April
+   begin
+        SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 5)	---May
+   begin
+        SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 6)	---June
+   begin
+        SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 7)	---July
+   begin
+         SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 8)	---August
+   begin
+         SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 9)	---September
+   begin
+         SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 10)	---October
+   begin
+         SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 11)	---November
+   begin
+        SET @YEAR = @YEAR
+   end
+	ELSE IF (@MONTH = 12)	---December
+   begin
+        SET @YEAR = @YEAR
+   end
+
     -- Insert statements for procedure here
 select c.EMP_ID, c.LAST_NAME + ', ' + c.FIRST_NAME + ' ' + SUBSTRING(c.MIDDLE_NAME,1,1) AS EMPLOYEE_NAME, 
 a.DATE_ENTRY,a.STATUS
