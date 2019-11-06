@@ -14,6 +14,12 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
+
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_EmployeeSkillsByDeptID]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].sp_EmployeeSkillsByDeptID
+GO
+
 CREATE PROCEDURE [dbo].[sp_EmployeeSkillsByDeptID]
 	-- Add the parameters for the stored procedure here
 	@empID as int
