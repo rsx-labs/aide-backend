@@ -1524,16 +1524,16 @@ Public Class ResourcePlanner
     <DataMember()>
     Public Property NAME As String
 
-    <DataMember()>
-    Public Property dateFrom As Date
+	<DataMember()>
+	Public Property dateFrom As DateTime
 
-    <DataMember()>
-    Public Property dateTo As Date
+	<DataMember()>
+	Public Property dateTo As DateTime
 
-    <DataMember()>
-    Public Property Status As Double
+	<DataMember()>
+	Public Property Status As String
 
-    <DataMember()>
+	<DataMember()>
     Public Property UsedLeaves As Double
 
     <DataMember()>

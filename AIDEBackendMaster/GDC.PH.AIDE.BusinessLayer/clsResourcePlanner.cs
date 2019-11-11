@@ -39,7 +39,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _NAME;
         DateTime _from;
         DateTime _to;
-        double _status;
+        string _status;
         double _usedLeaves;
         double _totalBalance;
         double _halfBalance;
@@ -83,7 +83,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public double STATUS
+        public string STATUS
         {
             get { return _status; }
             set
