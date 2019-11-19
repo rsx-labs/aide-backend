@@ -46,8 +46,38 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         }
 
-       
+        /// <summary>
+        /// get list of all clsAssignedProjects
+        /// </summary>
+        /// <returns>list</returns>
+        public List<clsAssignedProjects> GetAssignedProjects(int projId)
+        {
+            return _dataObject.GetAssignedProjects(projId);
+        }
 
+        /// <summary>
+        /// Delete clsAssignedProjects by employee ID and project ID
+        /// </summary>
+        /// <param name="businessObject">clsAssignedProjects object</param>
+        /// <returns>true for successfully deleted</returns>
+        public bool Delete(int empID, int projectId)
+        {
+
+            return _dataObject.Delete(empID, projectId);
+
+        }
+
+        /// <summary>
+        /// Delete clsAssignedProjects by project ID
+        /// </summary>
+        /// <param name="businessObject">clsAssignedProjects object</param>
+        /// <returns>true for successfully deleted</returns>
+        public bool DeleteAll(int projId)
+        {
+            
+            return _dataObject.DeleteAll(projId);
+
+        }
         #endregion
 
     }

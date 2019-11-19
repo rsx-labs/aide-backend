@@ -64,6 +64,10 @@
     ''' <returns></returns>
     ''' <remarks></remarks>
     MustOverride Function CreateNewAssignedProject(ByVal assignProject As List(Of AssignedProject)) As Boolean
+    MustOverride Function GetAssignedProjectsByProjID(ByVal projID As Integer, ByRef objResult As List(Of AssignedProject)) As Boolean
+    MustOverride Function DeleteAssignedProjects(ByVal EmployeeID As Integer, ByVal ProjectID As Integer) As Boolean
+    MustOverride Function DeleteAllAssignedProjects(ByVal ProjectID As Integer) As Boolean
+
     MustOverride Function ViewProjectList(ByRef objResult As List(Of ViewProject)) As Boolean
     MustOverride Function GetProjectByProjID(ByVal projID As Integer, ByRef objResult As Project) As Boolean
     MustOverride Function GetProjectsList(ByRef objResult As List(Of Project), ByVal EmpID As Integer, ByVal displayStatus As Integer) As Boolean

@@ -174,6 +174,29 @@ Public Class ProjectManagement
         state = GetStateData(status, objprofile, message)
         Return state
     End Function
+    Public Function GetAssignedProjects(ByVal ProjId As Integer) As StateData
+        Dim projectSet As New AssignedProjectSet
+        Dim lstProjectset As New List(Of AssignedProjectSet)
+        Dim objAssignedProject As New List(Of AssignedProject)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            lstProjectset = projectSet.GetAssignedProjects(ProjId)
+            If Not IsNothing(lstProjectset) Then
+                For Each objList As AssignedProjectSet In lstProjectset
+                    objAssignedProject.Add(DirectCast(GetMappedFields3(objList), AssignedProject))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssignedProject, message)
+        Return state
+    End Function
+
     ''' <summary>
     ''' GIANN CARLO CAMILO
     ''' </summary>
@@ -198,7 +221,44 @@ Public Class ProjectManagement
         Return state
     End Function
 
-     ''' <summary>
+    Public Function DeleteAssignedProject(ByVal empID As Integer, ByVal projID As Integer) As StateData
+
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            Dim projSet As New AssignedProjectSet
+            If projSet.DeleteAssignedProj(empID, projID) Then
+                status = NotifyType.IsSuccess
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function DeleteAllAssignedProject(ByVal projID As Integer) As StateData
+
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+
+            Dim projSet As New AssignedProjectSet
+            If projSet.DeleteAllAssignedProj(projID) Then
+                status = NotifyType.IsSuccess
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    ''' <summary>
     ''' VIEW PROJECT WITH EMPLOYEES - GIANN CARLO CAMILO
     ''' </summary>
     ''' <returns></returns>
@@ -302,7 +362,17 @@ Public Class ProjectManagement
 
     End Function
 
+    Public Function GetMappedFields3(objData As Object) As Object
+        Dim objAssignedProj As AssignedProjectSet = DirectCast(objData, AssignedProjectSet)
+        Dim assignedProjectData As New AssignedProject
 
+        assignedProjectData.ProjectID = objAssignedProj.ProjectId
+        assignedProjectData.EmployeeID = objAssignedProj.EmpId
+        assignedProjectData.StartPeriod = objAssignedProj.StartPeriod
+        assignedProjectData.EndPeriod = objAssignedProj.EndPeriod
+
+        Return assignedProjectData
+    End Function
     ''' <summary>
     ''' GIANN CARLO CAMILO
     ''' </summary>

@@ -79,9 +79,29 @@ Public Class AssignedProjectSet
         End Try
     End Function
 
-   
+    Public Function DeleteAssignedProj(ByVal EmpID As Integer, ByVal projectID As Integer) As Boolean Implements IAssignedProjects.DeleteAssignedProj
+        Try
+            Return Me.cAProjFactory.Delete(EmpID, projectID)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 
-   
+    Public Function DeleteAllAssignedProj(ByVal projectID As Integer) As Boolean Implements IAssignedProjects.DeleteAllAssignedProj
+        Try
+            Return Me.cAProjFactory.DeleteAll(projectID)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
@@ -89,5 +109,30 @@ Public Class AssignedProjectSet
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
 
+    Public Function GetAssignedProjects(projectID As Integer) As List(Of AssignedProjectSet) Implements IAssignedProjects.GetAssignedProjects
+        Try
+            Dim lstAssignedProject As List(Of clsAssignedProjects)
+            Dim lstAssignedProjectSet As New List(Of AssignedProjectSet)
 
+            lstAssignedProject = cAProjFactory.GetAssignedProjects(projectID)
+
+
+            If Not IsNothing(lstAssignedProject) Then
+                For Each cList As clsAssignedProjects In lstAssignedProject
+                    lstAssignedProjectSet.Add(New AssignedProjectSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return lstAssignedProjectSet
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 End Class

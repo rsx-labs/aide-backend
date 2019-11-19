@@ -581,9 +581,6 @@ Public Class AIDEService
         Return lstProject
     End Function
 
-
-
-
     ''' <summary>
     ''' VIEW PROJECT  - GIANN CARLO CAMILO / LEMUELA ABULENCIA
     ''' </summary>
@@ -599,6 +596,19 @@ Public Class AIDEService
         Return MyBase.GetEmployeePerProject(empID, projID)
     End Function
 
+    Public Sub DeleteAssignedProject(ByVal EmployeeID As Integer, ByVal ProjectID As Integer) Implements IAideService.DeleteAssignedProject
+        MyBase.DeleteAssignedProjects(EmployeeID, ProjectID)
+    End Sub
+
+    Public Sub DeleteAllAssignedProject(ByVal ProjectID As Integer) Implements IAideService.DeleteAllAssignedProject
+        MyBase.DeleteAllAssignedProjects(ProjectID)
+    End Sub
+
+    Public Function GetAssignedProjects(projectId As Integer) As List(Of AssignedProject) Implements IAideService.GetAssignedProjects
+        Dim lstAssignedProject As List(Of AssignedProject) = Nothing
+        MyBase.GetAssignedProjectsByProjID(projectId, lstAssignedProject)
+        Return lstAssignedProject
+    End Function
 #End Region
 
 #Region "EmployeeList"
@@ -1116,6 +1126,7 @@ Public Class AIDEService
     Public Function GetKPISummaryListMonthly(ByVal EmpId As Integer, FY_Start As Date, FY_End As Date, Month As Short, KPIRef As String) As List(Of KPISummary) Implements IAideService.GetKPISummaryListMonthly
         Return MyBase.GetKPISummaryMonthly(EmpId, FY_Start, FY_End, Month, KPIRef)
     End Function
+
 #End Region
 
 

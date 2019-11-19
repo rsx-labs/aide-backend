@@ -101,11 +101,20 @@ Public Interface IAideService
     <OperationContract()>
     Function GetProjectList(ByVal empID As Integer, ByVal displayStatus As Integer) As List(Of Project)
 
-    <OperationContract(IsOneWay:=True)>
+    <OperationContract()>
     Sub CreateProject(ByVal project As Project)
 
-    <OperationContract(IsOneWay:=True)>
+    <OperationContract()>
     Sub AssignProject(ByVal Project As AssignedProject)
+
+    <OperationContract()>
+    Function GetAssignedProjects(ByVal projectId As Integer) As List(Of AssignedProject)
+
+    <OperationContract()>
+    Sub DeleteAssignedProject(ByVal EmployeeID As Integer, ByVal ProjectID As Integer)
+
+    <OperationContract()>
+    Sub DeleteAllAssignedProject(ByVal ProjectID As Integer)
 
     <OperationContract>
     Function GetProjectByID(ByVal projID As Integer) As Project

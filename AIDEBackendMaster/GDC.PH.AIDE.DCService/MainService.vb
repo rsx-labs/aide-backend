@@ -976,6 +976,26 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Overrides Function DeleteAssignedProjects(ByVal EmployeeID As Integer, ByVal ProjectID As Integer) As Boolean
+        Dim state As StateData = ProjectMgmt.DeleteAssignedProject(EmployeeID, ProjectID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function DeleteAllAssignedProjects(ByVal ProjectID As Integer) As Boolean
+        Dim state As StateData = ProjectMgmt.DeleteAllAssignedProject(ProjectID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Overrides Function GetProjectByProjID(ByVal projID As Integer, ByRef objResult As Project) As Boolean
         Dim state As StateData = ProjectMgmt.GetProjectByID(projID)
         Dim bSuccess As Boolean = False
@@ -1028,6 +1048,34 @@ Public MustInherit Class MainService
         Return lstConcernList
 
     End Function
+
+    ''' <summary>
+    ''' LIST OF PROJECT
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Public Overrides Function GetAssignedProjectsByProjID(ByVal projID As Integer, ByRef objResult As List(Of AssignedProject)) As Boolean
+        Dim state As StateData = ProjectMgmt.GetAssignedProjects(projID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            objResult = state.Data
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetProjectCodesByProjID(projID As Integer, ByRef objResult As List(Of ProjectCodes)) As Boolean
+        Dim state As StateData = ProjectMgmt.GetProjectCodesByID(projID)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            objResult = state.Data
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
 
     'Public Overrides Function ViewProjectList(Project As ViewProject, ByRef objResult As List(Of ViewProject)) As Boolean
     ''' <summary>
