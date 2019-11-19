@@ -1065,18 +1065,6 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetProjectCodesByProjID(projID As Integer, ByRef objResult As List(Of ProjectCodes)) As Boolean
-        Dim state As StateData = ProjectMgmt.GetProjectCodesByID(projID)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            objResult = state.Data
-            bSuccess = True
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
-
-
     'Public Overrides Function ViewProjectList(Project As ViewProject, ByRef objResult As List(Of ViewProject)) As Boolean
     ''' <summary>
     ''' GIANN CALRO CAMILO/LEMUELA ABULENCIA
