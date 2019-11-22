@@ -1,6 +1,6 @@
 USE [AIDE]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_GetAllAssetsHistory]    Script Date: 10/01/2019 10:29:17 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_GetAllLeavesHistoryByEmployee]    Script Date: 10/01/2019 10:29:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -35,7 +35,7 @@ AS
    SELECT a.ROWNUMBER, a.DATE_ENTRY,case when datediff(d, b.DATE_ENTRY,a.DATE_ENTRY) = 1 and b.STATUS = a.STATUS  then b.groupid else b.groupid+1 end as gap, a.COUNTS as COUNTS, a.STATUS_CD as STATUS_CD, a.STATUS as STATUS, a.DESCR as DESCR FROM CTEDATES A INNER JOIN CTEDATES1 B ON A.ROWNUMBER-1 = B.ROWNUMBER
 )
 
-select min(DATE_ENTRY) as START_DATE, max(DATE_ENTRY) as END_DATE, SUM(COUNTS) as DURATION, MIN(STATUS_CD) as STATUS_CD, MIN(STATUS) as STATUS, MIN(DESCR) as DESCR  
+select min(DATE_ENTRY) as START_DATE, max(DATE_ENTRY) as END_DATE, SUM(COUNTS) as DURATION, MIN(STATUS_CD) as STATUS_CD, CONVERT(NVARCHAR(10), MIN(STATUS)) as 'STATUS', MIN(DESCR) as DESCR  
 from CTEDATES1 
 group by groupid, STATUS_CD
 order by START_DATE desc 	
