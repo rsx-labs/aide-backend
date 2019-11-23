@@ -137,7 +137,7 @@ SELECT @TODAYSTAT = A.STATUS FROM ATTENDANCE A INNER JOIN CONTACTS C ON A.EMP_ID
 	INSERT INTO #SummarizeRecords
 		select  DISTINCT convert(varchar(20), ft.DATE_ENTRY, 111), ft.EMP_ID, ft. EMPLOYEE_NAME, ft.STATUS  from  #finalTblResource ft 
 
-	select DISTINCT DATE_ENTRY, *  from #SummarizeRecords sr
+	select DISTINCT DATE_ENTRY, *  from #SummarizeRecords sr order by sr.EMP_ID
 		END
 	END
 
