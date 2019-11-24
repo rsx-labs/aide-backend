@@ -64,17 +64,17 @@ Public Class ResourcePlannerSet
         End Set
     End Property
 
-    Public Property Status As Double Implements IResourcePlanner.Status
-        Get
-            Return Me.cResourcePlanner.STATUS
-        End Get
-        Set(value As Double)
-            Me.cResourcePlanner.STATUS = value
-            NotifyPropertyChanged()
-        End Set
-    End Property
+	Public Property Status As String Implements IResourcePlanner.Status
+		Get
+			Return Me.cResourcePlanner.STATUS
+		End Get
+		Set(value As String)
+			Me.cResourcePlanner.STATUS = value
+			NotifyPropertyChanged()
+		End Set
+	End Property
 
-    Public Property UsedLeaves As Double Implements IResourcePlanner.UsedLeaves
+	Public Property UsedLeaves As Double Implements IResourcePlanner.UsedLeaves
         Get
             Return Me.cResourcePlanner.USEDLEAVES
         End Get

@@ -9,8 +9,8 @@ Public Interface IResourcePlanner
     Property Name As String
     Property dateFrom As Date
     Property dateTo As Date
-    Property Status As Double
-    Property UsedLeaves As Double
+	Property Status As String
+	Property UsedLeaves As Double
     Property vlHours As Double
     Property slHours As Double
     Property Description As String

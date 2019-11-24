@@ -513,13 +513,13 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectRPFromReader2(clsResourcePlanner businessObject, IDataReader dataReader)
         {
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
-            businessObject.STATUS = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
         }
 
         internal void PopulateBusinessObjectRPFromReader3(clsResourcePlanner businessObject, IDataReader dataReader)
         {
             businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString()));
-            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
         }
 
         internal void PopulateBusinessObjectRPFromReader4(clsResourcePlanner businessObject, IDataReader dataReader)
@@ -532,7 +532,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString())))
             {
-                businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+                businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             }
         }
 
@@ -541,20 +541,20 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMP_ID.ToString()));
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
             businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString()));
-            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
         }
 
         internal void PopulateBusinessObjectRPFromReader6(clsResourcePlanner businessObject, IDataReader dataReader)
         {
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
-            businessObject.STATUS = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
         }
 
         internal void PopulateBusinessObjectRPFromReader7(clsResourcePlanner businessObject, IDataReader dataReader)
         {
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMP_ID.ToString()));
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
-            businessObject.STATUS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             businessObject.USEDLEAVES = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.USEDLEAVES.ToString()));
             businessObject.TOTALBALANCE = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.TOTALBALANCE.ToString()));
             businessObject.HALFBALANCE = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.HALFBALANCE.ToString()));
@@ -563,7 +563,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         internal void PopulateBusinessObjectRPFromReader8(clsResourcePlanner businessObject, IDataReader dataReader)
         {
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
-            businessObject.STATUS = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
         }
 
         internal void PopulateObjectsRPFromReaderNonBillable(clsResourcePlanner businessObject, IDataReader dataReader)
@@ -580,7 +580,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.END_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.END_DATE.ToString()));
             businessObject.DURATION = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DURATION.ToString()));
             businessObject.STATUS_CD = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
-            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+            businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
         }
 
