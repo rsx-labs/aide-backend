@@ -475,8 +475,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
-                sqlCommand.Parameters.Add(new SqlParameter("@START_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.START_DATE));
-                sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.END_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@START_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.START_DATE.ToString("MM/dd/yyyy")));
+                sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.END_DATE.ToString("MM/dd/yyyy")));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS_CD", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, statusCD));
                 MainConnection.Open();
 
