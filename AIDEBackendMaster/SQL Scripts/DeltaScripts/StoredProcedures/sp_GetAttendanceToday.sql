@@ -1,6 +1,6 @@
 USE [AIDE]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_GetAttendanceToday]    Script Date: 11/24/2019 2:48:43 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_GetAttendanceToday]    Script Date: 11/26/2019 2:18:56 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,6 +87,8 @@ BEGIN
 	
 
 create table #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
+declare @lateAfternoon int
+
 
  INSERT INTO #summaryTbl 
 	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY
@@ -118,12 +120,14 @@ create table #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar
 							else
 							at.DATE_ENTRY
 						end  as DATE_ENTRY,
-						CASE WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+						CASE	WHEN	EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+								WHEN	EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59'  GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID)
 								ELSE
 								 (select STATUS from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
 						END  as STATUS,
 							at.IMAGE_PATH,
-							CASE WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+							CASE	WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+									WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59' GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
 								ELSE
 									 (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
 							END  as DSPLY_ORDR																
