@@ -80,6 +80,7 @@ BEGIN
 				AND B.DEPT_ID = b.DEPT_ID
 				AND B.DIV_ID = d.DIV_ID
 				AND A.EMP_ID = b.EMP_ID
+				and b.ACTIVE <> 2
 				ORDER BY B.EMP_ID
 						
 		SET @counter += 1
