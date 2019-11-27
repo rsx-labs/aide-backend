@@ -1,6 +1,6 @@
 USE [AIDE]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_GetAttendanceToday]    Script Date: 11/26/2019 2:18:56 PM ******/
+/****** Object:  StoredProcedure [dbo].[sp_GetAttendanceToday]    Script Date: 11/27/2019 11:42:07 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -87,14 +87,17 @@ BEGIN
 	
 
 create table #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
-declare @lateAfternoon int
+create table #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
+
+
 
 
  INSERT INTO #summaryTbl 
-	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY
+	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY order by DSPLY_ORDR ASC
 
 	if @DT_TIME_TODAY between  '00:00:00' and '13:59:59' 
 			begin
+			insert into #summaryTbl2
 				select distinct at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
 						case when  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
 							else
@@ -110,11 +113,12 @@ declare @lateAfternoon int
 									 (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
 							END  as DSPLY_ORDR																
 	FROM #summaryTbl at inner join ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
-	order by at.EMPLOYEE_NAME
+	order by at.EMPLOYEE_NAME ASC
 
 			end
 		else
 			begin
+			insert into #summaryTbl2
 			select distinct at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
 						case when  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
 							else
@@ -132,11 +136,13 @@ declare @lateAfternoon int
 									 (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
 							END  as DSPLY_ORDR																
 	FROM #summaryTbl at inner join ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
-	order by at.EMPLOYEE_NAME
+	order by at.EMPLOYEE_NAME ASC
 			end
 
 
 
+
+select * from #summaryTbl2 order by DSPLY_ORDR , EMPLOYEE_NAME asc
 
 
 END
