@@ -146,7 +146,7 @@
     ''' By Aevan Camille Batongbacal
     ''' </summary>
 #Region "Contact List Methods"
-    MustOverride Function GetContactListAll(email As String, selection As Integer) As List(Of ContactList)
+    MustOverride Function GetContactListAll(empID As Integer, selection As Integer) As List(Of ContactList)
     MustOverride Function UpdateContactList(contacts As ContactList, selection As Integer) As Boolean
     MustOverride Function CreateContact(contacts As ContactList) As Boolean
 #End Region

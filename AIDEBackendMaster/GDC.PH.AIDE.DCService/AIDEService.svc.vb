@@ -325,8 +325,8 @@ Public Class AIDEService
     ''' By Aevan Camille Batongbacal
     ''' </summary>
 #Region "Contact List Functions"
-    Public Function ViewContactListAll(ByVal email As String, ByVal selection As Integer) As List(Of ContactList) Implements IAideService.ViewContactListAll
-        Return MyBase.GetContactListAll(email, selection)
+    Public Function ViewContactListAll(ByVal empID As Integer, ByVal selection As Integer) As List(Of ContactList) Implements IAideService.ViewContactListAll
+        Return MyBase.GetContactListAll(empID, selection)
     End Function
 
     Public Sub UpdateContactListByEmpID(ByVal contact As ContactList, ByVal selection As Integer) Implements IAideService.UpdateContactListByEmpID

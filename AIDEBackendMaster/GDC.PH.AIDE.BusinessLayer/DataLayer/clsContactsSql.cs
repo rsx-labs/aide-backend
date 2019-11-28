@@ -198,7 +198,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords
         /// </summary>
         /// <returns>list of clsContacts</returns>
-        public List<clsContacts> SelectAll(string email, int selection)
+        public List<clsContacts> SelectAll(int empID, int selection)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetContactListAll]";
@@ -211,8 +211,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 MainConnection.Open();
 
-                sqlCommand.Parameters.Add(new SqlParameter("@email", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
-                sqlCommand.Parameters.Add(new SqlParameter("@selection", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, selection));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@SELECTION", selection));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
