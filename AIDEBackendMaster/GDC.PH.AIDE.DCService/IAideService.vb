@@ -308,7 +308,7 @@ Public Interface IAideService
 #Region "Contact List Operation Contracts"
 
     <OperationContract()>
-    Function ViewContactListAll(ByVal email As String, ByVal selection As Integer) As List(Of ContactList)
+    Function ViewContactListAll(ByVal empID As Integer, ByVal selection As Integer) As List(Of ContactList)
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateContactListByEmpID(ByVal contact As ContactList, ByVal selection As Integer)

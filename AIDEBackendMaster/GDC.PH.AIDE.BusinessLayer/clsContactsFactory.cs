@@ -27,7 +27,6 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #endregion
 
-
         #region Public Methods
 
         /// <summary>
@@ -77,9 +76,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// get list of all clsContactss
         /// </summary>
         /// <returns>list</returns>
-        public List<clsContacts> GetAll(string email, int selection)
+        public List<clsContacts> GetAll(int empID, int selection)
         {
-            return _dataObject.SelectAll(email, selection);
+            return _dataObject.SelectAll(empID, selection);
         }
 
         /// <summary>

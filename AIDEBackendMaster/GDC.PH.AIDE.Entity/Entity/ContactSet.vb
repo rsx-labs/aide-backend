@@ -351,13 +351,13 @@ Public Class ContactSet
     '    End Try
     'End Sub
 
-    Public Function GetAllContacts(email As String, ByRef selection As Integer) As List(Of ContactSet) Implements IContact.GetAllContacts
+    Public Function GetAllContacts(empID As Integer, ByRef selection As Integer) As List(Of ContactSet) Implements IContact.GetAllContacts
         Dim cList As List(Of clsContacts)
         Dim cListSet As New List(Of ContactSet)
-        Dim key As New clsContactsKeys(email)
+        Dim key As New clsContactsKeys(empID)
         Try
 
-            cList = cContactFactory.GetAll(key.EMAIL, selection)
+            cList = cContactFactory.GetAll(key.EMP_ID, selection)
 
             If Not IsNothing(cList) Then
                 For Each cContact As clsContacts In cList

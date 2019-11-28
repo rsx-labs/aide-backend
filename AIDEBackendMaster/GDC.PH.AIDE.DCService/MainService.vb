@@ -434,8 +434,8 @@ Public MustInherit Class MainService
     ''' By Aevan Camille Batongbacal
     ''' </summary>
 #Region "Contact List "
-    Public Overrides Function GetContactListAll(email As String, selection As Integer) As List(Of ContactList)
-        Dim state As StateData = ContactListMgmt.GetContactListAll(email, selection)
+    Public Overrides Function GetContactListAll(empID As Integer, selection As Integer) As List(Of ContactList)
+        Dim state As StateData = ContactListMgmt.GetContactListAll(empID, selection)
         Dim lstContactList As New List(Of ContactList)
 
         If Not IsNothing(state.Data) Then

@@ -70,7 +70,7 @@ Public Class ContactListManagement
         Return state
     End Function
 
-    Public Function GetContactListAll(email As String, selection As Integer) As StateData
+    Public Function GetContactListAll(empID As Integer, selection As Integer) As StateData
         Dim contactListSet As New ContactSet
         Dim lstContacts As List(Of ContactSet)
         Dim objContacts As New List(Of ContactList)
@@ -79,7 +79,7 @@ Public Class ContactListManagement
         Dim status As NotifyType
 
         Try
-            lstContacts = contactListSet.GetAllContacts(email, selection)
+            lstContacts = contactListSet.GetAllContacts(empID, selection)
 
             If Not IsNothing(lstContacts) Then
                 For Each objList As ContactSet In lstContacts
