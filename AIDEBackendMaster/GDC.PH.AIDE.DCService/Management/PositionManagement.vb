@@ -75,6 +75,15 @@ Public Class PositionManagement
         Return classData
     End Function
 
+    Public Function GetMappedFieldsFiscalYear(objData As Object) As Object
+        Dim objSet As FiscalYearListSet = DirectCast(objData, FiscalYearListSet)
+        Dim classData As New FiscalYear
+
+        classData.FISCAL_YEAR = objSet.FISCAL_YEAR
+
+        Return classData
+    End Function
+
     Public Overrides Function GetStateData(status As NotifyType, Optional data As Object = Nothing, Optional message As String = "") As StateData
         Dim state As New StateData
         state.Data = data
@@ -231,6 +240,32 @@ Public Class PositionManagement
             If Not IsNothing(objSetList) Then
                 For Each objList As StatusListSet In objSetList
                     classDataList.Add(DirectCast(GetMappedFieldsStatus(objList), StatusList))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, classDataList, message)
+        Return state
+    End Function
+
+    Public Function GetAllFiscalYear() As StateData
+        Dim objSet As New FiscalYearListSet
+        Dim objSetList As List(Of FiscalYearListSet)
+        Dim classDataList As New List(Of FiscalYear)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            objSetList = objSet.GetAllFiscalYear()
+
+            If Not IsNothing(objSetList) Then
+                For Each objList As FiscalYearListSet In objSetList
+                    classDataList.Add(DirectCast(GetMappedFieldsFiscalYear(objList), FiscalYear))
                 Next
                 status = NotifyType.IsSuccess
             End If

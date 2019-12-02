@@ -1090,7 +1090,9 @@ Public Class AIDEService
         Return MyBase.GetAllLocation()
     End Function
 
-
+    Public Function GetAllFiscalYears() As List(Of FiscalYear) Implements IAideService.GetAllFiscalYear
+        Return MyBase.GetAllFiscalYear()
+    End Function
 #End Region
 
 #Region "KPI Targets"

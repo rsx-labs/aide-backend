@@ -55,6 +55,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAllLocation();
         }
 
+        public List<clsFiscalYearList> GetAllFiscalYear()
+        {
+            return _dataObject.GetAllFiscalYear();
+        }
+
         #endregion
     }
 }

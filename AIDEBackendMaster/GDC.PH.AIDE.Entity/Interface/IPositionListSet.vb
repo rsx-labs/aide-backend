@@ -36,3 +36,8 @@ Public Interface IStatusListSet
     Property STATUS_DESCR As String
     Function GetAllStatus(statusname As String) As List(Of StatusListSet)
 End Interface
+
+Public Interface IFiscalYearListSet
+    ReadOnly Property FISCAL_YEAR As String
+    Function GetAllFiscalYear() As List(Of FiscalYearListSet)
+End Interface

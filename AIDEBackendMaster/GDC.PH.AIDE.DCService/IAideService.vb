@@ -680,6 +680,9 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetAllStatus(statusName As String) As List(Of StatusList)
+
+    <OperationContract()>
+    Function GetAllFiscalYear() As List(Of FiscalYear)
 #End Region
 
 #Region "KPI Targets Operation Contracts"
@@ -2241,6 +2244,11 @@ Public Class StatusList
     Public Property STATUS_ID As Integer
     <DataMember()>
     Public Property STATUS_DESCR As String
+End Class
+
+Public Class FiscalYear
+    <DataMember()>
+    Public Property FISCAL_YEAR As String
 End Class
 #End Region
 

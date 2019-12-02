@@ -396,3 +396,57 @@ Public Class StatusListSet
         End Try
     End Function
 End Class
+
+Public Class FiscalYearListSet
+    Implements IFiscalYearListSet, INotifyPropertyChanged
+
+    Private cFiscalYear As clsFiscalYearList
+    Private cSelectionFactory As clsPositionListFactory
+
+    Public Sub New()
+        cFiscalYear = New clsFiscalYearList()
+        cSelectionFactory = New clsPositionListFactory()
+    End Sub
+
+    Public Sub New(ByVal obj As clsFiscalYearList)
+        cFiscalYear = obj
+        cSelectionFactory = New clsPositionListFactory()
+    End Sub
+
+    Public ReadOnly Property FISCAL_YEAR As String Implements IFiscalYearListSet.FISCAL_YEAR
+        Get
+            Return cFiscalYear.FISCAL_YEAR
+        End Get
+    End Property
+   
+    Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
+
+    Public Function GetAllFiscalYear() As List(Of FiscalYearListSet) Implements IFiscalYearListSet.GetAllFiscalYear
+        Dim cList As List(Of clsFiscalYearList)
+        Dim cListSet As New List(Of FiscalYearListSet)
+        Try
+
+            cList = cSelectionFactory.GetAllFiscalYear()
+
+            If Not IsNothing(cList) Then
+                For Each cObject As clsFiscalYearList In cList
+                    cListSet.Add(New FiscalYearListSet(cObject))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+End Class
