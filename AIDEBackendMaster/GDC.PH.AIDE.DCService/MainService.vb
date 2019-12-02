@@ -2678,7 +2678,7 @@ Public MustInherit Class MainService
     End Function
 #End Region
 
-#Region "Contributors"
+#Region "Selection"
     Public Overrides Function GetAllLocation() As List(Of LocationList)
         Dim state As StateData = SelectionMgmt.GetAllLocations()
         Dim objLst As New List(Of LocationList)
@@ -2751,6 +2751,19 @@ Public MustInherit Class MainService
         If Not IsNothing(state.Data) Then
             Dim newObjlst As List(Of StatusList) = DirectCast(state.Data, List(Of StatusList))
             For Each obj As StatusList In newObjlst
+                objLst.Add(obj)
+            Next
+        End If
+        Return objLst
+    End Function
+
+    Public Overrides Function GetAllFiscalYear() As List(Of FiscalYear)
+        Dim state As StateData = SelectionMgmt.GetAllFiscalYear()
+        Dim objLst As New List(Of FiscalYear)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of FiscalYear) = DirectCast(state.Data, List(Of FiscalYear))
+            For Each obj As FiscalYear In newObjlst
                 objLst.Add(obj)
             Next
         End If

@@ -234,6 +234,39 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
         #endregion
+
+        #region Fiscal Year
+        public List<clsFiscalYearList> GetAllFiscalYear()
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetFiscalYear]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderFY(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsFiscalYearList::clsFiscalYearList::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        #endregion
+
         #endregion
 
         #region Private Methods
@@ -422,7 +455,29 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             return list;
         }
+
         #endregion
+
+        #region Fiscal Year Object
+        internal void PopulateBusinessObjectFromReaderFiscalYear(clsFiscalYearList businessObject, IDataReader dataReader)
+        {
+            businessObject.FISCAL_YEAR = dataReader.GetString(dataReader.GetOrdinal(clsFiscalYearList.clsFiscalYearListFields.FISCAL_YEAR.ToString()));
+        }
+
+        internal List<clsFiscalYearList> PopulateObjectsFromReaderFY(IDataReader dataReader)
+        {
+            List<clsFiscalYearList> list = new List<clsFiscalYearList>();
+
+            while (dataReader.Read())
+            {
+                clsFiscalYearList businessObject = new clsFiscalYearList();
+                PopulateBusinessObjectFromReaderFiscalYear(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+        #endregion
+
         #endregion
 
     }

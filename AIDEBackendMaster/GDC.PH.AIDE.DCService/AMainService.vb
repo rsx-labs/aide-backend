@@ -392,6 +392,7 @@
     MustOverride Function GetAllDepartment() As List(Of DepartmentList)
     MustOverride Function GetAllDivision() As List(Of DivisionList)
     MustOverride Function GetAllStatus(_statusName As String) As List(Of StatusList)
+    MustOverride Function GetAllFiscalYear() As List(Of FiscalYear)
 #End Region
 
 #Region "KPI Targets Method"

@@ -354,4 +354,45 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
         #endregion
     }
+
+    public class clsFiscalYearList : BusinessObjectBase
+    {
+        #region InnerClass
+        public enum clsFiscalYearListFields
+        {
+            FISCAL_YEAR
+        }
+        #endregion
+
+        #region Data Members
+
+        string _fiscalyear;
+
+        #endregion
+
+        #region Properties
+
+        public string FISCAL_YEAR
+        {
+            get { return _fiscalyear; }
+            set
+            {
+                if (_fiscalyear != value)
+                {
+                    _fiscalyear = value;
+                    PropertyHasChanged("FISCAL_YEAR");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Validation
+
+        internal override void AddValidationRules()
+        {
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FISCAL_YEAR", "FISCAL_YEAR"));
+        }
+        #endregion
+    }
 }
