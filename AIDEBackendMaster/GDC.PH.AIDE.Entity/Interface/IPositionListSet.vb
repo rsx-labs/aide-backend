@@ -28,7 +28,7 @@ End Interface
 Public Interface IDivisionListSet
     Property DIV_ID As Integer
     Property DIV_DESCR As String
-    Function GetAllDivision() As List(Of DivisionListSet)
+    Function GetAllDivision(DeptID As Integer) As List(Of DivisionListSet)
 End Interface
 
 Public Interface IStatusListSet

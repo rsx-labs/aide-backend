@@ -390,7 +390,7 @@
     MustOverride Function GetAllPosition() As List(Of PositionList)
     MustOverride Function GetAllPermission() As List(Of PermissionList)
     MustOverride Function GetAllDepartment() As List(Of DepartmentList)
-    MustOverride Function GetAllDivision() As List(Of DivisionList)
+    MustOverride Function GetAllDivision(ByVal DeptID As Integer) As List(Of DivisionList)
     MustOverride Function GetAllStatus(_statusName As String) As List(Of StatusList)
     MustOverride Function GetAllFiscalYear() As List(Of FiscalYear)
 #End Region

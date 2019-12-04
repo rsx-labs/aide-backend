@@ -2731,8 +2731,8 @@ Public MustInherit Class MainService
         Return objLst
     End Function
 
-    Public Overrides Function GetAllDivision() As List(Of DivisionList)
-        Dim state As StateData = SelectionMgmt.GetAllDivisions()
+    Public Overrides Function GetAllDivision(ByVal DeptID As Integer) As List(Of DivisionList)
+        Dim state As StateData = SelectionMgmt.GetAllDivisions(DeptID)
         Dim objLst As New List(Of DivisionList)
 
         If Not IsNothing(state.Data) Then

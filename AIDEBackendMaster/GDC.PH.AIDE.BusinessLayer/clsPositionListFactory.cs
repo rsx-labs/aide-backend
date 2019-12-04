@@ -40,9 +40,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAllDeparment();
         }
 
-        public List<clsDivisionList> GetAllDivision()
+        public List<clsDivisionList> GetAllDivision(int deptID)
         {
-            return _dataObject.GetAllDivision();
+            return _dataObject.GetAllDivision(deptID);
         }
 
         public List<clsStatusList> GetAllStatus(string _statusname)
