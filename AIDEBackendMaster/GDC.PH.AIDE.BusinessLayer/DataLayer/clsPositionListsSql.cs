@@ -134,7 +134,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// Select all rescords
         /// </summary>
         /// <returns>list of clsDivision</returns>
-        public List<clsDivisionList> GetAllDivision()
+        public List<clsDivisionList> GetAllDivision(int deptID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAllDivision]";
@@ -145,8 +145,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
+                sqlCommand.Parameters.Add(new SqlParameter("@DEPTID", deptID));
                 MainConnection.Open();
-
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
                 return PopulateObjectsFromReaderDivision(dataReader);

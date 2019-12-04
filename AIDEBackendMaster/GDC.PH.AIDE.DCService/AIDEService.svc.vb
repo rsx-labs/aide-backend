@@ -1070,8 +1070,8 @@ Public Class AIDEService
         Return MyBase.GetAllDepartment()
     End Function
 
-    Public Function GetAllDivisions() As List(Of DivisionList) Implements IAideService.GetAllDivision
-        Return MyBase.GetAllDivision()
+    Public Function GetAllDivisions(ByVal DeptID As Integer) As List(Of DivisionList) Implements IAideService.GetAllDivision
+        Return MyBase.GetAllDivision(DeptID)
     End Function
 
     Public Function GetAllPermissions() As List(Of PermissionList) Implements IAideService.GetAllPermission

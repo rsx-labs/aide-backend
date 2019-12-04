@@ -303,12 +303,12 @@ Public Class DivisionListSet
     End Property
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
-    Public Function GetAllDivision() As List(Of DivisionListSet) Implements IDivisionListSet.GetAllDivision
+    Public Function GetAllDivision(ByVal DivID As Integer) As List(Of DivisionListSet) Implements IDivisionListSet.GetAllDivision
         Dim cList As List(Of clsDivisionList)
         Dim cListSet As New List(Of DivisionListSet)
         Try
 
-            cList = cSelectionFactory.GetAllDivision()
+            cList = cSelectionFactory.GetAllDivision(DivID)
 
             If Not IsNothing(cList) Then
                 For Each cObject As clsDivisionList In cList

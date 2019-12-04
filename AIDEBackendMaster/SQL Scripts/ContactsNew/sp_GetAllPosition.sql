@@ -5,6 +5,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_GetAllPosition]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[sp_GetAllPosition]
+GO
 -- =============================================
 -- Author:		<Author,,Name>
 -- Create date: <Create Date,,>

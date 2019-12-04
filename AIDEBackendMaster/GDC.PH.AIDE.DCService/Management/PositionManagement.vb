@@ -200,7 +200,7 @@ Public Class PositionManagement
         Return state
     End Function
 
-    Public Function GetAllDivisions() As StateData
+    Public Function GetAllDivisions(ByVal DeptID As Integer) As StateData
         Dim objSet As New DivisionListSet
         Dim objSetList As List(Of DivisionListSet)
         Dim classDataList As New List(Of DivisionList)
@@ -209,7 +209,7 @@ Public Class PositionManagement
         Dim status As NotifyType
 
         Try
-            objSetList = objSet.GetAllDivision()
+            objSetList = objSet.GetAllDivision(DeptID)
 
             If Not IsNothing(objSetList) Then
                 For Each objList As DivisionListSet In objSetList

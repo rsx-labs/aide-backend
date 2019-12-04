@@ -676,7 +676,7 @@ Public Interface IAideService
     Function GetAllDepartment() As List(Of DepartmentList)
 
     <OperationContract()>
-    Function GetAllDivision() As List(Of DivisionList)
+    Function GetAllDivision(ByVal DeptID As Integer) As List(Of DivisionList)
 
     <OperationContract()>
     Function GetAllStatus(statusName As String) As List(Of StatusList)
