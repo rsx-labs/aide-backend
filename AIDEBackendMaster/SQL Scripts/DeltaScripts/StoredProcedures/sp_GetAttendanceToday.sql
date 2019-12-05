@@ -42,7 +42,7 @@ BEGIN
 								   AND B.DEPT_ID = @DEPT_ID
 								   AND B.DIV_ID = @DIV_ID)
 
-	DECLARE @DT_TIME_TODAY TIME = '14:00:00'
+	DECLARE @DT_TIME_TODAY TIME = CONVERT(VARCHAR(10),getdate(), 108)  
 	DECLARE @startdate_today time
 	DECLARE @enddate_today time
 
