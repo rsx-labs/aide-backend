@@ -26,12 +26,14 @@ BEGIN
 								     STATUS INT,
 								     IMAGE_PATH VARCHAR(MAX),
 									 DSPLY_ORDR INT)
-	DECLARE @DEPT_ID INT = (SELECT A.DEPT_ID FROM EMPLOYEE A INNER JOIN CONTACTS B
+
+	DECLARE @DEPT_ID INT = (SELECT DEPT_ID FROM EMPLOYEE A INNER JOIN CONTACTS B
 							ON A.EMP_ID = B.EMP_ID
 							WHERE B.EMAIL_ADDRESS = @EMAIL_ADDRESS)
 	DECLARE @DIV_ID INT = (SELECT A.DIV_ID FROM EMPLOYEE A INNER JOIN CONTACTS B
 						   ON A.EMP_ID = B.EMP_ID
 						   WHERE B.EMAIL_ADDRESS = @EMAIL_ADDRESS)
+
 	DECLARE @DSPLY_ORDR INT
 	DECLARE @counter INT = 1
 	DECLARE @totalEmployees INT = (SELECT COUNT(A.EMP_ID) FROM ATTENDANCE A INNER JOIN EMPLOYEE B
@@ -41,110 +43,98 @@ BEGIN
 								   AND B.DIV_ID = @DIV_ID)
 
 	DECLARE @DT_TIME_TODAY TIME = '14:00:00'
-	declare @startdate_today time
-	declare @enddate_today time
+	DECLARE @startdate_today time
+	DECLARE @enddate_today time
 
-	if @DT_TIME_TODAY between '00:00:00' and '13:59:59'
-		begin
-			set @startdate_today = '00:00:00'
-			set @enddate_today = '13:59:59'
-		end
-	else
-		begin
-			set @startdate_today = '14:00:00'
-			set @enddate_today = '23:59:59'
-		end 
+	IF @DT_TIME_TODAY between '00:00:00' and '13:59:59'
+		BEGIN
+			SET @startdate_today = '00:00:00'
+			SET @enddate_today = '13:59:59'
+		END
+	ELSE
+		BEGIN
+			SET @startdate_today = '14:00:00'
+			SET @enddate_today = '23:59:59'
+		END 
 
 	WHILE (@counter <= @totalEmployees)
 		BEGIN
 		---date flag 1-morning 2-afternoon
 			INSERT INTO @ATTENDANCE_TODAY (EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH, DSPLY_ORDR)
-				select DISTINCT B.EMP_ID, B.LAST_NAME + ', ' + B.FIRST_NAME + ' ' + SUBSTRING(B.MIDDLE_NAME,1,1) + '' AS EMPLOYEE_NAME, 
+				SELECT DISTINCT B.EMP_ID, B.LAST_NAME + ', ' + B.FIRST_NAME + ' ' + SUBSTRING(B.MIDDLE_NAME,1,1) + '' AS EMPLOYEE_NAME, 
 						D.DESCR, 
 						a.DATE_ENTRY,
 						a.STATUS, 
 						B.IMAGE_PATH, 
-						case when  A.STATUS = 2 OR A.STATUS = 11 OR A.STATUS = 7 THEN  1  
+						CASE when  A.STATUS = 2 OR A.STATUS = 11 OR A.STATUS = 7 THEN  1  
 							 WHEN  A.STATUS = 1 OR A.STATUS = 13 OR A.STATUS = 14 THEN 2
 							 WHEN  A.STATUS = 4 OR A.STATUS = 6 OR A.STATUS = 8 OR A.STATUS = 9 OR A.STATUS = 10 OR A.STATUS = 12 THEN 3
 							 WHEN  A.STATUS = 3 OR A.STATUS = 5 OR A.STATUS = 13 OR A.STATUS = 14 THEN 4	 
-						else
+						ELSE
 						 5
-						end  as DSPLAY_ORDER
-					
-
-				from ATTENDANCE a 
-				inner join EMPLOYEE b on a.EMP_ID = b.EMP_ID
+						END  as DSPLAY_ORDER
+				FROM ATTENDANCE a 
+				INNER JOIN EMPLOYEE b on a.EMP_ID = b.EMP_ID
 				INNER JOIN DIVISION D ON B.DIV_ID = D.DIV_ID
-				where CONVERT(DATE,A.DATE_ENTRY) = CONVERT(DATE,GETDATE())
-				AND B.DEPT_ID = b.DEPT_ID
-				AND B.DIV_ID = d.DIV_ID
+				WHERE CONVERT(DATE,A.DATE_ENTRY) = CONVERT(DATE,GETDATE())
+				AND B.DEPT_ID = @DEPT_ID
+				AND B.DIV_ID = @DIV_ID
 				AND A.EMP_ID = b.EMP_ID
-				and b.ACTIVE <> 2
+				AND b.ACTIVE <> 2
 				ORDER BY B.EMP_ID
-						
-		SET @counter += 1
+			
+			SET @counter += 1
 		END
 	
+	CREATE TABLE #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
+	CREATE TABLE #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
 
-create table #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
-create table #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
-
-
-
-
- INSERT INTO #summaryTbl 
+	INSERT INTO #summaryTbl 
 	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY order by DSPLY_ORDR ASC
 
-	if @DT_TIME_TODAY between  '00:00:00' and '13:59:59' 
-			begin
-			insert into #summaryTbl2
-				select distinct at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
-						case when  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
-							else
-							at.DATE_ENTRY
-						end  as DATE_ENTRY,
-						CASE WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and st.EMP_ID = at.EMP_ID) 
-								ELSE
-								 (select STATUS from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
-						END  as STATUS,
-							at.IMAGE_PATH,
-							CASE WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and st.EMP_ID = at.EMP_ID) 
-								ELSE
-									 (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
-							END  as DSPLY_ORDR																
-	FROM #summaryTbl at inner join ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
-	order by at.EMPLOYEE_NAME ASC
+	IF @DT_TIME_TODAY between  '00:00:00' and '13:59:59' 
+		BEGIN
+			INSERT INTO #summaryTbl2
+			SELECT DISTINCT at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
+					ELSE at.DATE_ENTRY
+				END AS DATE_ENTRY,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and st.EMP_ID = at.EMP_ID) 
+					ELSE (select STATUS from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
+				END AS STATUS,
+				at.IMAGE_PATH,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and st.EMP_ID = at.EMP_ID) 
+					ELSE (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
+				END  as DSPLY_ORDR																
+			FROM #summaryTbl at INNER JOIN ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
+			ORDER BY at.EMPLOYEE_NAME ASC
+		END
+	ELSE
+		BEGIN
+			INSERT INTO #summaryTbl2
+			SELECT DISTINCT at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
+					ELSE at.DATE_ENTRY
+				END as DATE_ENTRY,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59'  GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID)
+					ELSE (SELECT STATUS FROM #summaryTbl WHERE CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
+				END  as STATUS,
+				at.IMAGE_PATH,
+				CASE 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59' GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
+					ELSE (SELECT DSPLY_ORDR FROM #summaryTbl WHERE  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
+				END  as DSPLY_ORDR																
+			FROM #summaryTbl at INNER JOIN ATTENDANCE a on AT.EMP_ID = A.EMP_ID 
+			ORDER BY at.EMPLOYEE_NAME ASC
+		END
 
-			end
-		else
-			begin
-			insert into #summaryTbl2
-			select distinct at.emp_id, at.EMPLOYEE_NAME,at.DESCR,
-						case when  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
-							else
-							at.DATE_ENTRY
-						end  as DATE_ENTRY,
-						CASE	WHEN	EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
-								WHEN	EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59'  GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID)
-								ELSE
-								 (select STATUS from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
-						END  as STATUS,
-							at.IMAGE_PATH,
-							CASE	WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
-									WHEN  EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59' GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.DSPLY_ORDR from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
-								ELSE
-									 (select DSPLY_ORDR from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)   between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )							
-							END  as DSPLY_ORDR																
-	FROM #summaryTbl at inner join ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
-	order by at.EMPLOYEE_NAME ASC
-			end
-
-
-
-
-select * from #summaryTbl2 order by DSPLY_ORDR , EMPLOYEE_NAME asc
-
-
+	SELECT * FROM #summaryTbl2 ORDER BY DSPLY_ORDR, EMPLOYEE_NAME ASC
 END
 
