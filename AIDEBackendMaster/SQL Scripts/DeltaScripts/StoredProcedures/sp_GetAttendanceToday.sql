@@ -40,7 +40,7 @@ BEGIN
 								   AND B.DEPT_ID = @DEPT_ID
 								   AND B.DIV_ID = @DIV_ID)
 
-	DECLARE @DT_TIME_TODAY TIME = '14:00:00'
+	DECLARE @DT_TIME_TODAY TIME = CONVERT(VARCHAR(10),getdate(), 108)  
 	declare @startdate_today time
 	declare @enddate_today time
 
@@ -139,9 +139,6 @@ create table #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarcha
 	FROM #summaryTbl at inner join ATTENDANCE a  on AT.EMP_ID = A.EMP_ID 
 	order by at.EMPLOYEE_NAME ASC
 			end
-
-
-
 
 select * from #summaryTbl2 order by DSPLY_ORDR , EMPLOYEE_NAME asc
 
