@@ -6,7 +6,9 @@
 #Region "Action List Method"
     MustOverride Function InsertActionLst(ByVal _Action As Action) As Boolean
     MustOverride Function GetActionLstByMessage(ByVal _Message As String, ByVal email As String, ByRef objResult As List(Of Action)) As Boolean
+    MustOverride Function GetActionLstByActionNo(ByVal actionNo As String, ByVal empID As Integer, ByRef objResult As List(Of Action))
     MustOverride Function GetActionSummry(ByVal email As String, ByRef objResult As List(Of Action)) As Boolean
+    MustOverride Function GetLessonLearntLstOfActionSummary(ByRef empID As Integer, ByRef objResult As List(Of Action))
     MustOverride Function UpdateActionLst(ByVal _Action As Action) As Boolean
 #End Region
 

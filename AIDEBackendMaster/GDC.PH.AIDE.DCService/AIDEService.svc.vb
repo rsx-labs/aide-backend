@@ -251,10 +251,20 @@ Public Class AIDEService
         Return Actionlist
     End Function
 
+    Public Function GetActionListByActionNo(actionNo As String, empID As Integer) As List(Of Action) Implements IAideService.GetActionListByActionNo
+        Dim actionList As List(Of Action) = Nothing
+        Return MyBase.GetActionLstByActionNo(actionNo, empID, actionList)
+    End Function
+
     Public Function GetActionSummary(email As String) As List(Of Action) Implements IAideService.GetActionSummary
         Dim Actionlist As List(Of Action) = Nothing
         MyBase.GetActionSummry(email, Actionlist)
         Return Actionlist
+    End Function
+
+    Public Function GetLessonLearntListOfActionSummary(empID As Integer) As List(Of Action) Implements IAideService.GetLessonLearntListOfActionSummary
+        Dim lstActionSummary As List(Of Action) = Nothing
+        Return MyBase.GetLessonLearntLstOfActionSummary(empID, lstActionSummary)
     End Function
 
 #End Region

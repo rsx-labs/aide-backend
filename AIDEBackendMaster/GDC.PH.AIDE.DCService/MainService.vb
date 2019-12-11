@@ -255,6 +255,48 @@ Public MustInherit Class MainService
         ReceivedData(state)
         Return bSuccess
     End Function
+
+    Public Overrides Function GetActionLstByActionNo(ByVal actionNo As String, ByVal empID As Integer, ByRef objResult As List(Of Action))
+        Dim state As StateData = ActionMgmt.GetActionLstByActionNo(actionNo, empID)
+        Dim actionList As New List(Of Action)
+
+        If state.Data IsNot Nothing Then
+            Dim actionLst As List(Of Action) = DirectCast(state.Data, List(Of Action))
+            For Each _list As Action In actionLst
+                Dim item As New Action
+
+                item.Act_ID = _list.Act_ID
+                item.Act_Message = _list.Act_Message
+                item.Act_Assignee = _list.Act_Assignee
+                item.Act_DueDate = _list.Act_DueDate
+                item.Act_DateClosed = _list.Act_DateClosed
+
+                actionList.Add(item)
+            Next
+        End If
+        Return actionList
+    End Function
+
+    Public Overrides Function GetLessonLearntLstOfActionSummary(ByRef empID As Integer, ByRef objResult As List(Of Action))
+        Dim state As StateData = ActionMgmt.GetLessonLearntLstOfActionSummary(empID)
+        Dim actionList As New List(Of Action)
+
+        If state.Data IsNot Nothing Then
+            Dim actionLst As List(Of Action) = DirectCast(state.Data, List(Of Action))
+            For Each _list As Action In actionLst
+                Dim item As New Action
+
+                item.Act_ID = _list.Act_ID
+                item.Act_Message = _list.Act_Message
+                item.Act_Assignee = _list.Act_Assignee
+                item.Act_DueDate = _list.Act_DueDate
+                item.Act_DateClosed = _list.Act_DateClosed
+
+                actionList.Add(item)
+            Next
+        End If
+        Return actionList
+    End Function
 #End Region
 
     ''' <summary>

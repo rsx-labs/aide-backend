@@ -11,10 +11,9 @@ Imports System.Data.SqlClient
 Public Class ActionListSet
     Implements IActionLists, INotifyPropertyChanged
 
-
-
     Private cAction As clsActionLists
     Private cActionFactory As clsActionListsFactory
+
     Public Sub New()
         cAction = New clsActionLists()
         cActionFactory = New clsActionListsFactory()
@@ -79,14 +78,11 @@ Public Class ActionListSet
         End Set
     End Property
 
-
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
-
-
 
     Public Function GetActionListByMessage(ByVal _ActionMessage As String, ByVal email As String) As List(Of ActionListSet) Implements IActionLists.GetActionListByMessage
         Try
@@ -135,6 +131,56 @@ Public Class ActionListSet
         End Try
     End Function
 
+    Public Function GetActionListByActionNo(ByVal actionNo As String, ByVal empID As Integer) As List(Of ActionListSet) Implements IActionLists.GetActionListByActionNo
+        Try
+            Dim objAction As List(Of clsActionLists)
+            Dim lstAction As New List(Of ActionListSet)
+            objAction = cActionFactory.GetActionListByActionNo(actionNo, empID)
+
+            If objAction IsNot Nothing Then
+                For Each cAction As clsActionLists In objAction
+                    Dim newActionList As New ActionListSet(cAction)
+                    lstAction.Add(newActionList)
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return lstAction
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetLessonLearntListOfActionSummary(ByVal empID As Integer) As List(Of ActionListSet) Implements IActionLists.GetLessonLearntListOfActionSummary
+        Try
+            Dim objAction As List(Of clsActionLists)
+            Dim lstAction As New List(Of ActionListSet)
+            objAction = cActionFactory.GetLessonLearntListOfActionSummary(empID)
+
+            If objAction IsNot Nothing Then
+                For Each cAction As clsActionLists In objAction
+                    Dim newActionList As New ActionListSet(cAction)
+                    lstAction.Add(newActionList)
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return lstAction
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
     Public Function InsertActionList() As Boolean Implements IActionLists.InsertActionList
         Try
             Return Me.cActionFactory.Insert(cAction)
@@ -158,7 +204,6 @@ Public Class ActionListSet
             End If
         End Try
     End Function
-
 
 End Class
 

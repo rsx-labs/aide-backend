@@ -13,6 +13,8 @@ Public Interface IActionLists
 
     Function InsertActionList() As Boolean
     Function GetActionListByMessage(ByVal ActionMessage As String, ByVal email As String) As List(Of ActionListSet)
+    Function GetActionListByActionNo(ByVal actionNo As String, ByVal empID As Integer) As List(Of ActionListSet)
     Function GetAllActionList(ByVal email As String) As List(Of ActionListSet)
+    Function GetLessonLearntListOfActionSummary(ByVal empID As Integer) As List(Of ActionListSet)
     Function UpdateActionList() As Boolean
 End Interface

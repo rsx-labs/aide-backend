@@ -121,4 +121,52 @@ Public Class ActionManagement
         state = GetStateData(status, objAction, message)
         Return state
     End Function
+
+    Public Function GetActionLstByActionNo(ByVal actionNo As String, ByVal empID As Integer) As StateData
+        Dim actionSet As New ActionListSet
+        Dim lstAction As List(Of ActionListSet)
+        Dim objAction As New List(Of Action)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAction = actionSet.GetActionListByActionNo(actionNo, empID)
+            If lstAction IsNot Nothing Then
+                For Each actionData As ActionListSet In lstAction
+                    objAction.Add(DirectCast(GetMappedFields(actionData), Action))
+                Next
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAction, message)
+        Return state
+    End Function
+
+    Public Function GetLessonLearntLstOfActionSummary(ByVal empID As Integer) As StateData
+        Dim actionSet As New ActionListSet
+        Dim lstAction As List(Of ActionListSet)
+        Dim objAction As New List(Of Action)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAction = actionSet.GetLessonLearntListOfActionSummary(empID)
+            If lstAction IsNot Nothing Then
+                For Each actionData As ActionListSet In lstAction
+                    objAction.Add(DirectCast(GetMappedFields(actionData), Action))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+
+        state = GetStateData(status, objAction, message)
+        Return state
+    End Function
 End Class
