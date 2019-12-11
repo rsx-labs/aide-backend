@@ -195,7 +195,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             catch (Exception ex)
             {
-                throw new Exception("clsActionLists::GetLessonLearntListOfActionSummary::Error occured.", ex);
+                throw new Exception("clsActionLists::GetActionListByActionNo::Error occured.", ex);
             }
             finally
             {
