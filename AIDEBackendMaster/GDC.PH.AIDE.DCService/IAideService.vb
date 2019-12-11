@@ -16,7 +16,13 @@ Public Interface IAideService
     Function GetActionListByMessage(ByVal _Message As String, ByVal email As String) As List(Of Action)
 
     <OperationContract()>
+    Function GetActionListByActionNo(ByVal actionNo As String, ByVal empID As Integer) As List(Of Action)
+
+    <OperationContract()>
     Function GetActionSummary(ByVal email As String) As List(Of Action)
+
+    <OperationContract()>
+    Function GetLessonLearntListOfActionSummary(ByVal empID As Integer) As List(Of Action)
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateActionList(ByVal _Action As Action)

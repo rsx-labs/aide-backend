@@ -171,6 +171,72 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
+        /// <summary>
+        /// Select action list by action No
+        /// </summary>
+        /// <returns>list of clsActionList</returns>
+        public List<clsActionLists> GetActionListByActionNo(string actionNo, int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetActionListByActionNo]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@ACT_ID", actionNo));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsActionLists::GetLessonLearntListOfActionSummary::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+
+        /// <summary>
+        /// Select action list records
+        /// </summary>
+        /// <returns>list of clsActionList</returns>
+        public List<clsActionLists> GetLessonLearntListOfActionSummary(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetLessonLearntListOfActionSummary]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsActionLists::GetLessonLearntListOfActionSummary::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
         #endregion
 
         #region Private Methods
@@ -182,11 +248,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="dataReader">data reader</param>
         internal void PopulateBusinessObjectFromReader(clsActionLists businessObject, IDataReader dataReader)
         {
-
             businessObject.ACTREF = dataReader.GetString(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.ACTREF.ToString()));
-
             businessObject.ACT_MESSAGE = dataReader.GetString(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.ACT_MESSAGE.ToString()));
-
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.EMP_ID.ToString()));
 
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.NICK_NAME.ToString())))
@@ -204,7 +267,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.DATE_CLOSED = dataReader.GetString(dataReader.GetOrdinal(clsActionLists.clsActionListsFields.DATE_CLOSED.ToString()));
             }
-
         }
 
 
@@ -215,7 +277,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <returns>list of clsAssignedProjects</returns>
         internal List<clsActionLists> PopulateObjectsFromReader(IDataReader dataReader)
         {
-
             List<clsActionLists> list = new List<clsActionLists>();
 
             while (dataReader.Read())
@@ -225,7 +286,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 list.Add(businessObject);
             }
             return list;
-
         }
 
         #endregion

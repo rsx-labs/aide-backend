@@ -68,7 +68,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
 
         /// <summary>
-        /// get list of all clsAssignedProjectss
+        /// get list of all clsActionList
         /// </summary>
         /// <returns>list</returns>
         public List<clsActionLists> GetAll(string email)
@@ -76,6 +76,23 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.SelectAllActionLists(email);
         }
 
+        /// <summary>
+        /// get list of clsActionList By action no
+        /// </summary>
+        /// <returns>list</returns>
+        public List<clsActionLists> GetActionListByActionNo(string actionNo, int empID)
+        {
+            return _dataObject.GetActionListByActionNo(actionNo, empID);
+        }
+
+        /// <summary>
+        /// get list of clsActionList
+        /// </summary>
+        /// <returns>list</returns>
+        public List<clsActionLists> GetLessonLearntListOfActionSummary(int empID)
+        {
+            return _dataObject.GetLessonLearntListOfActionSummary(empID);
+        }
         #endregion
 
     }
