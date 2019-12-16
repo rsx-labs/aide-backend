@@ -610,7 +610,7 @@ Public Interface IAideService
     Function GetMissingReportsByEmpID(ByVal empID As Integer, ByVal currentDate As Date) As List(Of ContactList)
 
     <OperationContract()>
-    Function GetWeeklyTeamStatusReport(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer) As List(Of WeeklyTeamStatusReport)
+    Function GetWeeklyTeamStatusReport(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer, ByVal entryType As Integer) As List(Of WeeklyTeamStatusReport)
 #End Region
 
 #Region "AuditSched Operation Contracts"
