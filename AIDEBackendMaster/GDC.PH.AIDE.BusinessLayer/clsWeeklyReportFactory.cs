@@ -109,9 +109,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetTasksDataByEmpID(weekRangeID, empID);
         }
 
-        public List<clsWeeklyTeamStatusReport> GetWeeklyTeamStatusReport(int empID, int month, int year, int weekID)
+        public List<clsWeeklyTeamStatusReport> GetWeeklyTeamStatusReport(int empID, int month, int year, int weekID, int entryType)
         {
-            return _dataObject.GetWeeklyTeamStatusReport(empID, month, year, weekID);
+            return _dataObject.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType);
         }
 
         #endregion

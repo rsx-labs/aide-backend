@@ -982,9 +982,9 @@ Public Class AIDEService
         Return lstWeekRange
     End Function
 
-    Public Function GetTheWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of WeeklyTeamStatusReport) Implements IAideService.GetWeeklyTeamStatusReport
+    Public Function GetTheWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer) As List(Of WeeklyTeamStatusReport) Implements IAideService.GetWeeklyTeamStatusReport
         Dim lstWeeklyTeamStatusReport As List(Of WeeklyTeamStatusReport) = Nothing
-        MyBase.GetWeeklyTeamStatusReport(empID, month, year, weekID, lstWeeklyTeamStatusReport)
+        MyBase.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType, lstWeeklyTeamStatusReport)
         Return lstWeeklyTeamStatusReport
     End Function
 

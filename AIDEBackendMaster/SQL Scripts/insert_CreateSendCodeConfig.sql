@@ -15,10 +15,10 @@ GO
 DELETE FROM SEND_CODE_CONFIG
 
 DECLARE @EncryptBin VARBINARY(200)
-SET @EncryptBin = ENCRYPTBYPASSPHRASE('fujitsu.key.001', 'aide123!')
+SET @EncryptBin = ENCRYPTBYPASSPHRASE('fujitsu.key.001', 'Retail.2019!')
 
 INSERT INTO SEND_CODE_CONFIG
-VALUES('aide.autosendemailcode@gmail.com','AIDE Access Code','ACCESS CODE : ',587,'smtp.gmail.com',1,30000,0,(Select CONVERT(VARCHAR(MAX), @EncryptBin,1)),120)
+VALUES('aide.notifications@ph.fujitsu.com','AIDE Access Code','ACCESS CODE : ',25,'webmail.g07.fujitsu.local',0,30000,0,(Select CONVERT(VARCHAR(MAX), @EncryptBin,1)),120)
 
 GO
 

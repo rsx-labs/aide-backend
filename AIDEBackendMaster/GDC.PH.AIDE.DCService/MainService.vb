@@ -2529,8 +2529,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, ByRef objResult As List(Of WeeklyTeamStatusReport)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.GetWeeklyTeamStatusReport(empID, month, year, weekID)
+    Public Overrides Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer, ByRef objResult As List(Of WeeklyTeamStatusReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

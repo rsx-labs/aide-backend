@@ -261,7 +261,7 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As StateData
+    Public Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer) As StateData
         Dim weeklyTeamStatusReportSet As New WeeklyTeamStatusReportSet
         Dim weeklyTeamStatusReportSetList As List(Of WeeklyTeamStatusReportSet)
         Dim objweeklyTeamStatusReport As New List(Of WeeklyTeamStatusReport)
@@ -270,7 +270,7 @@ Public Class WeeklyReportManagement
         Dim status As NotifyType
 
         Try
-            weeklyTeamStatusReportSetList = weeklyTeamStatusReportSet.GetWeeklyTeamStatusReport(empID, month, year, weekID)
+            weeklyTeamStatusReportSetList = weeklyTeamStatusReportSet.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType)
 
             If Not IsNothing(weeklyTeamStatusReportSetList) Then
                 For Each objList As WeeklyTeamStatusReportSet In weeklyTeamStatusReportSetList

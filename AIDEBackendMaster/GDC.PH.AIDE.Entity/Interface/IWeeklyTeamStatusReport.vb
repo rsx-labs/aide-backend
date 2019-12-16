@@ -10,7 +10,7 @@
     Property DateSubmitted As Date
     Property DateRange As String
 
-    Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of WeeklyTeamStatusReportSet)
+    Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer) As List(Of WeeklyTeamStatusReportSet)
 #End Region
 
 End Interface

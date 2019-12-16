@@ -494,7 +494,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsWeeklyTeamStatusReport> GetWeeklyTeamStatusReport(int empID, int month, int year, int weekID)
+        public List<clsWeeklyTeamStatusReport> GetWeeklyTeamStatusReport(int empID, int month, int year, int weekID, int entryType)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetWeeklyTeamStatusReport]";
@@ -509,6 +509,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@MONTH", month));
                 sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
                 sqlCommand.Parameters.Add(new SqlParameter("@WEEKID", weekID));
+                sqlCommand.Parameters.Add(new SqlParameter("@ENTRYTYPE", entryType));
 
                 MainConnection.Open();
 

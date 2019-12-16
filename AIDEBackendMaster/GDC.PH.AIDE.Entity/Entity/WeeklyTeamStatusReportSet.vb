@@ -88,10 +88,10 @@ Public Class WeeklyTeamStatusReportSet
 
 #Region "STORED PROCS"
 
-    Public Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of WeeklyTeamStatusReportSet) Implements IWeeklyTeamStatusReport.GetWeeklyTeamStatusReport
+    Public Function GetWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer) As List(Of WeeklyTeamStatusReportSet) Implements IWeeklyTeamStatusReport.GetWeeklyTeamStatusReport
         Try
             Dim objWeeklyTeamStatusReportList As List(Of clsWeeklyTeamStatusReport)
-            objWeeklyTeamStatusReportList = cWeeklyReportFactory.GetWeeklyTeamStatusReport(empID, month, year, weekID)
+            objWeeklyTeamStatusReportList = cWeeklyReportFactory.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType)
 
             If IsNothing(objWeeklyTeamStatusReportList) Then
                 Throw New NoRecordFoundException("Record Not Found!")
