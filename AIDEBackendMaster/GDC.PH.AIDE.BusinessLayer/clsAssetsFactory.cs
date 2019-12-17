@@ -57,12 +57,17 @@ namespace GDC.PH.AIDE.BusinessLayer
             {
                 throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
             }
-
-
             return _dataObject.UpdateAssets(businessObject);
         }
 
-
+        public bool DeleteAsset(clsAssets businessObject)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }
+            return _dataObject.DeleteAsset(businessObject);
+        }
 
         /// <summary>
         /// get list of all clsAssets
@@ -71,6 +76,11 @@ namespace GDC.PH.AIDE.BusinessLayer
         public List<clsAssets> GetAllAssetsByEmpID(int empID)
         {
             return _dataObject.GetAllAssetsByEmpID(empID);
+        }
+
+        public List<clsAssets> GetAllDeletedAssetsByEmpID(int empID)
+        {
+            return _dataObject.GetAllDeletedAssetsByEmpID(empID);
         }
 
         public List<clsAssets> GetMyAssets(int empID)
@@ -190,6 +200,17 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetAssetDescription();
         }
+
+        public List<clsAssets> GetAllManagersByDeptorDiv(int deptID, int divID)
+        {
+            return _dataObject.GetAllManagersByDeptorDiv(deptID, divID);
+        }
+
+        public List<clsAssets> GetAllAssetsCustodian(int empID)
+        {
+            return _dataObject.GetAllAssetsCustodian(empID);
+        }
+
         #endregion
     }
 }

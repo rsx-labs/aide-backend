@@ -1,6 +1,9 @@
 ﻿Imports GDC.PH.AIDE.BusinessLayer
 Public Interface IAssetsSet
     Property ASSET_ID As Integer
+    Property TRANSFER_ID As Integer
+    Property PREVIOUS_ID As Integer
+    Property PREVIOUS_OWNER As String
     Property EMP_ID As Integer
     Property ASSET_DESC As String
     Property MANUFACTURER As String
@@ -18,13 +21,18 @@ Public Interface IAssetsSet
     Property APPROVAL As Integer
     Property TABLE_NAME As String
     Property STATUS_DESCR As String
-
+    Property Nick_Name As String
+    Property ToDisplay As Integer
+    Property First_Name As String
+    Property Employee_Name As String
 
     Function GetMyAssets(ByVal empID As Integer) As List(Of AssetsSet)
     Function GetAllAssetsByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
+    Function GetAllDeletedAssetsByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
     Function GetAllAssetsBySearch(ByVal empID As Integer, ByVal input As String) As List(Of AssetsSet)
     Function InsertAssets(ByVal assets As AssetsSet) As Boolean
     Function UpdateAssets(ByVal assets As AssetsSet) As Boolean
+    Function DeleteAsset(ByVal assets As AssetsSet) As Boolean
     Function GetAllAssetsInventoryByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
     Function GetAllAssetsInventoryUnApproved(ByVal empID As Integer) As List(Of AssetsSet)
     Function InsertAssetsInventory(ByVal assets As AssetsSet) As Boolean
@@ -37,4 +45,6 @@ Public Interface IAssetsSet
     Function GetAllAssetsInventoryBySearch(ByVal empID As Integer, ByVal input As String, ByVal page As String) As List(Of AssetsSet)
     Function GetAssetManufacturer() As List(Of AssetsSet)
     Function GetAssetDescription() As List(Of AssetsSet)
+    Function GetAllManagersByDeptorDiv(ByVal deptID As Integer, ByVal divID As Integer) As List(Of AssetsSet)
+    Function GetAllAssetsCustodian(ByVal empID As Integer) As List(Of AssetsSet)
 End Interface

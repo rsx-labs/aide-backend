@@ -1803,8 +1803,48 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Overrides Function DeleteAsset(assets As Assets) As Boolean
+        Dim state As StateData = AssetsMgmt.DeleteAsset(assets)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Overrides Function GetAllAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
         Dim state As StateData = AssetsMgmt.GetAllAssetsByEmpID(empID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.ASSET_ID = _list.ASSET_ID
+                item.EMP_ID = _list.EMP_ID
+                item.ASSET_DESC = _list.ASSET_DESC
+                item.MANUFACTURER = _list.MANUFACTURER
+                item.MODEL_NO = _list.MODEL_NO
+                item.SERIAL_NO = _list.SERIAL_NO
+                item.ASSET_TAG = _list.ASSET_TAG
+                item.DATE_PURCHASED = _list.DATE_PURCHASED
+                item.STATUS = _list.STATUS
+                item.OTHER_INFO = _list.OTHER_INFO
+                item.DATE_ASSIGNED = _list.DATE_ASSIGNED
+                item.COMMENTS = _list.COMMENTS
+                item.FULL_NAME = _list.FULL_NAME
+                item.DEPARTMENT = _list.DEPARTMENT
+
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+    Public Overrides Function GetAllDeletedAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllDeletedAssetsByEmpID(empID)
         Dim assetsLst As New List(Of Assets)
 
         If Not IsNothing(state.Data) Then
@@ -1917,6 +1957,8 @@ Public MustInherit Class MainService
                 item.COMMENTS = _list.COMMENTS
                 item.FULL_NAME = _list.FULL_NAME
                 item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
 
                 assetsLst.Add(item)
             Next
@@ -1935,6 +1977,7 @@ Public MustInherit Class MainService
 
                 item.ASSET_ID = _list.ASSET_ID
                 item.EMP_ID = _list.EMP_ID
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
                 item.ASSET_DESC = _list.ASSET_DESC
                 item.MANUFACTURER = _list.MANUFACTURER
                 item.MODEL_NO = _list.MODEL_NO
@@ -1947,6 +1990,7 @@ Public MustInherit Class MainService
                 item.COMMENTS = _list.COMMENTS
                 item.FULL_NAME = _list.FULL_NAME
                 item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
 
                 assetsLst.Add(item)
             Next
@@ -2042,6 +2086,44 @@ Public MustInherit Class MainService
             Next
         End If
         Return lstNicknameList
+    End Function
+
+    Public Overrides Function GetAllManagersByDeptorDiv(deptID As Integer, divID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllManagersByDeptorDiv(deptID, divID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.EMP_ID = _list.EMP_ID
+                item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
+                item.Employee_Name = _list.Employee_Name
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+    Public Overrides Function GetAllAssetsCustodian(empID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllAssetsCustodian(empID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.EMP_ID = _list.EMP_ID
+                item.Nick_Name = _list.Nick_Name
+                item.First_Name = _list.First_Name
+                item.Employee_Name = _list.Employee_Name
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
     End Function
 
     Public Overrides Function GetAllAssetsHistory(ByVal empID As Integer) As List(Of Assets)

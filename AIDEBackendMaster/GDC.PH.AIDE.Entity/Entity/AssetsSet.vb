@@ -31,6 +31,33 @@ Public Class AssetsSet
         End Set
     End Property
 
+    Public Property TRANSFER_ID As Integer Implements IAssetsSet.TRANSFER_ID
+        Get
+            Return Me.cAssets.TRANSFER_ID
+        End Get
+        Set(value As Integer)
+            Me.cAssets.TRANSFER_ID = value
+        End Set
+    End Property
+
+    Public Property PREVIOUS_ID As Integer Implements IAssetsSet.PREVIOUS_ID
+        Get
+            Return Me.cAssets.PREVIOUS_ID
+        End Get
+        Set(value As Integer)
+            Me.cAssets.PREVIOUS_ID = value
+        End Set
+    End Property
+
+    Public Property PREVIOUS_OWNER As String Implements IAssetsSet.PREVIOUS_OWNER
+        Get
+            Return Me.cAssets.PREVIOUS_OWNER
+        End Get
+        Set(value As String)
+            Me.cAssets.PREVIOUS_OWNER = value
+        End Set
+    End Property
+
     Public Property EMP_ID As Integer Implements IAssetsSet.EMP_ID
         Get
             Return Me.cAssets.EMP_ID
@@ -184,6 +211,42 @@ Public Class AssetsSet
         End Set
     End Property
 
+    Public Property Nick_Name As String Implements IAssetsSet.Nick_Name
+        Get
+            Return IIf(IsDBNull(Me.cAssets.NICK_NAME), "", Me.cAssets.NICK_NAME)
+        End Get
+        Set(value As String)
+            Me.cAssets.NICK_NAME = value
+        End Set
+    End Property
+
+    Public Property First_Name As String Implements IAssetsSet.First_Name
+        Get
+            Return IIf(IsDBNull(Me.cAssets.FIRST_NAME), "", Me.cAssets.FIRST_NAME)
+        End Get
+        Set(value As String)
+            Me.cAssets.FIRST_NAME = value
+        End Set
+    End Property
+
+    Public Property ToDisplay As Integer Implements IAssetsSet.ToDisplay
+        Get
+            Return Me.cAssets.TO_DISPLAY
+        End Get
+        Set(value As Integer)
+            Me.cAssets.TO_DISPLAY = value
+        End Set
+    End Property
+
+    Public Property Employee_Name As String Implements IAssetsSet.Employee_Name
+        Get
+            Return Me.cAssets.EMPLOYEE_NAME
+        End Get
+        Set(value As String)
+            Me.cAssets.EMPLOYEE_NAME = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Sql Functions"
@@ -193,6 +256,35 @@ Public Class AssetsSet
         Try
 
             cList = cAssetsFactory.GetAllAssetsByEmpID(empID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAllDeletedAssetsByEmpID(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllDeletedAssetsByEmpID
+        Dim cList As List(Of clsAssets)
+        Dim cListSet As New List(Of AssetsSet)
+        Try
+
+            cList = cAssetsFactory.GetAllDeletedAssetsByEmpID(empID)
 
             If Not IsNothing(cList) Then
                 For Each cAssets As clsAssets In cList
@@ -289,6 +381,18 @@ Public Class AssetsSet
     Public Function UpdateAssets(assets As AssetsSet) As Boolean Implements IAssetsSet.UpdateAssets
         Try
             Return Me.cAssetsFactory.UpdateAssets(cAssets)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Update Success Register Failed!")
+            End If
+        End Try
+    End Function
+
+    Public Function DeleteAsset(assets As AssetsSet) As Boolean Implements IAssetsSet.DeleteAsset
+        Try
+            Return Me.cAssetsFactory.DeleteAsset(cAssets)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
@@ -574,6 +678,58 @@ Public Class AssetsSet
 
             End If
             Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAllManagersByDeptorDiv(deptID As Integer, divID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllManagersByDeptorDiv
+        Try
+            Dim cList As List(Of clsAssets)
+            Dim cListSet As New List(Of AssetsSet)
+
+            cList = Me.cAssetsFactory.GetAllManagersByDeptorDiv(deptID, divID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAllAssetsCustodian(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllAssetsCustodian
+        Try
+            Dim cList As List(Of clsAssets)
+            Dim cListSet As New List(Of AssetsSet)
+
+            cList = Me.cAssetsFactory.GetAllAssetsCustodian(empID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
             Return Nothing
         End Try
     End Function

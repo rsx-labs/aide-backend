@@ -91,6 +91,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
 
                 sqlCommand.Parameters.Add(new SqlParameter("@ASSET_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@TRANSFER_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TRANSFER_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@ASSET_DESC", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_DESC));
                 sqlCommand.Parameters.Add(new SqlParameter("@MANUFACTURER", SqlDbType.VarChar, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MANUFACTURER));
@@ -117,6 +118,36 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public bool DeleteAsset(clsAssets businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_DeleteAsset]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+
+                sqlCommand.Parameters.Add(new SqlParameter("@ASSET_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@OTHER_INFO", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.OTHER_INFO));
+
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::Delete::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
 
         /// <summary>
         /// Select all records
@@ -151,9 +182,38 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Close();
                 sqlCommand.Dispose();
             }
-
         }
 
+        public List<clsAssets> GetAllDeletedAssetsByEmpID(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllDeletedAssetsByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::sp_GetAllDeletedAssetsByEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
 
         /// <summary>
         /// Select My Assets
@@ -316,7 +376,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
 
                 sqlCommand.Parameters.Add(new SqlParameter("@ASSET_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PREVIOUS_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PREVIOUS_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@TRANSFER_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TRANSFER_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_ASSIGNED", SqlDbType.DateTime, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_ASSIGNED));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
                 sqlCommand.Parameters.Add(new SqlParameter("@COMMENTS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMENTS));
@@ -448,8 +509,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             // Use connection object of base class
             sqlCommand.Connection = MainConnection;
-
-
+            
             try
             {
                 MainConnection.Open();
@@ -470,7 +530,69 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 MainConnection.Close();
                 sqlCommand.Dispose();
             }
+        }
 
+        public List<clsAssets> GetAllManagersByDeptorDiv(int deptID, int divID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "[dbo].[sp_GetAllManagersByDeptorDiv]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@DEPT_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, deptID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DIV_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, divID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader7(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAllManagersByDeptorDiv::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public List<clsAssets> GetAllAssetsCustodian(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "[dbo].[sp_GetAllAssetsCustodian]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader7(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAllAssetsCustodian::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
         }
 
         public List<clsAssets> GetAllAssetsInventoryUnApproved(int empID)
@@ -705,6 +827,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.ASSET_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_ID.ToString()));
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.EMP_ID.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString())))
+            {
+                businessObject.PREVIOUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString()));
+            }
+            else
+            {
+                businessObject.PREVIOUS_ID = 0;
+            }
             businessObject.ASSET_DESC = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_DESC.ToString()));
             businessObject.MANUFACTURER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MANUFACTURER.ToString()));
             businessObject.MODEL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MODEL_NO.ToString()));
@@ -714,6 +844,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
             businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.STATUS.ToString()));
             businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_OWNER.ToString())))
+            {
+                businessObject.PREVIOUS_OWNER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_OWNER.ToString()));
+            }
+            else
+            {
+                businessObject.PREVIOUS_OWNER = String.Empty;
+            }
 
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString())))
             {
@@ -813,6 +952,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.ASSET_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_ID.ToString()));
             businessObject.ASSET_DESC = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_DESC.ToString()));
         }
+
+        internal void PopulateBusinessObjectFromReader7(clsAssets businessObject, IDataReader dataReader)
+        {
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.EMP_ID.ToString()));
+            businessObject.NICK_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.NICK_NAME.ToString()));
+            businessObject.FIRST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FIRST_NAME.ToString()));
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.EMPLOYEE_NAME.ToString()));
+        }
         /// <summary>
         /// Populate business objects from the data reader
         /// </summary>
@@ -905,6 +1052,19 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
 
+        internal List<clsAssets> PopulateObjectsFromReader7(IDataReader dataReader)
+        {
+            List<clsAssets> list = new List<clsAssets>();
+
+            while (dataReader.Read())
+            {
+                clsAssets businessObject = new clsAssets();
+                PopulateBusinessObjectFromReader7(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+        
         internal List<clsNickname> PopulateObjectsFromReaderForNickname(IDataReader dataReader)
         {
             List<clsNickname> list = new List<clsNickname>();

@@ -371,7 +371,6 @@ Public Class NicknameSet
 
     Public Function GetAllManagers(empID As Integer) As List(Of NicknameSet) Implements INicknameSet.GetAllManagers
         Try
-
             Dim lstNickname As List(Of clsNickname)
             Dim lstNicknameSet As New List(Of NicknameSet)
 
@@ -386,7 +385,6 @@ Public Class NicknameSet
             End If
 
             Return lstNicknameSet
-
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed")
@@ -395,7 +393,6 @@ Public Class NicknameSet
             End If
             Return Nothing
         End Try
-
     End Function
 
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
