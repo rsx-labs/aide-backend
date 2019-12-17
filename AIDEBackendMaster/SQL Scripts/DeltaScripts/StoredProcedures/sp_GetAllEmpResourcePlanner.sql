@@ -92,7 +92,7 @@ SELECT @TODAYSTAT = A.STATUS FROM ATTENDANCE A INNER JOIN CONTACTS C ON A.EMP_ID
 		INSERT INTO #finalTblResource
 			select DISTINCT a.DATE_ENTRY, c.EMP_ID, c.LAST_NAME + ', ' + c.FIRST_NAME + ' ' + SUBSTRING(c.MIDDLE_NAME,1,1) AS EMPLOYEE_NAME, 
 				
-				STUFF((SELECT  '/ ' +	case 
+				STUFF((SELECT  '/' +	case 
 											when r.STATUS=1 then 'O'
 											when r.STATUS=2 then 'P'
 											when r.STATUS=3 then 'SL'
@@ -117,7 +117,7 @@ SELECT @TODAYSTAT = A.STATUS FROM ATTENDANCE A INNER JOIN CONTACTS C ON A.EMP_ID
 							order by  R.DATE_ENTRY ASC
 							
 					
-		FOR XML PATH(''),TYPE ).value('.','VARCHAR(MAX)') ,1,2,'') 
+		FOR XML PATH(''),TYPE ).value('.','VARCHAR(MAX)') ,1,1,'') 
 		as STATUS
 		from ATTENDANCE a 
 		inner join EMPLOYEE c 
@@ -137,7 +137,7 @@ SELECT @TODAYSTAT = A.STATUS FROM ATTENDANCE A INNER JOIN CONTACTS C ON A.EMP_ID
 	INSERT INTO #SummarizeRecords
 		select  DISTINCT convert(varchar(20), ft.DATE_ENTRY, 111), ft.EMP_ID, ft. EMPLOYEE_NAME, ft.STATUS  from  #finalTblResource ft 
 
-	select DISTINCT DATE_ENTRY, *  from #SummarizeRecords sr order by sr.EMP_ID
+	select DISTINCT DATE_ENTRY, *  from #SummarizeRecords sr order by sr.EMPLOYEE_NAME asc
 		END
 	END
 

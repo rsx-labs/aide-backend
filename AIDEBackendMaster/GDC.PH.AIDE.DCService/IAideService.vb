@@ -1,5 +1,4 @@
-﻿
-#Region "Operation Contracts"
+﻿#Region "Operation Contracts"
 <ServiceContract(SessionMode:=SessionMode.Required, CallbackContract:=GetType(IAIDEServiceCallback))>
 Public Interface IAideService
 
@@ -205,6 +204,9 @@ Public Interface IAideService
     Function GetAllAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
 
     <OperationContract()>
+    Function GetAllDeletedAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
+
+    <OperationContract()>
     Function GetMyAssets(ByVal empID As Integer) As List(Of Assets)
 
     <OperationContract()>
@@ -212,6 +214,9 @@ Public Interface IAideService
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateAssets(ByVal assets As Assets)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub DeleteAsset(ByVal assets As Assets)
 
     <OperationContract(IsOneWay:=True)>
     Sub InsertAssetsInventory(ByVal assets As Assets)
@@ -227,6 +232,12 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetAllManagers(ByVal empID As Integer) As List(Of Nickname)
+
+    <OperationContract()>
+    Function GetAllManagersByDeptorDiv(ByVal deptID As Integer, ByVal divID As Integer) As List(Of Assets)
+
+    <OperationContract()>
+    Function GetAllAssetsCustodian(ByVal empID As Integer) As List(Of Assets)
 
     <OperationContract(IsOneWay:=True)>
     Sub UpdateAssetsInventory(ByVal assets As Assets)
@@ -1754,6 +1765,15 @@ Public Class Assets
     Public Property ASSET_ID As Integer
 
     <DataMember()>
+    Public Property TRANSFER_ID As Integer
+
+    <DataMember()>
+    Public Property PREVIOUS_ID As Integer
+
+    <DataMember()>
+    Public Property PREVIOUS_OWNER As String
+
+    <DataMember()>
     Public Property EMP_ID As Integer
 
     <DataMember()>
@@ -1803,6 +1823,13 @@ Public Class Assets
 
     <DataMember()>
     Public Property STATUS_DESCR As String
+
+    <DataMember()>
+    Public Property Nick_Name As String
+    <DataMember()>
+    Public Property First_Name As String
+    <DataMember()>
+    Public Property Employee_Name As String
 End Class
 #End Region
 

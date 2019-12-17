@@ -295,8 +295,10 @@
     MustOverride Function InsertAssets(ByVal assets As Assets) As Boolean
     MustOverride Function GetMyAssets(ByVal empID As Integer) As List(Of Assets)
     MustOverride Function GetAllAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
+    MustOverride Function GetAllDeletedAssetsByEmpID(ByVal empID As Integer) As List(Of Assets)
     MustOverride Function GetAllAssetsBySearch(ByVal empID As Integer, ByVal input As String) As List(Of Assets)
     MustOverride Function UpdateAssets(ByVal assets As Assets) As Boolean
+    MustOverride Function DeleteAsset(ByVal assets As Assets) As Boolean
     MustOverride Function InsertAssetsInventory(ByVal assets As Assets) As Boolean
     MustOverride Function UpdateAssetsInventory(ByVal assets As Assets) As Boolean
     MustOverride Function UpdateAssetsInventoryApproval(ByVal assets As Assets) As Boolean
@@ -305,9 +307,11 @@
     MustOverride Function GetAllAssetsInventoryUnApproved(ByVal empID As Integer) As List(Of Assets)
     MustOverride Function GetAllAssetsUnAssigned(ByVal empID As Integer) As List(Of Assets)
     MustOverride Function GetAllManagers(ByVal empID As Integer) As List(Of Nickname)
+    MustOverride Function GetAllManagersByDeptorDiv(ByVal deptID As Integer, ByVal divID As Integer) As List(Of Assets)
     MustOverride Function GetAllAssetsHistory(ByVal empID As Integer) As List(Of Assets)
     MustOverride Function GetAllAssetsHistoryBySearch(ByVal empID As Integer, ByVal input As String) As List(Of Assets)
     MustOverride Function GetAllAssetsInventoryBySearch(ByVal empID As Integer, ByVal input As String, ByVal page As String) As List(Of Assets)
+    MustOverride Function GetAllAssetsCustodian(ByVal empID As Integer) As List(Of Assets)
 
 #End Region
 

@@ -29,7 +29,12 @@ Public Class AssetsManagement
         assetsData.DATE_ASSIGNED = objAssets.DATE_ASSIGNED
         assetsData.APPROVAL = objAssets.APPROVAL
         assetsData.STATUS_DESCR = objAssets.STATUS_DESCR
-
+        assetsData.Nick_Name = objAssets.Nick_Name
+        assetsData.First_Name = objAssets.First_Name
+        assetsData.Employee_Name = objAssets.Employee_Name
+        assetsData.TRANSFER_ID = objAssets.TRANSFER_ID
+        assetsData.PREVIOUS_ID = objAssets.PREVIOUS_ID
+        assetsData.PREVIOUS_OWNER = objAssets.PREVIOUS_OWNER
         Return assetsData
     End Function
 
@@ -77,6 +82,32 @@ Public Class AssetsManagement
 
         Try
             lstAssets = assetsSet.GetAllAssetsByEmpID(empID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
+    Public Function GetAllDeletedAssetsByEmpID(empID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllDeletedAssetsByEmpID(empID)
 
             If Not IsNothing(lstAssets) Then
                 For Each objList As AssetsSet In lstAssets
@@ -154,6 +185,26 @@ Public Class AssetsManagement
         Try
             SetFields(assetsSet, assets)
             If assetsSet.UpdateAssets(assetsSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update Assets Information successful!"
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+        End Try
+        state = GetStateData(status, Nothing, message)
+        Return state
+    End Function
+
+    Public Function DeleteAsset(ByVal assets As Assets) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            SetFields(assetsSet, assets)
+            If assetsSet.DeleteAsset(assetsSet) Then
                 status = NotifyType.IsSuccess
                 message = "Update Assets Information successful!"
             End If
@@ -479,6 +530,58 @@ Public Class AssetsManagement
         Return state
     End Function
 
+    Public Function GetAllManagersByDeptorDiv(deptID As Integer, divID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllManagersByDeptorDiv(deptID, divID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
+    Public Function GetAllAssetsCustodian(empID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllAssetsCustodian(empID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
     Public Overrides Function GetStateData(status As NotifyType, Optional ByVal data As Object = Nothing, Optional ByVal message As String = "") As StateData
         Dim state As New StateData
         state.Data = data
@@ -506,6 +609,12 @@ Public Class AssetsManagement
         assetsData.DATE_ASSIGNED = objAssets.DATE_ASSIGNED
         assetsData.ASSIGNED_TO = objAssets.ASSIGNED_TO
         assetsData.APPROVAL = objAssets.APPROVAL
+        assetsData.Nick_Name = objAssets.Nick_Name
+        assetsData.First_Name = objAssets.First_Name
+        assetsData.Employee_Name = objAssets.Employee_Name
+        assetsData.TRANSFER_ID = objAssets.TRANSFER_ID
+        assetsData.PREVIOUS_ID = objAssets.PREVIOUS_ID
+        assetsData.PREVIOUS_OWNER = objAssets.PREVIOUS_OWNER
         objResult = assetsData
     End Sub
 End Class

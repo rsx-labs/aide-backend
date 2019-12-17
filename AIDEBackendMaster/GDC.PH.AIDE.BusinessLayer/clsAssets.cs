@@ -13,7 +13,10 @@ namespace GDC.PH.AIDE.BusinessLayer
         public enum clsAssetsFields
         {
             ASSET_ID,
+            TRANSFER_ID,
             EMP_ID,
+            PREVIOUS_ID,
+            PREVIOUS_OWNER,
             ASSET_DESC,
             MANUFACTURER,
             MODEL_NO,
@@ -29,14 +32,21 @@ namespace GDC.PH.AIDE.BusinessLayer
             ASSIGNED_TO,
             APPROVAL,
             TABLE_NAME,
-            STATUS_DESCR
+            STATUS_DESCR,
+            NICK_NAME,
+            FIRST_NAME,
+            TO_DISPLAY,
+            EMPLOYEE_NAME
         }
         #endregion
 
         #region Data Members
 
         int _assetID;
+        int _transferID;
         int _empID;
+        int _previousID;
+        string _previousOwner;
         string _assetDesc;
         string _manufacturer;
         string _modelNo;
@@ -53,6 +63,10 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _approval;
         string _tableName;
         string _descr;
+        string _NICKNAME;
+        string _firstname;
+        int _TO_DISPLAY;
+        string _employeename;
         #endregion
 
         #region Properties
@@ -83,6 +97,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public int TRANSFER_ID
+        {
+            get { return _transferID; }
+            set
+            {
+                if (_transferID != value)
+                {
+                    _transferID = value;
+                    PropertyHasChanged("TRANSFER_ID");
+                }
+            }
+        }
+
         public int EMP_ID
         {
             get { return _empID; }
@@ -92,6 +119,32 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _empID = value;
                     PropertyHasChanged("EMP_ID");
+                }
+            }
+        }
+
+        public int PREVIOUS_ID
+        {
+            get { return _previousID; }
+            set
+            {
+                if (_previousID != value)
+                {
+                    _previousID = value;
+                    PropertyHasChanged("PREVIOUS_ID");
+                }
+            }
+        }
+
+        public string PREVIOUS_OWNER
+        {
+            get { return _previousOwner; }
+            set
+            {
+                if (_previousOwner != value)
+                {
+                    _previousOwner = value;
+                    PropertyHasChanged("PREVIOUS_OWNER");
                 }
             }
         }
@@ -290,14 +343,65 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
- 
+
+        public string NICK_NAME
+        {
+            get { return _NICKNAME; }
+            set
+            {
+                if (_NICKNAME != value)
+                {
+                    _NICKNAME = value;
+                    PropertyHasChanged("NICK_NAME");
+                }
+            }
+        }
+
+        public string FIRST_NAME
+        {
+            get { return _firstname; }
+            set
+            {
+                if (_firstname != value)
+                {
+                    _firstname = value;
+                    PropertyHasChanged("FIRST_NAME");
+                }
+            }
+        }
+
+        public int TO_DISPLAY
+        {
+            get { return _TO_DISPLAY; }
+            set
+            {
+                if (_TO_DISPLAY != value)
+                {
+                    _TO_DISPLAY = value;
+                    PropertyHasChanged("TO_DISPLAY");
+                }
+            }
+        }
+
+        public string EMPLOYEE_NAME
+        {
+            get { return _employeename; }
+            set
+            {
+                if (_employeename != value)
+                {
+                    _employeename = value;
+                    PropertyHasChanged("EMPLOYEE_NAME");
+                }
+            }
+        }
         #endregion
 
         #region Validation
 
         internal override void AddValidationRules()
         {
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSET_ID", "ASSET_ID"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSET_ID", "ASSET_ID"));            
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSET_DESC", "ASSET_DESC"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MANUFACTURER", "MANUFACTURER"));
@@ -309,10 +413,14 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("OTHER_INFO", 255));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSIGNED_TO", "ASSIGNED_TO"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("APPROVAL", "APPROVAL"));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICK_NAME", "NICK_NAME", 15));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("FIRST_NAME", "FIRST_NAME", 25));
+            ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("EMPLOYEE_NAME", "EMPLOYEE_NAME", 50));
         }
         #endregion
 
     }
+
 }
 ///////////////////////////////////
 //   JHUNELL BARCENAS            //

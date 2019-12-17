@@ -18,7 +18,7 @@ DECLARE @EncryptBin VARBINARY(200)
 SET @EncryptBin = ENCRYPTBYPASSPHRASE('fujitsu.key.001', 'Retail.2019!')
 
 INSERT INTO SEND_CODE_CONFIG
-VALUES('aide.notifications@ph.fujitsu.com','AIDE Access Code','ACCESS CODE : ',25,'webmail.g07.fujitsu.local',0,30000,0,(Select CONVERT(VARCHAR(MAX), @EncryptBin,1)),120)
+VALUES('aide.notifications@ph.fujitsu.com','AIDE Access Code','ACCESS CODE: ',25,'webmail.g07.fujitsu.local',0,30000,0,(Select CONVERT(VARCHAR(MAX), @EncryptBin,1)),120)
 
 GO
 
