@@ -800,12 +800,20 @@ Public Class AIDEService
         Return MyBase.GetAllAssetsByEmpID(empID)
     End Function
 
+    Public Function GetAllDeletedAssetsByEmpIDs(empID As Integer) As List(Of Assets) Implements IAideService.GetAllDeletedAssetsByEmpID
+        Return MyBase.GetAllDeletedAssetsByEmpID(empID)
+    End Function
+
     Public Function GetMyAssetss(empID As Integer) As List(Of Assets) Implements IAideService.GetMyAssets
         Return MyBase.GetMyAssets(empID)
     End Function
 
     Public Sub UpdateAssetss(assets As Assets) Implements IAideService.UpdateAssets
         MyBase.UpdateAssets(assets)
+    End Sub
+
+    Public Sub DeleteAssets(assets As Assets) Implements IAideService.DeleteAsset
+        MyBase.DeleteAsset(assets)
     End Sub
 
     Public Function GetAllAssetsBySearchs(empID As Integer, input As String) As List(Of Assets) Implements IAideService.GetAllAssetsBySearch
@@ -842,6 +850,14 @@ Public Class AIDEService
 
     Public Function GetAllManagerss(empID As Integer) As List(Of Nickname) Implements IAideService.GetAllManagers
         Return MyBase.GetAllManagers(empID)
+    End Function
+
+    Public Function GetAllManagersByDeptorDivs(deptID As Integer, divID As Integer) As List(Of Assets) Implements IAideService.GetAllManagersByDeptorDiv
+        Return MyBase.GetAllManagersByDeptorDiv(deptID, divID)
+    End Function
+
+    Public Function GetAllAssetsCustodians(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsCustodian
+        Return MyBase.GetAllAssetsCustodian(empID)
     End Function
 
     Public Function GetAllAssetsHistorys(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsHistory
@@ -982,9 +998,9 @@ Public Class AIDEService
         Return lstWeekRange
     End Function
 
-    Public Function GetTheWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer) As List(Of WeeklyTeamStatusReport) Implements IAideService.GetWeeklyTeamStatusReport
+    Public Function GetTheWeeklyTeamStatusReport(empID As Integer, month As Integer, year As Integer, weekID As Integer, entryType As Integer) As List(Of WeeklyTeamStatusReport) Implements IAideService.GetWeeklyTeamStatusReport
         Dim lstWeeklyTeamStatusReport As List(Of WeeklyTeamStatusReport) = Nothing
-        MyBase.GetWeeklyTeamStatusReport(empID, month, year, weekID, lstWeeklyTeamStatusReport)
+        MyBase.GetWeeklyTeamStatusReport(empID, month, year, weekID, entryType, lstWeeklyTeamStatusReport)
         Return lstWeeklyTeamStatusReport
     End Function
 
