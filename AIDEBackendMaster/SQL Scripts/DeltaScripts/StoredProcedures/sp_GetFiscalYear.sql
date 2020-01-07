@@ -22,14 +22,24 @@ BEGIN
 	-- interfering with SELECT statements.
 
 DECLARE @count int
+DECLARE @countend int
 DECLARE @STARTDATE nvarchar(10)
 DECLARE @ENDDATE nvarchar(10)
 
 CREATE TABLE #FiscalYear(SEQ_ID int, FISCAL_YEAR nvarchar(20))
 
-SET @count = -1
+IF CONVERT(INT, DATENAME(DAYOFYEAR,GETDATE())) <= CONVERT(INT, DATENAME(DAYOFYEAR,CONVERT(NVARCHAR, YEAR(GETDATE())) + '-03-31'))
+	BEGIN
+		SET @count = -2
+		SET @countend = 1
+	END
+ELSE
+	BEGIN
+		SET @count = -1
+		SET @countend = 2
+	END
 
-WHILE (@count < 2)
+WHILE (@count < @countend)
 	BEGIN
 
 		SET @STARTDATE = YEAR(DATEADD(YEAR, @count ,GETDATE()))
