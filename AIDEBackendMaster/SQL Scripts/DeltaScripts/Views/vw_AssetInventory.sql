@@ -7,8 +7,8 @@ GO
 
 IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id('dbo.vw_AssetInventory'))
 BEGIN
-   PRINT 'Dropping old version of vw_vw_AssetInventory'
-   Drop View dbo.vw_vw_AssetInventory
+   PRINT 'Dropping old version of vw_AssetInventory'
+   Drop View dbo.vw_AssetInventory
 END
 GO
 
