@@ -56,6 +56,21 @@ namespace GDC.PH.AIDE.BusinessLayer
         }
 
         /// <summary>
+        /// Delete existing clsWeeklyReport
+        /// </summary>
+        /// <param name="businessObject">clsWeeklyReport object</param>
+        /// <returns>true for successfully deleted</returns>
+        public bool Delete(clsWeeklyReport businessObject, int weekID)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }
+
+            return _dataObject.Delete(businessObject, weekID);
+        }
+
+        /// <summary>
         /// Insert week range
         /// </summary>
         /// <returns>true for successfully saved</returns>
@@ -99,9 +114,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetWeeklyReportsByEmpID(empID, month, year);
         }
 
-        public List<clsWeeklyReport> GetWeeklyReportsByWeekRangeID(int weekRangeID, int empID)
+        public List<clsWeeklyReport> GetWeeklyReportsByWeekRangeID(int weekRangeID, DateTime currentDate, int empID)
         {
-            return _dataObject.GetWeeklyReportsByWeekRangeID(weekRangeID, empID);
+            return _dataObject.GetWeeklyReportsByWeekRangeID(weekRangeID, currentDate, empID);
         }
 
         public List<clsWeeklyReport> GetTasksDataByEmpID(int weekRangeID, int empID)

@@ -597,10 +597,10 @@ Public Interface IAideService
     ''' By John Harvey Sanchez
     ''' </summary>
     <OperationContract(IsOneWay:=True)>
-    Sub CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange)
+    Sub CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange)
 
     <OperationContract(IsOneWay:=True)>
-    Sub UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange)
+    Sub UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange)
 
     <OperationContract(IsOneWay:=True)>
     Sub CreateWeekRange(ByVal weekRange As WeekRange)
@@ -615,7 +615,7 @@ Public Interface IAideService
     Function GetWeeklyReportsByEmpID(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of WeekRange)
 
     <OperationContract()>
-    Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer) As List(Of WeeklyReport)
+    Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal currentDate As Date, ByVal empID As Integer) As List(Of WeeklyReport)
 
     <OperationContract()>
     Function GetTasksDataByEmpID(ByVal weekRangeID As Integer, ByVal empID As Integer) As List(Of WeeklyReport)
@@ -2058,6 +2058,12 @@ Public Class WeeklyReport
 
     <DataMember()>
     Public Property InboundContacts As Short
+
+    <DataMember()>
+    Public Property ProjCode As Integer
+
+    <DataMember()>
+    Public Property TaskID As Integer
 End Class
 
 <DataContract()>

@@ -351,13 +351,13 @@
     ''' John Harvey Sanchez 
     ''' </summary>
     ''' <remarks></remarks>
-    MustOverride Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
-    MustOverride Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
+    MustOverride Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
+    MustOverride Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
     MustOverride Function CreateWeekRange(ByVal weekRange As WeekRange) As Boolean
     MustOverride Function GetWeekRange(ByVal currentDate As Date, ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeekRangeByMonthYear(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeeklyReportsByEmpID(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
-    MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
+    MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal currentDate As Date, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
     MustOverride Function GetTasksDataByEmpID(ByVal weekRangeID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
     MustOverride Function GetMissingReportsByEmpID(ByVal empID As Integer, ByVal currentDate As Date, ByRef objResult As List(Of ContactList)) As Boolean
     MustOverride Function GetWeeklyTeamStatusReport(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal entryType As Integer, ByVal weekID As Integer, ByRef objResult As List(Of WeeklyTeamStatusReport)) As Boolean

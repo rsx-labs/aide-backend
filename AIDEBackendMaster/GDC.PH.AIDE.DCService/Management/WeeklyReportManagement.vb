@@ -4,7 +4,7 @@ Imports GDC.PH.AIDE.Entity
 Public Class WeeklyReportManagement
     Inherits ManagementBase
 
-    Public Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
+    Public Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
         Dim weekRangeSet As New WeekRangeSet
         Dim message As String = ""
         Dim state As StateData
@@ -14,6 +14,12 @@ Public Class WeeklyReportManagement
             If weekRangeSet.InsertWeeklyReportXref(weekRangeSet) Then
                 For Each objReports As WeeklyReport In weeklyReport
                     InsertWeeklyReport(objReports)
+                Next
+            End If
+
+            If deletedWeeklyReport.Count > 0 Then
+                For Each objReports As WeeklyReport In deletedWeeklyReport
+                    DeleteWeeklyReports(objReports, weekRangeSet.WeekRangeID)
                 Next
             End If
         Catch ex As Exception
@@ -42,7 +48,7 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
+    Public Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As StateData
         Dim weekRangeSet As New WeekRangeSet
         Dim message As String = ""
         Dim state As StateData
@@ -54,6 +60,12 @@ Public Class WeeklyReportManagement
                 For Each objReports As WeeklyReport In weeklyReport
                     UpdateWeeklyReports(objReports)
                 Next
+
+                If deletedWeeklyReport.Count > 0 Then
+                    For Each objReports As WeeklyReport In deletedWeeklyReport
+                        DeleteWeeklyReports(objReports, weekRangeSet.WeekRangeID)
+                    Next
+                End If
             End If
         Catch ex As Exception
             status = NotifyType.IsError
@@ -69,10 +81,28 @@ Public Class WeeklyReportManagement
         Dim state As StateData
         Dim status As NotifyType
         Try
-            SetFields(weeklyReportSet, objReports) 'ERROR: Unable to cast object of type 'GDC.WeServ.EPAD.DCService.AssignedProject' to type 'GDC.WeServ.EPAD.DCService.Project'.
+            SetFields(weeklyReportSet, objReports)
             If weeklyReportSet.UpdateWeeklyReport(weeklyReportSet) Then
                 status = NotifyType.IsSuccess
-                message = "Create weekly report successful!"
+                message = "Update weekly report successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function DeleteWeeklyReports(ByVal objReports As WeeklyReport, ByVal weekID As Integer) As StateData
+        Dim weeklyReportSet As New WeeklyReportSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            SetFields(weeklyReportSet, objReports)
+            If weeklyReportSet.DeleteWeeklyReport(weeklyReportSet, weekID) Then
+                status = NotifyType.IsSuccess
+                message = "Delete weekly report successful!"
             End If
         Catch ex As Exception
             status = NotifyType.IsError
@@ -181,7 +211,7 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As StateData
+    Public Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, currentDate As Date, empID As Integer) As StateData
         Dim weeklyReportSet As New WeeklyReportSet
         Dim weeklyReportSetList As List(Of WeeklyReportSet)
         Dim objWeeklyReport As New List(Of WeeklyReport)
@@ -190,7 +220,7 @@ Public Class WeeklyReportManagement
         Dim status As NotifyType
 
         Try
-            weeklyReportSetList = weeklyReportSet.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+            weeklyReportSetList = weeklyReportSet.GetWeeklyReportsByWeekRangeID(weekRangeID, currentDate, empID)
 
             If Not IsNothing(weeklyReportSetList) Then
                 For Each objList As WeeklyReportSet In weeklyReportSetList
@@ -322,6 +352,8 @@ Public Class WeeklyReportManagement
         weeklyReportData.ACT_EFFORT = objWeeklyReport.ActualEffort
         weeklyReportData.COMMENTS = objWeeklyReport.Comments
         weeklyReportData.INBOUND_CONTACTS = objWeeklyReport.InboundContacts
+        weeklyReportData.PROJ_CODE = objWeeklyReport.ProjCode
+        weeklyReportData.TASK_ID = objWeeklyReport.TaskID
         objResult = weeklyReportData
     End Sub
 
@@ -347,6 +379,8 @@ Public Class WeeklyReportManagement
         weeklyReportData.ActualEffort = objWeeklyReport.ACT_EFFORT
         weeklyReportData.Comments = objWeeklyReport.COMMENTS
         weeklyReportData.InboundContacts = objWeeklyReport.INBOUND_CONTACTS
+        weeklyReportData.ProjCode = objWeeklyReport.PROJ_CODE
+        weeklyReportData.TaskID = objWeeklyReport.TASK_ID
         Return weeklyReportData
     End Function
 

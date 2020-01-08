@@ -1,19 +1,15 @@
 USE [AIDE]
 GO
-/****** Object:  StoredProcedure [dbo].[sp_GetAllEmpResourcePlanner]    Script Date: 11/07/2019 7:27:50 AM ******/
+/****** Object:  StoredProcedure [dbo].[sp_GetAllEmpResourcePlanner]    Script Date: 01/07/2020 8:46:39 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
--- =============================================
--- Author:		<Author,,Name>
--- Create date: <Create Date,,>
--- Description:	<Description,,>
--- =============================================
-
-IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_GetAllEmpResourcePlanner]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
-DROP PROCEDURE [dbo].sp_GetAllEmpResourcePlanner
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND OBJECT_ID = OBJECT_ID('dbo.sp_GetAllEmpResourcePlanner'))
+    BEGIN
+        DROP PROCEDURE [dbo].[sp_GetAllEmpResourcePlanner]
+    END
 GO
 
 CREATE PROCEDURE [dbo].[sp_GetAllEmpResourcePlanner]
@@ -27,120 +23,76 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	 
-   ---FISCAL YEAR STARTS AT APRIL
-	IF (@MONTH = 1)			--- January
-   begin
-       SET @YEAR = @YEAR + 1 
-   end
-	ELSE IF (@MONTH = 2)	---February
-   begin
-       SET @YEAR = @YEAR + 1 
-   end
-	ELSE IF (@MONTH = 3 )	---March
-   begin
-       SET @YEAR = @YEAR + 1
-   end
-	ELSE IF (@MONTH = 4)	---April
-   begin
-        SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 5)	---May
-   begin
-        SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 6)	---June
-   begin
-        SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 7)	---July
-   begin
-         SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 8)	---August
-   begin
-         SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 9)	---September
-   begin
-         SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 10)	---October
-   begin
-         SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 11)	---November
-   begin
-        SET @YEAR = @YEAR
-   end
-	ELSE IF (@MONTH = 12)	---December
-   begin
-        SET @YEAR = @YEAR
-   end
+	---FISCAL YEAR STARTS AT APRIL
+	DECLARE @fiscalYear INT
+	IF @MONTH < 4
+		SET @fiscalYear	= @YEAR + 1
+	ELSE
+		SET @fiscalYear = @YEAR
 
-    -- Insert statements for procedure here
-create table #finalTblResource(DATE_ENTRY DATE, EMP_ID int, EMPLOYEE_NAME NVARCHAR(MAX),  STATUS NVARCHAR(MAX))
-create table #SummarizeRecords(DATE_ENTRY DATE, EMP_ID int, EMPLOYEE_NAME NVARCHAR(MAX),  STATUS NVARCHAR(MAX))
+	-- Insert statements for procedure here
+	CREATE TABLE #finalTblResource(DATE_ENTRY DATE, EMP_ID INT, EMPLOYEE_NAME NVARCHAR(MAX),  STATUS NVARCHAR(MAX))
+	CREATE TABLE #SummarizeRecords(DATE_ENTRY DATE, EMP_ID INT, EMPLOYEE_NAME NVARCHAR(MAX),  STATUS NVARCHAR(MAX))
 
-DECLARE @TODAYSTAT INT
+	DECLARE @DEPTID INT = (SELECT DEPT_ID FROM EMPLOYEE E INNER JOIN CONTACTS C ON E.EMP_ID = C.EMP_ID WHERE EMAIL_ADDRESS = @EMAIL_ADDRESS)
+	DECLARE @DIVID INT = (SELECT DIV_ID FROM EMPLOYEE E INNER JOIN CONTACTS C ON E.EMP_ID = C.EMP_ID WHERE EMAIL_ADDRESS = @EMAIL_ADDRESS)
 
-SELECT @TODAYSTAT = A.STATUS FROM ATTENDANCE A INNER JOIN CONTACTS C ON A.EMP_ID = C.EMP_ID WHERE C.EMAIL_ADDRESS = @EMAIL_ADDRESS AND MONTH(A.DATE_ENTRY) = @MONTH and YEAR(A.DATE_ENTRY) = @YEAR
+	DECLARE @TODAYSTAT INT
 
-
+	SELECT @TODAYSTAT = A.STATUS 
+	FROM ATTENDANCE A 
+	INNER JOIN CONTACTS C 
+	ON A.EMP_ID = C.EMP_ID 
+	WHERE C.EMAIL_ADDRESS = @EMAIL_ADDRESS 
+	AND MONTH(A.DATE_ENTRY) = @MONTH 
+	AND YEAR(A.DATE_ENTRY) = @fiscalYear
 
 	BEGIN
 		INSERT INTO #finalTblResource
-			select DISTINCT a.DATE_ENTRY, c.EMP_ID, c.LAST_NAME + ', ' + c.FIRST_NAME + ' ' + SUBSTRING(c.MIDDLE_NAME,1,1) AS EMPLOYEE_NAME, 
-				
-				STUFF((SELECT  '/' +	case 
-											when r.STATUS=1 then 'O'
-											when r.STATUS=2 then 'P'
-											when r.STATUS=3 then 'SL'
-											when r.STATUS=4 then 'VL'
-											when r.STATUS=5 then 'HSL'
-											when r.STATUS=6 then 'HVL'
-											when r.STATUS=7 then 'H'
-											when r.STATUS=8 then 'EL'
-											when r.STATUS=9 then 'HEL'
-											when r.STATUS=10 then 'OL'
-											when r.STATUS=11 then 'L'
-											when r.STATUS=12 then 'HOL'
-											when r.STATUS=13 then 'OBA'
-											when r.STATUS=14 then 'HOBA'
-											else ''
-										END
-						FROM ATTENDANCE r 
-							INNER JOIN STATUS cd  On (cd.STATUS = r.STATUS) 
-							and Cd.STATUS_ID in (6,9,7)
-							and r.EMP_ID = c.EMP_ID
-							and convert(varchar(20), r.DATE_ENTRY, 111)= convert(varchar(20), a.DATE_ENTRY, 111) 
-							order by  R.DATE_ENTRY ASC
-							
-					
-		FOR XML PATH(''),TYPE ).value('.','VARCHAR(MAX)') ,1,1,'') 
-		as STATUS
-		from ATTENDANCE a 
-		inner join EMPLOYEE c 
-			on a.EMP_ID = c.EMP_ID
-		and c.DEPT_ID = (SELECT A.DEPT_ID FROM EMPLOYEE A INNER JOIN CONTACTS B
-				ON A.EMP_ID = B.EMP_ID
-				WHERE B.EMAIL_ADDRESS = @EMAIL_ADDRESS)
-		and c.DIV_ID = (SELECT A.DIV_ID FROM EMPLOYEE A INNER JOIN CONTACTS B
-				ON A.EMP_ID = B.EMP_ID
-				WHERE B.EMAIL_ADDRESS = @EMAIL_ADDRESS) 
-		inner join STATUS ss on a.STATUS = ss.STATUS
-		
-		where Month(DATE_ENTRY) = @MONTH AND Year(DATE_ENTRY) = @YEAR and c.ACTIVE <> 2
-			ORDER BY  c.EMP_ID
+		SELECT DISTINCT a.DATE_ENTRY, 
+						c.EMP_ID, 
+						c.LAST_NAME + ', ' + c.FIRST_NAME + ' ' + SUBSTRING(c.MIDDLE_NAME,1,1) AS EMPLOYEE_NAME, 
+						STUFF((SELECT  '/' + CASE 
+												WHEN r.STATUS=1 THEN 'O'
+												WHEN r.STATUS=2 THEN 'P'
+												WHEN r.STATUS=3 THEN 'SL'
+												WHEN r.STATUS=4 THEN 'VL'
+												WHEN r.STATUS=5 THEN 'HSL'
+												WHEN r.STATUS=6 THEN 'HVL'
+												WHEN r.STATUS=7 THEN 'H'
+												WHEN r.STATUS=8 THEN 'EL'
+												WHEN r.STATUS=9 THEN 'HEL'
+												WHEN r.STATUS=10 THEN 'OL'
+												WHEN r.STATUS=11 THEN 'L'
+												WHEN r.STATUS=12 THEN 'HOL'
+												WHEN r.STATUS=13 THEN 'OBA'
+												WHEN r.STATUS=14 THEN 'HOBA'
+											 ELSE ''
+											 END
+							   FROM ATTENDANCE r 
+							   INNER JOIN STATUS cd ON (cd.STATUS = r.STATUS) 
+							   AND Cd.STATUS_ID in (6,9,7)
+							   AND r.EMP_ID = c.EMP_ID
+							   AND CONVERT(VARCHAR(20), r.DATE_ENTRY, 111) = CONVERT(varchar(20), a.DATE_ENTRY, 111) 
+							   ORDER BY R.DATE_ENTRY ASC
+							   FOR XML PATH(''),TYPE ).value('.','VARCHAR(MAX)') ,1,1,'') AS STATUS
+		FROM ATTENDANCE a 
+		INNER JOIN EMPLOYEE c 
+		ON a.EMP_ID = c.EMP_ID
+		AND c.DEPT_ID = @DEPTID
+		AND c.DIV_ID = @DIVID 
+		INNER JOIN STATUS ss ON a.STATUS = ss.STATUS
+		WHERE MONTH(DATE_ENTRY) = @MONTH AND YEAR(DATE_ENTRY) = @fiscalYear and c.ACTIVE <> 2
+		ORDER BY  c.EMP_ID
 
+		INSERT INTO #SummarizeRecords
+		SELECT DISTINCT CONVERT(VARCHAR(20), ft.DATE_ENTRY, 111), ft.EMP_ID, ft. EMPLOYEE_NAME, ft.STATUS FROM #finalTblResource ft 
 
-	INSERT INTO #SummarizeRecords
-		select  DISTINCT convert(varchar(20), ft.DATE_ENTRY, 111), ft.EMP_ID, ft. EMPLOYEE_NAME, ft.STATUS  from  #finalTblResource ft 
-
-	select DISTINCT DATE_ENTRY, *  from #SummarizeRecords sr order by sr.EMPLOYEE_NAME asc
-		END
+		SELECT DISTINCT DATE_ENTRY, * FROM #SummarizeRecords sr ORDER BY sr.EMPLOYEE_NAME ASC
 	END
+	
+	DROP TABLE #SummarizeRecords
+	DROP TABLE #finalTblResource
+END
 
-drop table #SummarizeRecords
-drop table #finalTblResource
 
