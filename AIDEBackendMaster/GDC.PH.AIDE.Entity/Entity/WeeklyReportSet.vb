@@ -192,71 +192,27 @@ Public Class WeeklyReportSet
             cWeeklyReport.WR_INBOUND_CONTACTS = value
         End Set
     End Property
-   
+
+    Public Property PROJ_CODE As Integer Implements IWeeklyReport.PROJ_CODE
+        Get
+            Return cWeeklyReport.WR_PROJ_CODE
+        End Get
+        Set(ByVal value As Integer)
+            cWeeklyReport.WR_PROJ_CODE = value
+        End Set
+    End Property
+
+    Public Property TASK_ID As Integer Implements IWeeklyReport.TASK_ID
+        Get
+            Return cWeeklyReport.WR_TASK_ID
+        End Get
+        Set(ByVal value As Integer)
+            cWeeklyReport.WR_TASK_ID = value
+        End Set
+    End Property
 #End Region
 
 #Region "STORED PROCS"
-    'Public Function getTaskDetailByTaskId(taskID As Integer) As TasksSet Implements ITasks.getTaskDetailByTaskId
-    '    Try
-    '        Dim key As clsTasksKeys = New clsTasksKeys(taskID)
-    '        Dim objTasks As clsTasks
-    '        objTasks = Me.cTasksFactory.getTaskDetailByTaskId(key)
-    '        If IsNothing(objTasks) Then
-    '            Throw New NoRecordFoundException("Record Not Found!")
-    '        End If
-    '        Dim _tasks As TasksSet = New TasksSet(objTasks)
-    '        Return _tasks
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
-    '        Else
-    '            Throw ex.InnerException
-    '        End If
-    '    End Try
-    'End Function
-
-    'Public Function getTaskSummaryWeekly(ByVal empId As Integer, dateStart As DateTime) As List(Of TasksSet) Implements ITasks.getTaskSummaryWeekly
-    '    Try
-    '        Dim objTasksList As List(Of clsTasks)
-    '        objTasksList = Me.cTasksFactory.getTaskSummaryWeekly(empId, dateStart)
-    '        If IsNothing(objTasksList) Then
-    '            Throw New NoRecordFoundException("Record Not Found!")
-    '        End If
-    '        Dim _tasksList As List(Of TasksSet) = New List(Of TasksSet)
-    '        For Each _task As clsTasks In objTasksList
-    '            _tasksList.Add(New TasksSet(_task))
-    '        Next
-    '        Return _tasksList
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
-    '        Else
-    '            Throw ex.InnerException
-    '        End If
-    '    End Try
-    'End Function
-
-    'Public Function getMyTasks(ByVal empId As Integer) As List(Of TasksSet) Implements ITasks.getMyTasks
-    '    Try
-    '        Dim objTasksList As List(Of clsTasks)
-    '        objTasksList = Me.cTasksFactory.getMyTasks(empId)
-    '        If IsNothing(objTasksList) Then
-    '            Throw New NoRecordFoundException("Record Not Found!")
-    '        End If
-    '        Dim _tasksList As List(Of TasksSet) = New List(Of TasksSet)
-    '        For Each _task As clsTasks In objTasksList
-    '            _tasksList.Add(New TasksSet(_task))
-    '        Next
-    '        Return _tasksList
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
-    '        Else
-    '            Throw ex.InnerException
-    '        End If
-    '    End Try
-    'End Function
-
     Public Function InsertWeeklyReport(weeklyReport As WeeklyReportSet) As Boolean Implements IWeeklyReport.InsertWeeklyReport
         Try
             Return Me.cWeeklyReportFactory.Insert(cWeeklyReport)
@@ -281,12 +237,24 @@ Public Class WeeklyReportSet
         End Try
     End Function
 
-    Public Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReportSet) Implements IWeeklyReport.GetWeeklyReportsByWeekRangeID
+    Public Function DeleteWeeklyReport(weeklyReport As WeeklyReportSet, weekID As Integer) As Boolean Implements IWeeklyReport.DeleteWeeklyReport
+        Try
+            Return Me.cWeeklyReportFactory.Delete(cWeeklyReport, weekID)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Delete Weekly Report Failed!")
+            End If
+        End Try
+    End Function
+
+    Public Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, currentDate As Date, empID As Integer) As List(Of WeeklyReportSet) Implements IWeeklyReport.GetWeeklyReportsByWeekRangeID
         Try
             Dim lstWeeklyReport As List(Of clsWeeklyReport)
             Dim lstWeeklyReportSet As New List(Of WeeklyReportSet)
 
-            lstWeeklyReport = cWeeklyReportFactory.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+            lstWeeklyReport = cWeeklyReportFactory.GetWeeklyReportsByWeekRangeID(weekRangeID, currentDate, empID)
 
             If Not IsNothing(lstWeeklyReport) Then
                 For Each cList As clsWeeklyReport In lstWeeklyReport
@@ -332,60 +300,8 @@ Public Class WeeklyReportSet
             End If
         End Try
     End Function
+
 #End Region
-
-    
-
-    'Public Function GetAllTasks() As List(Of TasksSet) Implements ITasks.GetAllTasks
-    '    Try
-    '        Dim lstTasks As List(Of clsTasks)
-    '        Dim lstTasksSet As New List(Of TasksSet)
-
-    '        lstTasks = cTasksFactory.GetAll()
-
-    '        If Not IsNothing(lstTasks) Then
-    '            For Each cList As clsTasks In lstTasks
-    '                lstTasksSet.Add(New TasksSet(cList))
-    '            Next
-    '        Else
-    '            Throw New NoRecordFoundException("No records found!")
-    '        End If
-
-    '        Return lstTasksSet
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-    '        Else
-    '            Throw ex.InnerException
-    '        End If
-    '    End Try
-    'End Function
-
-    'Public Function GetTaskDetailByIncidentId(id As Integer) As List(Of TasksSet) Implements ITasks.GetTaskDetailByIncidentId
-    '    Try
-    '        Dim TaskLst As List(Of clsTasks)
-    '        Dim TaskSetLst As New List(Of TasksSet)
-
-    '        TaskLst = cTasksFactory.GetTaskDetailByIncidentId(id)
-
-    '        If Not IsNothing(TaskLst) Then
-    '            For Each cList As clsTasks In TaskLst
-    '                TaskSetLst.Add(New TasksSet(cList))
-    '            Next
-    '        Else
-    '            Throw New NoRecordFoundException("No records found!")
-    '        End If
-
-    '        Return TaskSetLst
-
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-    '        Else
-    '            Throw ex.InnerException
-    '        End If
-    '    End Try
-    'End Function
 
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 

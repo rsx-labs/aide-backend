@@ -53,6 +53,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EFFORT_EST", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_EFFORT_EST));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT_WK", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_ACT_EFFORT_WK));
                 sqlCommand.Parameters.Add(new SqlParameter("@ACT_EFFORT", SqlDbType.Float, 8, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_ACT_EFFORT));
+                sqlCommand.Parameters.Add(new SqlParameter("@TASK_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_TASK_ID));
                
                 if (businessObject.WR_REF_ID == null) 
                 {
@@ -106,6 +107,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 else
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@INBOUND_CONTACTS", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_INBOUND_CONTACTS));
+                }
+
+                if (businessObject.WR_PROJ_CODE == 0)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CODE", DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CODE", businessObject.WR_PROJ_CODE));
                 }
 
                 MainConnection.Open();
@@ -213,7 +223,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@WR_RANGE_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_WEEK_RANGE_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJ_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_PROJ_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@REWORK", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_REWORK));
-
+                sqlCommand.Parameters.Add(new SqlParameter("@TASK_ID", SqlDbType.Int, 11, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_TASK_ID));
+               
                 if (businessObject.WR_REF_ID == null)
                 {
                     sqlCommand.Parameters.Add(new SqlParameter("@REF_ID", SqlDbType.VarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, DBNull.Value));
@@ -287,6 +298,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                     sqlCommand.Parameters.Add(new SqlParameter("@INBOUND_CONTACTS", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WR_INBOUND_CONTACTS));
                 }
 
+                if (businessObject.WR_PROJ_CODE == 0)
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CODE", DBNull.Value));
+                }
+                else
+                {
+                    sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CODE", businessObject.WR_PROJ_CODE));
+                }
+
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
@@ -295,6 +315,44 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             catch (Exception ex)
             {
                 throw new Exception("clsWeeklyReport::Update::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        /// <summary>
+        /// delete row in the table
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <returns>true for successfully deleted</returns>
+        public bool Delete(clsWeeklyReport businessObject, int weekID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_DeleteWeeklyReport]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@WR_ID", businessObject.WR_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@WR_RANGE_ID", businessObject.WR_WEEK_RANGE_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", businessObject.WR_EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@TASK_ID", businessObject.WR_TASK_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@CURR_WEEK_ID", weekID));
+               
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWeeklyReport::Delete::Error occured.", ex);
             }
             finally
             {
@@ -434,7 +492,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsWeeklyReport> GetWeeklyReportsByWeekRangeID(int weekRangeID, int empID)
+        public List<clsWeeklyReport> GetWeeklyReportsByWeekRangeID(int weekRangeID, DateTime currentDate, int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetWeeklyReportByWeekRangeAndEmpID]";
@@ -446,6 +504,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@WK_RANGE_ID", weekRangeID));
+                sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", currentDate));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
 
                 MainConnection.Open();
@@ -734,6 +793,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.WR_INBOUND_CONTACTS = dataReader.GetInt16(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_INBOUND_CONTACTS.ToString()));
             }
 
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_CODE.ToString())))
+            {
+                businessObject.WR_PROJ_CODE = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_CODE.ToString()));
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_TASK_ID.ToString())))
+            {
+                businessObject.WR_TASK_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_TASK_ID.ToString()));
+            }
         }
 
         /// <summary>
@@ -797,6 +865,16 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString())))
             {
                 businessObject.WR_COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_COMMENTS.ToString()));
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_CODE.ToString())))
+            {
+                businessObject.WR_PROJ_CODE = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_PROJ_CODE.ToString()));
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_TASK_ID.ToString())))
+            {
+                businessObject.WR_TASK_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWeeklyReport.clsWeeklyReportFields.WR_TASK_ID.ToString()));
             }
         }
         

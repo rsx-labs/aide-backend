@@ -2532,8 +2532,8 @@ Public MustInherit Class MainService
 #End Region
 
 #Region "WeeklyReport"
-    Public Overrides Function CreateWeeklyReport(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.CreateWeeklyReport(weeklyReport, weeklyReportXref)
+    Public Overrides Function CreateWeeklyReport(weeklyReport As List(Of WeeklyReport), deletedWeeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.CreateWeeklyReport(weeklyReport, deletedWeeklyReport, weeklyReportXref)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2542,8 +2542,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function UpdateWeeklyReport(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.UpdateWeeklyReport(weeklyReport, weeklyReportXref)
+    Public Overrides Function UpdateWeeklyReport(weeklyReport As List(Of WeeklyReport), deletedWeeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.UpdateWeeklyReport(weeklyReport, deletedWeeklyReport, weeklyReportXref)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -2595,8 +2595,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByWeekRangeID(weekRangeID, empID)
+    Public Overrides Function GetWeeklyReportsByWeekRangeID(weekRangeID As Integer, currentDate As Date, empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeeklyReportsByWeekRangeID(weekRangeID, currentDate, empID)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

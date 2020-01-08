@@ -21,10 +21,13 @@
     Property ACT_EFFORT As Double
     Property COMMENTS As String
     Property INBOUND_CONTACTS As Short
+    Property PROJ_CODE As Integer
+    Property TASK_ID As Integer
 
     Function InsertWeeklyReport(ByVal weeklyReport As WeeklyReportSet) As Boolean
     Function UpdateWeeklyReport(ByVal weeklyReport As WeeklyReportSet) As Boolean
-    Function GetWeeklyReportsByWeekRangeID(ByVal weekRange As Integer, ByVal empID As Integer) As List(Of WeeklyReportSet)
+    Function DeleteWeeklyReport(ByVal weeklyReport As WeeklyReportSet, ByVal weekID As Integer) As Boolean
+    Function GetWeeklyReportsByWeekRangeID(ByVal weekRange As Integer, ByVal currentDate As Date, ByVal empID As Integer) As List(Of WeeklyReportSet)
     Function GetTasksDataByEmpID(ByVal weekRange As Integer, ByVal empID As Integer) As List(Of WeeklyReportSet)
 
 #End Region

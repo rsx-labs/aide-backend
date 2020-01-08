@@ -28,7 +28,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             WR_ACT_EFFORT_WK,
             WR_ACT_EFFORT,
             WR_COMMENTS,
-            WR_INBOUND_CONTACTS
+            WR_INBOUND_CONTACTS,
+            WR_PROJ_CODE,
+            WR_TASK_ID
         }
         #endregion
 
@@ -53,6 +55,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         double _act_effort_wk;
         string _comments;
         short _inbound_contacts;
+        int _proj_code;
+        int _task_id;
 
         #endregion
 
@@ -304,6 +308,32 @@ namespace GDC.PH.AIDE.BusinessLayer
 				 }
 			 }
 		}
+
+        public int WR_PROJ_CODE
+        {
+            get { return _proj_code; }
+            set
+            {
+                if (_proj_code != value)
+                {
+                    _proj_code = value;
+                    PropertyHasChanged("WR_PROJ_CODE");
+                }
+            }
+        }
+
+        public int WR_TASK_ID
+        {
+            get { return _task_id; }
+            set
+            {
+                if (_task_id != value)
+                {
+                    _task_id = value;
+                    PropertyHasChanged("WR_TASK_ID");
+                }
+            }
+        }
 
 		#endregion
 

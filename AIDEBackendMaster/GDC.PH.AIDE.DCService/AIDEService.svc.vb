@@ -972,16 +972,16 @@ Public Class AIDEService
     ''' By John Harvey Sanchez
     ''' </summary>
 #Region "Weekly Report Functions"
-    Public Sub CreateWeeklyReports(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.CreateWeeklyReport
-        MyBase.CreateWeeklyReport(weeklyReport, weeklyReportXref)
+    Public Sub CreateWeeklyReports(weeklyReport As List(Of WeeklyReport), deletedWeeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.CreateWeeklyReport
+        MyBase.CreateWeeklyReport(weeklyReport, deletedWeeklyReport, weeklyReportXref)
     End Sub
 
     Public Sub CreateNewWeekRange(weekRange As WeekRange) Implements IAideService.CreateWeekRange
         MyBase.CreateWeekRange(weekRange)
     End Sub
 
-    Public Sub UpdateWeeklyReports(weeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.UpdateWeeklyReport
-        MyBase.UpdateWeeklyReport(weeklyReport, weeklyReportXref)
+    Public Sub UpdateWeeklyReports(weeklyReport As List(Of WeeklyReport), deletedWeeklyReport As List(Of WeeklyReport), weeklyReportXref As WeekRange) Implements IAideService.UpdateWeeklyReport
+        MyBase.UpdateWeeklyReport(weeklyReport, deletedWeeklyReport, weeklyReportXref)
     End Sub
 
     Public Function GetTheWeekRange(currentDate As Date, empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRange
@@ -1008,9 +1008,9 @@ Public Class AIDEService
         Return lstWeeklyTeamStatusReport
     End Function
 
-    Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
+    Public Function GetTheWeeklyReportsByWeekRangeID(weekRangeID As Integer, currentDate As Date, empID As Integer) As List(Of WeeklyReport) Implements IAideService.GetWeeklyReportsByWeekRangeID
         Dim lstWeeklyReport As List(Of WeeklyReport) = Nothing
-        MyBase.GetWeeklyReportsByWeekRangeID(weekRangeID, empID, lstWeeklyReport)
+        MyBase.GetWeeklyReportsByWeekRangeID(weekRangeID, currentDate, empID, lstWeeklyReport)
         Return lstWeeklyReport
     End Function
 
