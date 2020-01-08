@@ -513,6 +513,9 @@ Public Interface IAideService
     Function GetAllEmpResourcePlanner(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
+    Function GetAllPerfectAttendance(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+
+    <OperationContract()>
     Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>

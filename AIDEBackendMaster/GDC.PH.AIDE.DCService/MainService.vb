@@ -1478,6 +1478,23 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
+    Public Overrides Function GetAllPerfectAttendance(email As String, month As Integer, year As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetAllPerfectAttendance(email, month, year)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.EmpID = _list.EmpID
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
     Public Overrides Function GetAllEmpResourcePlannerByStatus(email As String, month As Integer, year As Integer, status As Integer) As List(Of ResourcePlanner)
         Dim state As StateData = ResourceMgmt.GetAllEmpResourcePlannerByStatus(email, month, year, status)
         Dim resourceLst As New List(Of ResourcePlanner)

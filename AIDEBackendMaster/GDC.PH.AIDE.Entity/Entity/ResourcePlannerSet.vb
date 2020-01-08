@@ -339,6 +339,32 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
+    Public Function GetAllPerfectAttendance(email As String, month As Integer, year As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllPerfectAttendance
+        Try
+            Dim ResourceLst As List(Of clsResourcePlanner)
+            Dim ResourceSetLst As New List(Of ResourcePlannerSet)
+
+            ResourceLst = cResourcePlannerFactory.GetAllPerfectAttendance(email, month, year)
+
+            If Not IsNothing(ResourceLst) Then
+                For Each cList As clsResourcePlanner In ResourceLst
+                    ResourceSetLst.Add(New ResourcePlannerSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return ResourceSetLst
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
     Public Function GetAllEmpResourcePlannerByStatus(email As String, month As Integer, year As Integer, status As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllEmpResourcePlannerByStatus
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)

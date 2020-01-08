@@ -738,6 +738,10 @@ Public Class AIDEService
         Return MyBase.GetAllEmpResourcePlanner(email, month, year)
     End Function
 
+    Public Function GetAllPerfectAttendances(email As String, month As Integer, year As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllPerfectAttendance
+        Return MyBase.GetAllPerfectAttendance(email, month, year)
+    End Function
+
     Public Function GetAllEmpResourcePlannerByStatuss(email As String, month As Integer, year As Integer, status As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllEmpResourcePlannerByStatus
         Return MyBase.GetAllEmpResourcePlannerByStatus(email, month, year, status)
     End Function

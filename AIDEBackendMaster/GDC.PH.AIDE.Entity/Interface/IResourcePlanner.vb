@@ -40,4 +40,5 @@ Public Interface IResourcePlanner
     Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlannerSet)
     Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlannerSet)
     Function UpdateLeaves(ByVal resource As ResourcePlannerSet, ByVal statusCD As Integer, ByVal leaveType As Integer) As Boolean
+    Function GetAllPerfectAttendance(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
 End Interface
