@@ -160,6 +160,33 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
+    Public Function GetAllPerfectAttendance(email As String, month As Integer, year As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetAllPerfectAttendance(email, month, year)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFields(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
     Public Function GetAllEmpResourcePlannerByStatus(email As String, month As Integer, year As Integer, statuss As Integer) As StateData
         Dim ResourceSet As New ResourcePlannerSet
         Dim ResourceSetLst As List(Of ResourcePlannerSet)

@@ -494,6 +494,36 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public List<clsResourcePlanner> GetAllPerfectAttendance(string email, int MONTH, int YEAR)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllPerfectAttendance]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
+                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, MONTH));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, YEAR));
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsRPFromReader9(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetAllPerfectAttendance::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -564,6 +594,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMPLOYEE_NAME.ToString()));
             businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
+        }
+
+        internal void PopulateBusinessObjectRPFromReader9(clsResourcePlanner businessObject, IDataReader dataReader)
+        {
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.EMP_ID.ToString()));
         }
 
         internal void PopulateObjectsRPFromReaderNonBillable(clsResourcePlanner businessObject, IDataReader dataReader)
@@ -693,6 +728,20 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsResourcePlanner businessObject = new clsResourcePlanner();
                 PopulateBusinessObjectRPFromReader8(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsResourcePlanner> PopulateObjectsRPFromReader9(IDataReader dataReader)
+        {
+
+            List<clsResourcePlanner> list = new List<clsResourcePlanner>();
+
+            while (dataReader.Read())
+            {
+                clsResourcePlanner businessObject = new clsResourcePlanner();
+                PopulateBusinessObjectRPFromReader9(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;

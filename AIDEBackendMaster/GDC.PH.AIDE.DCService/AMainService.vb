@@ -277,6 +277,7 @@
     MustOverride Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlanner(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetAllPerfectAttendance(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllEmpResourcePlannerByStatus(ByVal email As String, ByVal month As Integer, ByVal year As Integer, ByVal status As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)

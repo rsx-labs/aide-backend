@@ -122,6 +122,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.UpdateLeaves(businessObject, status_cd, leave_type);
         }
 
+        public List<clsResourcePlanner> GetAllPerfectAttendance(string email, int month, int year)
+        {
+            return _dataObject.GetAllPerfectAttendance(email, month, year);
+        }
+
         #endregion
     }
 }
