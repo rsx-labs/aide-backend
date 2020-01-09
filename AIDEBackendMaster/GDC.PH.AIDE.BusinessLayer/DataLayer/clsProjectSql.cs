@@ -43,11 +43,11 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CD", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_CD));
-                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_NAME", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJ_NAME));
-                sqlCommand.Parameters.Add(new SqlParameter("@CATEGORY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.CATEGORY));
-                sqlCommand.Parameters.Add(new SqlParameter("@BILLABILITY", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.BILLABILITY));
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_CD", businessObject.PROJ_CD));
+                sqlCommand.Parameters.Add(new SqlParameter("@PROJ_NAME", businessObject.PROJ_NAME));
+                sqlCommand.Parameters.Add(new SqlParameter("@CATEGORY", businessObject.CATEGORY));
+                sqlCommand.Parameters.Add(new SqlParameter("@BILLABILITY", businessObject.BILLABILITY));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", businessObject.EMP_ID));
 
                 MainConnection.Open();
 
@@ -420,7 +420,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.CATEGORY = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsProject.clsPROJECTFields.CATEGORY.ToString()));
             businessObject.BILLABILITY = (byte)dataReader.GetInt16(dataReader.GetOrdinal(clsProject.clsPROJECTFields.BILLABILITY.ToString()));
         }
-
 
         internal void PopulateBusinessObjectFromReader2(clsProject businessObject, IDataReader dataReader)
         {
