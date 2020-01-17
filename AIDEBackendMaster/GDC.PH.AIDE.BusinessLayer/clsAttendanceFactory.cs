@@ -69,6 +69,15 @@ namespace GDC.PH.AIDE.BusinessLayer
 
             return _dataObject.Update(businessObject, day, status);
         }
+
+        public bool InsertLogoffTime(clsAttendance businessObject)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }            
+            return _dataObject.InsertLogoffTime(businessObject);
+        }
         /// <summary>
         /// get clsAttendance by primary key.
         /// </summary>

@@ -42,6 +42,9 @@ Public Interface IAideService
     Sub UpdateAttendance2(ByVal empid As Integer, ByVal day As Integer, attstatus As Integer)
 
     <OperationContract(IsOneWay:=True)>
+    Sub InsertLogoffTime(ByVal empid As Integer)
+
+    <OperationContract(IsOneWay:=True)>
     Sub InsertAttendance(ByVal _Attendance As AttendanceSummary)
 
     <OperationContract()>
@@ -1628,6 +1631,9 @@ Public Class MyAttendance
 
     <DataMember()>
     Public Property DateEntry As Date
+
+    <DataMember()>
+    Public Property LogoffTime As Date
 
     <DataMember()>
     Public Property MondayVal As Short

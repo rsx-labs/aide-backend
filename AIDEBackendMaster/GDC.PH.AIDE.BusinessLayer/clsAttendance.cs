@@ -15,6 +15,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             IMAGE_PATH,
             STATUS,
             DATE_ENTRY,
+            LOGOFF_TIME,
             MONTH,
             YEAR,
             DAY1,
@@ -70,6 +71,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _status;
         string imagePath;
         DateTime date_entry;
+        DateTime logoff_time;
 
         byte _mONTH;
         short _yEAR;
@@ -125,6 +127,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     date_entry = value;
                     PropertyHasChanged("DATE_ENTRY");
+                }
+            }
+        }
+
+        public DateTime LOGOFF_TIME
+        {
+            get { return logoff_time; }
+            set
+            {
+                if (logoff_time != value)
+                {
+                    logoff_time = value;
+                    PropertyHasChanged("LOGOFF_TIME");
                 }
             }
         }

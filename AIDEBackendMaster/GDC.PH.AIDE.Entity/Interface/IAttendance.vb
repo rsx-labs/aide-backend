@@ -7,6 +7,7 @@ Public Interface IAttendanceSet
     Property ImagePath As String
     Property Status As Integer
     Property DateEntry As DateTime
+    Property LogoffTime As DateTime
     Property Year As Integer
     Property Month As Integer
     Property Day1 As Integer
@@ -42,18 +43,15 @@ Public Interface IAttendanceSet
     Property Day31 As Integer
 
     Property Monday As Integer
-
     Property Tuesday As Integer
-
     Property Wednesday As Integer
     Property Thursday As Integer
-
     Property Friday As Integer
 
     Function Insert() As Boolean
     Function Update() As Boolean
-
     Function Update(ByVal empid As Integer, ByVal day As Integer, ByVal status As Integer) As Boolean
+    Function InsertLogoffTime(ByVal empid As Integer) As Boolean
     Function GetAttendanceMonthly(ByVal month As Integer, ByVal year As Integer) As List(Of AttendanceSet)
     Function GetAttendanceToday(ByVal email As String) As List(Of AttendanceSet)
     Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of AttendanceSet)

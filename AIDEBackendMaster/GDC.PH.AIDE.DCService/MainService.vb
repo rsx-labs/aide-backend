@@ -1685,6 +1685,16 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Overrides Function InsertLogoffTime(ByVal empid As Integer) As Boolean
+        Dim state As StateData = AttendanceMgmt.InsertLogoffTime(empid)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Overrides Function GetAttendanceToday(email As String) As List(Of MyAttendance)
         Dim state As StateData = AttendanceMgmt.GetAttendanceToday(email)
         Dim attendanceLst As New List(Of MyAttendance)
@@ -1698,6 +1708,7 @@ Public MustInherit Class MainService
                 item.Name = _list.Name
                 item.Descr = _list.Descr
                 item.DateEntry = _list.DateEntry
+                item.LogoffTime = _list.LogoffTime
                 item.Status = _list.Status
                 item.Image_Path = _list.Image_Path
 
@@ -1720,6 +1731,7 @@ Public MustInherit Class MainService
                 item.Name = _list.Name
                 item.Descr = _list.Descr
                 item.DateEntry = _list.DateEntry
+                item.LogoffTime = _list.LogoffTime
                 item.Status = _list.Status
                 item.Image_Path = _list.Image_Path
 
