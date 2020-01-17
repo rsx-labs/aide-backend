@@ -109,6 +109,7 @@ Public Class AnnouncementsManagement
         announcementsData.MESSAGE = objAnnouncements.MESSAGE
         announcementsData.TITLE = objAnnouncements.TITLE
         announcementsData.END_DATE = objAnnouncements.END_DATE
+        announcementsData.DELETED_FG = objAnnouncements.DELETED_FG
 
         objResult = announcementsData
     End Sub

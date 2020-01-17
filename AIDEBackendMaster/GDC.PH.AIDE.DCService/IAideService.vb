@@ -1856,6 +1856,8 @@ Public Class Announcements
     Public Property TITLE As String
     <DataMember()>
     Public Property END_DATE As Date
+    <DataMember()>
+    Public Property DELETED_FG As Integer
 
 End Class
 #End Region
