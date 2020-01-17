@@ -23,6 +23,7 @@ BEGIN
 								     EMPLOYEE_NAME VARCHAR(50),
 								     DESCR VARCHAR(50),
 								     DATE_ENTRY DATETIME,
+									 LOGOFF_TIME DATETIME,
 								     STATUS INT,
 								     IMAGE_PATH VARCHAR(MAX),
 									 DSPLY_ORDR INT)
@@ -58,10 +59,11 @@ BEGIN
 	WHILE (@counter <= @totalEmployees)
 		BEGIN
 		---date flag 1-morning 2-afternoon
-			INSERT INTO @ATTENDANCE_TODAY (EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH, DSPLY_ORDR)
+			INSERT INTO @ATTENDANCE_TODAY (EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, LOGOFF_TIME, STATUS, IMAGE_PATH, DSPLY_ORDR)
 				SELECT DISTINCT B.EMP_ID, B.LAST_NAME + ', ' + B.FIRST_NAME + ' ' + SUBSTRING(B.MIDDLE_NAME,1,1) + '' AS EMPLOYEE_NAME, 
 						D.DESCR, 
 						a.DATE_ENTRY,
+						a.LOGOFF_TIME,
 						a.STATUS, 
 						B.IMAGE_PATH, 
 						CASE when  A.STATUS = 2 OR A.STATUS = 11 OR A.STATUS = 7 THEN  1  
@@ -84,11 +86,11 @@ BEGIN
 			SET @counter += 1
 		END
 	
-	CREATE TABLE #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
-	CREATE TABLE #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
+	CREATE TABLE #summaryTbl (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, LOGOFF_TIME datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
+	CREATE TABLE #summaryTbl2 (EMP_ID int, EMPLOYEE_NAME nvarchar(50), DESCR nvarchar(50), DATE_ENTRY datetime, LOGOFF_TIME datetime, STATUS int, IMAGE_PATH nvarchar(100), DSPLY_ORDR int)
 
 	INSERT INTO #summaryTbl 
-	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY order by DSPLY_ORDR ASC
+	SELECT DISTINCT EMP_ID, EMPLOYEE_NAME, DESCR, DATE_ENTRY, LOGOFF_TIME, STATUS, IMAGE_PATH,DSPLY_ORDR FROM @ATTENDANCE_TODAY order by DSPLY_ORDR ASC
 
 	IF @DT_TIME_TODAY between  '00:00:00' and '13:59:59' 
 		BEGIN
@@ -97,7 +99,7 @@ BEGIN
 				CASE 
 					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
 					ELSE at.DATE_ENTRY
-				END AS DATE_ENTRY,
+				END AS DATE_ENTRY,at.LOGOFF_TIME,
 				CASE 
 					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and st.EMP_ID = at.EMP_ID) 
 					ELSE (select STATUS from #summaryTbl where  CONVERT(VARCHAR(10),DATE_ENTRY, 108)  between '00:00:00' and '13:59:59' and EMP_ID = at.EMP_ID )	
@@ -117,7 +119,7 @@ BEGIN
 				CASE 
 					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select DATE_ENTRY from #summaryTbl where convert(time, date_entry) between  @startdate_today and @enddate_today and EMP_ID = at.EMP_ID)
 					ELSE at.DATE_ENTRY
-				END as DATE_ENTRY,
+				END as DATE_ENTRY,at.LOGOFF_TIME,
 				CASE 
 					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) > 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID) 
 					WHEN EXISTS (SELECT EMP_ID FROM #summaryTbl AA WHERE AA.EMP_ID = AT.EMP_ID AND CONVERT(VARCHAR(10), AA.DATE_ENTRY, 108)  BETWEEN '14:00:00' and '23:59:59'  GROUP BY AA.EMP_ID, AA.EMPLOYEE_NAME HAVING COUNT(AA.EMP_ID) = 1 ) THEN  (select st.STATUS from #summaryTbl st where  CONVERT(VARCHAR(10), st.DATE_ENTRY, 108)  between  '14:00:00' and '23:59:59' and st.EMP_ID = at.EMP_ID)

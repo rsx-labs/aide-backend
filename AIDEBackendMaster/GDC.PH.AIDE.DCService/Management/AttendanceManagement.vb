@@ -56,6 +56,22 @@ Public Class AttendanceManagement
         Return state
     End Function
 
+    Public Function InsertLogoffTime(ByVal empid As Integer) As StateData
+        Dim _attendanceSet As New AttendanceSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            If _attendanceSet.InsertLogoffTime(empid) Then
+                status = NotifyType.IsSuccess
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
     Public Function GetAttendanceByEmployee(ByVal empId As Integer, ByVal weekOf As DateTime) As StateData
         Dim _attendanceSet As New AttendanceSet
         Dim lstAttendanceSet As New List(Of AttendanceSet)
@@ -264,7 +280,7 @@ Public Class AttendanceManagement
         attendanceData.Status = objAttendance.STATUS
         attendanceData.Image_Path = objAttendance.IMAGE_PATH
         attendanceData.DateEntry = objAttendance.DATE_ENTRY
-
+        attendanceData.LogoffTime = objAttendance.LOGOFF_TIME
         Return attendanceData
     End Function
 

@@ -168,6 +168,36 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public bool InsertLogoffTime(clsAttendance businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_InsertLogoffTime]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAttendance::InsertLogoffTime::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         /// <summary>
         /// Select by primary key
         /// </summary>
@@ -735,6 +765,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.EMPLOYEE_NAME.ToString()));
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.DESCR.ToString()));
             businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.DATE_ENTRY.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.LOGOFF_TIME.ToString())))
+            {
+                businessObject.LOGOFF_TIME = dataReader.GetDateTime(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.LOGOFF_TIME.ToString()));
+            }
             businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.STATUS.ToString()));
             businessObject.IMAGE_PATH = dataReader.GetString(dataReader.GetOrdinal(clsAttendance.clsAttendanceFields.IMAGE_PATH.ToString()));
         }
@@ -795,8 +829,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         }
 
         #endregion
-
-
 
     }
 }

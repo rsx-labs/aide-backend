@@ -67,6 +67,10 @@ Public Class AIDEService
         MyBase.UpdateAttendanceByEmp(empid, day, attstatus)
     End Sub
 
+    Public Sub InsertLogoffTimes(empid As Integer) Implements IAideService.InsertLogoffTime
+        MyBase.InsertLogoffTime(empid)
+    End Sub
+
     Public Sub InsertAttendance(ByVal _Attendance As AttendanceSummary) Implements IAideService.InsertAttendance
         MyBase.InsertAttendanceByEmp(_Attendance)
     End Sub

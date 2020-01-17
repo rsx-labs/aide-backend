@@ -384,6 +384,15 @@ Public Class AttendanceSet
         End Set
     End Property
 
+    Public Property LOGOFF_TIME As DateTime Implements IAttendanceSet.LogoffTime
+        Get
+            Return Me.cAttendance.LOGOFF_TIME
+        End Get
+        Set(value As DateTime)
+            Me.cAttendance.LOGOFF_TIME = value
+        End Set
+    End Property
+
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
     Public Function Insert() As Boolean Implements IAttendanceSet.Insert
@@ -410,7 +419,6 @@ Public Class AttendanceSet
         End Try
     End Function
 
-
     Public Function UpdateAttendance(ByVal empid As Integer, ByVal day As Integer, status As Integer) As Boolean Implements IAttendanceSet.Update
         Try
             Dim curdate As Date = Date.Now
@@ -418,6 +426,19 @@ Public Class AttendanceSet
             cAttendance.YEAR = curdate.Year
             cAttendance.EMP_ID = empid
             Return Me.cAttendanceFactory.Update(cAttendance, day, status)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function InsertLogoffTime(ByVal empid As Integer) As Boolean Implements IAttendanceSet.InsertLogoffTime
+        Try
+            cAttendance.EMP_ID = empid
+            Return Me.cAttendanceFactory.InsertLogoffTime(cAttendance)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed")

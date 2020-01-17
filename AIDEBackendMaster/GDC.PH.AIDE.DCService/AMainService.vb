@@ -37,6 +37,7 @@
     MustOverride Function UpdateAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
     MustOverride Function InsertAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
     MustOverride Function UpdateAttendanceByEmp(ByVal empid As Integer, ByVal day As Integer, ByVal attstatus As Integer) As Boolean
+    MustOverride Function InsertLogoffTime(ByVal empid As Integer) As Boolean
     MustOverride Function GetAttendanceToday(ByVal email As String) As List(Of MyAttendance)
     MustOverride Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of MyAttendance)
     MustOverride Function GetAssetDescription() As List(Of Assets)
