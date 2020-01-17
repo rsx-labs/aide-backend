@@ -11,6 +11,7 @@ Public Class AnnouncementsSet
 
 
 
+
     Private cAnnouncements As clsAnnouncements
     Private cAnnouncementsFactory As clsAnnouncementsFactory
 
@@ -57,6 +58,15 @@ Public Class AnnouncementsSet
         End Get
         Set(value As String)
             Me.cAnnouncements.TITLE = value
+        End Set
+    End Property
+
+    Public Property DELETED_FG As Integer Implements IAnnouncementsSet.DELETED_FG
+        Get
+            Return Me.cAnnouncements.DELETED_FG
+        End Get
+        Set(value As Integer)
+            Me.cAnnouncements.DELETED_FG = value
         End Set
     End Property
 
@@ -124,4 +134,5 @@ Public Class AnnouncementsSet
             End If
         End Try
     End Function
+
 End Class

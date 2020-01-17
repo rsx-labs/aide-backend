@@ -123,6 +123,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@MESSAGE", SqlDbType.VarChar, 1000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MESSAGE));
                 sqlCommand.Parameters.Add(new SqlParameter("@TITLE", SqlDbType.VarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TITLE));
                 sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", SqlDbType.Date, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.END_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@DELETED_FG", SqlDbType.Int, 1, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DELETED_FG));
                 
 
                 MainConnection.Open();

@@ -27,6 +27,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _message;
         string _title;
         DateTime _endDate;
+        int _deletedFg;
 
         #endregion
 
@@ -97,6 +98,20 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
+
+        public int DELETED_FG
+        {
+            get { return _deletedFg; }
+            set
+            {
+                if (_deletedFg != value)
+                {
+                    _deletedFg = value;
+                    PropertyHasChanged("DELETED_FG");
+                }
+            }
+        }
+
 
  
         #endregion
