@@ -2392,6 +2392,8 @@ Public MustInherit Class MainService
                 item.EMP_ID = _list.EMP_ID
                 item.TITLE = _list.TITLE
                 item.END_DATE = _list.END_DATE
+                item.TOTAL_ENROLL = _list.TOTAL_ENROLL
+                item.TOTAL_COMPLETED = _list.TOTAL_COMPLETED
 
                 sabalearningLst.Add(item)
             Next

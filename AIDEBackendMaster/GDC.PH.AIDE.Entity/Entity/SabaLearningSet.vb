@@ -6,9 +6,6 @@ Imports System.Data.SqlClient
 Public Class SabaLearningSet
     Implements ISabaLearningSet, INotifyPropertyChanged
 
-
-
-
     Private cSabaLearning As clsSabaLearning
     Private cSabaLearningFactory As clsSabaLearningFactory
 
@@ -131,6 +128,24 @@ Public Class SabaLearningSet
         End Get
         Set(value As String)
             Me.cSabaLearning.IMAGE_PATH = value
+        End Set
+    End Property
+
+    Public Property TOTAL_ENROLL As Integer Implements ISabaLearningSet.TOTAL_ENROLL
+        Get
+            Return Me.cSabaLearning.TOTAL_ENROLL
+        End Get
+        Set(value As Integer)
+            Me.cSabaLearning.TOTAL_ENROLL = value
+        End Set
+    End Property
+
+    Public Property TOTAL_COMPLETED As Integer Implements ISabaLearningSet.TOTAL_COMPLETED
+        Get
+            Return Me.cSabaLearning.TOTAL_COMPLETED
+        End Get
+        Set(value As Integer)
+            Me.cSabaLearning.TOTAL_COMPLETED = value
         End Set
     End Property
 
