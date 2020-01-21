@@ -6,6 +6,9 @@ Public Interface ISabaLearningSet
     Property END_DATE As Date
     Property DATE_COMPLETED As String
     Property IMAGE_PATH As String
+    Property TOTAL_ENROLL As Integer
+    Property TOTAL_COMPLETED As Integer
+
 
     Function GetAllSabaCourses(ByVal empID As Integer) As List(Of SabaLearningSet)
     Function GetAllSabaXref(ByVal empID As Integer, ByVal sabaID As Integer) As List(Of SabaLearningSet)

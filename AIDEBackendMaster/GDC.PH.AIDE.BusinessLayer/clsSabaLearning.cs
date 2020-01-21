@@ -14,7 +14,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             TITLE,
             END_DATE,
             DATE_COMPLETED,
-            IMAGE_PATH
+            IMAGE_PATH,
+            TOTAL_ENROLL,
+            TOTAL_COMPLETED
         }
         #endregion
 
@@ -26,6 +28,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _saba_end_date;
         string _saba_date_completed;
         string _image_path;
+        int _total_enroll;
+        int _total_completed;
 
         #endregion
 
@@ -105,6 +109,31 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _image_path = value;
                     PropertyHasChanged("IMAGE_PATH");
+                }
+            }
+        }
+
+        public int TOTAL_ENROLL
+        {
+            get { return _total_enroll; }
+            set
+            {
+                if (_total_enroll != value)
+                {
+                    _total_enroll = value;
+                    PropertyHasChanged("TOTAL_ENROLL");
+                }
+            }
+        }
+        public int TOTAL_COMPLETED
+        {
+            get { return _total_completed; }
+            set
+            {
+                if (_total_completed != value)
+                {
+                    _total_completed = value;
+                    PropertyHasChanged("TOTAL_COMPLETED");
                 }
             }
         }

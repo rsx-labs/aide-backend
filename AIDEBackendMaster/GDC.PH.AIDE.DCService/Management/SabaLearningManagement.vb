@@ -26,6 +26,8 @@ Public Class SabaLearningManagement
         SabaLearningData.END_DATE = objSabaLearning.END_DATE
         SabaLearningData.DATE_COMPLETED = objSabaLearning.DATE_COMPLETED
         SabaLearningData.IMAGE_PATH = objSabaLearning.IMAGE_PATH
+        SabaLearningData.TOTAL_ENROLL = objSabaLearning.TOTAL_ENROLL
+        SabaLearningData.TOTAL_COMPLETED = objSabaLearning.TOTAL_COMPLETED
 
 
         Return SabaLearningData

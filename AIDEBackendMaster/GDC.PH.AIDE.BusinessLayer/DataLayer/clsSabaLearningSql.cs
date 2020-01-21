@@ -249,6 +249,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             businessObject.END_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsSabaLearning.clsSabaLearningFields.END_DATE.ToString()));
 
+            businessObject.TOTAL_ENROLL = dataReader.GetInt32(dataReader.GetOrdinal(clsSabaLearning.clsSabaLearningFields.TOTAL_ENROLL.ToString()));
+
+            businessObject.TOTAL_COMPLETED = dataReader.GetInt32(dataReader.GetOrdinal(clsSabaLearning.clsSabaLearningFields.TOTAL_COMPLETED.ToString()));
+
         }
 
         /// <summary>

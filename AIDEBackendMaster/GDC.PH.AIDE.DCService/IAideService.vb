@@ -1897,6 +1897,10 @@ Public Class SabaLearning
     Public Property DATE_COMPLETED As String
     <DataMember()>
     Public Property IMAGE_PATH As String
+    <DataMember()>
+    Public Property TOTAL_ENROLL As Integer
+    <DataMember()>
+    Public Property TOTAL_COMPLETED As Integer
 
 End Class
 #End Region
