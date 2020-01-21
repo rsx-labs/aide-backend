@@ -153,7 +153,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         public List<clsWorkplaceAudit> GetAuditQuestions(int empID, string questionGroup)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_GetAuditQuestions]";
+            sqlCommand.CommandText = "dbo.[sp_getAuditDailyQuestion]";
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             // Use connection object of base class
@@ -182,7 +182,50 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
 
         }
+        /// <summary>
+        /// Select records daily auditor this week
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="parmDateRange"></param>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string parmDateRange)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_getDailyAuditorByWeek]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
 
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, parmDateRange));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderDailyAuditorByWeek(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAuditSched::clsWorkplaceAudit::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        /// <summary>
+        /// Get Daily audit question
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="parmDateRange"></param>
+        /// <returns></returns>
         #endregion
 
         #region Private Methods
@@ -201,7 +244,19 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.STATUS.ToString()));
             businessObject.DT_CHECKED = dataReader.GetDateTime(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.DT_CHECKED.ToString()));
         }
-
+        internal void PopulateObjectsFromReaderAudtiSchedMonth(clsWorkplaceAudit businessObject, IDataReader dataReader)
+        {
+            businessObject.AUDITSCHED_MONTH = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.AUDITSCHED_MONTH.ToString()));
+        }
+        internal void PopulateBusinessObjectFromReaderDailyAuditorByWeek(clsWorkplaceAudit businessObject, IDataReader dataReader)
+        {
+            businessObject.WEEKDAYS = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.WEEKDAYS.ToString()));
+            businessObject.NICKNAME = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.NICKNAME.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.EMP_ID.ToString()));
+            businessObject.WEEKDATE = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.WEEKDATE.ToString()));
+     
+        }
+        
         /// <summary>
         /// Populate business object from data reader
         /// </summary>
@@ -209,12 +264,13 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="dataReader">data reader</param>
         internal void PopulateBusinessObjectFromReader2(clsWorkplaceAudit businessObject, IDataReader dataReader)
         {
-            businessObject.AUDIT_QUESTIONS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.AUDIT_QUESTIONS_ID.ToString()));
+            //businessObject.AUDIT_QUESTIONS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.AUDIT_QUESTIONS_ID.ToString()));
             businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.EMP_ID.ToString()));
             businessObject.AUDIT_QUESTIONS = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.AUDIT_QUESTIONS.ToString()));
             businessObject.OWNER = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.OWNER.ToString()));
             businessObject.AUDIT_QUESTIONS_GROUP = dataReader.GetString(dataReader.GetOrdinal(clsWorkplaceAudit.clsWorkplaceAuditFields.AUDIT_QUESTIONS_GROUP.ToString()));
         }
+    
 
 
         /// <summary>
@@ -234,7 +290,30 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             return list;
         }
+        internal List<clsWorkplaceAudit> PopulateObjectsFromReaderDailyAuditorByWeek(IDataReader dataReader)
+        {
+            List<clsWorkplaceAudit> list = new List<clsWorkplaceAudit>();
 
+            while (dataReader.Read())
+            {
+                clsWorkplaceAudit businessObject = new clsWorkplaceAudit();
+                PopulateBusinessObjectFromReaderDailyAuditorByWeek(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+        internal List<clsWorkplaceAudit> PopulateObjectsFromReaderAudtiSchedMonth(IDataReader dataReader)
+        {
+            List<clsWorkplaceAudit> list = new List<clsWorkplaceAudit>();
+
+            while (dataReader.Read())
+            {
+                clsWorkplaceAudit businessObject = new clsWorkplaceAudit();
+                PopulateObjectsFromReaderAudtiSchedMonth(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
         /// <summary>
         /// Populate business objects from the data reader
         /// </summary>
@@ -254,6 +333,40 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         }
 
         #endregion
+
+        #region Audti Sched Per Month SELECTION
+        public List<clsWorkplaceAudit> GetAuditSChed_Month()
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_getAuditSChedByMonth]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderAudtiSchedMonth(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsWorkplaceAudit::clsWorkplaceAudit::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        #endregion
+
+
 
     }
 }

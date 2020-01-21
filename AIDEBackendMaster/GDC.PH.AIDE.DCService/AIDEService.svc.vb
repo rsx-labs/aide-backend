@@ -1084,7 +1084,13 @@ Public Class AIDEService
     'Public Sub UpdateAuditScheds(auditSched As WorkplaceAudit) Implements IAideService.UpdateAuditSched
     '    MyBase.UpdateAuditSched(auditSched)
     'End Sub
+    Public Function GetAuditSChed_Month() As List(Of WorkplaceAudit) Implements IAideService.GetAuditSChed_Month
+        Return MyBase.GetAuditSched_Month()
+    End Function
 
+    Public Function GetDailyAuditorByWeek(empID As Integer, parmDate As String) As List(Of WorkplaceAudit) Implements IAideService.GetDailyAuditorByWeek
+        Return MyBase.GetDailyAuditorByWeek(empID, parmDate)
+    End Function
 #End Region
 
 #Region "Contributors Functions"
@@ -1127,6 +1133,7 @@ Public Class AIDEService
     Public Function GetAllFiscalYears() As List(Of FiscalYear) Implements IAideService.GetAllFiscalYear
         Return MyBase.GetAllFiscalYear()
     End Function
+
 #End Region
 
 #Region "KPI Targets"

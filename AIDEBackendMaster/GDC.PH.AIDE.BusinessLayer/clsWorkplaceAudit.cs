@@ -20,7 +20,12 @@ namespace GDC.PH.AIDE.BusinessLayer
             DT_CHECKED,
             AUDIT_QUESTIONS,
             OWNER,
-            AUDIT_QUESTIONS_GROUP
+            AUDIT_QUESTIONS_GROUP,
+            AUDITSCHED_MONTH,
+            WEEKDAYS,
+            NICKNAME,
+            WEEKDATE
+
         }
         #endregion
 
@@ -35,7 +40,10 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _auditQuestions;
         string _owner;
         string _auditQuestionsGroup;
-
+        string _auditschedmonth;
+        string _weekDays;
+        string _nickName;
+        string _weekDate;
         #endregion
 
         #region Properties
@@ -130,8 +138,7 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
-
-        public String OWNER
+        public string OWNER
         {
             get { return _owner; }
             set
@@ -140,6 +147,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _owner = value;
                     PropertyHasChanged("OWNER");
+                }
+            }
+        }
+
+        public string AUDITSCHED_MONTH
+        {
+            get { return _auditschedmonth; }
+            set
+            {
+                if (_auditschedmonth != value)
+                {
+                    _auditschedmonth = value;
+                    PropertyHasChanged("AUDITSCHED_MONTH");
                 }
             }
         }
@@ -156,8 +176,43 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
+        public string WEEKDAYS
+        {
+            get { return _weekDays; }
+            set
+            {
+                if (_weekDays != value)
+                {
+                    _weekDays = value;
+                    PropertyHasChanged("WEEKDAYS");
+                }
+            }
+        }
+        public string NICKNAME
+        {
+            get { return _nickName; }
+            set
+            {
+                if (_nickName != value)
+                {
+                    _nickName = value;
+                    PropertyHasChanged("NICKNAME");
+                }
+            }
+        }
+        public string WEEKDATE
+        {
+            get { return _weekDate; }
+            set
+            {
+                if (_weekDate != value)
+                {
+                    _weekDate = value;
+                    PropertyHasChanged("WEEKDATE");
+                }
+            }
+        }
 
- 
         #endregion
 
         #region Validation
@@ -174,10 +229,15 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDIT_QUESTIONS", "AUDIT_QUESTIONS"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("OWNER", "OWNER"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDIT_QUESTIONS_GROUP", "AUDIT_QUESTIONS_GROUP"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDITSCHED_MONTH", "AUDITSCHED_MONTH"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("NICKNAME", "NICKNAME"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKDAYS", "WEEKDAYS"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKDATE", "WEEKDATE"));
         }
         #endregion
 
     }
+  
 }
 ///////////////////////////////////
 //   JHUNELL BARCENAS            //

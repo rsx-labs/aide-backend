@@ -665,9 +665,11 @@ Public Interface IAideService
     <OperationContract()>
     Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
 
-    '<OperationContract(IsOneWay:=True)>
-    'Sub UpdateAuditSched(ByVal auditSched As AuditSched)
+    <OperationContract()>
+    Function GetAuditSChed_Month() As List(Of WorkplaceAudit)
 
+    <OperationContract()>
+    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal parmDate As String) As List(Of WorkplaceAudit)
 #End Region
 
 #Region "Contributors Operation Contracts"
@@ -706,6 +708,8 @@ Public Interface IAideService
 
     <OperationContract()>
     Function GetAllFiscalYear() As List(Of FiscalYear)
+
+
 #End Region
 
 #Region "KPI Targets Operation Contracts"
@@ -2218,6 +2222,18 @@ Public Class WorkplaceAudit
 
     <DataMember()>
     Public Property AUDIT_QUESTIONS_GROUP As String
+
+    <DataMember()>
+    Public Property AUDITSCHED_MONTH As String
+
+    <DataMember()>
+    Public Property WEEKDAYS As String
+
+    <DataMember()>
+    Public Property NICKNAME As String
+
+    <DataMember()>
+    Public Property WEEKDATE As String
 End Class
 #End Region
 
@@ -2299,6 +2315,11 @@ End Class
 Public Class FiscalYear
     <DataMember()>
     Public Property FISCAL_YEAR As String
+End Class
+
+Public Class AUDITSCHED_MONTH
+    <DataMember()>
+    Public Property AUDITSCHED_MONTH As String
 End Class
 #End Region
 

@@ -29,7 +29,6 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 
         #region Public Methods
-
         /// <summary>
         /// Insert new clsWorkplaceAudit
         /// </summary>
@@ -45,25 +44,6 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.InsertAuditDaily(businessObject);
 
         }
-
-        /// <summary>
-        /// Update existing clsWorkplaceAudit
-        /// </summary>
-        /// <param name="businessObject">clsWorkplaceAudit object</param>
-        /// <returns>true for successfully saved</returns>
-        //public bool UpdateAuditSched(clsWorkplaceAudit businessObject)
-        //{
-        //    if (!businessObject.IsValid)
-        //    {
-        //        throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
-        //    }
-
-
-        //    return _dataObject.UpdateAuditSched(businessObject);
-        //}
-
-        
-
         /// <summary>
         /// get list of all clsWorkplaceAudit
         /// </summary>
@@ -72,7 +52,6 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetAuditDaily(empID, parmDate);
         }
-
         /// <summary>
         /// get list of all clsWorkplaceAudit
         /// </summary>
@@ -81,8 +60,24 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetAuditQuestions(empID, questionGroup);
         }
-
-
+        /// <summary>
+        /// Get weekly sched of audit display in dropdown
+        /// </summary>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetAuditSChed_Month()
+        {
+            return _dataObject.GetAuditSChed_Month();
+        }
+        /// <summary>
+        /// Get daily auditor this week
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="parmDate"></param>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string parmDateRange)
+        {
+            return _dataObject.GetDailyAuditorByWeek(empID, parmDateRange);
+        }
         #endregion
 
     }

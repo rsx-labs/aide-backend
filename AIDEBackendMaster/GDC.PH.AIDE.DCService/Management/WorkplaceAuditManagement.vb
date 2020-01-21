@@ -23,6 +23,18 @@ Public Class WorkplaceAuditManagement
         workplaceData.AUDIT_QUESTIONS = objWorkplaceAudit.AUDIT_QUESTIONS
         workplaceData.OWNER = objWorkplaceAudit.OWNER
         workplaceData.AUDIT_QUESTIONS_GROUP = objWorkplaceAudit.AUDIT_QUESTIONS_GROUP
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
+        workplaceData.WEEKDAYS = objWorkplaceAudit.WEEKDAYS
+        workplaceData.NICKNAME = objWorkplaceAudit.NICKNAME
+        workplaceData.WEEKDATE = objWorkplaceAudit.WEEKDATE
+
+        Return workplaceData
+    End Function
+    Public Function GetMappedFieldsAuditSchedMonth(ByVal objData As Object) As Object
+        Dim objWorkplaceAudit As WorkplaceAuditSet = DirectCast(objData, WorkplaceAuditSet)
+        Dim workplaceData As New WorkplaceAudit
+
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
         Return workplaceData
     End Function
 
@@ -101,6 +113,57 @@ Public Class WorkplaceAuditManagement
         state = GetStateData(status, objWorkplaceAudit, message)
         Return state
     End Function
+    Public Function GetAudtiSChed_Month() As StateData
+        Dim objSet As New WorkplaceAuditSet
+        Dim objSetList As List(Of WorkplaceAuditSet)
+        Dim classDataList As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            objSetList = objSet.GetAuditSchedMonth()
+
+            If Not IsNothing(objSetList) Then
+                For Each objList As WorkplaceAuditSet In objSetList
+                    classDataList.Add(DirectCast(GetMappedFieldsAuditSchedMonth(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, classDataList, message)
+        Return state
+    End Function
+
+    Public Function GetDailyAuditorByWeek(empID As Integer, parmDate As String) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
+        Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstWorkplaceAudit = WorkplaceAuditSet.GetDailyAuditorByWeek(empID, parmDate)
+
+            If Not IsNothing(lstWorkplaceAudit) Then
+                For Each objList As WorkplaceAuditSet In lstWorkplaceAudit
+                    objWorkplaceAudit.Add(DirectCast(GetMappedFields(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWorkplaceAudit, message)
+        Return state
+    End Function
 
     'Public Function UpdateAuditSched(ByVal AuditSched As AuditSched) As StateData
     '    Dim WorkplaceAuditSet As New WorkplaceAuditSet
@@ -142,7 +205,10 @@ Public Class WorkplaceAuditManagement
         workplaceData.AUDIT_QUESTIONS = objWorkplaceAudit.AUDIT_QUESTIONS
         workplaceData.OWNER = objWorkplaceAudit.OWNER
         workplaceData.AUDIT_QUESTIONS_GROUP = objWorkplaceAudit.AUDIT_QUESTIONS_GROUP
-
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
+        workplaceData.WEEKDAYS = objWorkplaceAudit.WEEKDAYS
+        workplaceData.NICKNAME = objWorkplaceAudit.NICKNAME
+        workplaceData.WEEKDATE = objWorkplaceAudit.WEEKDATE
         objResult = workplaceData
     End Sub
 End Class

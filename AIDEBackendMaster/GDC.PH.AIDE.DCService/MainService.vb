@@ -129,19 +129,6 @@ Public MustInherit Class MainService
         Throw New NotImplementedException()
     End Function
 
-
-
-    'Public Overrides Function GetAllEmployees(ByRef objResult As List(Of Employee)) As Boolean
-    '    Dim state As StateData = EmployeeMgmt.GetEmployeeList()
-    '    Dim bSuccess As Boolean = False
-    '    If state.NotifyType = NotifyType.IsSuccess Then
-    '        bSuccess = True
-    '        objResult = state.Data
-    '    End If
-    '    ReceivedData(state)
-    '    Return bSuccess
-    'End Function
-
     Public Overrides Function GetEmployee(empId As Integer, ByRef objResult As Employee) As Boolean
         Dim state As StateData = EmployeeMgmt.GetEmployee(empId)
         Dim bSuccess As Boolean = False
@@ -2798,6 +2785,37 @@ Public MustInherit Class MainService
         End If
         Return workplaceAuditLst
     End Function
+    Public Overrides Function GetAuditSched_Month() As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAudtiSChed_Month()
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each obj As WorkplaceAudit In newObjlst
+                workplaceAuditLst.Add(obj)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal parmData As String) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetDailyAuditorByWeek(empID, parmData)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.WEEKDAYS = _list.WEEKDAYS
+                item.NICKNAME = _list.NICKNAME
+                item.EMP_ID = _list.EMP_ID
+                item.WEEKDATE = _list.WEEKDATE
+
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
 
 #End Region
 
@@ -2922,6 +2940,7 @@ Public MustInherit Class MainService
         End If
         Return objLst
     End Function
+
 #End Region
 
 #Region "KPI Targets"

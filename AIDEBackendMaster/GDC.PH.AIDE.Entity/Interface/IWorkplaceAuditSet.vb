@@ -9,10 +9,17 @@ Public Interface IWorkplaceAuditSet
     Property AUDIT_QUESTIONS As String
     Property OWNER As String
     Property AUDIT_QUESTIONS_GROUP As String
+    Property WEEKDAYS As String
+    Property NICKNAME As String
+    Property WEEKDATE As String
+    Property AUDITSCHED_MONTH As String
 
     Function GetAuditDaily(ByVal empID As Integer, ByVal parmDate As Date) As List(Of WorkplaceAuditSet)
     Function InsertAuditDaily(ByVal auditSched As WorkplaceAuditSet) As Boolean
     Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAuditSet)
+    Function GetAuditSchedMonth() As List(Of WorkplaceAuditSet)
+    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal parmDate As String) As List(Of WorkplaceAuditSet)
+
     'Function UpdateAuditSched(ByVal auditSched As WorkplaceAuditSet) As Boolean
 
 End Interface
