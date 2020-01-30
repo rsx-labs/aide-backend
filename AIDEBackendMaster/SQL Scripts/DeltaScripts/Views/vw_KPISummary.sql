@@ -16,8 +16,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-
 	CREATE VIEW [dbo].[vw_KPISummary] AS
 	
 	Select summary.KPI_REF as KPIRefID,
