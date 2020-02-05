@@ -2576,8 +2576,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function GetWeekRange(currentDate As Date, empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
-        Dim state As StateData = WeeklyReportMgmt.GetWeekRange(currentDate, empID)
+    Public Overrides Function GetWeekRange(currentDate As Date, weekID As Integer, empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+        Dim state As StateData = WeeklyReportMgmt.GetWeekRange(currentDate, weekID, empID)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

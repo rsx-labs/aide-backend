@@ -99,9 +99,9 @@ namespace GDC.PH.AIDE.BusinessLayer
 
         #region STORED PROCS
 
-        public List<clsWeekRange> GetWeekRange(DateTime currentDate, int empID)
+        public List<clsWeekRange> GetWeekRange(DateTime currentDate, int weekID, int empID)
         {
-            return _dataObject.GetWeekRange(currentDate, empID);
+            return _dataObject.GetWeekRange(currentDate, weekID, empID);
         }
 
         public List<clsWeekRange> GetWeekRangeByMonthYear(int empID, int month, int year)

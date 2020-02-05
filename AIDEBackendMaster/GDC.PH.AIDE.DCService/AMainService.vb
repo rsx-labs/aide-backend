@@ -355,7 +355,7 @@
     MustOverride Function CreateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
     MustOverride Function UpdateWeeklyReport(ByVal weeklyReport As List(Of WeeklyReport), ByVal deletedWeeklyReport As List(Of WeeklyReport), ByVal weeklyReportXref As WeekRange) As Boolean
     MustOverride Function CreateWeekRange(ByVal weekRange As WeekRange) As Boolean
-    MustOverride Function GetWeekRange(ByVal currentDate As Date, ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
+    MustOverride Function GetWeekRange(ByVal currentDate As Date, ByVal weekID As Integer, ByVal empID As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeekRangeByMonthYear(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeeklyReportsByEmpID(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByRef objResult As List(Of WeekRange)) As Boolean
     MustOverride Function GetWeeklyReportsByWeekRangeID(ByVal weekRangeID As Integer, ByVal currentDate As Date, ByVal empID As Integer, ByRef objResult As List(Of WeeklyReport)) As Boolean
