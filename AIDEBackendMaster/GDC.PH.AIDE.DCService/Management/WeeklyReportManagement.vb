@@ -130,7 +130,7 @@ Public Class WeeklyReportManagement
         Return state
     End Function
 
-    Public Function GetWeekRange(currentDate As Date, empID As Integer) As StateData
+    Public Function GetWeekRange(currentDate As Date, weekId As Integer, empID As Integer) As StateData
         Dim weekRangeSet As New WeekRangeSet
         Dim weekRangeSetList As List(Of WeekRangeSet)
         Dim objWeekRange As New List(Of WeekRange)
@@ -139,7 +139,7 @@ Public Class WeeklyReportManagement
         Dim status As NotifyType
 
         Try
-            weekRangeSetList = weekRangeSet.GetWeekRange(currentDate, empID)
+            weekRangeSetList = weekRangeSet.GetWeekRange(currentDate, weekID, empID)
 
             If Not IsNothing(weekRangeSetList) Then
                 For Each objList As WeekRangeSet In weekRangeSetList

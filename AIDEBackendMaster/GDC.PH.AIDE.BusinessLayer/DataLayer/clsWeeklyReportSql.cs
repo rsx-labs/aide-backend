@@ -397,7 +397,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsWeekRange> GetWeekRange(DateTime currentDate, int empID)
+        public List<clsWeekRange> GetWeekRange(DateTime currentDate, int weekID, int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetWeekRange]";
@@ -409,6 +409,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@CURRENT_DATE", currentDate));
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEK_ID", weekID));
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
 
                 MainConnection.Open();

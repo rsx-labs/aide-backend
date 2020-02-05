@@ -988,9 +988,9 @@ Public Class AIDEService
         MyBase.UpdateWeeklyReport(weeklyReport, deletedWeeklyReport, weeklyReportXref)
     End Sub
 
-    Public Function GetTheWeekRange(currentDate As Date, empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRange
+    Public Function GetTheWeekRange(currentDate As Date, weekID As Integer, empID As Integer) As List(Of WeekRange) Implements IAideService.GetWeekRange
         Dim lstWeekRange As List(Of WeekRange) = Nothing
-        MyBase.GetWeekRange(currentDate, empID, lstWeekRange)
+        MyBase.GetWeekRange(currentDate, weekID, empID, lstWeekRange)
         Return lstWeekRange
     End Function
 

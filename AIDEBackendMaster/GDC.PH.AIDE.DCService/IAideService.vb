@@ -609,7 +609,7 @@ Public Interface IAideService
     Sub CreateWeekRange(ByVal weekRange As WeekRange)
 
     <OperationContract()>
-    Function GetWeekRange(ByVal currentDate As Date, ByVal empID As Integer) As List(Of WeekRange)
+    Function GetWeekRange(ByVal currentDate As Date, ByVal weekID As Integer, ByVal empID As Integer) As List(Of WeekRange)
 
     <OperationContract()>
     Function GetWeekRangeByMonthYear(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of WeekRange)

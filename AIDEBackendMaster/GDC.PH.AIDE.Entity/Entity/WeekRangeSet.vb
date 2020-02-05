@@ -124,10 +124,10 @@ Public Class WeekRangeSet
         End Try
     End Function
 
-    Public Function GetWeekRange(currentDate As Date, empID As Integer) As List(Of WeekRangeSet) Implements IWeekRange.GetWeekRange
+    Public Function GetWeekRange(currentDate As Date, weekID As Integer, empID As Integer) As List(Of WeekRangeSet) Implements IWeekRange.GetWeekRange
         Try
             Dim objWeekRangeList As List(Of clsWeekRange)
-            objWeekRangeList = cWeeklyReportFactory.GetWeekRange(currentDate, empID)
+            objWeekRangeList = cWeeklyReportFactory.GetWeekRange(currentDate, weekID, empID)
 
             If IsNothing(objWeekRangeList) Then
                 Throw New NoRecordFoundException("Record Not Found!")
