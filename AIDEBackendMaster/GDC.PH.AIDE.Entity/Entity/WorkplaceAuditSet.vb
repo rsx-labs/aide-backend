@@ -10,17 +10,20 @@ Public Class WorkplaceAuditSet
 
     Private cWorkplaceAudit As clsWorkplaceAudit
     Private cWorkplaceAuditFactory As clsWorkplaceAuditFactory
+    Private cAuditSched As clsAuditSched
 
     Dim cList As List(Of clsWorkplaceAudit)
     Dim cListSet As New List(Of WorkplaceAuditSet)
     Public Sub New()
         cWorkplaceAudit = New clsWorkplaceAudit()
         cWorkplaceAuditFactory = New clsWorkplaceAuditFactory()
+        cAuditSched = New clsAuditSched()
     End Sub
 
     Public Sub New(ByVal objWorkplaceAudit As clsWorkplaceAudit)
         cWorkplaceAudit = objWorkplaceAudit
         cWorkplaceAuditFactory = New clsWorkplaceAuditFactory()
+        cAuditSched = New clsAuditSched()
     End Sub
 
     Public Property AUDIT_DAILY_ID As Integer Implements IWorkplaceAuditSet.AUDIT_DAILY_ID
@@ -38,6 +41,14 @@ Public Class WorkplaceAuditSet
         End Get
         Set(value As Integer)
             Me.cWorkplaceAudit.AUDIT_QUESTIONS_ID = value
+        End Set
+    End Property
+    Public Property AUDIT_ID As Integer Implements IWorkplaceAuditSet.AUDIT_ID
+        Get
+            Return Me.cWorkplaceAudit.AUDIT_ID
+        End Get
+        Set(value As Integer)
+            Me.cWorkplaceAudit.AUDIT_ID = value
         End Set
     End Property
 
@@ -68,12 +79,20 @@ Public Class WorkplaceAuditSet
         End Set
     End Property
 
-    Public Property DT_CHECKED As DateTime Implements IWorkplaceAuditSet.DT_CHECKED
+    Public Property DT_CHECKED As String Implements IWorkplaceAuditSet.DT_CHECKED
         Get
             Return Me.cWorkplaceAudit.DT_CHECKED
         End Get
-        Set(value As DateTime)
+        Set(value As String)
             Me.cWorkplaceAudit.DT_CHECKED = value
+        End Set
+    End Property
+    Public Property DT_CHECK_FLG As Integer Implements IWorkplaceAuditSet.DT_CHECK_FLG
+        Get
+            Return Me.cWorkplaceAudit.DT_CHECK_FLG
+        End Get
+        Set(value As Integer)
+            Me.cWorkplaceAudit.DT_CHECK_FLG = value
         End Set
     End Property
 
@@ -133,6 +152,22 @@ Public Class WorkplaceAuditSet
         End Get
         Set(value As String)
             Me.cWorkplaceAudit.WEEKDATE = value
+        End Set
+    End Property
+    Public Property WEEKDATESCHED As String Implements IWorkplaceAuditSet.WEEKDATESCHED
+        Get
+            Return Me.cWorkplaceAudit.WEEKDATESCHED
+        End Get
+        Set(value As String)
+            Me.cWorkplaceAudit.WEEKDATESCHED = value
+        End Set
+    End Property
+    Public Property DATE_CHECKED As String Implements IWorkplaceAuditSet.DATE_CHECKED
+        Get
+            Return Me.cWorkplaceAudit.DATE_CHECKED
+        End Get
+        Set(value As String)
+            Me.cWorkplaceAudit.DATE_CHECKED = value
         End Set
     End Property
 
@@ -207,11 +242,11 @@ Public Class WorkplaceAuditSet
         End Try
     End Function
 
-    Public Function GetAuditSchedMonth() As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetAuditSchedMonth
+    Public Function GetAuditSchedMonth(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetAuditSchedMonth
 
         Try
 
-            cList = cWorkplaceAuditFactory.GetAuditSChed_Month()
+            cList = cWorkplaceAuditFactory.GetAuditSChed_Month(audit_grp, yr, month)
 
             If Not IsNothing(cList) Then
                 For Each cObject As clsWorkplaceAudit In cList
@@ -234,11 +269,11 @@ Public Class WorkplaceAuditSet
             Return Nothing
         End Try
     End Function
-    Public Function GetDailyAuditorByWeek(empID As Integer, parmDate As String) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetDailyAuditorByWeek
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetDailyAuditorByWeek
 
         Try
 
-            cList = cWorkplaceAuditFactory.GetDailyAuditorByWeek(empID, parmDate)
+            cList = cWorkplaceAuditFactory.GetDailyAuditorByWeek(empID, paramFYWeek)
 
             If Not IsNothing(cList) Then
                 For Each cObject As clsWorkplaceAudit In cList
@@ -261,19 +296,110 @@ Public Class WorkplaceAuditSet
             Return Nothing
         End Try
     End Function
+    Public Function UpdateCheckAuditQuestionStatus(auditSched As WorkplaceAuditSet) As Boolean Implements IWorkplaceAuditSet.UpdateCheckAuditQuestionStatus
+        Try
+            Return Me.cWorkplaceAuditFactory.UpdateCheckAuditQuestionStatus(cWorkplaceAudit)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Update Audit Question Status Failed!")
+            End If
+        End Try
+    End Function
 
-    'Public Function UpdateAuditSched(auditSched As WorkplaceAuditSet) As Boolean Implements IWorkplaceAuditSet.UpdateAuditSched
-    '    Try
-    '        Return Me.cWorkplaceAuditFactory.UpdateAuditSched(cWorkplaceAudit)
-    '    Catch ex As Exception
-    '        If (ex.InnerException.GetType() = GetType(SqlException)) Then
-    '            Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
-    '        Else
-    '            Throw New UpdateFailedException("Update Success Register Failed!")
-    '        End If
-    '    End Try
-    'End Function
+    Public Function UpdateAuditSched(auditScheds As AuditSchedSet) As Boolean Implements IWorkplaceAuditSet.UpdateAuditSched
+        Try
+            Return Me.cWorkplaceAuditFactory.UpdateAuditSched(cAuditSched)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Update Success Register Failed!")
+            End If
+        End Try
+    End Function
+    Public Function GetWeeklyAuditor(empID As Integer, paraDate As Date) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetWeeklyAuditor
 
+        Try
+
+            cList = cWorkplaceAuditFactory.GetWeeklyAuditor(empID, paraDate)
+
+            If Not IsNothing(cList) Then
+                For Each cObject As clsWorkplaceAudit In cList
+                    cListSet.Add(New WorkplaceAuditSet(cObject))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+    Public Function GetMonthlyAuditor(empID As Integer, paraDate As Integer) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetMonthlyAuditor
+
+        Try
+
+            cList = cWorkplaceAuditFactory.GetMonthlyAuditor(empID, paraDate)
+
+            If Not IsNothing(cList) Then
+                For Each cObject As clsWorkplaceAudit In cList
+                    cListSet.Add(New WorkplaceAuditSet(cObject))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+    Public Function GetQuarterlyAuditor(empID As Integer, paraDate As Integer) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetQuarterlyAuditor
+
+        Try
+
+            cList = cWorkplaceAuditFactory.GetQuarterlyAuditor(empID, paraDate)
+
+            If Not IsNothing(cList) Then
+                For Each cObject As clsWorkplaceAudit In cList
+                    cListSet.Add(New WorkplaceAuditSet(cObject))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
 

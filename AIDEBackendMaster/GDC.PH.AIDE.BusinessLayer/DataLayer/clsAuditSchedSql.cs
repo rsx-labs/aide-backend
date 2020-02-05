@@ -87,12 +87,12 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@AUDIT_SCHED_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.AUDIT_SCHED_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@PERIOD_START", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERIOD_START));
-                sqlCommand.Parameters.Add(new SqlParameter("@PERIOD_END", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERIOD_END));
+                //sqlCommand.Parameters.Add(new SqlParameter("@PERIOD_START", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERIOD_START));
+                //sqlCommand.Parameters.Add(new SqlParameter("@PERIOD_END", SqlDbType.Date, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PERIOD_END));
                 sqlCommand.Parameters.Add(new SqlParameter("@DAILY", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAILY));
                 sqlCommand.Parameters.Add(new SqlParameter("@WEEKLY", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WEEKLY));
                 sqlCommand.Parameters.Add(new SqlParameter("@MONTHLY", SqlDbType.VarChar, 15, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MONTHLY));
-                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 5, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
+                //sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 5, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
                 
                 MainConnection.Open();
 

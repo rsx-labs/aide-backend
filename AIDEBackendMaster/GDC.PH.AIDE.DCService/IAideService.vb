@@ -631,14 +631,14 @@ Public Interface IAideService
 #End Region
 
 #Region "AuditSched Operation Contracts"
-    <OperationContract(IsOneWay:=True)>
-    Sub InsertAuditSched(ByVal auditSched As AuditSched)
+    <OperationContract(IsOneWay:=False)>
+    Function InsertAuditSched(ByVal auditSched As AuditSched)
 
     <OperationContract()>
     Function GetAuditSched(ByVal empID As Integer, ByVal year As Integer) As List(Of AuditSched)
 
-    <OperationContract(IsOneWay:=True)>
-    Sub UpdateAuditSched(ByVal auditSched As AuditSched)
+    <OperationContract(IsOneWay:=False)>
+    Function UpdateAuditSched(ByVal auditSched As AuditSched)
 
 #End Region
 #Region "SendCode Operation Contracts"
@@ -656,7 +656,7 @@ Public Interface IAideService
 #End Region
 
 #Region "Workplace Audit Operation Contracts"
-    <OperationContract(IsOneWay:=True)>
+    <OperationContract(IsOneWay:=False)>
     Sub InsertAuditDaily(ByVal auditSched As WorkplaceAudit)
 
     <OperationContract()>
@@ -666,10 +666,21 @@ Public Interface IAideService
     Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
 
     <OperationContract()>
-    Function GetAuditSChed_Month() As List(Of WorkplaceAudit)
+    Function GetAuditSChed_Month(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAudit)
 
     <OperationContract()>
-    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal parmDate As String) As List(Of WorkplaceAudit)
+    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetWeeklyAuditor(ByVal empID As Integer, ByVal paraDate As DateTime) As List(Of WorkplaceAudit)
+    <OperationContract()>
+    Function GetMonthlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)
+
+    <OperationContract()>
+    Function GetQuarterlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)
+
+    <OperationContract(IsOneWay:=False)>
+    Function UpdateCheckAuditQuestionStatus(ByVal auditSched As WorkplaceAudit) As Boolean
 #End Region
 
 #Region "Contributors Operation Contracts"
@@ -2212,8 +2223,10 @@ Public Class WorkplaceAudit
     Public Property STATUS As Integer
 
     <DataMember()>
-    Public Property DT_CHECKED As Date
+    Public Property DT_CHECKED As String
 
+    <DataMember()>
+    Public Property DT_CHECK_FLG As Integer
     <DataMember()>
     Public Property AUDIT_QUESTIONS As String
 
@@ -2234,6 +2247,14 @@ Public Class WorkplaceAudit
 
     <DataMember()>
     Public Property WEEKDATE As String
+
+    <DataMember()>
+    Public Property WEEKDATESCHED As String
+
+    <DataMember()>
+    Public Property DATE_CHECKED As String
+    <DataMember()>
+    Public Property AUDIT_ID As Integer
 End Class
 #End Region
 

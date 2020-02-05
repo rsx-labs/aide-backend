@@ -64,9 +64,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// Get weekly sched of audit display in dropdown
         /// </summary>
         /// <returns></returns>
-        public List<clsWorkplaceAudit> GetAuditSChed_Month()
+        public List<clsWorkplaceAudit> GetAuditSChed_Month(int audit_grp, int yr, int month)
         {
-            return _dataObject.GetAuditSChed_Month();
+            return _dataObject.GetAuditSChed_Month(audit_grp, yr, month);
         }
         /// <summary>
         /// Get daily auditor this week
@@ -74,10 +74,55 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <param name="empID"></param>
         /// <param name="parmDate"></param>
         /// <returns></returns>
-        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string parmDateRange)
+        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string paramFYWeek)
         {
-            return _dataObject.GetDailyAuditorByWeek(empID, parmDateRange);
+            return _dataObject.GetDailyAuditorByWeek(empID, paramFYWeek);
         }
+        public bool UpdateCheckAuditQuestionStatus(clsWorkplaceAudit businessObject)
+        {
+          
+
+            return _dataObject.UpdateCheckAuditQuestionStatus(businessObject);
+
+        }
+        public bool UpdateAuditSched(clsAuditSched businessObject)
+        {
+
+
+            return _dataObject.UpdateAuditSched(businessObject);
+
+        }
+        /// <summary>
+        /// Get weekly Auditor
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="paraDate"></param>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetWeeklyAuditor(int empID, DateTime paraDate)
+        {
+            return _dataObject.GetWeeklyAuditor(empID, paraDate);
+        }
+        /// <summary>
+        /// Monthly Auditor
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="paraDate"></param>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetMonthlyAuditor(int empID, int paraDate)
+        {
+            return _dataObject.GetMonthlyAuditor(empID, paraDate);
+        }
+        /// <summary>
+        /// Quarterly Auditor
+        /// </summary>
+        /// <param name="empID"></param>
+        /// <param name="paraDate"></param>
+        /// <returns></returns>
+        public List<clsWorkplaceAudit> GetQuarterlyAuditor(int empID, int paraDate)
+        {
+            return _dataObject.GetQuarterlyAuditor(empID, paraDate);
+        }
+
         #endregion
 
     }
