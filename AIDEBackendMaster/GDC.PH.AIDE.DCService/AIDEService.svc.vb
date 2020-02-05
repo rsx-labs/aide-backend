@@ -1035,17 +1035,17 @@ Public Class AIDEService
     ''' By Jhunell Barcenas
     ''' </summary>
 #Region "AuditSched Functions"
-    Public Sub InsertAuditScheds(auditSched As AuditSched) Implements IAideService.InsertAuditSched
-        MyBase.InsertAuditSched(auditSched)
-    End Sub
+    Public Function InsertAuditScheds(auditSched As AuditSched) Implements IAideService.InsertAuditSched
+        Return MyBase.InsertAuditSched(auditSched)
+    End Function
 
     Public Function GetAuditScheds(empID As Integer, year As Integer) As List(Of AuditSched) Implements IAideService.GetAuditSched
         Return MyBase.GetAuditSched(empID, year)
     End Function
 
-    Public Sub UpdateAuditScheds(auditSched As AuditSched) Implements IAideService.UpdateAuditSched
-        MyBase.UpdateAuditSched(auditSched)
-    End Sub
+    Public Function UpdateAuditScheds(auditSched As AuditSched) Implements IAideService.UpdateAuditSched
+        Return MyBase.UpdateAuditSched(auditSched)
+    End Function
 
 #End Region
 
@@ -1081,10 +1081,28 @@ Public Class AIDEService
         Return MyBase.GetAuditQuestions(empID, questionGroup)
     End Function
 
-    'Public Sub UpdateAuditScheds(auditSched As WorkplaceAudit) Implements IAideService.UpdateAuditSched
-    '    MyBase.UpdateAuditSched(auditSched)
-    'End Sub
+    Public Function GetAuditSChed_Month(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAudit) Implements IAideService.GetAuditSChed_Month
+        Return MyBase.GetAuditSched_Month(audit_grp, yr, month)
+    End Function
 
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As List(Of WorkplaceAudit) Implements IAideService.GetDailyAuditorByWeek
+        Return MyBase.GetDailyAuditorByWeek(empID, paramFYWeek)
+    End Function
+
+    Public Function GetWeeklyAuditor(empID As Integer, paramDate As DateTime) As List(Of WorkplaceAudit) Implements IAideService.GetWeeklyAuditor
+        Return MyBase.GetWeeklyAuditor(empID, paramDate)
+    End Function
+    Public Function GetMonthlyAuditor(empID As Integer, paramDate As Integer) As List(Of WorkplaceAudit) Implements IAideService.GetMonthlyAuditor
+        Return MyBase.GetMonthlyAuditor(empID, paramDate)
+    End Function
+
+    Public Function GetQuarterlyAuditor(empID As Integer, paramDate As Integer) As List(Of WorkplaceAudit) Implements IAideService.GetQuarterlyAuditor
+        Return MyBase.GetQuarterlyAuditor(empID, paramDate)
+    End Function
+
+    Public Function UpdateCheckAuditQuestionStatus(auditSched As WorkplaceAudit) As Boolean Implements IAideService.UpdateCheckAuditQuestionStatus
+        Return MyBase.UpdateCheckAuditQuestionStatus(auditSched)
+    End Function
 #End Region
 
 #Region "Contributors Functions"
@@ -1127,6 +1145,7 @@ Public Class AIDEService
     Public Function GetAllFiscalYears() As List(Of FiscalYear) Implements IAideService.GetAllFiscalYear
         Return MyBase.GetAllFiscalYear()
     End Function
+
 #End Region
 
 #Region "KPI Targets"

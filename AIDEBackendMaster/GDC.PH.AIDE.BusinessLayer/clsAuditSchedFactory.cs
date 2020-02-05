@@ -53,10 +53,10 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <returns>true for successfully saved</returns>
         public bool UpdateAuditSched(clsAuditSched businessObject)
         {
-            if (!businessObject.IsValid)
-            {
-                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
-            }
+            //if (!businessObject.IsValid)
+            //{
+            //    throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            //}
 
 
             return _dataObject.UpdateAuditSched(businessObject);

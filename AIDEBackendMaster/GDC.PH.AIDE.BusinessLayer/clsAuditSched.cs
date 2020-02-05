@@ -195,14 +195,14 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDIT_SCHED_ID", "AUDIT_SCHED_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_WEEK", "FY_WEEK"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERIOD_START", "PERIOD_START"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERIOD_END", "PERIOD_END"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_WEEK", "FY_WEEK"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERIOD_START", "PERIOD_START"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("PERIOD_END", "PERIOD_END"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DAILY", "DAILY"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKLY", "WEEKLY"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MONTHLY", "MONTHLY"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_START", "FY_START"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_END", "FY_END"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_START", "FY_START"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_END", "FY_END"));
         }
         #endregion
 

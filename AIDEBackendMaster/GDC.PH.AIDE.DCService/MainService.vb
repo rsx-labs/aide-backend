@@ -129,19 +129,6 @@ Public MustInherit Class MainService
         Throw New NotImplementedException()
     End Function
 
-
-
-    'Public Overrides Function GetAllEmployees(ByRef objResult As List(Of Employee)) As Boolean
-    '    Dim state As StateData = EmployeeMgmt.GetEmployeeList()
-    '    Dim bSuccess As Boolean = False
-    '    If state.NotifyType = NotifyType.IsSuccess Then
-    '        bSuccess = True
-    '        objResult = state.Data
-    '    End If
-    '    ReceivedData(state)
-    '    Return bSuccess
-    'End Function
-
     Public Overrides Function GetEmployee(empId As Integer, ByRef objResult As Employee) As Boolean
         Dim state As StateData = EmployeeMgmt.GetEmployee(empId)
         Dim bSuccess As Boolean = False
@@ -2794,11 +2781,128 @@ Public MustInherit Class MainService
                 item.AUDIT_QUESTIONS = _list.AUDIT_QUESTIONS
                 item.OWNER = _list.OWNER
                 item.AUDIT_QUESTIONS_GROUP = _list.AUDIT_QUESTIONS_GROUP
+                item.DT_CHECKED = _list.DT_CHECKED
+                item.DT_CHECK_FLG = _list.DT_CHECK_FLG
+                item.FY_WEEK = _list.FY_WEEK
+                item.WEEKDATE = _list.WEEKDATE
+                item.AUDIT_DAILY_ID = _list.AUDIT_ID
 
                 workplaceAuditLst.Add(item)
             Next
         End If
         Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetAuditSched_Month(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetAudtiSChed_Month(audit_grp, yr, month)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim newObjlst As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each obj As WorkplaceAudit In newObjlst
+                workplaceAuditLst.Add(obj)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetDailyAuditorByWeek(empID, paramFYWeek)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.WEEKDAYS = _list.WEEKDAYS
+                item.NICKNAME = _list.NICKNAME
+                item.EMP_ID = _list.EMP_ID
+                item.WEEKDATE = _list.WEEKDATE
+                item.DT_CHECK_FLG = _list.DT_CHECK_FLG
+                item.WEEKDATESCHED = _list.WEEKDATESCHED
+                item.DATE_CHECKED = _list.DATE_CHECKED
+                item.FY_WEEK = _list.FY_WEEK
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetWeeklyAuditor(ByVal empID As Integer, ByVal paraDate As DateTime) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetWeeklyAuditor(empID, paraDate)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.WEEKDAYS = _list.WEEKDAYS
+                item.NICKNAME = _list.NICKNAME
+                item.EMP_ID = _list.EMP_ID
+                item.WEEKDATE = _list.WEEKDATE
+                item.DT_CHECK_FLG = _list.DT_CHECK_FLG
+                item.WEEKDATESCHED = _list.WEEKDATESCHED
+                item.DATE_CHECKED = _list.DATE_CHECKED
+                item.FY_WEEK = _list.FY_WEEK
+                item.AUDIT_ID = _list.AUDIT_ID
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetMonthlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetMonthlyAuditor(empID, paraDate)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.WEEKDAYS = _list.WEEKDAYS
+                item.NICKNAME = _list.NICKNAME
+                item.EMP_ID = _list.EMP_ID
+                item.WEEKDATE = _list.WEEKDATE
+                item.DT_CHECK_FLG = _list.DT_CHECK_FLG
+                item.WEEKDATESCHED = _list.WEEKDATESCHED
+                item.DATE_CHECKED = _list.DATE_CHECKED
+                item.FY_WEEK = _list.FY_WEEK
+                item.AUDIT_ID = _list.AUDIT_ID
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function GetQuarterlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetQuarterlyAuditor(empID, paraDate)
+        Dim workplaceAuditLst As New List(Of WorkplaceAudit)
+
+        If Not IsNothing(state.Data) Then
+            Dim audtiSched As List(Of WorkplaceAudit) = DirectCast(state.Data, List(Of WorkplaceAudit))
+            For Each _list As WorkplaceAudit In audtiSched
+                Dim item As New WorkplaceAudit
+
+                item.WEEKDAYS = _list.WEEKDAYS
+                item.NICKNAME = _list.NICKNAME
+                item.EMP_ID = _list.EMP_ID
+                item.WEEKDATE = _list.WEEKDATE
+                item.DT_CHECK_FLG = _list.DT_CHECK_FLG
+                item.WEEKDATESCHED = _list.WEEKDATESCHED
+                item.DATE_CHECKED = _list.DATE_CHECKED
+                item.FY_WEEK = _list.FY_WEEK
+                item.AUDIT_ID = _list.AUDIT_ID
+                workplaceAuditLst.Add(item)
+            Next
+        End If
+        Return workplaceAuditLst
+    End Function
+    Public Overrides Function UpdateCheckAuditQuestionStatus(workplaceAudit As WorkplaceAudit) As Boolean
+        Dim state As StateData = WorkplaceAuditMgmt.UpdateCheckAuditQuestionStatus(workplaceAudit)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
     End Function
 
 #End Region
@@ -2924,6 +3028,7 @@ Public MustInherit Class MainService
         End If
         Return objLst
     End Function
+
 #End Region
 
 #Region "KPI Targets"

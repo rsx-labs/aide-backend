@@ -18,9 +18,18 @@ namespace GDC.PH.AIDE.BusinessLayer
             FY_WEEK,
             STATUS,
             DT_CHECKED,
+            DT_CHECK_FLG,
             AUDIT_QUESTIONS,
             OWNER,
-            AUDIT_QUESTIONS_GROUP
+            AUDIT_QUESTIONS_GROUP,
+            AUDITSCHED_MONTH,
+            WEEKDAYS,
+            NICKNAME,
+            WEEKDATE,
+            WEEKDATESCHED,
+            DATE_CHECKED,
+            AUDIT_ID
+
         }
         #endregion
 
@@ -31,11 +40,18 @@ namespace GDC.PH.AIDE.BusinessLayer
         int _empID;
         int _fyWeek;
         int _status;
-        DateTime _dtChecked;
+        string _dtChecked;
         string _auditQuestions;
         string _owner;
         string _auditQuestionsGroup;
-
+        string _auditschedmonth;
+        string _weekDays;
+        string _nickName;
+        string _weekDate;
+        int _dt_check_flg;
+        string _week_Date_Sched;
+        string _date_checked;
+        int _auditid;
         #endregion
 
         #region Properties
@@ -49,6 +65,18 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _auditDailyID = value;
                     PropertyHasChanged("AUDIT_DAILY_ID");
+                }
+            }
+        }
+        public int AUDIT_ID
+        {
+            get { return _auditid; }
+            set
+            {
+                if (_auditid != value)
+                {
+                    _auditid = value;
+                    PropertyHasChanged("AUDIT_ID");
                 }
             }
         }
@@ -105,7 +133,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public DateTime DT_CHECKED
+        public String DT_CHECKED
         {
             get { return _dtChecked; }
             set
@@ -114,6 +142,18 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _dtChecked = value;
                     PropertyHasChanged("DT_CHECKED");
+                }
+            }
+        }
+        public int DT_CHECK_FLG
+        {
+            get { return _dt_check_flg; }
+            set
+            {
+                if (_dt_check_flg != value)
+                {
+                    _dt_check_flg = value;
+                    PropertyHasChanged("DT_CHECK_FLG");
                 }
             }
         }
@@ -130,8 +170,7 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
-
-        public String OWNER
+        public string OWNER
         {
             get { return _owner; }
             set
@@ -140,6 +179,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _owner = value;
                     PropertyHasChanged("OWNER");
+                }
+            }
+        }
+
+        public string AUDITSCHED_MONTH
+        {
+            get { return _auditschedmonth; }
+            set
+            {
+                if (_auditschedmonth != value)
+                {
+                    _auditschedmonth = value;
+                    PropertyHasChanged("AUDITSCHED_MONTH");
                 }
             }
         }
@@ -156,8 +208,66 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
-
- 
+        public string WEEKDAYS
+        {
+            get { return _weekDays; }
+            set
+            {
+                if (_weekDays != value)
+                {
+                    _weekDays = value;
+                    PropertyHasChanged("WEEKDAYS");
+                }
+            }
+        }
+        public string NICKNAME
+        {
+            get { return _nickName; }
+            set
+            {
+                if (_nickName != value)
+                {
+                    _nickName = value;
+                    PropertyHasChanged("NICKNAME");
+                }
+            }
+        }
+        public string WEEKDATE
+        {
+            get { return _weekDate; }
+            set
+            {
+                if (_weekDate != value)
+                {
+                    _weekDate = value;
+                    PropertyHasChanged("WEEKDATE");
+                }
+            }
+        }
+        public string WEEKDATESCHED
+        {
+            get { return _week_Date_Sched; }
+            set
+            {
+                if (_week_Date_Sched != value)
+                {
+                    _week_Date_Sched = value;
+                    PropertyHasChanged("WEEKDATESCHED");
+                }
+            }
+        }
+        public string DATE_CHECKED
+        {
+            get { return _date_checked; }
+            set
+            {
+                if (_date_checked != value)
+                {
+                    _date_checked = value;
+                    PropertyHasChanged("DATE_CHECKED");
+                }
+            }
+        }
         #endregion
 
         #region Validation
@@ -171,13 +281,21 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_WEEK", "FY_WEEK"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("STATUS", "STATUS"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_CHECKED", "DT_CHECKED"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DT_CHECK_FLG", "DT_CHECK_FLG"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDIT_QUESTIONS", "AUDIT_QUESTIONS"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("OWNER", "OWNER"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDIT_QUESTIONS_GROUP", "AUDIT_QUESTIONS_GROUP"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("AUDITSCHED_MONTH", "AUDITSCHED_MONTH"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("NICKNAME", "NICKNAME"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKDAYS", "WEEKDAYS"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKDATE", "WEEKDATE"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEKDATESCHED", "WEEKDATESCHED"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_CHECKED", "DATE_CHECKED"));
         }
         #endregion
 
     }
+  
 }
 ///////////////////////////////////
 //   JHUNELL BARCENAS            //

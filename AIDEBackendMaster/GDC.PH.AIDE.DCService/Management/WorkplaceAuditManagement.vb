@@ -14,7 +14,7 @@ Public Class WorkplaceAuditManagement
         Dim objWorkplaceAudit As WorkplaceAuditSet = DirectCast(objData, WorkplaceAuditSet)
         Dim workplaceData As New WorkplaceAudit
 
-        workplaceData.AUDIT_DAILY_ID = objWorkplaceAudit.AUDIT_DAILY_ID
+        workplaceData.AUDIT_ID = objWorkplaceAudit.AUDIT_ID
         workplaceData.AUDIT_QUESTIONS_ID = objWorkplaceAudit.AUDIT_QUESTIONS_ID
         workplaceData.EMP_ID = objWorkplaceAudit.EMP_ID
         workplaceData.FY_WEEK = objWorkplaceAudit.FY_WEEK
@@ -23,6 +23,22 @@ Public Class WorkplaceAuditManagement
         workplaceData.AUDIT_QUESTIONS = objWorkplaceAudit.AUDIT_QUESTIONS
         workplaceData.OWNER = objWorkplaceAudit.OWNER
         workplaceData.AUDIT_QUESTIONS_GROUP = objWorkplaceAudit.AUDIT_QUESTIONS_GROUP
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
+        workplaceData.WEEKDAYS = objWorkplaceAudit.WEEKDAYS
+        workplaceData.NICKNAME = objWorkplaceAudit.NICKNAME
+        workplaceData.WEEKDATE = objWorkplaceAudit.WEEKDATE
+        workplaceData.DT_CHECK_FLG = objWorkplaceAudit.DT_CHECK_FLG
+        workplaceData.WEEKDATE = objWorkplaceAudit.WEEKDATE
+        workplaceData.WEEKDATESCHED = objWorkplaceAudit.WEEKDATESCHED
+        workplaceData.DATE_CHECKED = objWorkplaceAudit.DATE_CHECKED
+        Return workplaceData
+    End Function
+    Public Function GetMappedFieldsAuditSchedMonth(ByVal objData As Object) As Object
+        Dim objWorkplaceAudit As WorkplaceAuditSet = DirectCast(objData, WorkplaceAuditSet)
+        Dim workplaceData As New WorkplaceAudit
+
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
+        workplaceData.FY_WEEK = objWorkplaceAudit.FY_WEEK
         Return workplaceData
     End Function
 
@@ -101,26 +117,171 @@ Public Class WorkplaceAuditManagement
         state = GetStateData(status, objWorkplaceAudit, message)
         Return state
     End Function
+    Public Function GetAudtiSChed_Month(audit_grp As Integer, yr As Integer, month As Integer) As StateData
+        Dim objSet As New WorkplaceAuditSet
+        Dim objSetList As List(Of WorkplaceAuditSet)
+        Dim classDataList As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
 
-    'Public Function UpdateAuditSched(ByVal AuditSched As AuditSched) As StateData
-    '    Dim WorkplaceAuditSet As New WorkplaceAuditSet
-    '    Dim message As String = ""
-    '    Dim state As StateData
-    '    Dim status As NotifyType
+        Try
+            objSetList = objSet.GetAuditSchedMonth(audit_grp, yr, month)
 
-    '    Try
-    '        SetFields(WorkplaceAuditSet, AuditSched)
-    '        If WorkplaceAuditSet.UpdateAuditSched(WorkplaceAuditSet) Then
-    '            status = NotifyType.IsSuccess
-    '            message = "Update AuditSched Information successful!"
-    '        End If
+            If Not IsNothing(objSetList) Then
+                For Each objList As WorkplaceAuditSet In objSetList
+                    classDataList.Add(DirectCast(GetMappedFieldsAuditSchedMonth(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
 
-    '    Catch ex As Exception
-    '        status = NotifyType.IsError
-    '    End Try
-    '    state = GetStateData(status, Nothing, message)
-    '    Return state
-    'End Function
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, classDataList, message)
+        Return state
+    End Function
+
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
+        Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstWorkplaceAudit = WorkplaceAuditSet.GetDailyAuditorByWeek(empID, paramFYWeek)
+
+            If Not IsNothing(lstWorkplaceAudit) Then
+                For Each objList As WorkplaceAuditSet In lstWorkplaceAudit
+                    objWorkplaceAudit.Add(DirectCast(GetMappedFields(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWorkplaceAudit, message)
+        Return state
+    End Function
+    Public Function GetWeeklyAuditor(empID As Integer, paraDate As DateTime) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
+        Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstWorkplaceAudit = WorkplaceAuditSet.GetWeeklyAuditor(empID, paraDate)
+
+            If Not IsNothing(lstWorkplaceAudit) Then
+                For Each objList As WorkplaceAuditSet In lstWorkplaceAudit
+                    objWorkplaceAudit.Add(DirectCast(GetMappedFields(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWorkplaceAudit, message)
+        Return state
+    End Function
+
+    Public Function GetMonthlyAuditor(empID As Integer, paraDate As Integer) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
+        Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstWorkplaceAudit = WorkplaceAuditSet.GetMonthlyAuditor(empID, paraDate)
+
+            If Not IsNothing(lstWorkplaceAudit) Then
+                For Each objList As WorkplaceAuditSet In lstWorkplaceAudit
+                    objWorkplaceAudit.Add(DirectCast(GetMappedFields(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWorkplaceAudit, message)
+        Return state
+    End Function
+    Public Function GetQuarterlyAuditor(empID As Integer, paraDate As Integer) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
+        Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstWorkplaceAudit = WorkplaceAuditSet.GetQuarterlyAuditor(empID, paraDate)
+
+            If Not IsNothing(lstWorkplaceAudit) Then
+                For Each objList As WorkplaceAuditSet In lstWorkplaceAudit
+                    objWorkplaceAudit.Add(DirectCast(GetMappedFields(objList), WorkplaceAudit))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objWorkplaceAudit, message)
+        Return state
+    End Function
+    Public Function UpdateCheckAuditQuestionStatus(ByVal workplaceAudit As WorkplaceAudit) As StateData
+        Dim WorkplaceAuditSet As New WorkplaceAuditSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            SetFields(WorkplaceAuditSet, workplaceAudit)
+            If WorkplaceAuditSet.UpdateCheckAuditQuestionStatus(WorkplaceAuditSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update Audit Question Status Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function UpdateAuditSched(ByVal AuditSched As AuditSched) As StateData
+        Dim WorkplaceAuditSet As New AuditSchedSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            SetFields(WorkplaceAuditSet, AuditSched)
+            If WorkplaceAuditSet.UpdateAuditSched(WorkplaceAuditSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update AuditSched Information successful!"
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+        End Try
+        state = GetStateData(status, Nothing, message)
+        Return state
+    End Function
 
     Public Overrides Function GetStateData(status As NotifyType, Optional ByVal data As Object = Nothing, Optional ByVal message As String = "") As StateData
         Dim state As New StateData
@@ -142,7 +303,12 @@ Public Class WorkplaceAuditManagement
         workplaceData.AUDIT_QUESTIONS = objWorkplaceAudit.AUDIT_QUESTIONS
         workplaceData.OWNER = objWorkplaceAudit.OWNER
         workplaceData.AUDIT_QUESTIONS_GROUP = objWorkplaceAudit.AUDIT_QUESTIONS_GROUP
-
+        workplaceData.AUDITSCHED_MONTH = objWorkplaceAudit.AUDITSCHED_MONTH
+        workplaceData.WEEKDAYS = objWorkplaceAudit.WEEKDAYS
+        workplaceData.NICKNAME = objWorkplaceAudit.NICKNAME
+        workplaceData.WEEKDATE = objWorkplaceAudit.WEEKDATE
+        workplaceData.DT_CHECK_FLG = objWorkplaceAudit.DT_CHECK_FLG
+        workplaceData.AUDIT_DAILY_ID = objWorkplaceAudit.AUDIT_DAILY_ID
         objResult = workplaceData
     End Sub
 End Class
