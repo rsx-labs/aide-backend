@@ -36,7 +36,22 @@ BEGIN
 DECLARE @GETPERDATESTRING NVARCHAR(20)
 DECLARE @SETdatechecked NVARCHAR(20)
 
-
+if MONTH(@date) = 1
+	BEGIN
+	SET @date = @date
+	END
+ELSE IF MONTH(@date) = 2
+	BEGIN
+	SET @date = @date
+	END
+ELSE IF MONTH(@date) = 3
+	BEGIN
+		SET @date = @date
+	END
+ELSE
+	BEGIN
+		SET @date = DATEADD(YEAR,1,@date)
+	END
 	insert into #SummaryWEEKLYAuditor
 		 SELECT distinct 'TUE', 
 						e.NICK_NAME, 
@@ -55,10 +70,10 @@ DECLARE @SETdatechecked NVARCHAR(20)
 					INNER JOIN EMPLOYEE E 
 							ON w.EMP_ID = E.EMP_ID 
 					WHERE MONTH(WAS.PERIOD_START) = MONTH(@DATEVALUE)   and YEAR(WAS.PERIOD_START) = YEAR(@DATEVALUE)
-
+					and w.WEEKDATE between convert(date,concat(YEAR(@DATEVALUE ) - 1 ,'-','04','-','01')) and convert(date,concat(YEAR(@date),'-','03','-','31'))
 
 		 
-
+		
 
 SELECT * FROM #SummaryWEEKLYAuditor ORDER BY WEEKDATESCHED ASC
 END

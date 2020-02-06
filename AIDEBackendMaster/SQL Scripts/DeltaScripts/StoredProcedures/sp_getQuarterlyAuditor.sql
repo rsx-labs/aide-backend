@@ -25,7 +25,9 @@ CREATE PROCEDURE [dbo].sp_getQuarterlyAuditor
 AS
 BEGIN
 	DECLARE @DATEVALUE int  = @date
-	
+	DECLARE @Fdate int  
+	DECLARE @Ldate int  
+
 	CREATE TABLE #SummaryQUARTERLYAuditor(WEEKDAYS nvarchar(30), NICKNAME nvarchar(30), EMP_ID int,WEEKDATE NVARCHAR(50) ,FY_WEEK INT, DT_CHECK_FLG INT, WEEKDATESCHED  NVARCHAR(20),DATE_CHECKED NVARCHAR(20))
 
 
@@ -34,10 +36,32 @@ DECLARE @SETdatechecked NVARCHAR(20)
 
 DECLARE @COUNT INT=1
 WHILE @COUNT < 12
+	
 	BEGIN
+	set @DATEVALUE = @date
+	if @COUNT = 1
+	begin 
+		set @DATEVALUE = @DATEVALUE
+	end
+	else if @COUNT = 1
+	begin 
+		set @DATEVALUE = @DATEVALUE
+	end
+	else if @COUNT = 1
+	begin
+		set @DATEVALUE = @DATEVALUE
+	end
+	else
+		begin
+		set @DATEVALUE = @DATEVALUE - 1
+		end
+
 	insert into #SummaryQUARTERLYAuditor
 			SELECT distinct CONCAT(DATENAME(MONTH, w.weekdate),' - ',DATENAME(MONTH, DATEADD(MONTH,2,w.weekdate) ))as MonthName, 
-						e.NICK_NAME, 
+						case	when @COUNT = 4 then 'Q1'
+								when @COUNT	= 7 then 'Q2'
+								when @COUNT	= 10 then 'Q3'
+								when @COUNT	= 1 then'Q4' END , 
 						e.emp_id,
 						CONCAT(w.weekdate,' - ',DATEADD(MONTH,2,w.weekdate)),  
 						w.fy_week, 
@@ -51,13 +75,15 @@ WHILE @COUNT < 12
 					INNER JOIN EMPLOYEE E 
 							ON w.EMP_ID = E.EMP_ID 
 			WHERE year(WAS.PERIOD_START) = @DATEVALUE 
-					and MONTH(w.weekdate) + 2 =  @COUNT +2
+					and MONTH(w.weekdate)  =  @COUNT 
 					
+				
 	SET @COUNT = @COUNT + 3; 
 	END
+	set @Fdate = @date - 1
+	set @Ldate = @date
 
-
-SELECT * FROM #SummaryQUARTERLYAuditor ORDER BY WEEKDATESCHED ASC
+SELECT * FROM #SummaryQUARTERLYAuditor w where convert(date,w.WEEKDATESCHED) between convert(date,concat(@Fdate  ,'-','04','-','01')) and convert(date,concat(@Ldate,'-','03','-','31'))  ORDER BY NICKNAME ASC
 END
 
 GO

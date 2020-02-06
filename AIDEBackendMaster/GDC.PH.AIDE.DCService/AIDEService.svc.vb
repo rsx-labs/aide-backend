@@ -1085,8 +1085,8 @@ Public Class AIDEService
         Return MyBase.GetAuditSched_Month(audit_grp, yr, month)
     End Function
 
-    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As List(Of WorkplaceAudit) Implements IAideService.GetDailyAuditorByWeek
-        Return MyBase.GetDailyAuditorByWeek(empID, paramFYWeek)
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String, paramDate As Date) As List(Of WorkplaceAudit) Implements IAideService.GetDailyAuditorByWeek
+        Return MyBase.GetDailyAuditorByWeek(empID, paramFYWeek, paramDate)
     End Function
 
     Public Function GetWeeklyAuditor(empID As Integer, paramDate As DateTime) As List(Of WorkplaceAudit) Implements IAideService.GetWeeklyAuditor

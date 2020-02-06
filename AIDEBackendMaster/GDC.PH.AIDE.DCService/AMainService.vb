@@ -384,7 +384,7 @@
     MustOverride Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAudit)
     'MustOverride Function UpdateAuditSched(ByVal auditSched As AuditSched) As Boolean
     MustOverride Function GetAuditSched_Month(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAudit)
-    MustOverride Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAudit)
+    MustOverride Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String, paramDate As Date) As List(Of WorkplaceAudit)
     MustOverride Function GetWeeklyAuditor(ByVal empID As Integer, ByVal paraDate As DateTime) As List(Of WorkplaceAudit)
     MustOverride Function GetMonthlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)
     MustOverride Function GetQuarterlyAuditor(ByVal empID As Integer, ByVal paraDate As Integer) As List(Of WorkplaceAudit)

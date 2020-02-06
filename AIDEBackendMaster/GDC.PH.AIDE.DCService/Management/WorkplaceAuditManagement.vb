@@ -143,7 +143,7 @@ Public Class WorkplaceAuditManagement
         Return state
     End Function
 
-    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As StateData
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String, paramDate As Date) As StateData
         Dim WorkplaceAuditSet As New WorkplaceAuditSet
         Dim lstWorkplaceAudit As List(Of WorkplaceAuditSet)
         Dim objWorkplaceAudit As New List(Of WorkplaceAudit)
@@ -152,7 +152,7 @@ Public Class WorkplaceAuditManagement
         Dim status As NotifyType
 
         Try
-            lstWorkplaceAudit = WorkplaceAuditSet.GetDailyAuditorByWeek(empID, paramFYWeek)
+            lstWorkplaceAudit = WorkplaceAuditSet.GetDailyAuditorByWeek(empID, paramFYWeek, paramDate)
 
             If Not IsNothing(lstWorkplaceAudit) Then
                 For Each objList As WorkplaceAuditSet In lstWorkplaceAudit

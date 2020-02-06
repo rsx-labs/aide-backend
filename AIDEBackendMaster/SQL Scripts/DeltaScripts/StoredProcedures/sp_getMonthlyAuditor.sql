@@ -32,8 +32,8 @@ BEGIN
 DECLARE @GETPERDATESTRING NVARCHAR(20)
 DECLARE @SETdatechecked NVARCHAR(20)
 
-DECLARE @COUNT INT=0
-	WHILE @COUNT < 12
+DECLARE @COUNT INT=1
+	WHILE @COUNT <= 12
 	BEGIN
 	if @COUNT = 1
 	begin
@@ -66,14 +66,14 @@ DECLARE @COUNT INT=0
 							ON WAS.FY_WEEK = w.FY_WEEK
 					INNER JOIN EMPLOYEE E 
 							ON w.EMP_ID = E.EMP_ID 
-			WHERE year(WAS.PERIOD_START) = @DATEVALUE 
-					and MONTH(w.weekdate)  =  @COUNT
-					
+			WHERE 
+					 MONTH(w.weekdate)  =  @COUNT  
+			
 	SET @COUNT = @COUNT + 1; 
 	END
 
 
-SELECT * FROM #SummaryMonthlyAuditor ORDER BY WEEKDATESCHED ASC
+SELECT * FROM #SummaryMonthlyAuditor  w where CONVERT(date, w.WEEKDATE) between convert(date,concat(@DATEVALUE,'-','04','-','01')) and convert(date,concat(@date,'-','03','-','31')) ORDER BY WEEKDATESCHED ASC
 END
 
 GO
