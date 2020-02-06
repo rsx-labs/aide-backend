@@ -269,11 +269,11 @@ Public Class WorkplaceAuditSet
             Return Nothing
         End Try
     End Function
-    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetDailyAuditorByWeek
+    Public Function GetDailyAuditorByWeek(empID As Integer, paramFYWeek As String, paramDate As Date) As List(Of WorkplaceAuditSet) Implements IWorkplaceAuditSet.GetDailyAuditorByWeek
 
         Try
 
-            cList = cWorkplaceAuditFactory.GetDailyAuditorByWeek(empID, paramFYWeek)
+            cList = cWorkplaceAuditFactory.GetDailyAuditorByWeek(empID, paramFYWeek, paramDate)
 
             If Not IsNothing(cList) Then
                 For Each cObject As clsWorkplaceAudit In cList

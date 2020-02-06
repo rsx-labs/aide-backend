@@ -23,7 +23,7 @@ Public Interface IWorkplaceAuditSet
     Function InsertAuditDaily(ByVal auditSched As WorkplaceAuditSet) As Boolean
     Function GetAuditQuestions(ByVal empID As Integer, ByVal questionGroup As String) As List(Of WorkplaceAuditSet)
     Function GetAuditSchedMonth(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAuditSet)
-    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAuditSet)
+    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String, paramDate As Date) As List(Of WorkplaceAuditSet)
     Function GetWeeklyAuditor(ByVal empID As Integer, ByVal paramDate As DateTime) As List(Of WorkplaceAuditSet)
     Function GetMonthlyAuditor(ByVal empID As Integer, ByVal paramDate As Integer) As List(Of WorkplaceAuditSet)
     Function GetQuarterlyAuditor(ByVal empID As Integer, ByVal paramDate As Integer) As List(Of WorkplaceAuditSet)

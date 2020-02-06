@@ -669,7 +669,7 @@ Public Interface IAideService
     Function GetAuditSChed_Month(audit_grp As Integer, yr As Integer, month As Integer) As List(Of WorkplaceAudit)
 
     <OperationContract()>
-    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAudit)
+    Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String, paramData As Date) As List(Of WorkplaceAudit)
 
     <OperationContract()>
     Function GetWeeklyAuditor(ByVal empID As Integer, ByVal paraDate As DateTime) As List(Of WorkplaceAudit)

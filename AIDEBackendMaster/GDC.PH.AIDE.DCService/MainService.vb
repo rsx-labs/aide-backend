@@ -2804,8 +2804,8 @@ Public MustInherit Class MainService
         End If
         Return workplaceAuditLst
     End Function
-    Public Overrides Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String) As List(Of WorkplaceAudit)
-        Dim state As StateData = WorkplaceAuditMgmt.GetDailyAuditorByWeek(empID, paramFYWeek)
+    Public Overrides Function GetDailyAuditorByWeek(ByVal empID As Integer, ByVal paramFYWeek As String, paramDate As Date) As List(Of WorkplaceAudit)
+        Dim state As StateData = WorkplaceAuditMgmt.GetDailyAuditorByWeek(empID, paramFYWeek, paramDate)
         Dim workplaceAuditLst As New List(Of WorkplaceAudit)
 
         If Not IsNothing(state.Data) Then

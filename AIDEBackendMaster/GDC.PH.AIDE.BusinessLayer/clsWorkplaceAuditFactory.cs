@@ -74,9 +74,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <param name="empID"></param>
         /// <param name="parmDate"></param>
         /// <returns></returns>
-        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string paramFYWeek)
+        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string paramFYWeek, DateTime paramdate)
         {
-            return _dataObject.GetDailyAuditorByWeek(empID, paramFYWeek);
+            return _dataObject.GetDailyAuditorByWeek(empID, paramFYWeek, paramdate);
         }
         public bool UpdateCheckAuditQuestionStatus(clsWorkplaceAudit businessObject)
         {

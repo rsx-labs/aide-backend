@@ -188,7 +188,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="empID"></param>
         /// <param name="parmDateRange"></param>
         /// <returns></returns>
-        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string paramFYWeek)
+        public List<clsWorkplaceAudit> GetDailyAuditorByWeek(int empID, string paramFYWeek, DateTime paramdate)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_getDailyAuditorByWeek]";
@@ -203,6 +203,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
                 sqlCommand.Parameters.Add(new SqlParameter("@FY_WEEK", SqlDbType.NVarChar, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, paramFYWeek));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE", SqlDbType.Date, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, paramdate));
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
 
