@@ -53,7 +53,7 @@ DECLARE @COUNT INT=1
 	end
 	insert into #SummaryMonthlyAuditor
 			SELECT distinct DATENAME(MONTH, w.weekdate )as MonthName, 
-						e.NICK_NAME, 
+						e.FIRST_NAME, 
 						e.emp_id,
 						w.weekdate,  
 						w.fy_week, 
