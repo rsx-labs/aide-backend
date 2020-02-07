@@ -160,6 +160,18 @@ Public Class BillableSet
         End Try
     End Function
 
+    Public Function InsertLeaveCredits(empID As Integer, year As Integer) As Boolean Implements IBillables.InsertLeaveCredits
+        Try
+            Return Me.cBillableFactory.InsertLeaveCredits(empID, year)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Insert Leave Credits Failed!")
+            End If
+        End Try
+    End Function
+
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))

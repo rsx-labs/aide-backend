@@ -13,6 +13,7 @@ Public Interface IBillables
 
     Function GetBillableHoursByMonth(ByVal employeeId As Integer, ByVal month As Integer, ByVal year As Integer, ByVal weekID As Integer) As List(Of BillableSet)
     Function GetBillableHoursByWeek(ByVal employeeId As Integer, ByVal weekID As Integer) As List(Of BillableSet)
+    Function InsertLeaveCredits(ByVal empID As Integer, ByVal year As Integer) As Boolean
     'Function sp_getBillableSummary(ByVal month As Integer, year As Integer) As List(Of BillableSet)
 
 End Interface

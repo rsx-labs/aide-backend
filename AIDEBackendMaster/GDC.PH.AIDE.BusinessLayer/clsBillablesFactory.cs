@@ -36,6 +36,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetBillableHoursByWeek(empID, weekID);
         }
 
+        public bool InsertLeaveCredits(int empID, int year)
+        {
+            return _dataObject.InsertLeaveCredits(empID, year);
+        }
+
         //public List<clsBillables> GetNonBillableHours(string email, int display, int month, int year)
         //{
         //    return _dataObject.GetNonBillableHours(email, display, month, year);

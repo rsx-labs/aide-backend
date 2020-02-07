@@ -88,4 +88,21 @@ Public Class BillabilityManagement
         state.NotifyType = status
         Return state
     End Function
+
+    Public Function InsertLeaveCredits(empID As Integer, year As Integer) As StateData
+        Dim billableSet As New BillableSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            If billableSet.InsertLeaveCredits(empID, year) Then
+                status = NotifyType.IsSuccess
+                message = "Insert leave credits successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
 End Class

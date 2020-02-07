@@ -89,6 +89,35 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public bool InsertLeaveCredits(int empID, int year)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_InsertLeaveCredits]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", year));
+
+                MainConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsBillables::InsertLeaveCredits::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         //public List<clsBillables> GetNonBillableHours(string email, int display, int month, int year)
         //{
 

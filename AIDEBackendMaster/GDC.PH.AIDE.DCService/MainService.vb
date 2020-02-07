@@ -3126,4 +3126,16 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 #End Region
+
+#Region "Leave Credits"
+    Public Overrides Function InsertLeaveCredits(empID As Integer, year As Integer) As Boolean
+        Dim state As StateData = BillabilityMgmt.InsertLeaveCredits(empID, year)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+#End Region
 End Class
