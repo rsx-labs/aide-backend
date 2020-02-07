@@ -224,8 +224,23 @@ Public Interface IAideService
     <OperationContract(IsOneWay:=True)>
     Sub InsertAssetsInventory(ByVal assets As Assets)
 
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAssetsBorrowing(ByVal assets As Assets)
+
     <OperationContract()>
     Function GetAllAssetsInventoryByEmpID(ByVal empID As Integer) As List(Of Assets)
+
+    <OperationContract()>
+    Function GetAllAssetsBorrowingByEmpID(ByVal empID As Integer) As List(Of Assets)
+
+    <OperationContract()>
+    Function GetAllAssetsReturnsByEmpID(ByVal empID As Integer) As List(Of Assets)
+
+    <OperationContract()>
+    Function GetAssetBorrowersLog(ByVal empID As Integer, ByVal assetID As Integer) As List(Of Assets)
+
+    <OperationContract()>
+    Function GetAllAssetsBorrowingRequestByEmpID(ByVal empID As Integer) As List(Of Assets)
 
     <OperationContract()>
     Function GetAllAssetsInventoryUnApproved(ByVal empID As Integer) As List(Of Assets)
@@ -1860,6 +1875,19 @@ Public Class Assets
     Public Property First_Name As String
     <DataMember()>
     Public Property Employee_Name As String
+
+    <DataMember()>
+    Public Property TRANS_FG As Integer
+
+    <DataMember()>
+    Public Property DATE_BORROWED As DateTime
+
+    <DataMember()>
+    Public Property DATE_RETURNED As DateTime
+
+    <DataMember()>
+    Public Property ASSET_BORROWING_ID As Integer
+
 End Class
 #End Region
 

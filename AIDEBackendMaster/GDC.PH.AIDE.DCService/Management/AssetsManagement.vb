@@ -35,6 +35,9 @@ Public Class AssetsManagement
         assetsData.TRANSFER_ID = objAssets.TRANSFER_ID
         assetsData.PREVIOUS_ID = objAssets.PREVIOUS_ID
         assetsData.PREVIOUS_OWNER = objAssets.PREVIOUS_OWNER
+        assetsData.DATE_BORROWED = objAssets.DATE_BORROWED
+        assetsData.DATE_RETURNED = objAssets.DATE_RETURNED
+        assetsData.ASSET_BORROWING_ID = objAssets.ASSET_BORROWING_ID
         Return assetsData
     End Function
 
@@ -242,6 +245,110 @@ Public Class AssetsManagement
         Return state
     End Function
 
+    Public Function GetAllAssetsBorrowingByEmpID(empID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllAssetsBorrowingByEmpID(empID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
+    Public Function GetAllAssetsBorrowingRequestByEmpID(empID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllAssetsBorrowingRequestByEmpID(empID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
+    Public Function GetAllAssetsReturnsByEmpID(empID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAllAssetsReturnsByEmpID(empID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
+    Public Function GetAssetBorrowersLog(empID As Integer, assetID As Integer) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim lstAssets As List(Of AssetsSet)
+        Dim objAssets As New List(Of Assets)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            lstAssets = assetsSet.GetAssetBorrowersLog(empID, assetID)
+
+            If Not IsNothing(lstAssets) Then
+                For Each objList As AssetsSet In lstAssets
+                    objAssets.Add(DirectCast(GetMappedFields(objList), Assets))
+                Next
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objAssets, message)
+        Return state
+    End Function
+
     Public Function GetAllAssetsInventoryBySearch(empID As Integer, input As String, page As String) As StateData
         Dim assetsSet As New AssetsSet
         Dim lstAssets As List(Of AssetsSet)
@@ -304,6 +411,25 @@ Public Class AssetsManagement
             If assetsSet.InsertAssetsInventory(assetsSet) Then
                 status = NotifyType.IsSuccess
                 message = "Create Assets Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function InsertAssetsBorrowing(ByVal assets As Assets) As StateData
+        Dim assetsSet As New AssetsSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+        Try
+            SetFields(assetsSet, assets)
+            If assetsSet.InsertAssetsBorrowing(assetsSet) Then
+                status = NotifyType.IsSuccess
+                message = "Create Assets Borrowing Successful!"
             End If
         Catch ex As Exception
             status = NotifyType.IsError
@@ -615,6 +741,10 @@ Public Class AssetsManagement
         assetsData.TRANSFER_ID = objAssets.TRANSFER_ID
         assetsData.PREVIOUS_ID = objAssets.PREVIOUS_ID
         assetsData.PREVIOUS_OWNER = objAssets.PREVIOUS_OWNER
+        assetsData.TRANS_FG = objAssets.TRANS_FG
+        assetsData.DATE_BORROWED = objAssets.DATE_BORROWED
+        assetsData.DATE_RETURNED = objAssets.DATE_RETURNED
+        assetsData.ASSET_BORROWING_ID = objAssets.ASSET_BORROWING_ID
         objResult = assetsData
     End Sub
 End Class

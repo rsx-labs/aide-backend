@@ -107,6 +107,26 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAllAssetsInventoryByEmpID(empID);
         }
 
+        public List<clsAssets> GetAllAssetsBorrowingByEmpID(int empID)
+        {
+            return _dataObject.GetAllAssetsBorrowingByEmpID(empID);
+        }
+
+        public List<clsAssets> GetAllAssetsBorrowingRequestByEmpID(int empID)
+        {
+            return _dataObject.GetAllAssetsBorrowingRequestByEmpID(empID);
+        }
+
+        public List<clsAssets> GetAllAssetsReturnsByEmpID(int empID)
+        {
+            return _dataObject.GetAllAssetsReturnsByEmpID(empID);
+        }
+
+        public List<clsAssets> GetAssetBorrowersLog(int empID, int assetID)
+        {
+            return _dataObject.GetAssetBorrowersLog(empID, assetID);
+        }
+                
         public List<clsAssets> GetAllAssetsInventoryUnApproved(int empID)
         {
             return _dataObject.GetAllAssetsInventoryUnApproved(empID);
@@ -164,6 +184,23 @@ namespace GDC.PH.AIDE.BusinessLayer
 
 
             return _dataObject.InsertAssetsInventory(businessObject);
+
+        }
+
+        /// <summary>
+        /// Insert new clsAssets
+        /// </summary>
+        /// <param name="businessObject">clsAssets object</param>
+        /// <returns>true for successfully saved</returns>
+        public bool InsertAssetsBorrowing(clsAssets businessObject)
+        {
+            if (!businessObject.IsValid)
+            {
+                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
+            }
+
+
+            return _dataObject.InsertAssetsBorrowing(businessObject);
 
         }
 

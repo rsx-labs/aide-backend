@@ -1982,6 +1982,157 @@ Public MustInherit Class MainService
         Return assetsLst
     End Function
 
+    Public Overrides Function GetAllAssetsBorrowingByEmpID(ByVal empID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllAssetsBorrowingByEmpID(empID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.ASSET_ID = _list.ASSET_ID
+                item.EMP_ID = _list.EMP_ID
+                item.ASSET_DESC = _list.ASSET_DESC
+                item.MANUFACTURER = _list.MANUFACTURER
+                item.MODEL_NO = _list.MODEL_NO
+                item.SERIAL_NO = _list.SERIAL_NO
+                item.ASSET_TAG = _list.ASSET_TAG
+                item.DATE_PURCHASED = _list.DATE_PURCHASED
+                item.STATUS = _list.STATUS
+                item.OTHER_INFO = _list.OTHER_INFO
+                item.DATE_ASSIGNED = _list.DATE_ASSIGNED
+                item.COMMENTS = _list.COMMENTS
+                item.FULL_NAME = _list.FULL_NAME
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
+
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+    Public Overrides Function GetAllAssetsBorrowingRequestByEmpID(ByVal empID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllAssetsBorrowingRequestByEmpID(empID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.ASSET_ID = _list.ASSET_ID
+                item.EMP_ID = _list.EMP_ID
+                item.ASSET_DESC = _list.ASSET_DESC
+                item.MANUFACTURER = _list.MANUFACTURER
+                item.MODEL_NO = _list.MODEL_NO
+                item.SERIAL_NO = _list.SERIAL_NO
+                item.ASSET_TAG = _list.ASSET_TAG
+                item.DATE_PURCHASED = _list.DATE_PURCHASED
+                item.STATUS = _list.STATUS
+                item.OTHER_INFO = _list.OTHER_INFO
+                item.DATE_ASSIGNED = _list.DATE_ASSIGNED
+                item.COMMENTS = _list.COMMENTS
+                item.FULL_NAME = _list.FULL_NAME
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
+                item.ASSET_BORROWING_ID = _list.ASSET_BORROWING_ID
+                item.DATE_BORROWED = _list.DATE_BORROWED
+                item.DATE_RETURNED = _list.DATE_RETURNED
+
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+    Public Overrides Function GetAllAssetsReturnsByEmpID(ByVal empID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAllAssetsReturnsByEmpID(empID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                item.ASSET_ID = _list.ASSET_ID
+                item.EMP_ID = _list.EMP_ID
+                item.ASSET_DESC = _list.ASSET_DESC
+                item.MANUFACTURER = _list.MANUFACTURER
+                item.MODEL_NO = _list.MODEL_NO
+                item.SERIAL_NO = _list.SERIAL_NO
+                item.ASSET_TAG = _list.ASSET_TAG
+                item.DATE_PURCHASED = _list.DATE_PURCHASED
+                item.STATUS = _list.STATUS
+                item.OTHER_INFO = _list.OTHER_INFO
+                item.DATE_ASSIGNED = _list.DATE_ASSIGNED
+                item.COMMENTS = _list.COMMENTS
+                item.FULL_NAME = _list.FULL_NAME
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
+                item.ASSET_BORROWING_ID = _list.ASSET_BORROWING_ID
+                item.DATE_BORROWED = _list.DATE_BORROWED
+                item.DATE_RETURNED = _list.DATE_RETURNED
+
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+    Public Overrides Function GetAssetBorrowersLog(ByVal empID As Integer, ByVal assetID As Integer) As List(Of Assets)
+        Dim state As StateData = AssetsMgmt.GetAssetBorrowersLog(empID, assetID)
+        Dim assetsLst As New List(Of Assets)
+
+        If Not IsNothing(state.Data) Then
+            Dim assets As List(Of Assets) = DirectCast(state.Data, List(Of Assets))
+            For Each _list As Assets In assets
+                Dim item As New Assets
+
+                'item.ASSET_ID = _list.ASSET_ID
+                'item.EMP_ID = _list.EMP_ID
+                'item.ASSET_DESC = _list.ASSET_DESC
+                'item.OTHER_INFO = _list.OTHER_INFO
+                'item.MANUFACTURER = _list.MANUFACTURER
+                'item.MODEL_NO = _list.MODEL_NO
+                'item.ASSET_TAG = _list.ASSET_TAG
+                'item.COMMENTS = _list.COMMENTS
+                'item.FULL_NAME = _list.FULL_NAME
+                'item.ASSET_BORROWING_ID = _list.ASSET_BORROWING_ID
+                'item.DATE_BORROWED = _list.DATE_BORROWED
+                'item.DATE_RETURNED = _list.DATE_RETURNED
+
+                item.ASSET_ID = _list.ASSET_ID
+                item.EMP_ID = _list.EMP_ID
+                item.ASSET_DESC = _list.ASSET_DESC
+                item.MANUFACTURER = _list.MANUFACTURER
+                item.MODEL_NO = _list.MODEL_NO
+                item.SERIAL_NO = _list.SERIAL_NO
+                item.ASSET_TAG = _list.ASSET_TAG
+                item.DATE_PURCHASED = _list.DATE_PURCHASED
+                item.STATUS = _list.STATUS
+                item.OTHER_INFO = _list.OTHER_INFO
+                item.DATE_ASSIGNED = _list.DATE_ASSIGNED
+                item.COMMENTS = _list.COMMENTS
+                item.FULL_NAME = _list.FULL_NAME
+                item.DEPARTMENT = _list.DEPARTMENT
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
+                item.PREVIOUS_OWNER = _list.PREVIOUS_OWNER
+                item.ASSET_BORROWING_ID = _list.ASSET_BORROWING_ID
+                item.DATE_BORROWED = _list.DATE_BORROWED
+                item.DATE_RETURNED = _list.DATE_RETURNED
+
+                assetsLst.Add(item)
+            Next
+        End If
+        Return assetsLst
+    End Function
+
+
     Public Overrides Function GetAllAssetsInventoryUnApproved(ByVal empID As Integer) As List(Of Assets)
         Dim state As StateData = AssetsMgmt.GetAllAssetsInventoryUnApproved(empID)
         Dim assetsLst As New List(Of Assets)
@@ -2016,6 +2167,16 @@ Public MustInherit Class MainService
 
     Public Overrides Function InsertAssetsInventory(assets As Assets) As Boolean
         Dim state As StateData = AssetsMgmt.InsertAssetsInventory(assets)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function InsertAssetsBorrowing(assets As Assets) As Boolean
+        Dim state As StateData = AssetsMgmt.InsertAssetsBorrowing(assets)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

@@ -25,6 +25,10 @@ Public Interface IAssetsSet
     Property ToDisplay As Integer
     Property First_Name As String
     Property Employee_Name As String
+    Property TRANS_FG As Integer
+    Property DATE_BORROWED As DateTime
+    Property DATE_RETURNED As DateTime
+    Property ASSET_BORROWING_ID As Integer
 
     Function GetMyAssets(ByVal empID As Integer) As List(Of AssetsSet)
     Function GetAllAssetsByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
@@ -34,8 +38,13 @@ Public Interface IAssetsSet
     Function UpdateAssets(ByVal assets As AssetsSet) As Boolean
     Function DeleteAsset(ByVal assets As AssetsSet) As Boolean
     Function GetAllAssetsInventoryByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
+    Function GetAllAssetsBorrowingByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
+    Function GetAllAssetsBorrowingRequestByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
+    Function GetAllAssetsReturnsByEmpID(ByVal empID As Integer) As List(Of AssetsSet)
+    Function GetAssetBorrowersLog(ByVal empID As Integer, ByVal assetID As Integer) As List(Of AssetsSet)
     Function GetAllAssetsInventoryUnApproved(ByVal empID As Integer) As List(Of AssetsSet)
     Function InsertAssetsInventory(ByVal assets As AssetsSet) As Boolean
+    Function InsertAssetsBorrowing(ByVal assets As AssetsSet) As Boolean
     Function UpdateAssetsInventory(ByVal assets As AssetsSet) As Boolean
     Function UpdateAssetsInventoryApproval(ByVal assets As AssetsSet) As Boolean
     Function UpdateAssetsInventoryCancel(ByVal assets As AssetsSet) As Boolean
