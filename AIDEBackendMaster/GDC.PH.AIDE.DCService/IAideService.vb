@@ -744,6 +744,12 @@ Public Interface IAideService
     <OperationContract()>
     Function GetKPISummaryListMonthly(ByVal EmpId As Integer, ByVal FY_Start As Date, ByVal FY_End As Date, ByVal Month As Short, ByVal KPIRef As String) As List(Of KPISummary)
 #End Region
+
+#Region "Leave Credits Operation Contracts"
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertLeaveCredits(ByVal empID As Integer, ByVal year As Integer)
+#End Region
+
 End Interface
 #End Region
 

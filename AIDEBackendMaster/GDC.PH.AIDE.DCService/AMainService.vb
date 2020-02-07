@@ -422,4 +422,8 @@
     MustOverride Function InsertNewKPISummary(ByVal kpi As KPISummary) As Boolean
     MustOverride Function UpdateSelectedKPISummary(ByVal kpi As KPISummary) As Boolean
 #End Region
+
+#Region "Leave Credits Method"
+    MustOverride Function InsertLeaveCredits(ByVal empID As Integer, ByVal year As Integer) As Boolean
+#End Region
 End Class

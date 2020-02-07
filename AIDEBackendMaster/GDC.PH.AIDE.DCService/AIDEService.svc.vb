@@ -1184,6 +1184,11 @@ Public Class AIDEService
 
 #End Region
 
+#Region "Leave Credits"
+    Public Sub InsertLeaveCredit(empID As Integer, year As Integer) Implements IAideService.InsertLeaveCredits
+        MyBase.InsertLeaveCredits(empID, year)
+    End Sub
+#End Region
 
 
 End Class
