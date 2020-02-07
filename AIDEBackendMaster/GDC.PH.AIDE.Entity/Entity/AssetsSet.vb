@@ -247,6 +247,42 @@ Public Class AssetsSet
         End Set
     End Property
 
+    Public Property TRANS_FG As Integer Implements IAssetsSet.TRANS_FG
+        Get
+            Return Me.cAssets.TRANS_FG
+        End Get
+        Set(value As Integer)
+            Me.cAssets.TRANS_FG = value
+        End Set
+    End Property
+
+    Public Property DATE_RETURNED As Date Implements IAssetsSet.DATE_RETURNED
+        Get
+            Return Me.cAssets.DATE_RETURNED
+        End Get
+        Set(value As Date)
+            Me.cAssets.DATE_RETURNED = value
+        End Set
+    End Property
+
+    Public Property DATE_BORROWED As Date Implements IAssetsSet.DATE_BORROWED
+        Get
+            Return Me.cAssets.DATE_BORROWED
+        End Get
+        Set(value As Date)
+            Me.cAssets.DATE_BORROWED = value
+        End Set
+    End Property
+
+    Public Property ASSET_BORROWING_ID As Integer Implements IAssetsSet.ASSET_BORROWING_ID
+        Get
+            Return Me.cAssets.ASSET_BORROWING_ID
+        End Get
+        Set(value As Integer)
+            Me.cAssets.ASSET_BORROWING_ID = value
+        End Set
+    End Property
+
 #End Region
 
 #Region "Sql Functions"
@@ -431,6 +467,122 @@ Public Class AssetsSet
         End Try
     End Function
 
+    Public Function GetAllAssetsBorrowingByEmpID(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllAssetsBorrowingByEmpID
+        Dim cList As List(Of clsAssets)
+        Dim cListSet As New List(Of AssetsSet)
+        Try
+
+            cList = cAssetsFactory.GetAllAssetsBorrowingByEmpID(empID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAllAssetsBorrowingRequestByEmpID(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllAssetsBorrowingRequestByEmpID
+        Dim cList As List(Of clsAssets)
+        Dim cListSet As New List(Of AssetsSet)
+        Try
+
+            cList = cAssetsFactory.GetAllAssetsBorrowingRequestByEmpID(empID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAllAssetsReturnsByEmpID(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllAssetsReturnsByEmpID
+        Dim cList As List(Of clsAssets)
+        Dim cListSet As New List(Of AssetsSet)
+        Try
+
+            cList = cAssetsFactory.GetAllAssetsReturnsByEmpID(empID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
+    Public Function GetAssetBorrowersLog(empID As Integer, assetID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAssetBorrowersLog
+        Dim cList As List(Of clsAssets)
+        Dim cListSet As New List(Of AssetsSet)
+        Try
+
+            cList = cAssetsFactory.GetAssetBorrowersLog(empID, assetID)
+
+            If Not IsNothing(cList) Then
+                For Each cAssets As clsAssets In cList
+                    cListSet.Add(New AssetsSet(cAssets))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return cListSet
+
+        Catch ex As Exception
+            If ex.HResult = -2146233088 Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw New RetrieveFailedException("Retrieving Failed")
+
+            End If
+            Console.WriteLine("Error encountered.." & ex.Message.ToString())
+            Return Nothing
+        End Try
+    End Function
+
     Public Function GetAllAssetsInventoryUnApproved(empID As Integer) As List(Of AssetsSet) Implements IAssetsSet.GetAllAssetsInventoryUnApproved
         Dim cList As List(Of clsAssets)
         Dim cListSet As New List(Of AssetsSet)
@@ -463,6 +615,18 @@ Public Class AssetsSet
     Public Function InsertAssetsInventory(assets As AssetsSet) As Boolean Implements IAssetsSet.InsertAssetsInventory
         Try
             Return Me.cAssetsFactory.InsertAssetsInventory(cAssets)
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed!")
+            Else
+                Throw New UpdateFailedException("Insert Success Register Failed!")
+            End If
+        End Try
+    End Function
+
+    Public Function InsertAssetsBorrowing(assets As AssetsSet) As Boolean Implements IAssetsSet.InsertAssetsBorrowing
+        Try
+            Return Me.cAssetsFactory.InsertAssetsBorrowing(cAssets)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed!")

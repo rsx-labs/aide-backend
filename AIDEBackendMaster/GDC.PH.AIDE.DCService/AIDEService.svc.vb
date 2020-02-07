@@ -832,6 +832,10 @@ Public Class AIDEService
         MyBase.InsertAssetsInventory(assets)
     End Sub
 
+    Public Sub InsertAssetsBorrowings(assets As Assets) Implements IAideService.InsertAssetsBorrowing
+        MyBase.InsertAssetsBorrowing(assets)
+    End Sub
+
     Public Sub UpdateAssetsInventorys(assets As Assets) Implements IAideService.UpdateAssetsInventory
         MyBase.UpdateAssetsInventory(assets)
     End Sub
@@ -846,6 +850,22 @@ Public Class AIDEService
 
     Public Function GetAllAssetsInventoryByEmpIDs(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsInventoryByEmpID
         Return MyBase.GetAllAssetsInventoryByEmpID(empID)
+    End Function
+
+    Public Function GetAllAssetsBorrowingByEmpIDs(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsBorrowingByEmpID
+        Return MyBase.GetAllAssetsBorrowingByEmpID(empID)
+    End Function
+
+    Public Function GetAllAssetsBorrowingRequestByEmpIDs(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsBorrowingRequestByEmpID
+        Return MyBase.GetAllAssetsBorrowingRequestByEmpID(empID)
+    End Function
+
+    Public Function GetAllAssetsReturnsByEmpIDs(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsReturnsByEmpID
+        Return MyBase.GetAllAssetsReturnsByEmpID(empID)
+    End Function
+
+    Public Function GetAssetBorrowersLogs(empID As Integer, assetID As Integer) As List(Of Assets) Implements IAideService.GetAssetBorrowersLog
+        Return MyBase.GetAssetBorrowersLog(empID, assetID)
     End Function
 
     Public Function GetAllAssetsInventoryUnApproveds(empID As Integer) As List(Of Assets) Implements IAideService.GetAllAssetsInventoryUnApproved

@@ -36,7 +36,10 @@ namespace GDC.PH.AIDE.BusinessLayer
             NICK_NAME,
             FIRST_NAME,
             TO_DISPLAY,
-            EMPLOYEE_NAME
+            EMPLOYEE_NAME,
+            DATE_BORROWED,
+            DATE_RETURNED,
+            ASSET_BORROWING_ID
         }
         #endregion
 
@@ -54,6 +57,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _assetTag;
         DateTime _datePurchased;
         int _status;
+        int _transFg;
         string _otherInfo;
         string _fullname;
         string _department;
@@ -67,6 +71,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _firstname;
         int _TO_DISPLAY;
         string _employeename;
+        DateTime _dateBorrowed;
+        DateTime _dateReturned;
+        int _assetBorrowingID;
         #endregion
 
         #region Properties
@@ -132,6 +139,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _previousID = value;
                     PropertyHasChanged("PREVIOUS_ID");
+                }
+            }
+        }
+
+        public int ASSET_BORROWING_ID
+        {
+            get { return _assetBorrowingID; }
+            set
+            {
+                if (_assetBorrowingID != value)
+                {
+                    _assetBorrowingID = value;
+                    PropertyHasChanged("ASSET_BORROWING_ID");
                 }
             }
         }
@@ -227,6 +247,32 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public DateTime DATE_BORROWED
+        {
+            get { return _dateBorrowed; }
+            set
+            {
+                if (_dateBorrowed != value)
+                {
+                    _dateBorrowed = value;
+                    PropertyHasChanged("DATE_BORROWED");
+                }
+            }
+        }
+
+        public DateTime DATE_RETURNED
+        {
+            get { return _dateReturned; }
+            set
+            {
+                if (_dateReturned != value)
+                {
+                    _dateReturned = value;
+                    PropertyHasChanged("DATE_RETURNED");
+                }
+            }
+        }
+
         public int STATUS
         {
             get { return _status; }
@@ -236,6 +282,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _status = value;
                     PropertyHasChanged("STATUS");
+                }
+            }
+        }
+
+        public int TRANS_FG
+        {
+            get { return _transFg; }
+            set
+            {
+                if (_transFg != value)
+                {
+                    _transFg = value;
+                    PropertyHasChanged("TRANS_FG");
                 }
             }
         }
@@ -411,7 +470,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_PURCHASED", "DATE_PURCHASED"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("STATUS", "STATUS"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("OTHER_INFO", 255));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSIGNED_TO", "ASSIGNED_TO"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("ASSIGNED_TO", "ASSIGNED_TO"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("APPROVAL", "APPROVAL"));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("NICK_NAME", "NICK_NAME", 15));
             ValidationRules.AddRules(new Validation.ValidateRuleStringMaxLength("FIRST_NAME", "FIRST_NAME", 25));

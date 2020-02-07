@@ -251,6 +251,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
+
+
         /// <summary>
         /// Select all rescords by keyword
         /// </summary>
@@ -325,6 +327,171 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         }
 
         /// <summary>
+        /// Select all rescords
+        /// </summary>
+        /// <returns>list of clsAssets</returns>
+        public List<clsAssets> GetAllAssetsBorrowingByEmpID(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllAssetsBorrowingByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReader2(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::sp_GetAllAssetsBorrowingByEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+
+        public List<clsAssets> GetAllAssetsBorrowingRequestByEmpID(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllAssetsBorrowingRequestByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForAssetBorrowingRequest(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAllAssetsBorrowingRequestByEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+
+        public List<clsAssets> GetAssetBorrowersLog(int empID, int assetID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAssetBorrowersLog]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@ASSET_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, assetID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForAssetBorrowingRequest(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAssetBorrowersLog::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+
+        public List<clsAssets> GetAllAssetsReturnsByEmpID(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllAssetsReturnsByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForAssetBorrowingRequest(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAllAssetsReturnsByEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        
+        public List<clsAssets> GetAllAssetsBorrowersLogByEmpID(int empID, int assetID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllAssetsReturnsByEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                MainConnection.Open();
+
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsFromReaderForAssetBorrowingRequest(dataReader);
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets::GetAllAssetsReturnsByEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+
+        }
+        
+        /// <summary>
         /// insert new row in the table
         /// </summary>
         /// <param name="businessObject">business object</param>
@@ -355,6 +522,43 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             catch (Exception ex)
             {
                 throw new Exception("clsAssets:sp_InsertAssests:Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public bool InsertAssetsBorrowing(clsAssets businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_InsertAssetsBorrowing]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@ASSET_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@ASSET_BORROWING_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.ASSET_BORROWING_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
+                sqlCommand.Parameters.Add(new SqlParameter("@TRANS_FG", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.TRANS_FG));
+                sqlCommand.Parameters.Add(new SqlParameter("@TRANS_DATE", SqlDbType.DateTime, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_ASSIGNED));
+                sqlCommand.Parameters.Add(new SqlParameter("@COMMENTS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMENTS));
+                sqlCommand.Parameters.Add(new SqlParameter("@APPROVAL", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.APPROVAL));
+
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsAssets:sp_InsertAssetsBorrowing:Error occured.", ex);
             }
             finally
             {
@@ -836,12 +1040,13 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.PREVIOUS_ID = 0;
             }
             businessObject.ASSET_DESC = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_DESC.ToString()));
+            businessObject.OTHER_INFO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.OTHER_INFO.ToString()));
             businessObject.MANUFACTURER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MANUFACTURER.ToString()));
             businessObject.MODEL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MODEL_NO.ToString()));
             businessObject.SERIAL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.SERIAL_NO.ToString()));
             businessObject.ASSET_TAG = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_TAG.ToString()));
-            businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
-            businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
+            //businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
+            //businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
             businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.STATUS.ToString()));
             businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
 
@@ -880,6 +1085,138 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.APPROVAL = 0;
             }
+        }
+
+                /// <summary>
+        /// Populate business object from data reader
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <param name="dataReader">data reader</param>
+        internal void PopulateBusinessObjectFromReaderForAssetBorrowingRequest(clsAssets businessObject, IDataReader dataReader)
+        {
+            businessObject.ASSET_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_ID.ToString()));
+            businessObject.ASSET_BORROWING_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_BORROWING_ID.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.EMP_ID.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString())))
+            {
+                businessObject.PREVIOUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString()));
+            }
+            else
+            {
+                businessObject.PREVIOUS_ID = 0;
+            }
+            businessObject.ASSET_DESC = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_DESC.ToString()));
+            businessObject.OTHER_INFO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.OTHER_INFO.ToString()));
+            businessObject.OTHER_INFO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.OTHER_INFO.ToString()));
+            businessObject.MANUFACTURER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MANUFACTURER.ToString()));
+            businessObject.MODEL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MODEL_NO.ToString()));
+            businessObject.SERIAL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.SERIAL_NO.ToString()));
+            businessObject.ASSET_TAG = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_TAG.ToString()));
+            //businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
+            //businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString())))
+            {
+                businessObject.DATE_BORROWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString()));
+            }
+            else
+            {
+                businessObject.DATE_BORROWED = new DateTime(9999, 1, 1);
+            }
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString())))
+            {
+                businessObject.DATE_RETURNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString()));
+            }
+            else
+            {
+                businessObject.DATE_RETURNED = new DateTime(9999, 1, 1);
+            }
+            //businessObject.DATE_BORROWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString()));
+            //businessObject.DATE_RETURNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString()));
+            businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.STATUS.ToString()));
+            businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_OWNER.ToString())))
+            {
+                businessObject.PREVIOUS_OWNER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_OWNER.ToString()));
+            }
+            else
+            {
+                businessObject.PREVIOUS_OWNER = String.Empty;
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString())))
+            {
+                businessObject.COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString()));
+            }
+            else
+            {
+                businessObject.COMMENTS = String.Empty;
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DEPARTMENT.ToString())))
+            {
+                businessObject.DEPARTMENT = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DEPARTMENT.ToString()));
+            }
+            else
+            {
+                businessObject.DEPARTMENT = String.Empty;
+            }
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.APPROVAL.ToString())))
+            {
+                businessObject.APPROVAL = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.APPROVAL.ToString()));
+            }
+            else
+            {
+                businessObject.APPROVAL = 0;
+            }
+        }
+
+        internal void PopulateBusinessObjectFromReaderForAssetBorrowersLog(clsAssets businessObject, IDataReader dataReader)
+        {
+            businessObject.ASSET_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_ID.ToString()));
+            businessObject.ASSET_BORROWING_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_BORROWING_ID.ToString()));
+            businessObject.EMP_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.EMP_ID.ToString()));
+
+            businessObject.ASSET_DESC = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_DESC.ToString()));
+            businessObject.OTHER_INFO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.OTHER_INFO.ToString()));
+            businessObject.MANUFACTURER = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MANUFACTURER.ToString()));
+            businessObject.MODEL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MODEL_NO.ToString()));
+            businessObject.ASSET_TAG = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_TAG.ToString()));
+            //businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
+            //businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString())))
+            {
+                businessObject.DATE_BORROWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString()));
+            }
+            else
+            {
+                businessObject.DATE_BORROWED = new DateTime(9999, 1, 1);
+            }
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString())))
+            {
+                businessObject.DATE_RETURNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString()));
+            }
+            else
+            {
+                businessObject.DATE_RETURNED = new DateTime(9999, 1, 1);
+            }
+            //businessObject.DATE_BORROWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_BORROWED.ToString()));
+            //businessObject.DATE_RETURNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_RETURNED.ToString()));
+
+            businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
+
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString())))
+            {
+                businessObject.COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString()));
+            }
+            else
+            {
+                businessObject.COMMENTS = String.Empty;
+            }
+
         }
 
         /// <summary>
@@ -995,6 +1332,38 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
             return list;
         }
+
+        /// <summary>
+        /// Populate business objects from the data reader
+        /// </summary>
+        /// <param name="dataReader">data reader</param>
+        /// <returns>list of clsContacts</returns>
+        internal List<clsAssets> PopulateObjectsFromReaderForAssetBorrowingRequest(IDataReader dataReader)
+        {
+            List<clsAssets> list = new List<clsAssets>();
+
+            while (dataReader.Read())
+            {
+                clsAssets businessObject = new clsAssets();
+                PopulateBusinessObjectFromReaderForAssetBorrowingRequest(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsAssets> PopulateObjectsFromReaderForAssetBorrowersLog(IDataReader dataReader)
+        {
+            List<clsAssets> list = new List<clsAssets>();
+
+            while (dataReader.Read())
+            {
+                clsAssets businessObject = new clsAssets();
+                PopulateBusinessObjectFromReaderForAssetBorrowersLog(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
         /// <summary>
         /// Populate business objects from the data reader
         /// </summary>
