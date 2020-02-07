@@ -54,7 +54,7 @@ ELSE
 	END
 	insert into #SummaryWEEKLYAuditor
 		 SELECT distinct 'TUE', 
-						e.NICK_NAME, 
+						e.FIRST_NAME, 
 						e.emp_id,  
 						CONCAT(MONTH(WAS.PERIOD_START), '/',DAY(WAS.PERIOD_START), ' - ' ,MONTH(WAS.PERIOD_END), '/',DAY(WAS.PERIOD_END) ), 
 						w.fy_week, 
