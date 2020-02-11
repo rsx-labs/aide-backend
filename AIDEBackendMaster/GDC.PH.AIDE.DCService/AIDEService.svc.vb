@@ -769,9 +769,14 @@ Public Class AIDEService
     Public Overrides Function GetAllLeavesHistoryByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesHistoryByEmployee
         Return MyBase.GetAllLeavesHistoryByEmployees(empID, leaveType)
     End Function
+
     Public Sub UpdateLeaves1(resource As ResourcePlanner, statusCD As Integer, leaveType As Integer) Implements IAideService.UpdateLeaves
         MyBase.UpdateLeavess(resource, statusCD, leaveType)
     End Sub
+
+    Public Overrides Function GetLeavesByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As List(Of ResourcePlanner) Implements IAideService.GetLeavesByDateAndEmpID
+        Return MyBase.GetLeaveByDateAndEmpID(empID, status, dateFrom, dateTo)
+    End Function
 #End Region
 
     ''' <summary>

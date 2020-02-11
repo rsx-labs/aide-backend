@@ -1616,6 +1616,25 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Function GetLeaveByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.EmpID = _list.EmpID
+                item.NAME = _list.NAME
+                item.DateEntry = _list.DateEntry
+                item.Status = _list.Status
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
 #End Region
 
 #Region "Attendance"
