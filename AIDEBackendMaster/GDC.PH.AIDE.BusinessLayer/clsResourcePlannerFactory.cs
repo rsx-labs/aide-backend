@@ -127,6 +127,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetAllPerfectAttendance(email, month, year);
         }
 
+        public List<clsResourcePlanner> GetLeavesByDateAndEmpID(int empID, int status, DateTime dateFrom, DateTime dateTo)
+        {
+            return _dataObject.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo);
+        }
+
         #endregion
     }
 }

@@ -524,6 +524,38 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
+        public List<clsResourcePlanner> GetLeavesByDateAndEmpID(int empID, int status,  DateTime dateFrom, DateTime dateTo)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetLeavesByDateAndEmpID]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@STATUS", status));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_FROM", dateFrom));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_TO", dateTo));
+
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsRPFromReader5(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetLeavesByDateAndEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
         #endregion
 
         #region Private Methods

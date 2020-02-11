@@ -554,6 +554,8 @@ Public Interface IAideService
     <OperationContract(IsOneWay:=True)>
     Sub UpdateLeaves(ByVal resource As ResourcePlanner, ByVal statusCD As Integer, ByVal leaveType As Integer)
 
+    <OperationContract()>
+    Function GetLeavesByDateAndEmpID(ByVal empID As Integer, ByVal status As Integer, ByVal dateFrom As Date, ByVal dateTo As Date) As List(Of ResourcePlanner)
 #End Region
 
 #Region "Announcements Operation Contracts"

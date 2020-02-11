@@ -501,8 +501,33 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
-#End Region
+    Public Function GetLeavesByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As StateData
+        Dim resourceSet As New ResourcePlannerSet
+        Dim resourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim statNotify As NotifyType
 
-    
+        Try
+            resourceSetLst = resourceSet.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo)
+
+            If Not IsNothing(resourceSetLst) Then
+                For Each objList As ResourcePlannerSet In resourceSetLst
+                    objResource.Add(DirectCast(GetMappedFieldsLeaves(objList), ResourcePlanner))
+                Next
+
+                statNotify = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            statNotify = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(statNotify, objResource, message)
+        Return state
+    End Function
+
+#End Region
 
 End Class
