@@ -1045,8 +1045,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.MODEL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.MODEL_NO.ToString()));
             businessObject.SERIAL_NO = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.SERIAL_NO.ToString()));
             businessObject.ASSET_TAG = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.ASSET_TAG.ToString()));
-            //businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
-            //businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
+            businessObject.DATE_ASSIGNED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_ASSIGNED.ToString()));
+            businessObject.DATE_PURCHASED = dataReader.GetDateTime(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DATE_PURCHASED.ToString()));
             businessObject.STATUS = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.STATUS.ToString()));
             businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
 
