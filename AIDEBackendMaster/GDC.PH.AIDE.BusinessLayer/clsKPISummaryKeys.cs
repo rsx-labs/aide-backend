@@ -7,7 +7,6 @@ namespace GDC.PH.AIDE.BusinessLayer
     {
 
         #region Data Members
-
         int _Id;
         int _EmpId;
         string _kpiRef;

@@ -32,13 +32,11 @@
 #End Region
 
 #Region "Attendance methods"
+    MustOverride Function InsertAttendanceByEmpID(ByVal _Attendance As AttendanceSummary) As Boolean
+    MustOverride Function InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date) As Boolean
     MustOverride Function GetAttendanceAll(ByVal Month As Integer, ByVal Year As Integer, ByRef objResult As List(Of AttendanceSummary)) As Boolean
     MustOverride Function GetAttendanceEmployee(ByVal empId As Integer, ByVal WeekOf As Date, ByRef objResult As MyAttendance) As Boolean
-    MustOverride Function UpdateAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
-    MustOverride Function InsertAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
-    MustOverride Function UpdateAttendanceByEmp(ByVal empid As Integer, ByVal day As Integer, ByVal attstatus As Integer) As Boolean
-    MustOverride Function InsertLogoffTime(ByVal empid As Integer) As Boolean
-    MustOverride Function GetAttendanceToday(ByVal email As String) As List(Of MyAttendance)
+    MustOverride Function GetAttendanceToday(ByVal empID As Integer) As List(Of MyAttendance)
     MustOverride Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of MyAttendance)
     MustOverride Function GetAssetDescription() As List(Of Assets)
     MustOverride Function GetAssetManufacturer() As List(Of Assets)
@@ -274,6 +272,7 @@
     ''' By Jhunell G. Barcenas / John Harvey Sanchez 
     ''' </summary>
     ''' <remarks></remarks>
+    MustOverride Function InsertAttendanceForLeaves(ByVal resourcePlanner As ResourcePlanner) As Boolean
     MustOverride Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlanner)
     MustOverride Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlannerByEmpID(ByVal empID As Integer, ByVal deptID As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
@@ -283,7 +282,7 @@
     MustOverride Function GetAllStatusResourcePlanner() As List(Of ResourcePlanner)
     MustOverride Function GetResourcePlanner(ByVal email As String, ByVal status As Integer, ByVal toBeDisplayed As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
-    MustOverride Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlanner)
+    MustOverride Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
     MustOverride Function GetLeavesByDateAndEmpID(ByVal empID As Integer, ByVal status As Integer, ByVal dateFrom As Date, ByVal dateTo As Date) As List(Of ResourcePlanner)
 

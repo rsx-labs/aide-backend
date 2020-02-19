@@ -49,11 +49,9 @@ Public Interface IAttendanceSet
     Property Friday As Integer
 
     Function Insert() As Boolean
-    Function Update() As Boolean
-    Function Update(ByVal empid As Integer, ByVal day As Integer, ByVal status As Integer) As Boolean
-    Function InsertLogoffTime(ByVal empid As Integer) As Boolean
+    Function InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date) As Boolean
     Function GetAttendanceMonthly(ByVal month As Integer, ByVal year As Integer) As List(Of AttendanceSet)
-    Function GetAttendanceToday(ByVal email As String) As List(Of AttendanceSet)
+    Function GetAttendanceToday(ByVal empID As Integer) As List(Of AttendanceSet)
     Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of AttendanceSet)
     Function GetAttendanceWeekly(ByVal empId As Integer, ByVal weekOf As Date) As List(Of AttendanceSet)
     'Sub Update(ByVal day As Integer, ByVal status As Integer)

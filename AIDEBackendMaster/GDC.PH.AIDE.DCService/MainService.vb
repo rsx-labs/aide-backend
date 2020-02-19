@@ -1370,6 +1370,16 @@ Public MustInherit Class MainService
     ''' By Jhunell G. Barcenas / John Harvey Sanchez
     ''' </summary>
     ''' <remarks></remarks>
+    Public Overrides Function InsertAttendanceForLeaves(resourcePlanner As ResourcePlanner) As Boolean
+        Dim state As StateData = ResourceMgmt.InsertAttendanceForLeaves(resourcePlanner)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        'ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Function UpdateResourcePlanner(resource As ResourcePlanner) As Boolean
         Dim state As StateData = ResourceMgmt.UpdateResourcePlanner(resource)
         Dim bSuccess As Boolean = False
@@ -1380,15 +1390,6 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Function InsertResourcePlanner(resource As ResourcePlanner) As Boolean
-        Dim state As StateData = ResourceMgmt.InsertResourcePlanner(resource)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = True
-        End If
-        'ReceivedData(state)
-        Return bSuccess
-    End Function
 
     Public Function ViewEmpResourcePlanners(email As String) As List(Of ResourcePlanner)
         Dim state As StateData = ResourceMgmt.ViewEmpResourcePlanner(email)
@@ -1562,8 +1563,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Function GetAllLeavesByEmployees(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlanner)
-        Dim state As StateData = ResourceMgmt.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+    Public Function GetAllLeavesByEmployees(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetAllLeavesByEmployee(empID, leaveType)
         Dim resourceLst As New List(Of ResourcePlanner)
 
         If Not IsNothing(state.Data) Then
@@ -1606,8 +1607,8 @@ Public MustInherit Class MainService
         Return resourceLst
     End Function
 
-    Public Function UpdateLeavess(resource As ResourcePlanner, statusCD As Integer, leaveType As Integer) As Boolean
-        Dim state As StateData = ResourceMgmt.UpdateLeaves(resource, statusCD, leaveType)
+    Public Function CancelLeave(resource As ResourcePlanner) As Boolean
+        Dim state As StateData = ResourceMgmt.CancelLeave(resource)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True
@@ -1639,6 +1640,26 @@ Public MustInherit Class MainService
 
 #Region "Attendance"
 
+    Public Overrides Function InsertAttendanceByEmpID(ByVal _Attendance As AttendanceSummary) As Boolean
+        Dim state As StateData = AttendanceMgmt.Insert(_Attendance)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date) As Boolean
+        Dim state As StateData = AttendanceMgmt.InsertLogoffTime(empid, logoffTime)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
     Public Overrides Function GetAttendanceAll(ByVal Month As Integer, ByVal Year As Integer, ByRef objResult As List(Of AttendanceSummary)) As Boolean
         Dim state As StateData = AttendanceMgmt.GetAttendanceAll(Month, Year)
         Dim bSuccess As Boolean = False
@@ -1661,48 +1682,8 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
-    Public Overrides Function InsertAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
-        Dim state As StateData = AttendanceMgmt.Insert(_Attendance)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = True
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
-
-    Public Overrides Function UpdateAttendanceByEmp(ByVal _Attendance As AttendanceSummary) As Boolean
-        Dim state As StateData = AttendanceMgmt.UpdateAttendance(_Attendance)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = True
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
-
-    Public Overrides Function UpdateAttendanceByEmp(ByVal empid As Integer, ByVal day As Integer, ByVal attstatus As Integer) As Boolean
-        Dim state As StateData = AttendanceMgmt.UpdateAttendance(empid, day, attstatus)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = True
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
-
-    Public Overrides Function InsertLogoffTime(ByVal empid As Integer) As Boolean
-        Dim state As StateData = AttendanceMgmt.InsertLogoffTime(empid)
-        Dim bSuccess As Boolean = False
-        If state.NotifyType = NotifyType.IsSuccess Then
-            bSuccess = True
-        End If
-        ReceivedData(state)
-        Return bSuccess
-    End Function
-
-    Public Overrides Function GetAttendanceToday(email As String) As List(Of MyAttendance)
-        Dim state As StateData = AttendanceMgmt.GetAttendanceToday(email)
+    Public Overrides Function GetAttendanceToday(empID As Integer) As List(Of MyAttendance)
+        Dim state As StateData = AttendanceMgmt.GetAttendanceToday(empID)
         Dim attendanceLst As New List(Of MyAttendance)
 
         If Not IsNothing(state.Data) Then

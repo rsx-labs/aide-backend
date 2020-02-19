@@ -34,14 +34,14 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <param name="businessObject">clsAttendance object</param>
         /// <returns>true for successfully saved</returns>
 
-        public bool InsertResourcePlanner(clsResourcePlanner businessObject)
+        public bool InsertAttendanceForLeaves(clsResourcePlanner businessObject)
         {
             if (!businessObject.IsValid)
             {
                 throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
             }
 
-            return _dataObject.InsertResourcePlanner(businessObject);
+            return _dataObject.InsertAttendanceForLeaves(businessObject);
         }
 
         /// <summary>
@@ -108,18 +108,14 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetNonBillableHours(email, display, month, year);
         }
 
-        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType, int statusCode)
+        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType)
         {
-            return _dataObject.GetAllLeavesByEmployee(empID, leaveType, statusCode);
+            return _dataObject.GetAllLeavesByEmployee(empID, leaveType);
         }
 
         public List<clsResourcePlanner> GetAllLeavesHistoryByEmployee(int empID, int leaveType)
         {
             return _dataObject.GetAllLeavesHistoryByEmployee(empID, leaveType);
-        }
-        public bool UpdateLeaves(clsResourcePlanner businessObject,int status_cd, int leave_type)
-        {
-            return _dataObject.UpdateLeaves(businessObject, status_cd, leave_type);
         }
 
         public List<clsResourcePlanner> GetAllPerfectAttendance(string email, int month, int year)
@@ -130,6 +126,11 @@ namespace GDC.PH.AIDE.BusinessLayer
         public List<clsResourcePlanner> GetLeavesByDateAndEmpID(int empID, int status, DateTime dateFrom, DateTime dateTo)
         {
             return _dataObject.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo);
+        }
+
+        public bool CancelLeave(clsResourcePlanner businessObject)
+        {
+            return _dataObject.CancelLeave(businessObject);
         }
 
         #endregion

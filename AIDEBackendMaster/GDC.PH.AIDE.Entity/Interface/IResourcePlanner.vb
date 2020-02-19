@@ -24,8 +24,7 @@ Public Interface IResourcePlanner
     Property Duration As Double
     Property StatusCD As Integer
 
-
-    Function InsertResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
+    Function InsertAttendanceForLeaves(ByVal resourcePlanner As ResourcePlannerSet) As Boolean
     Function UpdateResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
     Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlannerSet)
     Function GetStatusResourcePlanner(ByVal empID As Integer) As List(Of ResourcePlannerSet)
@@ -37,9 +36,9 @@ Public Interface IResourcePlanner
     Function GetBillableHoursByMonth(ByVal status As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetBillableHoursByWeek(ByVal status As Integer, ByVal weekID As Integer) As List(Of ResourcePlannerSet)
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
-    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlannerSet)
+    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlannerSet)
     Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlannerSet)
-    Function UpdateLeaves(ByVal resource As ResourcePlannerSet, ByVal statusCD As Integer, ByVal leaveType As Integer) As Boolean
     Function GetAllPerfectAttendance(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetLeavesByDateAndEmpID(ByVal empID As Integer, ByVal status As Integer, ByVal dateFrom As Date, ByVal dateTo As Date) As List(Of ResourcePlannerSet)
+    Function CancelLeave(ByVal resource As ResourcePlannerSet) As Boolean
 End Interface

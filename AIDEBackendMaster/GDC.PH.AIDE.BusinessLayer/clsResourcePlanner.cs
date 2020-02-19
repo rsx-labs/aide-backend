@@ -52,7 +52,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _startDate;
         DateTime _endDate;
         double _duration;
-        int _statusCd;
+        short _statusCd;
         #endregion
 
         #region Properties
@@ -278,7 +278,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
-        public int STATUS_CD
+        public short STATUS_CD
         {
             get { return _statusCd; }
             set

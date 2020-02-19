@@ -44,7 +44,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
 			try
 			{
-                
 				sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_ENTRY", SqlDbType.DateTime, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_ENTRY));
 	
@@ -65,109 +64,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 			}
 		}
 
-         /// <summary>
-        /// update row in the table
-        /// </summary>
-        /// <param name="businessObject">business object</param>
-        /// <returns>true for successfully updated</returns>
-        public bool Update(clsAttendance businessObject, int day, int status)
-        {
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_updateAttendanceStatus]";
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            // Use connection object of base class
-            sqlCommand.Connection = MainConnection;
-
-            try
-            {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MONTH));
-                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
-                sqlCommand.Parameters.Add(new SqlParameter("@Day", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(day)));
-                sqlCommand.Parameters.Add(new SqlParameter("@status", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, Convert.ToByte(status)));
-
-                MainConnection.Open();
-
-                sqlCommand.ExecuteNonQuery();
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("clsAttendance::Update::Error occured.", ex);
-            }
-            finally
-            {
-                MainConnection.Close();
-                sqlCommand.Dispose();
-            }
-        }
-
-        public bool Update(clsAttendance businessObject)
-        {
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_updateAttendanceStatus]";
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            // Use connection object of base class
-            sqlCommand.Connection = MainConnection;
-
-            try
-            {
-
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@MONTH", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MONTH));
-                sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY1", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY1));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY2", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY2));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY3", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY3));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY4", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY4));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY5", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY5));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY6", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY6));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY7", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY7));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY8", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY8));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY9", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY9));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY10", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY10));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY11", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY11));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY12", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY12));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY13", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY13));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY14", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY14));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY15", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY15));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY16", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY16));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY17", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY17));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY18", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY18));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY19", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY19));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY20", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY20));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY21", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY21));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY22", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY22));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY23", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY23));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY24", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY24));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY25", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY25));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY26", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY26));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY27", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY27));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY28", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY28));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY29", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY29));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY30", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY30));
-                sqlCommand.Parameters.Add(new SqlParameter("@DAY31", SqlDbType.SmallInt, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DAY31));
-
-                
-                MainConnection.Open();
-
-                sqlCommand.ExecuteNonQuery();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("clsAttendance::Update::Error occured.", ex);
-            }
-            finally
-            {
-                MainConnection.Close();
-                sqlCommand.Dispose();
-            }
-        }
-
         public bool InsertLogoffTime(clsAttendance businessObject)
         {
             SqlCommand sqlCommand = new SqlCommand();
@@ -179,7 +75,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LOGOFF_TIME", businessObject.LOGOFF_TIME));
                 
                 MainConnection.Open();
 
@@ -478,8 +375,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
-
-        public List<clsAttendance> GetAttendanceToday(string email)
+        public List<clsAttendance> GetAttendanceToday(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAttendanceToday]";
@@ -490,7 +386,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMAIL_ADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email)); 
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@DATE_TODAY", DateTime.Now));  
                 
                 MainConnection.Open();
                 IDataReader dataReader = sqlCommand.ExecuteReader();
