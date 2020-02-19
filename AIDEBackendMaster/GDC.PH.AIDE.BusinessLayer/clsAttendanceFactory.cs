@@ -38,36 +38,7 @@ namespace GDC.PH.AIDE.BusinessLayer
                 throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
             }
 
-
             return _dataObject.Insert(businessObject);
-
-        }
-
-        /// <summary>
-        /// Update existing clsAttendance
-        /// </summary>
-        /// <param name="businessObject">clsAttendance object</param>
-        /// <returns>true for successfully saved</returns>
-        public bool Update(clsAttendance businessObject)
-        {
-            if (!businessObject.IsValid)
-            {
-                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
-            }
-
-
-            return _dataObject.Update(businessObject);
-        }
-
-        public bool Update(clsAttendance businessObject, int day, int status)
-        {
-            if (!businessObject.IsValid)
-            {
-                throw new InvalidBusinessObjectException(businessObject.BrokenRulesList.ToString());
-            }
-
-
-            return _dataObject.Update(businessObject, day, status);
         }
 
         public bool InsertLogoffTime(clsAttendance businessObject)
@@ -78,6 +49,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             }            
             return _dataObject.InsertLogoffTime(businessObject);
         }
+
         /// <summary>
         /// get clsAttendance by primary key.
         /// </summary>
@@ -148,9 +120,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.DeleteByField(fieldName.ToString(), value); 
         }
 
-        public List<clsAttendance> GetAttendanceToday(string email)
+        public List<clsAttendance> GetAttendanceToday(int empID)
         {
-            return _dataObject.GetAttendanceToday(email);
+            return _dataObject.GetAttendanceToday(empID);
         }
 
         public List<clsAttendance> GetAttendanceTodayBySearch(string email, string input)

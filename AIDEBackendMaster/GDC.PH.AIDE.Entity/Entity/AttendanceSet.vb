@@ -407,37 +407,10 @@ Public Class AttendanceSet
         End Try
     End Function
 
-    Public Function Update() As Boolean Implements IAttendanceSet.Update
-        Try
-            Return Me.cAttendanceFactory.Update(cAttendance)
-        Catch ex As Exception
-            If (ex.InnerException.GetType() = GetType(SqlException)) Then
-                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-            Else
-                Throw ex.InnerException
-            End If
-        End Try
-    End Function
-
-    Public Function UpdateAttendance(ByVal empid As Integer, ByVal day As Integer, status As Integer) As Boolean Implements IAttendanceSet.Update
-        Try
-            Dim curdate As Date = Date.Now
-            cAttendance.MONTH = curdate.Month
-            cAttendance.YEAR = curdate.Year
-            cAttendance.EMP_ID = empid
-            Return Me.cAttendanceFactory.Update(cAttendance, day, status)
-        Catch ex As Exception
-            If (ex.InnerException.GetType() = GetType(SqlException)) Then
-                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
-            Else
-                Throw ex.InnerException
-            End If
-        End Try
-    End Function
-
-    Public Function InsertLogoffTime(ByVal empid As Integer) As Boolean Implements IAttendanceSet.InsertLogoffTime
+    Public Function InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date) As Boolean Implements IAttendanceSet.InsertLogoffTime
         Try
             cAttendance.EMP_ID = empid
+            cAttendance.LOGOFF_TIME = logoffTime
             Return Me.cAttendanceFactory.InsertLogoffTime(cAttendance)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
@@ -492,12 +465,12 @@ Public Class AttendanceSet
         End Try
     End Function
 
-    Public Function GetAttendanceToday(email As String) As List(Of AttendanceSet) Implements IAttendanceSet.GetAttendanceToday
+    Public Function GetAttendanceToday(empID As Integer) As List(Of AttendanceSet) Implements IAttendanceSet.GetAttendanceToday
         Try
             Dim AttendanceLst As List(Of clsAttendance)
             Dim AttendanceSetLst As New List(Of AttendanceSet)
 
-            AttendanceLst = cAttendanceFactory.GetAttendanceToday(email)
+            AttendanceLst = cAttendanceFactory.GetAttendanceToday(empID)
 
             If Not IsNothing(AttendanceLst) Then
                 For Each cList As clsAttendance In AttendanceLst

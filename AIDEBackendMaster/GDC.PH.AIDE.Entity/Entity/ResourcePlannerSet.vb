@@ -211,9 +211,9 @@ Public Class ResourcePlannerSet
     Public Event PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Implements INotifyPropertyChanged.PropertyChanged
 
 #Region "Resource Planner"
-    Public Function InsertResourcePlanner(resource As ResourcePlannerSet) As Boolean Implements IResourcePlanner.InsertResourcePlanner
+    Public Function InsertAttendanceForLeaves(resource As ResourcePlannerSet) As Boolean Implements IResourcePlanner.InsertAttendanceForLeaves
         Try
-            Return Me.cResourcePlannerFactory.InsertResourcePlanner(cResourcePlanner)
+            Return Me.cResourcePlannerFactory.InsertAttendanceForLeaves(cResourcePlanner)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed")
@@ -523,13 +523,12 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
-
-    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllLeavesByEmployee
+    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllLeavesByEmployee
         Try
             Dim ResourceLst As List(Of clsResourcePlanner)
             Dim ResourceSetLst As New List(Of ResourcePlannerSet)
 
-            ResourceLst = cResourcePlannerFactory.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+            ResourceLst = cResourcePlannerFactory.GetAllLeavesByEmployee(empID, leaveType)
 
             If Not IsNothing(ResourceLst) Then
                 For Each cList As clsResourcePlanner In ResourceLst
@@ -576,9 +575,9 @@ Public Class ResourcePlannerSet
         End Try
     End Function
 
-    Public Function UpdateLeaves(resource As ResourcePlannerSet, statusCD As Integer, leaveType As Integer) As Boolean Implements IResourcePlanner.UpdateLeaves
+    Public Function CancelLeave(resource As ResourcePlannerSet) As Boolean Implements IResourcePlanner.CancelLeave
         Try
-            Return Me.cResourcePlannerFactory.UpdateLeaves(cResourcePlanner, statusCD, leaveType)
+            Return Me.cResourcePlannerFactory.CancelLeave(cResourcePlanner)
         Catch ex As Exception
             If (ex.InnerException.GetType() = GetType(SqlException)) Then
                 Throw New DatabaseConnExceptionFailed("Database Connection Failed")

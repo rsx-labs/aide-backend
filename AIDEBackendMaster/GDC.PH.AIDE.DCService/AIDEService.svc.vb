@@ -63,16 +63,12 @@ Public Class AIDEService
 
 #Region "Attendance Funcions"
 
-    Public Sub UpdateAttendance2(empid As Integer, day As Integer, attstatus As Integer) Implements IAideService.UpdateAttendance2
-        MyBase.UpdateAttendanceByEmp(empid, day, attstatus)
+    Public Sub InsertAttendanceEmpID(ByVal _Attendance As AttendanceSummary) Implements IAideService.InsertAttendanceByEmpID
+        MyBase.InsertAttendanceByEmpID(_Attendance)
     End Sub
 
-    Public Sub InsertLogoffTimes(empid As Integer) Implements IAideService.InsertLogoffTime
-        MyBase.InsertLogoffTime(empid)
-    End Sub
-
-    Public Sub InsertAttendance(ByVal _Attendance As AttendanceSummary) Implements IAideService.InsertAttendance
-        MyBase.InsertAttendanceByEmp(_Attendance)
+    Public Sub InsertLogoff(empid As Integer, logoffTime As Date) Implements IAideService.InsertLogoffTime
+        MyBase.InsertLogoffTime(empid, logoffTime)
     End Sub
 
     Public Function GetMyAttendance(EmpId As Integer, WeekOf As Date) As MyAttendance Implements IAideService.GetMyAttendance
@@ -87,12 +83,8 @@ Public Class AIDEService
         Return lstAttendance
     End Function
 
-    Public Sub UpdateAttendance(ByVal _Attendance As AttendanceSummary) Implements IAideService.UpdateAttendance
-        MyBase.UpdateAttendanceByEmp(_Attendance)
-    End Sub
-
-    Public Function GetAttendanceTodays(email As String) As List(Of MyAttendance) Implements IAideService.GetAttendanceToday
-        Return MyBase.GetAttendanceToday(email)
+    Public Function GetAttendanceTodays(empID As Integer) As List(Of MyAttendance) Implements IAideService.GetAttendanceToday
+        Return MyBase.GetAttendanceToday(empID)
     End Function
 
     Public Function GetAttendanceTodayBySearchs(email As String, input As String) As List(Of MyAttendance) Implements IAideService.GetAttendanceTodayBySearch
@@ -718,8 +710,8 @@ Public Class AIDEService
     ''' By Jhunell Barcenas / John Harvey Sanchez
     ''' </summary>
 #Region "Resource Planner"
-    Public Sub InsertResourcePlanners(resource As ResourcePlanner) Implements IAideService.InsertResourcePlanner
-        MyBase.InsertResourcePlanner(resource)
+    Public Sub InsertAttendanceLeaves(resourcePlanner As ResourcePlanner) Implements IAideService.InsertAttendanceForLeaves
+        MyBase.InsertAttendanceForLeaves(resourcePlanner)
     End Sub
 
     Public Sub UpdateResourcePlanners(resource As ResourcePlanner) Implements IAideService.UpdateResourcePlanner
@@ -762,21 +754,21 @@ Public Class AIDEService
         Return MyBase.GetNonBillableHours(email, display, month, year)
     End Function
 
-    Public Overrides Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesByEmployee
-        Return MyBase.GetAllLeavesByEmployees(empID, leaveType, statusCode)
+    Public Overrides Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesByEmployee
+        Return MyBase.GetAllLeavesByEmployees(empID, leaveType)
     End Function
 
     Public Overrides Function GetAllLeavesHistoryByEmployee(empID As Integer, leaveType As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllLeavesHistoryByEmployee
         Return MyBase.GetAllLeavesHistoryByEmployees(empID, leaveType)
     End Function
 
-    Public Sub UpdateLeaves1(resource As ResourcePlanner, statusCD As Integer, leaveType As Integer) Implements IAideService.UpdateLeaves
-        MyBase.UpdateLeavess(resource, statusCD, leaveType)
-    End Sub
-
     Public Overrides Function GetLeavesByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As List(Of ResourcePlanner) Implements IAideService.GetLeavesByDateAndEmpID
         Return MyBase.GetLeaveByDateAndEmpID(empID, status, dateFrom, dateTo)
     End Function
+
+    Public Sub CancelLeaves(resource As ResourcePlanner) Implements IAideService.CancelLeave
+        MyBase.CancelLeave(resource)
+    End Sub
 #End Region
 
     ''' <summary>

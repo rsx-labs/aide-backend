@@ -10,6 +10,27 @@ Public Class ResourcePlannerManagement
     ''' </summary>
     ''' <remarks></remarks>
 
+    Public Function InsertAttendanceForLeaves(ByVal resourcePlanner As ResourcePlanner) As StateData
+        Dim resourcePlannerSet As New ResourcePlannerSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            SetFields(resourcePlannerSet, resourcePlanner)
+            If resourcePlannerSet.InsertAttendanceForLeaves(resourcePlannerSet) Then
+                status = NotifyType.IsSuccess
+                message = "Insert Resource Planner Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+
+        Return state
+    End Function
+
     Public Function UpdateResourcePlanner(ByVal rp As ResourcePlanner) As StateData
         Dim rpSet As New ResourcePlannerSet
         Dim message As String = ""
@@ -21,27 +42,6 @@ Public Class ResourcePlannerManagement
             If rpSet.UpdateResourcePlanner(rpSet) Then
                 status = NotifyType.IsSuccess
                 message = "Update Resource Planner Successful!"
-            End If
-        Catch ex As Exception
-            status = NotifyType.IsError
-            message = GetExceptionMessage(ex)
-        End Try
-        state = GetStateData(status)
-
-        Return state
-    End Function
-
-    Public Function InsertResourcePlanner(ByVal rp As ResourcePlanner) As StateData
-        Dim rpSet As New ResourcePlannerSet
-        Dim message As String = ""
-        Dim state As StateData
-        Dim status As NotifyType
-
-        Try
-            SetFields(rpSet, rp)
-            If rpSet.InsertResourcePlanner(rpSet) Then
-                status = NotifyType.IsSuccess
-                message = "Insert Resource Planner Successful!"
             End If
         Catch ex As Exception
             status = NotifyType.IsError
@@ -350,7 +350,7 @@ Public Class ResourcePlannerManagement
     End Function
 
 
-    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer, statusCode As Integer) As StateData
+    Public Function GetAllLeavesByEmployee(empID As Integer, leaveType As Integer) As StateData
         Dim ResourceSet As New ResourcePlannerSet
         Dim ResourceSetLst As List(Of ResourcePlannerSet)
         Dim objResource As New List(Of ResourcePlanner)
@@ -359,7 +359,7 @@ Public Class ResourcePlannerManagement
         Dim status As NotifyType
 
         Try
-            ResourceSetLst = ResourceSet.GetAllLeavesByEmployee(empID, leaveType, statusCode)
+            ResourceSetLst = ResourceSet.GetAllLeavesByEmployee(empID, leaveType)
 
             If Not IsNothing(ResourceSetLst) Then
                 For Each objList As ResourcePlannerSet In ResourceSetLst
@@ -404,6 +404,53 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
+    Public Function CancelLeave(ByVal rp As ResourcePlanner) As StateData
+        Dim rpSet As New ResourcePlannerSet
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            SetFieldsLeaves(rpSet, rp)
+            If rpSet.CancelLeave(rpSet) Then
+                status = NotifyType.IsSuccess
+                message = "Update Leaves Successful!"
+            End If
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status)
+
+        Return state
+    End Function
+
+    Public Function GetLeavesByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As StateData
+        Dim resourceSet As New ResourcePlannerSet
+        Dim resourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim statNotify As NotifyType
+
+        Try
+            resourceSetLst = resourceSet.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo)
+
+            If Not IsNothing(resourceSetLst) Then
+                For Each objList As ResourcePlannerSet In resourceSetLst
+                    objResource.Add(DirectCast(GetMappedFieldsLeaves(objList), ResourcePlanner))
+                Next
+
+                statNotify = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            statNotify = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(statNotify, objResource, message)
+        Return state
+    End Function
 
     Public Overrides Function GetExceptionMessage(ex As Exception) As String
         Return ex.Message
@@ -444,7 +491,6 @@ Public Class ResourcePlannerManagement
         Return resourceData
     End Function
 
-
     Public Sub SetFieldsLeaves(ByRef objResult As Object, objData As Object)
         Dim objResource As ResourcePlanner = DirectCast(objData, ResourcePlanner)
         Dim resourceData As New ResourcePlannerSet
@@ -479,54 +525,6 @@ Public Class ResourcePlannerManagement
 
         objResult = resourceData
     End Sub
-
-    Public Function UpdateLeaves(ByVal rp As ResourcePlanner, ByVal statusCD As Integer, ByVal leaveType As Integer) As StateData
-        Dim rpSet As New ResourcePlannerSet
-        Dim message As String = ""
-        Dim state As StateData
-        Dim status As NotifyType
-
-        Try
-            SetFieldsLeaves(rpSet, rp)
-            If rpSet.UpdateLeaves(rpSet, statusCD, leaveType) Then
-                status = NotifyType.IsSuccess
-                message = "Update Leaves Successful!"
-            End If
-        Catch ex As Exception
-            status = NotifyType.IsError
-            message = GetExceptionMessage(ex)
-        End Try
-        state = GetStateData(status)
-
-        Return state
-    End Function
-
-    Public Function GetLeavesByDateAndEmpID(empID As Integer, status As Integer, dateFrom As Date, dateTo As Date) As StateData
-        Dim resourceSet As New ResourcePlannerSet
-        Dim resourceSetLst As List(Of ResourcePlannerSet)
-        Dim objResource As New List(Of ResourcePlanner)
-        Dim message As String = ""
-        Dim state As StateData
-        Dim statNotify As NotifyType
-
-        Try
-            resourceSetLst = resourceSet.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo)
-
-            If Not IsNothing(resourceSetLst) Then
-                For Each objList As ResourcePlannerSet In resourceSetLst
-                    objResource.Add(DirectCast(GetMappedFieldsLeaves(objList), ResourcePlanner))
-                Next
-
-                statNotify = NotifyType.IsSuccess
-            End If
-
-        Catch ex As Exception
-            statNotify = NotifyType.IsError
-            message = GetExceptionMessage(ex)
-        End Try
-        state = GetStateData(statNotify, objResource, message)
-        Return state
-    End Function
 
 #End Region
 

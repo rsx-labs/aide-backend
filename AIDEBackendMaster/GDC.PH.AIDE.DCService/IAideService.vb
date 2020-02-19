@@ -29,26 +29,21 @@ Public Interface IAideService
 #End Region
 
 #Region "Attendance Operation Contracts"
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertAttendanceByEmpID(ByVal _Attendance As AttendanceSummary)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date)
+
     <OperationContract()>
     Function GetMyAttendance(ByVal EmpId As Integer, ByVal WeekOf As Date) As MyAttendance
 
     <OperationContract()>
     Function GetAttendanceSummary(ByVal Month As Integer, ByVal Year As Integer) As List(Of AttendanceSummary)
 
-    <OperationContract(IsOneWay:=True)>
-    Sub UpdateAttendance(ByVal _Attendance As AttendanceSummary)
-
-    <OperationContract(IsOneWay:=True)>
-    Sub UpdateAttendance2(ByVal empid As Integer, ByVal day As Integer, attstatus As Integer)
-
-    <OperationContract(IsOneWay:=True)>
-    Sub InsertLogoffTime(ByVal empid As Integer)
-
-    <OperationContract(IsOneWay:=True)>
-    Sub InsertAttendance(ByVal _Attendance As AttendanceSummary)
-
     <OperationContract()>
-    Function GetAttendanceToday(ByVal email As String) As List(Of MyAttendance)
+    Function GetAttendanceToday(ByVal empID As Integer) As List(Of MyAttendance)
 
     <OperationContract()>
     Function GetAttendanceTodayBySearch(ByVal email As String, ByVal input As String) As List(Of MyAttendance)
@@ -513,10 +508,10 @@ Public Interface IAideService
     ''' <remarks></remarks>
 
     <OperationContract(IsOneWay:=True)>
-    Sub UpdateResourcePlanner(ByVal resource As ResourcePlanner)
+    Sub InsertAttendanceForLeaves(ByVal resourcePlanner As ResourcePlanner)
 
     <OperationContract(IsOneWay:=True)>
-    Sub InsertResourcePlanner(ByVal resource As ResourcePlanner)
+    Sub UpdateResourcePlanner(ByVal resource As ResourcePlanner)
 
     <OperationContract()>
     Function ViewEmpResourcePlanner(ByVal email As String) As List(Of ResourcePlanner)
@@ -546,16 +541,16 @@ Public Interface IAideService
     Function GetNonBillableHours(ByVal email As String, ByVal display As Integer, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
-    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer, ByVal statusCode As Integer) As List(Of ResourcePlanner)
+    Function GetAllLeavesByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
 
     <OperationContract()>
     Function GetAllLeavesHistoryByEmployee(ByVal empID As Integer, ByVal leaveType As Integer) As List(Of ResourcePlanner)
 
-    <OperationContract(IsOneWay:=True)>
-    Sub UpdateLeaves(ByVal resource As ResourcePlanner, ByVal statusCD As Integer, ByVal leaveType As Integer)
-
     <OperationContract()>
     Function GetLeavesByDateAndEmpID(ByVal empID As Integer, ByVal status As Integer, ByVal dateFrom As Date, ByVal dateTo As Date) As List(Of ResourcePlanner)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub CancelLeave(ByVal resource As ResourcePlanner)
 #End Region
 
 #Region "Announcements Operation Contracts"
@@ -1643,7 +1638,7 @@ Public Class ResourcePlanner
     Public Property Duration As Double
 
     <DataMember()>
-    Public Property StatusCD As Integer
+    Public Property StatusCD As Short
 
 End Class
 #End Region

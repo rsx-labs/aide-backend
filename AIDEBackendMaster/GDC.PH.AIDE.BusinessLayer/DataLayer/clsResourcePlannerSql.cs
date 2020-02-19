@@ -32,10 +32,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         /// <param name="businessObject">business object</param>
         /// <returns>true of successfully insert</returns>
         /// 
-        public bool InsertResourcePlanner(clsResourcePlanner businessObject)
+        public bool InsertAttendanceForLeaves(clsResourcePlanner businessObject)
         {
             SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_InsertAttendanceForManagers]";
+            sqlCommand.CommandText = "dbo.[sp_InsertAttendanceForLeaves]";
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             // Use connection object of base class
@@ -47,7 +47,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@from", SqlDbType.DateTime, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.from));
                 sqlCommand.Parameters.Add(new SqlParameter("@to", SqlDbType.DateTime, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.to));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
-
 
                 MainConnection.Open();
 
@@ -402,7 +401,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
         }
 
-        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType, int statusCode)
+        public List<clsResourcePlanner> GetAllLeavesByEmployee(int empID, int leaveType)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAllLeavesByEmployee]";
@@ -414,7 +413,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
                 sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
-                sqlCommand.Parameters.Add(new SqlParameter("@STATUS_CODE", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, statusCode));
                 MainConnection.Open();
 
                 IDataReader dataReader = sqlCommand.ExecuteReader();
@@ -454,38 +452,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             catch (Exception ex)
             {
                 throw new Exception("clsResourcePlanner::GetAllLeavesByEmployee::Error occured.", ex);
-            }
-            finally
-            {
-                MainConnection.Close();
-                sqlCommand.Dispose();
-            }
-        }
-
-        public bool UpdateLeaves(clsResourcePlanner businessObject, int statusCD, int leaveType)
-        {
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.CommandText = "dbo.[sp_UpdateLeaves]";
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            // Use connection object of base class
-            sqlCommand.Connection = MainConnection;
-
-            try
-            {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, leaveType));
-                sqlCommand.Parameters.Add(new SqlParameter("@START_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.START_DATE.ToString("MM/dd/yyyy")));
-                sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.END_DATE.ToString("MM/dd/yyyy")));
-                sqlCommand.Parameters.Add(new SqlParameter("@STATUS_CD", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, statusCD));
-                MainConnection.Open();
-
-                sqlCommand.ExecuteNonQuery();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("clsContacts::Update::Error occured.", ex);
             }
             finally
             {
@@ -549,6 +515,38 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             catch (Exception ex)
             {
                 throw new Exception("clsResourcePlanner::GetLeavesByDateAndEmpID::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
+        public bool CancelLeave(clsResourcePlanner businessObject)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_CancelLeave]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", businessObject.EMP_ID));
+                sqlCommand.Parameters.Add(new SqlParameter("@LEAVE_TYPE", businessObject.STATUS));
+                sqlCommand.Parameters.Add(new SqlParameter("@START_DATE", businessObject.START_DATE));
+                sqlCommand.Parameters.Add(new SqlParameter("@END_DATE", businessObject.END_DATE));
+                MainConnection.Open();
+
+                sqlCommand.ExecuteNonQuery();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsContacts::Update::Error occured.", ex);
             }
             finally
             {
@@ -646,7 +644,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.START_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.START_DATE.ToString()));
             businessObject.END_DATE = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.END_DATE.ToString()));
             businessObject.DURATION = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DURATION.ToString()));
-            businessObject.STATUS_CD = dataReader.GetInt32(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
+            businessObject.STATUS_CD = dataReader.GetInt16(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
             businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
         }

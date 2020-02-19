@@ -22,47 +22,13 @@ Public Class AttendanceManagement
         Return state
     End Function
 
-    Public Function UpdateAttendance(ByVal attendance As AttendanceSummary) As StateData
+    Public Function InsertLogoffTime(ByVal empid As Integer, ByVal logoffTime As Date) As StateData
         Dim _attendanceSet As New AttendanceSet
         Dim message As String = ""
         Dim state As StateData
         Dim status As NotifyType
         Try
-            SetFields(_attendanceSet, attendance)
-            If _attendanceSet.Update() Then
-                status = NotifyType.IsSuccess
-            End If
-        Catch ex As Exception
-            status = NotifyType.IsError
-        End Try
-        state = GetStateData(status)
-        Return state
-    End Function
-
-    Public Function UpdateAttendance(ByVal empid As Integer, ByVal day As Integer, ByVal attstatus As Integer) As StateData
-        Dim _attendanceSet As New AttendanceSet
-        Dim message As String = ""
-        Dim state As StateData
-        Dim status As NotifyType
-        Try
-            'SetFields(_attendanceSet, attendance)
-            If _attendanceSet.UpdateAttendance(empid, day, attstatus) Then
-                status = NotifyType.IsSuccess
-            End If
-        Catch ex As Exception
-            status = NotifyType.IsError
-        End Try
-        state = GetStateData(status)
-        Return state
-    End Function
-
-    Public Function InsertLogoffTime(ByVal empid As Integer) As StateData
-        Dim _attendanceSet As New AttendanceSet
-        Dim message As String = ""
-        Dim state As StateData
-        Dim status As NotifyType
-        Try
-            If _attendanceSet.InsertLogoffTime(empid) Then
+            If _attendanceSet.InsertLogoffTime(empid, logoffTime) Then
                 status = NotifyType.IsSuccess
             End If
         Catch ex As Exception
@@ -116,7 +82,7 @@ Public Class AttendanceManagement
         Return state
     End Function
 
-    Public Function GetAttendanceToday(email As String) As StateData
+    Public Function GetAttendanceToday(empID As Integer) As StateData
         Dim AttendanceSet As New AttendanceSet
         Dim AttendanceSetLst As List(Of AttendanceSet)
         Dim objAttendance As New List(Of MyAttendance)
@@ -125,7 +91,7 @@ Public Class AttendanceManagement
         Dim status As NotifyType
 
         Try
-            AttendanceSetLst = AttendanceSet.GetAttendanceToday(email)
+            AttendanceSetLst = AttendanceSet.GetAttendanceToday(empID)
 
             If Not IsNothing(AttendanceSetLst) Then
                 For Each objList As AttendanceSet In AttendanceSetLst
