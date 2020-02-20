@@ -19,6 +19,7 @@ CREATE PROCEDURE [dbo].[sp_CancelLeave]
 	@END_DATE DATETIME
 AS
 
+-- For Halfday leaves
 IF @LEAVE_TYPE IN (5, 6, 9, 12, 14)
 	BEGIN
 		UPDATE ATTENDANCE SET STATUS_CD = 0 
