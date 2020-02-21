@@ -43,11 +43,11 @@ WHILE @COUNT < 12
 	begin 
 		set @DATEVALUE = @DATEVALUE
 	end
-	else if @COUNT = 1
+	else if @COUNT = 2
 	begin 
 		set @DATEVALUE = @DATEVALUE
 	end
-	else if @COUNT = 1
+	else if @COUNT = 3
 	begin
 		set @DATEVALUE = @DATEVALUE
 	end
@@ -58,10 +58,10 @@ WHILE @COUNT < 12
 
 	insert into #SummaryQUARTERLYAuditor
 			SELECT distinct CONCAT(DATENAME(MONTH, w.weekdate),' - ',DATENAME(MONTH, DATEADD(MONTH,2,w.weekdate) ))as MonthName, 
-						case	when @COUNT = 4 then 'Q1'
-								when @COUNT	= 7 then 'Q2'
-								when @COUNT	= 10 then 'Q3'
-								when @COUNT	= 1 then'Q4' END , 
+						case	when @COUNT IN (4,5,6) then 'Q1'
+								when @COUNT	IN (7,8,9) then 'Q2'
+								when @COUNT	IN (10,11,12) then 'Q3'
+								when @COUNT	IN (1,2,3) then'Q4' END , 
 						e.emp_id,
 						CONCAT(w.weekdate,' - ',DATEADD(MONTH,2,w.weekdate)),  
 						w.fy_week, 
@@ -78,7 +78,7 @@ WHILE @COUNT < 12
 					and MONTH(w.weekdate)  =  @COUNT 
 					
 				
-	SET @COUNT = @COUNT + 3; 
+	SET @COUNT = @COUNT + 1; 
 	END
 	set @Fdate = @date - 1
 	set @Ldate = @date
