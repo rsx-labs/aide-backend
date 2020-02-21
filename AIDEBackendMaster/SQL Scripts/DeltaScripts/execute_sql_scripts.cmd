@@ -1,0 +1,1 @@
+for %%i in (*.sql) do sqlcmd -E -d AIDE -i %%i > %%i.log
