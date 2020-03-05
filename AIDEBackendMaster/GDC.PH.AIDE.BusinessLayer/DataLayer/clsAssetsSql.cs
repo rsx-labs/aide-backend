@@ -619,6 +619,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
                 sqlCommand.Parameters.Add(new SqlParameter("@APPROVAL", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.APPROVAL));
+                sqlCommand.Parameters.Add(new SqlParameter("@COMMENTS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMENTS));
 
                 MainConnection.Open();
 
@@ -652,6 +653,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_ASSIGNED", SqlDbType.DateTime, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_ASSIGNED));
                 sqlCommand.Parameters.Add(new SqlParameter("@STATUS", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.STATUS));
+                sqlCommand.Parameters.Add(new SqlParameter("@APPROVAL", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.APPROVAL));
                 sqlCommand.Parameters.Add(new SqlParameter("@COMMENTS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.COMMENTS));
 
                 MainConnection.Open();
@@ -1254,6 +1256,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             else
             {
                 businessObject.DEPARTMENT = String.Empty;
+            }
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString())))
+            {
+                businessObject.PREVIOUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString()));
+            }
+            else
+            {
+                businessObject.PREVIOUS_ID = 0;
             }
         }
 
