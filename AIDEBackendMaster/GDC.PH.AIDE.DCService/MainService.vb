@@ -1913,6 +1913,7 @@ Public MustInherit Class MainService
                 item.FULL_NAME = _list.FULL_NAME
                 item.DEPARTMENT = _list.DEPARTMENT
                 item.APPROVAL = _list.APPROVAL
+                item.PREVIOUS_ID = _list.PREVIOUS_ID
 
                 assetsLst.Add(item)
             Next
