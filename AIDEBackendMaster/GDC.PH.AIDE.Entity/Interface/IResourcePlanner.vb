@@ -23,6 +23,7 @@ Public Interface IResourcePlanner
     Property EndDate As Date
     Property Duration As Double
     Property StatusCD As Integer
+    Property Comment As String
 
     Function InsertAttendanceForLeaves(ByVal resourcePlanner As ResourcePlannerSet) As Boolean
     Function UpdateResourcePlanner(ByVal resource As ResourcePlannerSet) As Boolean
@@ -41,4 +42,5 @@ Public Interface IResourcePlanner
     Function GetAllPerfectAttendance(ByVal email As String, ByVal month As Integer, ByVal year As Integer) As List(Of ResourcePlannerSet)
     Function GetLeavesByDateAndEmpID(ByVal empID As Integer, ByVal status As Integer, ByVal dateFrom As Date, ByVal dateTo As Date) As List(Of ResourcePlannerSet)
     Function CancelLeave(ByVal resource As ResourcePlannerSet) As Boolean
+    Function GetAllNotFiledLeaves(ByVal empID As Integer) As List(Of ResourcePlannerSet)
 End Interface

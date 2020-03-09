@@ -133,6 +133,11 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.CancelLeave(businessObject);
         }
 
+        public List<clsResourcePlanner> GetAllNotFiledLeave(int empID)
+        {
+            return _dataObject.GetAllNotFiledLeave(empID);
+        }
+
         #endregion
     }
 }

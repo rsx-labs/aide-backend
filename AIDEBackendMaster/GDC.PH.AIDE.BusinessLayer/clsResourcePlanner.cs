@@ -29,7 +29,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             START_DATE,
             END_DATE,
             DURATION,
-            STATUS_CD
+            STATUS_CD,
+            COMMENT
         }
         #endregion
 
@@ -53,6 +54,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _endDate;
         double _duration;
         short _statusCd;
+        string _comment;
         #endregion
 
         #region Properties
@@ -291,6 +293,19 @@ namespace GDC.PH.AIDE.BusinessLayer
             }
         }
 
+        public string COMMENT
+        {
+            get { return _comment; }
+            set
+            {
+                if (_comment != value)
+                {
+                    _comment = value;
+                    PropertyHasChanged("COMMENT");
+                }
+            }
+        }
+
         #endregion
 
         #region Validation
@@ -304,7 +319,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("to", "to"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DESCR", "DESCR"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("IMAGE_PATH", "IMAGE_PATH"));
-            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_ENTRY", "DATE_ENTRY"));
+            //ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DATE_ENTRY", "DATE_ENTRY"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("START_DATE", "START_DATE"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("END_DATE", "END_DATE"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("DURATION", "DURATION"));
