@@ -1636,6 +1636,25 @@ Public MustInherit Class MainService
         End If
         Return resourceLst
     End Function
+    Public Function GetAllNotFiledLeaves(empID As Integer) As List(Of ResourcePlanner)
+        Dim state As StateData = ResourceMgmt.GetAllNotFiledLeaves(empID)
+        Dim resourceLst As New List(Of ResourcePlanner)
+
+        If Not IsNothing(state.Data) Then
+            Dim resource As List(Of ResourcePlanner) = DirectCast(state.Data, List(Of ResourcePlanner))
+            For Each _list As ResourcePlanner In resource
+                Dim item As New ResourcePlanner
+
+                item.DateEntry = _list.DateEntry
+                item.Duration = _list.Duration
+                item.Comments = _list.Comments
+
+                resourceLst.Add(item)
+            Next
+        End If
+        Return resourceLst
+    End Function
+
 #End Region
 
 #Region "Attendance"

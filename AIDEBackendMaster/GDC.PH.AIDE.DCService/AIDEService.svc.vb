@@ -769,6 +769,11 @@ Public Class AIDEService
     Public Sub CancelLeaves(resource As ResourcePlanner) Implements IAideService.CancelLeave
         MyBase.CancelLeave(resource)
     End Sub
+
+    Public Function GetAllNotFiledLeavess(empID As Integer) As List(Of ResourcePlanner) Implements IAideService.GetAllNotFiledLeaves
+        Return MyBase.GetAllNotFiledLeaves(empID)
+    End Function
+
 #End Region
 
     ''' <summary>

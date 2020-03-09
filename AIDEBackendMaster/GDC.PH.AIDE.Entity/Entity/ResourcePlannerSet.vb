@@ -204,6 +204,15 @@ Public Class ResourcePlannerSet
         End Set
     End Property
 
+    Public Property Comment As String Implements IResourcePlanner.Comment
+        Get
+            Return Me.cResourcePlanner.COMMENT
+        End Get
+        Set(value As String)
+            Me.cResourcePlanner.COMMENT = value
+        End Set
+    End Property
+
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
     End Sub
@@ -593,6 +602,32 @@ Public Class ResourcePlannerSet
             Dim resourceSetLst As New List(Of ResourcePlannerSet)
 
             resourceLst = cResourcePlannerFactory.GetLeavesByDateAndEmpID(empID, status, dateFrom, dateTo)
+
+            If Not IsNothing(resourceLst) Then
+                For Each cList As clsResourcePlanner In resourceLst
+                    resourceSetLst.Add(New ResourcePlannerSet(cList))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+
+            Return resourceSetLst
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
+
+    Public Function GetAllNotFiledLeaves(empID As Integer) As List(Of ResourcePlannerSet) Implements IResourcePlanner.GetAllNotFiledLeaves
+        Try
+            Dim resourceLst As List(Of clsResourcePlanner)
+            Dim resourceSetLst As New List(Of ResourcePlannerSet)
+
+            resourceLst = cResourcePlannerFactory.GetAllNotFiledLeave(empID)
 
             If Not IsNothing(resourceLst) Then
                 For Each cList As clsResourcePlanner In resourceLst

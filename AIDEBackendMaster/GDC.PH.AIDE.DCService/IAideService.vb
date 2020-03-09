@@ -551,6 +551,10 @@ Public Interface IAideService
 
     <OperationContract(IsOneWay:=True)>
     Sub CancelLeave(ByVal resource As ResourcePlanner)
+
+    <OperationContract()>
+    Function GetAllNotFiledLeaves(ByVal empID As Integer) As List(Of ResourcePlanner)
+
 #End Region
 
 #Region "Announcements Operation Contracts"
@@ -1639,6 +1643,9 @@ Public Class ResourcePlanner
 
     <DataMember()>
     Public Property StatusCD As Short
+
+    <DataMember()>
+    Public Property Comments As String
 
 End Class
 #End Region

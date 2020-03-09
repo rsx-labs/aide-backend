@@ -452,6 +452,33 @@ Public Class ResourcePlannerManagement
         Return state
     End Function
 
+    Public Function GetAllNotFiledLeaves(empID As Integer) As StateData
+        Dim ResourceSet As New ResourcePlannerSet
+        Dim ResourceSetLst As List(Of ResourcePlannerSet)
+        Dim objResource As New List(Of ResourcePlanner)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+            ResourceSetLst = ResourceSet.GetAllNotFiledLeaves(empID)
+
+            If Not IsNothing(ResourceSetLst) Then
+                For Each objList As ResourcePlannerSet In ResourceSetLst
+                    objResource.Add(DirectCast(GetMappedFieldsNotFiledLeaves(objList), ResourcePlanner))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objResource, message)
+        Return state
+    End Function
+
     Public Overrides Function GetExceptionMessage(ex As Exception) As String
         Return ex.Message
     End Function
@@ -525,6 +552,17 @@ Public Class ResourcePlannerManagement
 
         objResult = resourceData
     End Sub
+
+    Public Function GetMappedFieldsNotFiledLeaves(objData As Object) As Object
+        Dim objResource As ResourcePlannerSet = DirectCast(objData, ResourcePlannerSet)
+        Dim resourceData As New ResourcePlanner
+
+        resourceData.DateEntry = objResource.Date_Entry
+        resourceData.Duration = objResource.Duration
+        resourceData.Comments = objResource.Comment
+
+        Return resourceData
+    End Function
 
 #End Region
 

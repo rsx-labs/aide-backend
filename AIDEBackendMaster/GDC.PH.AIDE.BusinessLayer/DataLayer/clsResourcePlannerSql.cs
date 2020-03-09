@@ -554,6 +554,34 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Dispose();
             }
         }
+
+        public List<clsResourcePlanner> GetAllNotFiledLeave(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetAllNotFiledLeave]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                MainConnection.Open();
+
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                return PopulateObjectsRPFromReaderLeaveNotFiled(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsResourcePlanner::GetAllNotFiledLeave::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
         #endregion
 
         #region Private Methods
@@ -647,6 +675,12 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.STATUS_CD = dataReader.GetInt16(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS_CD.ToString()));
             businessObject.STATUS = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.STATUS.ToString()));
             businessObject.DESCR = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DESCR.ToString()));
+        }
+        internal void PopulateBusinessObjectRPFromReaderLeaveNotFiled(clsResourcePlanner businessObject, IDataReader dataReader)
+        {
+            businessObject.DATE_ENTRY = dataReader.GetDateTime(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DATE_ENTRY.ToString()));
+            businessObject.DURATION = dataReader.GetDouble(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.DURATION.ToString()));
+            businessObject.COMMENT = dataReader.GetString(dataReader.GetOrdinal(clsResourcePlanner.clsResourcePlannerFields.COMMENT.ToString()));
         }
 
         /// <summary>
@@ -800,6 +834,20 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 clsResourcePlanner businessObject = new clsResourcePlanner();
                 PopulateBusinessObjectRPFromReaderLeaveList(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
+        internal List<clsResourcePlanner> PopulateObjectsRPFromReaderLeaveNotFiled(IDataReader dataReader)
+        {
+
+            List<clsResourcePlanner> list = new List<clsResourcePlanner>();
+
+            while (dataReader.Read())
+            {
+                clsResourcePlanner businessObject = new clsResourcePlanner();
+                PopulateBusinessObjectRPFromReaderLeaveNotFiled(businessObject, dataReader);
                 list.Add(businessObject);
             }
             return list;
