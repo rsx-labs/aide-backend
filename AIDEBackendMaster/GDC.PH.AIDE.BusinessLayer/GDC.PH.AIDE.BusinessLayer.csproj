@@ -107,6 +107,8 @@
     <Compile Include="clsMailConfigFactory.cs" />
     <Compile Include="clsMessage.cs" />
     <Compile Include="clsMessageFactory.cs" />
+    <Compile Include="clsOption.cs" />
+    <Compile Include="clsOptionFactory.cs" />
     <Compile Include="clsPositionList.cs" />
     <Compile Include="clsPositionListFactory.cs" />
     <Compile Include="clsProfile.cs" />
@@ -165,6 +167,7 @@
     <Compile Include="DataLayer\clsLessonLearntSql.cs" />
     <Compile Include="DataLayer\clsMailConfigSql.cs" />
     <Compile Include="DataLayer\clsMessageSql.cs" />
+    <Compile Include="DataLayer\clsOptionSql.cs" />
     <Compile Include="DataLayer\clsPositionListsSql.cs" />
     <Compile Include="DataLayer\clsProfileSql.cs" />
     <Compile Include="DataLayer\clsProjectSql.cs" />
