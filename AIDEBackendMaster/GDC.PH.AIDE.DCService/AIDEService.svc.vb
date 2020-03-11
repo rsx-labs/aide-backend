@@ -18,7 +18,6 @@ Public Class AIDEService
 
     Inherits MainService
     Implements IAideService
-
     Implements IAideService2
 
 
@@ -1210,6 +1209,12 @@ Public Class AIDEService
     Public Sub InsertLeaveCredit(empID As Integer, year As Integer) Implements IAideService.InsertLeaveCredits
         MyBase.InsertLeaveCredits(empID, year)
     End Sub
+#End Region
+
+#Region "Options"
+    Public Function GetOptions(OptionID As Integer, ModuleID As Integer, FunctionId As Integer) As List(Of Options) Implements IAideService.GetOptions
+        Return MyBase.GetOption(OptionID, ModuleID, FunctionId)
+    End Function
 #End Region
 
 

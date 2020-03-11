@@ -87,6 +87,7 @@
     <Compile Include="Entity\LessonLearntSet.vb" />
     <Compile Include="Entity\MailConfigSet.vb" />
     <Compile Include="Entity\MessageSet.vb" />
+    <Compile Include="Entity\OptionSet.vb" />
     <Compile Include="Entity\PositionListSet.vb" />
     <Compile Include="Entity\ProfileSet.vb" />
     <Compile Include="Entity\ProjectSet.vb" />
@@ -134,6 +135,7 @@
     <Compile Include="Interface\ILessonLearnt.vb" />
     <Compile Include="Interface\IMailConfigSet.vb" />
     <Compile Include="Interface\IMessageSet.vb" />
+    <Compile Include="Interface\IOptionSet.vb" />
     <Compile Include="Interface\IPositionListSet.vb" />
     <Compile Include="Interface\IProfileSet.vb" />
     <Compile Include="Interface\IProject.vb" />

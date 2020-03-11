@@ -432,4 +432,8 @@
 #Region "Leave Credits Method"
     MustOverride Function InsertLeaveCredits(ByVal empID As Integer, ByVal year As Integer) As Boolean
 #End Region
+
+#Region "Options Method"
+    MustOverride Function GetOption(ByVal optionID As Integer, ByVal moduleID As Integer, ByVal functionID As Integer) As List(Of Options)
+#End Region
 End Class

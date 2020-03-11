@@ -766,6 +766,11 @@ Public Interface IAideService
     Sub InsertLeaveCredits(ByVal empID As Integer, ByVal year As Integer)
 #End Region
 
+#Region "Options Operation Contracts"
+    <OperationContract()>
+    Function GetOptions(ByVal OptionID As Integer, ByVal ModuleID As Integer, ByVal FunctionId As Integer) As List(Of Options)
+#End Region
+
 End Interface
 #End Region
 
@@ -2436,6 +2441,27 @@ Public Class KPISummary
     <DataMember()>
     Public Property DatePosted As DateTime
 End Class
+#End Region
+
+#Region "Options Data Contract"
+<DataContract()>
+Public Class Options
+    <DataMember()>
+    Public Property OptionID As Integer
+    <DataMember()>
+    Public Property ModuleID As Integer
+    <DataMember()>
+    Public Property FunctionID As Integer
+    <DataMember()>
+    Public Property Description As String
+    <DataMember()>
+    Public Property Value As String
+    <DataMember()>
+    Public Property ModuleDescr As String
+    <DataMember()>
+    Public Property FunctionDescr As String
+End Class
+
 #End Region
 #End Region
 

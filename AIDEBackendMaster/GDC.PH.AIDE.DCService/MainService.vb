@@ -4,6 +4,7 @@ Imports GDC.PH.AIDE.DCService
 Public MustInherit Class MainService
     Inherits AMainService
 
+
     Private Shared ActionMgmt As ActionManagement
     Private Shared AssetsMgmt As AssetsManagement
     Private Shared BillabilityMgmt As BillabilityManagement
@@ -36,6 +37,7 @@ Public MustInherit Class MainService
     Private Shared SelectionMgmt As PositionManagement
     Private Shared KPITargetsMgmt As KPITargetsManagement
     Private Shared KPISummaryMgmt As KPISummaryManagement
+    Private Shared OptionMgmt As OptionManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -74,6 +76,7 @@ Public MustInherit Class MainService
         SelectionMgmt = New PositionManagement()
         KPITargetsMgmt = New KPITargetsManagement()
         KPISummaryMgmt = New KPISummaryManagement()
+        OptionMgmt = New OptionManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -3317,6 +3320,21 @@ Public MustInherit Class MainService
         End If
         ReceivedData(state)
         Return bSuccess
+    End Function
+#End Region
+
+#Region "Options"
+    Public Overrides Function GetOption(ByVal OptionID As Integer, ByVal ModuleID As Integer, ByVal FunctionID As Integer) As List(Of Options)
+        Dim state As StateData = OptionMgmt.GetOptions(OptionID, ModuleID, FunctionID)
+        Dim lstOptions As New List(Of Options)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstData As List(Of Options) = DirectCast(state.Data, List(Of Options))
+            For Each item As Options In lstData
+                lstOptions.Add(item)
+            Next
+        End If
+        Return lstOptions
     End Function
 #End Region
 End Class
