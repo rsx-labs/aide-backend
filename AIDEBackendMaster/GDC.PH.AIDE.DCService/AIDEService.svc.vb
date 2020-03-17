@@ -15,7 +15,6 @@ End Enum
 
 <ServiceBehavior(ConcurrencyMode:=ConcurrencyMode.Single, InstanceContextMode:=InstanceContextMode.PerCall)>
 Public Class AIDEService
-
     Inherits MainService
     Implements IAideService
     Implements IAideService2
@@ -632,6 +631,11 @@ Public Class AIDEService
     Public Function GetNicknameByDeptIDs(email As String) As List(Of Employee) Implements IAideService.GetNicknameByDeptID
         Dim objEmployees As List(Of Employee) = Nothing
         MyBase.GetNicknameByDeptID(email, objEmployees)
+        Return objEmployees
+    End Function
+    Public Function GetMissingAttendanceForTodays(empID As Integer) As List(Of Employee) Implements IAideService.GetMissingAttendanceForToday
+        Dim objEmployees As List(Of Employee) = Nothing
+        MyBase.GetMissingAttendanceForToday(empID, objEmployees)
         Return objEmployees
     End Function
 

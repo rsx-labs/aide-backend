@@ -59,6 +59,15 @@ Public Class EmployeeManagement
         Return employeeData
     End Function
 
+    Public Function GetMappedFields3(objData As Object) As Object
+        Dim objEmployee As EmployeeSet = DirectCast(objData, EmployeeSet)
+        Dim employeeData As New Employee
+        employeeData.EmployeeName = objEmployee.EmployeeName
+        employeeData.EmailAddress = objEmployee.EmailAddress
+        employeeData.ManagerEmail = objEmployee.ManagerEmail
+        Return employeeData
+    End Function
+
     Public Overrides Function GetStateData(status As NotifyType, Optional data As Object = Nothing, Optional message As String = "") As StateData
         Dim state As New StateData
         state.Data = data
@@ -160,6 +169,34 @@ Public Class EmployeeManagement
             status = NotifyType.IsError
         End Try
         state = GetStateData(status)
+        Return state
+    End Function
+
+    Public Function GetMissingAttendanceForToday(ByVal empID As Integer) As StateData
+        Dim empSet As New EmployeeSet
+        Dim lstEmployee As List(Of EmployeeSet)
+        Dim objEmployees As New List(Of Employee)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+
+            lstEmployee = empSet.GetMissingAttendanceForToday(empID)
+
+            If Not IsNothing(lstEmployee) Then
+                For Each objEmployee As EmployeeSet In lstEmployee
+                    objEmployees.Add(DirectCast(GetMappedFields3(objEmployee), Employee))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objEmployees, message)
         Return state
     End Function
 End Class

@@ -28,7 +28,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             LOCAL,
             HOMEPHONE,
             OTHER_PHONE,
-            DT_REVIEWED
+            DT_REVIEWED,
+			MANAGER_EMAIL
         }
 		#endregion
 
@@ -54,6 +55,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _hOMEPHONE;
         string _oTHER_PHONE;
         DateTime? _dT_REVIEWED;
+		string _managerEmail;
 
         #endregion
 
@@ -318,11 +320,24 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
-        #endregion
 
-        #region Validation
+		public string MANAGER_EMAIL
+		{
+			get { return _managerEmail; }
+			set
+			{
+				if (_managerEmail != value)
+				{
+					_managerEmail = value;
+					PropertyHasChanged("MANAGER_EMAIL");
+				}
+			}
+		}
+		#endregion
 
-        internal override void AddValidationRules()
+		#region Validation
+
+		internal override void AddValidationRules()
 		{
 			ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMP_ID", "EMP_ID"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("EMPLOYEE_NAME", "EMPLOYEE_NAME"));

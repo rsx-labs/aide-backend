@@ -23,6 +23,7 @@ Public Interface IEmployeeSet
     Property HomePhone As String
     Property Other_Phone As String
     Property DtReviewed As DateTime
+    Property ManagerEmail As String
 
     Function GetEmployeeList() As List(Of EmployeeSet)
 
@@ -32,5 +33,7 @@ Public Interface IEmployeeSet
     Function GetEmployee(ByVal empId As Integer) As EmployeeSet
 
     Function UpdateEmployee() As Boolean
+
+    Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of EmployeeSet)
 
 End Interface
