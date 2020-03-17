@@ -82,6 +82,9 @@ Public Interface IAideService
     <OperationContract()>
     Function GetNicknameByDeptID(ByVal email As String) As List(Of Employee)
 
+    <OperationContract()>
+    Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of Employee)
+
 #End Region
 
 #Region "Profile Operation Contracts"
@@ -966,6 +969,9 @@ Public Class Employee
 
     <DataMember()>
     Public Property DateReviewed As DateTime
+
+    <DataMember()>
+    Public Property ManagerEmail As String
 End Class
 #End Region
 

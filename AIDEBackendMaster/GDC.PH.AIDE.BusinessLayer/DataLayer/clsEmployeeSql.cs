@@ -354,6 +354,34 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
+        public List<clsEmployee> GetMissingAttendanceForToday(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetMissingAttendanceForToday]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader3(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsEmployee::GetMissingAttendanceForToday::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
+
         #endregion
 
         #region Private Methods
@@ -430,6 +458,16 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
         }
+
+        internal void PopulateBusinessObjectFromReader3(clsEmployee businessObject, IDataReader dataReader)
+        {
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
+
+            businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMAIL_ADDRESS.ToString()));
+
+            businessObject.MANAGER_EMAIL = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.MANAGER_EMAIL.ToString()));
+        }
+
         /// <summary>
         /// Populate business objects from the data reader
         /// </summary>
@@ -463,7 +501,20 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             return list;
         }
 
+        internal List<clsEmployee> PopulateObjectsFromReader3(IDataReader dataReader)
+        {
+            List<clsEmployee> list = new List<clsEmployee>();
+
+            while (dataReader.Read())
+            {
+                clsEmployee businessObject = new clsEmployee();
+                PopulateBusinessObjectFromReader3(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
+        }
+
         #endregion
 
-	}
+    }
 }

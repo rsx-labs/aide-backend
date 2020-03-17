@@ -117,7 +117,16 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.DeleteByField(fieldName.ToString(), value); 
         }
-
+        /// <summary>
+        /// get all missing in resource planner.
+        /// </summary>
+        /// <param name="fieldName">field name</param>
+        /// <param name="value">value</param>
+        /// <returns>list</returns>
+        public List<clsEmployee> GetMissingAttendanceForToday(int empID)
+        {
+            return _dataObject.GetMissingAttendanceForToday(empID);
+        }
         #endregion
 
     }
