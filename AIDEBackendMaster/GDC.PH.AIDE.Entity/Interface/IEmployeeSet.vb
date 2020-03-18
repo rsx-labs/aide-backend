@@ -36,4 +36,6 @@ Public Interface IEmployeeSet
 
     Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of EmployeeSet)
 
+    Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of EmployeeSet)
+
 End Interface

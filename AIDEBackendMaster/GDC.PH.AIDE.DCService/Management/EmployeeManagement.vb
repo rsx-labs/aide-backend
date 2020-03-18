@@ -199,4 +199,32 @@ Public Class EmployeeManagement
         state = GetStateData(status, objEmployees, message)
         Return state
     End Function
+
+    Public Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As StateData
+        Dim empSet As New EmployeeSet
+        Dim lstEmployee As List(Of EmployeeSet)
+        Dim objEmployees As New List(Of Employee)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+
+            lstEmployee = empSet.GetEmployeeEmailForAssetMovement(empID)
+
+            If Not IsNothing(lstEmployee) Then
+                For Each objEmployee As EmployeeSet In lstEmployee
+                    objEmployees.Add(DirectCast(GetMappedFields3(objEmployee), Employee))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objEmployees, message)
+        Return state
+    End Function
 End Class

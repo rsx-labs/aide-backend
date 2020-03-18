@@ -49,6 +49,7 @@
     MustOverride Function GetEmployee(ByVal empId As Integer, ByRef objResult As Employee) As Boolean
     MustOverride Function UpdateEmployee(ByVal emp As Employee) As Boolean
     MustOverride Function GetMissingAttendanceForToday(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
+    MustOverride Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
 #End Region
 
 #Region "Projects method"
