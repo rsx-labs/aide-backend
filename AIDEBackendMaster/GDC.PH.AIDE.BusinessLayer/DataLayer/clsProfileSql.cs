@@ -197,7 +197,14 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             }
 
             //DATEHIRED
-            businessObject.DATE_HIRED = dataReader.GetDateTime(dataReader.GetOrdinal(clsProfile.clsProfileFields.DATE_HIRED.ToString()));
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.DATE_HIRED.ToString())))
+            {
+                businessObject.DATE_HIRED = dataReader.GetDateTime(dataReader.GetOrdinal(clsProfile.clsProfileFields.DATE_HIRED.ToString()));
+            }
+            else
+            {
+                businessObject.DATE_HIRED = DateTime.Today;
+            }
         
             //IMAGE_PATH
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.IMAGE_PATH.ToString())))
@@ -309,8 +316,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.OTHER_PHONE = string.Empty;
             }
 
-
-            //OTHERPHONE
+            //DT_REVIEWED
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.DT_REVIEWED.ToString())))
             {
                 businessObject.DT_REVIEWED = dataReader.GetDateTime(dataReader.GetOrdinal(clsProfile.clsProfileFields.DT_REVIEWED.ToString()));
@@ -320,7 +326,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.DT_REVIEWED = DateTime.Now;
             }
 
-            //OTHERPHONE
+            //PERMISSION
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.Permission.ToString())))
             {
                 businessObject.PERMISSION = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.Permission.ToString()));
@@ -342,7 +348,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.CIVILSTATUS = string.Empty;
             }
 
-            businessObject.SHIFT_STATUS = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.SHIFT_STATUS.ToString()));
+            //SHIFTSTATUS
+            if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsProfile.clsProfileFields.SHIFT_STATUS.ToString())))
+            {
+                businessObject.SHIFT_STATUS = dataReader.GetString(dataReader.GetOrdinal(clsProfile.clsProfileFields.SHIFT_STATUS.ToString()));
+            }
+            else
+            {
+                businessObject.SHIFT_STATUS = string.Empty;
+            }
         }
         #endregion
     }

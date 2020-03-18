@@ -17,6 +17,7 @@ INSERT [dbo].[PERMISSION_GROUP] ([GRP_ID], [DESCR]) VALUES(1, 'Manager')
 INSERT [dbo].[PERMISSION_GROUP] ([GRP_ID], [DESCR]) VALUES(2, 'User level')
 INSERT [dbo].[PERMISSION_GROUP] ([GRP_ID], [DESCR]) VALUES(3, 'Team leader')
 INSERT [dbo].[PERMISSION_GROUP] ([GRP_ID], [DESCR]) VALUES(4, 'Assets Custodian')
+INSERT [dbo].[PERMISSION_GROUP] ([GRP_ID], [DESCR]) VALUES(5, 'Guest')
 
 GO
 

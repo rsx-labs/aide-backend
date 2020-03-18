@@ -1,0 +1,31 @@
+USE [AIDE]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetAssignedProjectsByProjectId]    Script Date: 11/19/2019 6:59:08 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF EXISTS (select * from dbo.sysobjects where id = object_id(N'[dbo].[sp_GetAssignedProjectsByProjectId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+DROP PROCEDURE [dbo].[sp_GetAssignedProjectsByProjectId]
+GO
+
+
+CREATE PROCEDURE [dbo].[sp_GetAssignedProjectsByProjectId]
+
+@PROJ_ID as Int 
+
+as
+begin
+
+select distinct ASSIGNED_PROJECTS.EMP_ID, ASSIGNED_PROJECTS.PROJ_ID,
+CONCAT(EMPLOYEE.FIRST_NAME,' ', EMPLOYEE.LAST_NAME) As EMPLOYEENAME,
+PROJECT.PROJ_NAME, ASSIGNED_PROJECTS.DATE_CREATED, ASSIGNED_PROJECTS.START_PERIOD, ASSIGNED_PROJECTS.END_PERIOD
+
+from ASSIGNED_PROJECTS
+inner join EMPLOYEE on ASSIGNED_PROJECTS.EMP_ID = EMPLOYEE.EMP_ID
+inner join PROJECT on ASSIGNED_PROJECTS.PROJ_ID = PROJECT.PROJ_ID
+
+where ASSIGNED_PROJECTS.PROJ_ID = @PROJ_ID
+end
+
