@@ -85,6 +85,9 @@ Public Interface IAideService
     <OperationContract()>
     Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of Employee)
 
+    <OperationContract()>
+    Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of Employee)
+
 #End Region
 
 #Region "Profile Operation Contracts"

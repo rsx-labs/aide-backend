@@ -127,6 +127,16 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetMissingAttendanceForToday(empID);
         }
+        /// <summary>
+        /// get the emails of the employees for asset inventory movement.
+        /// </summary>
+        /// <param name="fieldName">field name</param>
+        /// <param name="value">value</param>
+        /// <returns>list</returns>
+        public List<clsEmployee> GetEmployeeEmailForAssetMovement(int empID)
+        {
+            return _dataObject.GetEmployeeEmailForAssetMovement(empID);
+        }
         #endregion
 
     }

@@ -381,6 +381,33 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Dispose();
             }
         }
+        public List<clsEmployee> GetEmployeeEmailForAssetMovement(int empID)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetEmployeeEmailForAssetMovement]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+                return PopulateObjectsFromReader3(dataReader);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsEmployee::GetEmployeeEmailForAssetMovement::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
 
         #endregion
 

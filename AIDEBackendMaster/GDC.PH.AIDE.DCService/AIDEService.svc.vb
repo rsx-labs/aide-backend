@@ -639,6 +639,12 @@ Public Class AIDEService
         Return objEmployees
     End Function
 
+    Public Function GetEmployeeEmailForAssetMovements(empID As Integer) As List(Of Employee) Implements IAideService.GetEmployeeEmailForAssetMovement
+        Dim objEmployees As List(Of Employee) = Nothing
+        MyBase.GetEmployeeEmailForAssetMovement(empID, objEmployees)
+        Return objEmployees
+    End Function
+
 #End Region
 
     ''' <summary>
