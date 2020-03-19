@@ -66,6 +66,7 @@ FROM        dbo.PROJECT AS project INNER JOIN
                 ON week.WEEK_ID = wReport.WR_WEEK_RANGE_ID LEFT OUTER JOIN
             dbo.EMPLOYEE AS incharge
                 ON  incharge.EMP_ID = project.EMP_ID
+WHERE   wReport.WR_DELETE_FG = 0
 
 
 GO
