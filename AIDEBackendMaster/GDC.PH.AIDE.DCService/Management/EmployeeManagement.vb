@@ -67,6 +67,13 @@ Public Class EmployeeManagement
         employeeData.ManagerEmail = objEmployee.ManagerEmail
         Return employeeData
     End Function
+    Public Function GetMappedFields4(objData As Object) As Object
+        Dim objEmployee As EmployeeSet = DirectCast(objData, EmployeeSet)
+        Dim employeeData As New Employee
+        employeeData.EmployeeName = objEmployee.EmployeeName
+        employeeData.EmailAddress = objEmployee.EmailAddress
+        Return employeeData
+    End Function
 
     Public Overrides Function GetStateData(status As NotifyType, Optional data As Object = Nothing, Optional message As String = "") As StateData
         Dim state As New StateData
@@ -215,6 +222,33 @@ Public Class EmployeeManagement
             If Not IsNothing(lstEmployee) Then
                 For Each objEmployee As EmployeeSet In lstEmployee
                     objEmployees.Add(DirectCast(GetMappedFields3(objEmployee), Employee))
+                Next
+
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, objEmployees, message)
+        Return state
+    End Function
+    Public Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer) As StateData
+        Dim empSet As New EmployeeSet
+        Dim lstEmployee As List(Of EmployeeSet)
+        Dim objEmployees As New List(Of Employee)
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+
+            lstEmployee = empSet.GetSkillAndContactsNotUpdated(empID, choice)
+
+            If Not IsNothing(lstEmployee) Then
+                For Each objEmployee As EmployeeSet In lstEmployee
+                    objEmployees.Add(DirectCast(GetMappedFields4(objEmployee), Employee))
                 Next
 
                 status = NotifyType.IsSuccess

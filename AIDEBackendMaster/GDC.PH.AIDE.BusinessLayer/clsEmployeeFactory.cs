@@ -137,6 +137,16 @@ namespace GDC.PH.AIDE.BusinessLayer
         {
             return _dataObject.GetEmployeeEmailForAssetMovement(empID);
         }
+        /// <summary>
+        /// get all missing in resource planner.
+        /// </summary>
+        /// <param name="fieldName">field name</param>
+        /// <param name="value">value</param>
+        /// <returns>list</returns>
+        public List<clsEmployee> GetSkillAndContactsNotUpdated(int empID, int choice)
+        {
+            return _dataObject.GetSkillAndContactsNotUpdated(empID, choice);
+        }
         #endregion
 
     }
