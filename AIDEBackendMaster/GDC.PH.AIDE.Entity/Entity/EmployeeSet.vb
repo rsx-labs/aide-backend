@@ -346,4 +346,27 @@ Public Class EmployeeSet
             End If
         End Try
     End Function
+
+    Public Function GetSkillAndContactsNotUpdated(empID As Integer, choice As Integer) As List(Of EmployeeSet) Implements IEmployeeSet.GetContactsNotUpdated
+        Try
+            Dim lstEmployee As List(Of clsEmployee)
+            Dim lstEmployeeSet As New List(Of EmployeeSet)
+            lstEmployee = cEmployeeFactory.GetSkillAndContactsNotUpdated(empID, choice)
+            If Not IsNothing(lstEmployee) Then
+                For Each cEmp As clsEmployee In lstEmployee
+                    lstEmployeeSet.Add(New EmployeeSet(cEmp))
+                Next
+            Else
+                Throw New NoRecordFoundException("No records found!")
+            End If
+            Return lstEmployeeSet
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 End Class

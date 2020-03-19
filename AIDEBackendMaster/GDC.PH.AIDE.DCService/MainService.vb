@@ -1207,6 +1207,17 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Overrides Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As List(Of Employee)) As Boolean
+        Dim state As StateData = EmployeeMgmt.GetSkillAndContactsNotUpdated(empID, choice)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
 #End Region
 
 #Region "Tasks"

@@ -645,6 +645,12 @@ Public Class AIDEService
         Return objEmployees
     End Function
 
+    Public Function GetSkillAndContactsNotUpdateds(empID As Integer, choice As Integer) As List(Of Employee) Implements IAideService.GetSkillAndContactsNotUpdated
+        Dim objEmployees As List(Of Employee) = Nothing
+        MyBase.GetSkillAndContactsNotUpdated(empID, choice, objEmployees)
+        Return objEmployees
+    End Function
+
 #End Region
 
     ''' <summary>

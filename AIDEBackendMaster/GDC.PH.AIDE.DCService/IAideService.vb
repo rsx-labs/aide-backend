@@ -88,6 +88,9 @@ Public Interface IAideService
     <OperationContract()>
     Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of Employee)
 
+    <OperationContract()>
+    Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer) As List(Of Employee)
+
 #End Region
 
 #Region "Profile Operation Contracts"
