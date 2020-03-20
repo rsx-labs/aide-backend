@@ -335,6 +335,10 @@
     MustOverride Function GetLate(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal toDisplay As Integer) As List(Of Late)
 #End Region
 
+#Region "Reports methods"
+    MustOverride Function GetAllReports() As List(Of Reports)
+#End Region
+
 #Region "Saba Learning methods"
     MustOverride Function GetAllSabaCourses(ByVal empID As Integer) As List(Of SabaLearning)
     MustOverride Function GetAllSabaXref(ByVal empID As Integer, ByVal sabaID As Integer) As List(Of SabaLearning)

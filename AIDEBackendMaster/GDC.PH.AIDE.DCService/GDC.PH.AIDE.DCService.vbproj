@@ -139,6 +139,7 @@
     <Compile Include="Management\PositionManagement.vb" />
     <Compile Include="Management\ProjectManagement.vb" />
     <Compile Include="Management\ResourcePlannerManagement.vb" />
+    <Compile Include="Management\ReportsManagement.vb" />
     <Compile Include="Management\SabaLearningManagement.vb" />
     <Compile Include="Management\SendCodeManagement.vb" />
     <Compile Include="Management\SkillsManagement.vb" />

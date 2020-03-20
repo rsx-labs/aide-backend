@@ -582,6 +582,12 @@ Public Interface IAideService
     Function GetLate(ByVal empID As Integer, ByVal month As Integer, ByVal year As Integer, ByVal toDisplay As Integer) As List(Of Late)
 #End Region
 
+#Region "Reports Operation Contracts"
+
+    <OperationContract()>
+    Function GetAllReports() As List(Of Reports)
+#End Region
+
 #Region "Saba Learning Operation Contracts"
 
     <OperationContract()>
@@ -1948,6 +1954,23 @@ Public Class Late
     <DataMember()>
     Public Property NUMBER_OF_LATE As Integer
 
+End Class
+#End Region
+
+#Region "Reports Data Contract"
+<DataContract()>
+Public Class Reports
+
+    <DataMember()>
+    Public Property REPORT_ID As Integer
+    <DataMember()>
+    Public Property OPT_ID As Integer
+    <DataMember()>
+    Public Property MODULE_ID As String
+    <DataMember()>
+    Public Property FILE_PATH As String
+    <DataMember()>
+    Public Property DESCRIPTION As String
 End Class
 #End Region
 

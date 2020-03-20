@@ -24,6 +24,7 @@ Public MustInherit Class MainService
     Private Shared AnnouncementsMgmt As AnnouncementsManagement
     Private Shared LateMgmt As LateManagement
     Private Shared SabaLearningMgmt As SabaLearningManagement
+    Private Shared ReportsMgmt As ReportsManagement
     Private Shared ComcellMgmt As ComcellManagement
     Private Shared ComcellClockMgmt As ComcellClockManagement
     Private Shared WeeklyReportMgmt As WeeklyReportManagement
@@ -63,6 +64,7 @@ Public MustInherit Class MainService
         AnnouncementsMgmt = New AnnouncementsManagement()
         LateMgmt = New LateManagement()
         SabaLearningMgmt = New SabaLearningManagement()
+        ReportsMgmt = New ReportsManagement()
         ComcellMgmt = New ComcellManagement()
         AuditSchedMgmt = New AuditSchedManagement()
         ComcellClockMgmt = New ComcellClockManagement()
@@ -2589,6 +2591,28 @@ Public MustInherit Class MainService
         Return LateLst
     End Function
 
+#End Region
+
+#Region "Reports"
+    Public Overrides Function GetAllReports() As List(Of Reports)
+        Dim state As StateData = ReportsMgmt.GetAllReports()
+        Dim reportsLst As New List(Of Reports)
+
+        If Not IsNothing(state.Data) Then
+            Dim reports As List(Of Reports) = DirectCast(state.Data, List(Of Reports))
+            For Each _list As Reports In reports
+                Dim item As New Reports
+                item.REPORT_ID = _list.REPORT_ID
+                item.OPT_ID = _list.OPT_ID
+                item.MODULE_ID = _list.MODULE_ID
+                item.DESCRIPTION = _list.DESCRIPTION
+                item.FILE_PATH = _list.FILE_PATH
+
+                reportsLst.Add(item)
+            Next
+        End If
+        Return reportsLst
+    End Function
 #End Region
 
 #Region "Saba learning"
