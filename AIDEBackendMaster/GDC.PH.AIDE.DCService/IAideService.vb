@@ -91,6 +91,8 @@ Public Interface IAideService
     <OperationContract()>
     Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer) As List(Of Employee)
 
+    <OperationContract()>
+    Function GetWorkPlaceAuditor(ByVal empID As Integer, ByVal choice As Integer) As Employee
 #End Region
 
 #Region "Profile Operation Contracts"

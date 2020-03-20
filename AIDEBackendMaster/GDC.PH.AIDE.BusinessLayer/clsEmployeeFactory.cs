@@ -138,7 +138,7 @@ namespace GDC.PH.AIDE.BusinessLayer
             return _dataObject.GetEmployeeEmailForAssetMovement(empID);
         }
         /// <summary>
-        /// get all missing in resource planner.
+        /// get all skills and contacts not updated.
         /// </summary>
         /// <param name="fieldName">field name</param>
         /// <param name="value">value</param>
@@ -146,6 +146,16 @@ namespace GDC.PH.AIDE.BusinessLayer
         public List<clsEmployee> GetSkillAndContactsNotUpdated(int empID, int choice)
         {
             return _dataObject.GetSkillAndContactsNotUpdated(empID, choice);
+        }
+        /// <summary>
+        /// get scheduled workplace auditor.
+        /// </summary>
+        /// <param name="fieldName">field name</param>
+        /// <param name="value">value</param>
+        /// <returns>list</returns>
+        public clsEmployee GetWorkPlaceAuditor(int empID, int choice)
+        {
+            return _dataObject.GetWorkPlaceAuditor(empID, choice);
         }
         #endregion
 

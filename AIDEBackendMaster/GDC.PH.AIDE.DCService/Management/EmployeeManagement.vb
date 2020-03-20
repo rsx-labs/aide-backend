@@ -261,4 +261,27 @@ Public Class EmployeeManagement
         state = GetStateData(status, objEmployees, message)
         Return state
     End Function
+    Public Function GetWorkPlaceAuditor(ByVal empId As Integer, ByVal choice As Integer) As StateData
+        Dim empSet As New EmployeeSet
+        Dim employeeData As Employee = Nothing
+        Dim message As String = ""
+        Dim state As StateData
+        Dim status As NotifyType
+
+        Try
+
+            Dim objEmployee As EmployeeSet = empSet.GetWorkPlaceAuditor(empId, choice)
+
+            If Not IsNothing(objEmployee) Then
+                employeeData = DirectCast(GetMappedFields4(objEmployee), Employee)
+                status = NotifyType.IsSuccess
+            End If
+
+        Catch ex As Exception
+            status = NotifyType.IsError
+            message = GetExceptionMessage(ex)
+        End Try
+        state = GetStateData(status, employeeData, message)
+        Return state
+    End Function
 End Class

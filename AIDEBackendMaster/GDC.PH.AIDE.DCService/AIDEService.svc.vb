@@ -651,6 +651,12 @@ Public Class AIDEService
         Return objEmployees
     End Function
 
+    Public Function GetWorkPlaceAuditors(empID As Integer, choice As Integer) As Employee Implements IAideService.GetWorkPlaceAuditor
+        Dim objEmployee As Employee = Nothing
+        MyBase.GetWorkPlaceAuditor(empID, choice, objEmployee)
+        Return objEmployee
+    End Function
+
 #End Region
 
     ''' <summary>
@@ -1231,6 +1237,7 @@ Public Class AIDEService
     Public Function GetOptions(OptionID As Integer, ModuleID As Integer, FunctionId As Integer) As List(Of Options) Implements IAideService.GetOptions
         Return MyBase.GetOption(OptionID, ModuleID, FunctionId)
     End Function
+
 #End Region
 
 

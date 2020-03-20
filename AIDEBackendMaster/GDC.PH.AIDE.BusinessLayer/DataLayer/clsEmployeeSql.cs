@@ -436,6 +436,47 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Dispose();
             }
         }
+
+        public clsEmployee GetWorkPlaceAuditor(int empID, int choice)
+        {
+            SqlCommand sqlCommand = new SqlCommand();
+            sqlCommand.CommandText = "dbo.[sp_GetWorkPlaceAuditor]";
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+
+            // Use connection object of base class
+            sqlCommand.Connection = MainConnection;
+
+            try
+            {
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
+                sqlCommand.Parameters.Add(new SqlParameter("@CHOICE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, choice));
+
+                MainConnection.Open();
+                IDataReader dataReader = sqlCommand.ExecuteReader();
+
+                if (dataReader.Read())
+                {
+                    clsEmployee businessObject = new clsEmployee();
+
+                    PopulateBusinessObjectFromReader5(businessObject, dataReader);
+
+                    return businessObject;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("clsEmployee::GetGetWorkPlaceAuditor::Error occured.", ex);
+            }
+            finally
+            {
+                MainConnection.Close();
+                sqlCommand.Dispose();
+            }
+        }
         #endregion
 
         #region Private Methods
@@ -585,6 +626,17 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 list.Add(businessObject);
             }
             return list;
+        }
+
+        /// <summary>
+        /// Populate business object from data reader
+        /// </summary>
+        /// <param name="businessObject">business object</param>
+        /// <param name="dataReader">data reader</param>
+        internal void PopulateBusinessObjectFromReader5(clsEmployee businessObject, IDataReader dataReader)
+        {
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
+            businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMAIL_ADDRESS.ToString()));
         }
 
         #endregion

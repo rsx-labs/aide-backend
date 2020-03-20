@@ -39,5 +39,6 @@ Public Interface IEmployeeSet
     Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of EmployeeSet)
 
     Function GetContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer) As List(Of EmployeeSet)
+    Function GetWorkPlaceAuditor(ByVal empId As Integer, ByVal choice As Integer) As EmployeeSet
 
 End Interface
