@@ -1240,6 +1240,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.FULL_NAME = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.FULL_NAME.ToString()));
             businessObject.APPROVAL = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.APPROVAL.ToString()));
 
+            // COMMENTS
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString())))
             {
                 businessObject.COMMENTS = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.COMMENTS.ToString()));
@@ -1249,6 +1250,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 businessObject.COMMENTS = String.Empty;
             }
 
+            // DEPARTMENT
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DEPARTMENT.ToString())))
             {
                 businessObject.DEPARTMENT = dataReader.GetString(dataReader.GetOrdinal(clsAssets.clsAssetsFields.DEPARTMENT.ToString()));
@@ -1257,6 +1259,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             {
                 businessObject.DEPARTMENT = String.Empty;
             }
+
+            // PREVIOUS ID
             if (!dataReader.IsDBNull(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString())))
             {
                 businessObject.PREVIOUS_ID = dataReader.GetInt32(dataReader.GetOrdinal(clsAssets.clsAssetsFields.PREVIOUS_ID.ToString()));

@@ -24,7 +24,7 @@ Public Interface IConcernSet
 #End Region
 
 #Region "Methods"
-    Function selectAllConcern(email As String, offsetVal As Integer, nextVal As Integer) As List(Of ConcernSet)
+    Function GetAllConcernList(empID As Integer) As List(Of ConcernSet)
     Function InsertIntoConcerns(concern As ConcernSet, email As String) As Boolean
     Function GetGeneratedRefNo() As ConcernSet
     Function GetResultSearch(email As String, searchKeyWord As String, offsetVal As Integer, nextVal As Integer) As List(Of ConcernSet)

@@ -602,19 +602,17 @@ Public MustInherit Class MainService
     '''''''''''''''''''''''''''''''''
 #End Region
 
-#Region "Concern Function"
+#Region "Concern List"
 
     ''DISPLAY
     ''' <summary>
     ''' GIANN CALRO CAMILO/CHRISTIAN VALONDO
     ''' </summary>
-    ''' <param name="email"></param>
-    ''' <param name="offsetVal"></param>
-    ''' <param name="nextVal"></param>
+    ''' <param name="empID"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Overrides Function selectAllConcern(email As String, offsetVal As Integer, nextVal As Integer) As List(Of Concern)
-        Dim state As StateData = ConcernMgmt.selectAllConcern(email, offsetVal, nextVal)
+    Public Overrides Function GetAllConcernList(empID As Integer) As List(Of Concern)
+        Dim state As StateData = ConcernMgmt.GetAllConcernList(empID)
         Dim lstConcernList As New List(Of Concern)
 
         If Not IsNothing(state.Data) Then

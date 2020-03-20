@@ -379,13 +379,11 @@ Public Interface IAideService
     ''' <summary>
     ''' GIANN CALRO CAMILO/CHRISTIAN VALONDO
     ''' </summary>
-    ''' <param name="email"></param>
-    ''' <param name="offsetVal"></param>
-    ''' <param name="nextVal"></param>
+    ''' <param name="empID"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
     <OperationContract()>
-    Function selectAllConcern(ByVal email As String, offsetVal As Integer, nextVal As Integer) As List(Of Concern)
+    Function GetAllConcernLst(ByVal empID As Integer) As List(Of Concern)
 
     ''' <summary>
     ''' GIANN CALRO CAMILO/CHRISTIAN VALONDO
