@@ -120,8 +120,11 @@
     <Compile Include="clsResourcePlanner.cs" />
     <Compile Include="clsResourcePlannerFactory.cs" />
     <Compile Include="clsResourcePlannerKeys.cs" />
+    <Compile Include="clsReports.cs" />
     <Compile Include="clsSabaLearning.cs" />
+    <Compile Include="clsReportsFactory.cs" />
     <Compile Include="clsSabaLearningFactory.cs" />
+    <Compile Include="clsReportsKeys.cs" />
     <Compile Include="clsSabaLearningKeys.cs" />
     <Compile Include="clsSendCode.cs" />
     <Compile Include="clsSendCodeFactory.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="DataLayer\clsProfileSql.cs" />
     <Compile Include="DataLayer\clsProjectSql.cs" />
     <Compile Include="DataLayer\clsResourcePlannerSql.cs" />
+    <Compile Include="DataLayer\clsReportsSql.cs" />
     <Compile Include="DataLayer\clsSabaLearningSql.cs" />
     <Compile Include="DataLayer\clsSendCodeSql.cs" />
     <Compile Include="DataLayer\clsSkillsSql.cs" />

@@ -92,6 +92,7 @@
     <Compile Include="Entity\ProfileSet.vb" />
     <Compile Include="Entity\ProjectSet.vb" />
     <Compile Include="Entity\ResourcePlannerSet.vb" />
+    <Compile Include="Entity\ReportsSet.vb" />
     <Compile Include="Entity\SabaLearningSet.vb" />
     <Compile Include="Entity\SendCodeSet.vb" />
     <Compile Include="Entity\SkillSet.vb" />
@@ -140,6 +141,7 @@
     <Compile Include="Interface\IProfileSet.vb" />
     <Compile Include="Interface\IProject.vb" />
     <Compile Include="Interface\IResourcePlanner.vb" />
+    <Compile Include="Interface\IReportsSet.vb" />
     <Compile Include="Interface\ISabaLearningSet.vb" />
     <Compile Include="Interface\ISendCode.vb" />
     <Compile Include="Interface\ISkill.vb" />

@@ -982,6 +982,13 @@ Public Class AIDEService
     End Function
 #End Region
 
+#Region "Reports"
+
+    Public Function GetAllReportss() As List(Of Reports) Implements IAideService.GetAllReports
+        Return MyBase.GetAllReports()
+    End Function
+#End Region
+
     ''' <summary>
     ''' By Jhunell Barcenas
     ''' </summary>
