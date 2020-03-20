@@ -27,30 +27,10 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         #region Public Methods
 
-        /// <summary>
-        /// Insert new clsLessonLearnt
-        /// </summary>
-        /// <param name="businessObject">clsLessonLearnt object</param>
-        /// <returns>true for successfully saved</returns>
-       
-
-        /// <summary>
-        /// Update existing clsLessonLearnt
-        /// </summary>
-        /// <param name="businessObject">clsLessonLearnt object</param>
-        /// <returns>true for successfully saved</returns>
-    
-
-        /// <summary>
-        /// get clsLessonLearnt by primary key.
-        /// </summary>
-        /// <param name="keys">primary key</param>
-
-        public List<clsConcern> selectAllConcern(string email, int offSetVal, int nextVal)
+        public List<clsConcern> GetAllConcernList(int empID)
         {
-            return _dataObject.selectAllConcern(email, offSetVal, nextVal);
+            return _dataObject.GetAllConcernList(empID);
         }
-
 
         /// <summary>
         /// insert into Concern.

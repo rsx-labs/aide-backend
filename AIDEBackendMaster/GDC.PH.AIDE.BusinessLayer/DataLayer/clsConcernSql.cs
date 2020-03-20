@@ -25,7 +25,7 @@ namespace  GDC.PH.AIDE.BusinessLayer.DataLayer
         #region Public Methods
 
        //SELECT
-        public List<clsConcern> selectAllConcern(string email, int offsetVal , int nextval)
+        public List<clsConcern> GetAllConcernList(int empID)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetAllConcernCauseCountermeasure]";
@@ -36,10 +36,7 @@ namespace  GDC.PH.AIDE.BusinessLayer.DataLayer
 
             try
             {
-                sqlCommand.Parameters.Add(new SqlParameter("@EMAILADDRESS", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, email));
-                sqlCommand.Parameters.Add(new SqlParameter("@OFFSETVAL", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, offsetVal));
-                sqlCommand.Parameters.Add(new SqlParameter("@NEXTVAL", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, nextval));
-
+                sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", empID));
 
                 MainConnection.Open();
 

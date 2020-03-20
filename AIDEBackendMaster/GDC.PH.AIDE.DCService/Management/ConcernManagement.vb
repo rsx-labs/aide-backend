@@ -9,7 +9,7 @@ Public Class ConcernManagement
 
 #Region "Concern"
     ''GET RESULT OF ALL CONCERN
-    Public Function selectAllConcern(email As String, offsetVal As Integer, nextVal As Integer) As StateData
+    Public Function GetAllConcernList(empID As Integer) As StateData
         Dim ConcernSet As New ConcernSet
         Dim listConcern As List(Of ConcernSet)
         Dim obConcern As New List(Of Concern)
@@ -18,7 +18,7 @@ Public Class ConcernManagement
         Dim status As NotifyType
 
         Try
-            listConcern = ConcernSet.selectAllConcern(email, offsetVal, nextVal)
+            listConcern = ConcernSet.GetAllConcernList(empID)
 
             If Not IsNothing(listConcern) Then
                 For Each objList As ConcernSet In listConcern

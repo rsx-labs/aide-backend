@@ -198,12 +198,10 @@
     ''' <summary>
     ''' GIANN CARLO CAMILO / CHRISTIAN VALONDO
     ''' </summary>
-    ''' <param name="email"></param>
-    ''' <param name="offsetVal"></param>
-    ''' <param name="nextVal"></param>
+    ''' <param name="empID"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    MustOverride Function selectAllConcern(email As String, offsetVal As Integer, nextVal As Integer) As List(Of Concern)
+    MustOverride Function GetAllConcernList(empID As Integer) As List(Of Concern)
 
     ''' <summary>
     ''' GIANN CARLO CAMILO / CHRISTIAN VALONDO

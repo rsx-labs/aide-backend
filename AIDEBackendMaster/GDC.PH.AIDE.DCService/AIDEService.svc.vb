@@ -19,7 +19,6 @@ Public Class AIDEService
     Implements IAideService
     Implements IAideService2
 
-
     Private Shared _callbackList As New List(Of IAIDEServiceCallback)()
     '  number of current users - 0 to begin with
     Private Shared _registeredUsers As Integer = 0
@@ -363,13 +362,11 @@ Public Class AIDEService
 
     ''DISPLAY ALL CONCERN
 
-    ''' <param name="email"></param>
-    ''' <param name="offsetVal"></param>
-    ''' <param name="nextVal"></param>
+    ''' <param name="empID"></param>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function SelectAllConcernLst(email As String, offsetVal As Integer, nextVal As Integer) As List(Of Concern) Implements IAideService.selectAllConcern
-        Return MyBase.selectAllConcern(email, offsetVal, nextVal)
+    Public Function GetAllConcernLst(empID As Integer) As List(Of Concern) Implements IAideService.GetAllConcernLst
+        Return MyBase.GetAllConcernList(empID)
     End Function
 
     ''INSERT CONCERN
@@ -1237,7 +1234,6 @@ Public Class AIDEService
     Public Function GetOptions(OptionID As Integer, ModuleID As Integer, FunctionId As Integer) As List(Of Options) Implements IAideService.GetOptions
         Return MyBase.GetOption(OptionID, ModuleID, FunctionId)
     End Function
-
 #End Region
 
 

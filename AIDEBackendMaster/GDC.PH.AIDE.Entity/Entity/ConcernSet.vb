@@ -16,8 +16,6 @@ Public Class ConcernSet
     Private clsConcern As clsConcern
     Private clsConcernFactory As clsConcernFactory
 
-
-
     Public Sub New()
         clsConcern = New clsConcern()
         clsConcernFactory = New clsConcernFactory
@@ -27,7 +25,6 @@ Public Class ConcernSet
         clsConcern = cList
         clsConcernFactory = New clsConcernFactory
     End Sub
-
 
 #Region "Properties"
 
@@ -166,9 +163,7 @@ Public Class ConcernSet
 
 #End Region
 
-#Region "CONCERN METHODS"
-
-
+#Region "Methods"
     'BY CHRISTIAN VALONDO
     ''INSERT FUNCTION
     Public Function InsertIntoConcerns(_conern As ConcernSet, email As String) As Boolean Implements IConcernSet.InsertIntoConcerns
@@ -186,12 +181,12 @@ Public Class ConcernSet
 
     ' BY GIANN CARLO CAMILO
     ''GET ALL CONCERN FUNCTION
-    Public Function selectAllConcern(email As String, offsetVal As Integer, nextVal As Integer) As List(Of ConcernSet) Implements IConcernSet.selectAllConcern
+    Public Function GetAllConcernList(empID As Integer) As List(Of ConcernSet) Implements IConcernSet.GetAllConcernList
         Try
             Dim lstConcern As List(Of clsConcern)
             Dim lstConcernSet As New List(Of ConcernSet)
 
-            lstConcern = clsConcernFactory.selectAllConcern(email, offsetVal, nextVal)
+            lstConcern = clsConcernFactory.GetAllConcernList(empID)
 
             If Not IsNothing(lstConcern) Then
                 For Each cList As clsConcern In lstConcern
