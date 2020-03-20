@@ -19,7 +19,7 @@ INSERT INTO [dbo].[OPTION]([ModuleID],[FunctionID],[Description],[Value])
 			(1, 1,	'Email Notification - Allow sending of email notification in Skills Matrix [0=False 1=True]', '0'),
 			(2,	2,	'Missing Resource Plan - Checking day config [1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun]',	'1,2,3,4,5'),
 			(4, 6,	'App Config - Event Startup ID from Event Viewer', '1'),
-			(4, 8,	'App Config - Default email address used for login.', 'ja.sanchez@fujitsu.com'),
+			(4, 8,	'App Config - Default email address used for login.', 'c.lim@fujitsu.com'),
 			(5,	9,	'Asset Inventory - Email notification data for assigning asset [1 argument]',	'An asset has been assigned to you. Please verify if the information is correct.'),
 			(5,	10,	'Asset Inventory - Email notification data for verifying asset [2 arguments]',	'The asset below that was assigned to,has been verified. It is now waiting for your approval.'),
 			(5,	11,	'Asset Inventory - Email notification data for approving asset [3 arguments]',	'The asset below that was assigned to,has been,by'),
@@ -46,7 +46,10 @@ INSERT INTO [dbo].[OPTION]([ModuleID],[FunctionID],[Description],[Value])
 			(18, 15, 'Update Workplace Audit - Checking daily config [1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun]',	'1,2,3,4,5'),
 			(18, 15, 'Update Workplace Audit - Checking weekly config, [Day of Week]',	'1'),
 			(18, 15, 'Update Workplace Audit - Checking monthly config, [Day of Month]',	'1'),
-			(18, 15, 'Update Workplace Audit - Update Workplace Audit data [2 arguments]',	'You are assigned as the,. Please check the Workplace Audit board for more details.')
+			(18, 15, 'Update Workplace Audit - Update Workplace Audit data [2 arguments]',	'You are assigned as the,. Please check the Workplace Audit board for more details.'),
+			(6, 16, 'Contact List - Default employee photo path', '\\FPI-HYPERV-002\Users\Public\Pictures\AIDE\EmployeePhotos\')
+
+
 
 DELETE FROM [dbo].[OPTION_MODULE]
 DBCC CHECKIDENT ('OPTION_MODULE', RESEED, 0)
@@ -89,7 +92,8 @@ INSERT INTO [dbo].[OPTION_FUNCTION]([Description])
 			('Default Number of records in Datagrid'),
 			('Update Contact List'),
 			('Update Skill Matrix'),
-			('Update Workplace Audit')
+			('Update Workplace Audit'),
+			('Default employee photo path')
 
 
 
