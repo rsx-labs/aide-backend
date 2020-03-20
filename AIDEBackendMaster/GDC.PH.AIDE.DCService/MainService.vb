@@ -1218,6 +1218,17 @@ Public MustInherit Class MainService
         Return bSuccess
     End Function
 
+    Public Overrides Function GetWorkPlaceAuditor(empId As Integer, choice As Integer, ByRef objResult As Employee) As Boolean
+        Dim state As StateData = EmployeeMgmt.GetWorkPlaceAuditor(empId, choice)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+            objResult = state.Data
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
 #End Region
 
 #Region "Tasks"

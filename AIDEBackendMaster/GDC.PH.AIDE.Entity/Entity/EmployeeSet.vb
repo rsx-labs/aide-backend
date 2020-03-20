@@ -369,4 +369,23 @@ Public Class EmployeeSet
             End If
         End Try
     End Function
+    Public Function GetWorkPlaceAuditor(empId As Integer, choice As Integer) As EmployeeSet Implements IEmployeeSet.GetWorkPlaceAuditor
+        Try
+            Dim cEmp As clsEmployee
+            cEmp = cEmployeeFactory.GetWorkPlaceAuditor(empId, choice)
+            If Not IsNothing(cEmp) Then
+                Dim empSet As New EmployeeSet(cEmp)
+                Return empSet
+            Else
+                Throw New EmployeeNotFoundException("Employee not found!")
+            End If
+
+        Catch ex As Exception
+            If (ex.InnerException.GetType() = GetType(SqlException)) Then
+                Throw New DatabaseConnExceptionFailed("Database Connection Failed")
+            Else
+                Throw ex.InnerException
+            End If
+        End Try
+    End Function
 End Class

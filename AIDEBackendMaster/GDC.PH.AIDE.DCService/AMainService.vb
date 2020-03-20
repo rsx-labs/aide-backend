@@ -51,6 +51,7 @@
     MustOverride Function GetMissingAttendanceForToday(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As List(Of Employee)) As Boolean
+    MustOverride Function GetWorkPlaceAuditor(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As Employee) As Boolean
 #End Region
 
 #Region "Projects method"
