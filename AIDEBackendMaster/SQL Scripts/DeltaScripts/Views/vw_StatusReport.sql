@@ -41,7 +41,8 @@ SELECT      project.PROJ_NAME AS Project,
             week.WEEK_ID AS WeekRangeId, 
             project.PROJ_ID AS ProjectId,
             incharge.DEPT_ID as DepartmentID, 
-            incharge.DIV_ID as DivisionID
+            incharge.DIV_ID as DivisionID,
+            employee.EMP_ID as EmployeeID
 FROM        dbo.PROJECT AS project INNER JOIN
             dbo.WEEKLY_REPORT AS wReport 
                 ON project.PROJ_ID = wReport.WR_PROJ_ID INNER JOIN
