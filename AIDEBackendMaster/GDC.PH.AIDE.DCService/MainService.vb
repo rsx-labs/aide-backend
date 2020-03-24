@@ -1185,8 +1185,8 @@ Public MustInherit Class MainService
         ReceivedData(state)
         Return bSuccess
     End Function
-    Public Overrides Function GetMissingAttendanceForToday(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
-        Dim state As StateData = EmployeeMgmt.GetMissingAttendanceForToday(empID)
+    Public Overrides Function GetMissingAttendanceForToday(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As List(Of Employee)) As Boolean
+        Dim state As StateData = EmployeeMgmt.GetMissingAttendanceForToday(empID, choice)
         Dim bSuccess As Boolean = False
         If state.NotifyType = NotifyType.IsSuccess Then
             bSuccess = True

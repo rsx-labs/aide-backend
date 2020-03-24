@@ -83,7 +83,7 @@ Public Interface IAideService
     Function GetNicknameByDeptID(ByVal email As String) As List(Of Employee)
 
     <OperationContract()>
-    Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of Employee)
+    Function GetMissingAttendanceForToday(ByVal empID As Integer, ByVal choice As Integer) As List(Of Employee)
 
     <OperationContract()>
     Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of Employee)
@@ -984,6 +984,9 @@ Public Class Employee
 
     <DataMember()>
     Public Property ManagerEmail As String
+
+    <DataMember()>
+    Public Property WeekDate As String
 End Class
 #End Region
 

@@ -62,6 +62,7 @@ Public Class EmployeeManagement
     Public Function GetMappedFields3(objData As Object) As Object
         Dim objEmployee As EmployeeSet = DirectCast(objData, EmployeeSet)
         Dim employeeData As New Employee
+        employeeData.WeekDate = objEmployee.WeekDate
         employeeData.EmployeeName = objEmployee.EmployeeName
         employeeData.EmailAddress = objEmployee.EmailAddress
         employeeData.ManagerEmail = objEmployee.ManagerEmail
@@ -179,7 +180,7 @@ Public Class EmployeeManagement
         Return state
     End Function
 
-    Public Function GetMissingAttendanceForToday(ByVal empID As Integer) As StateData
+    Public Function GetMissingAttendanceForToday(ByVal empID As Integer, ByVal choice As Integer) As StateData
         Dim empSet As New EmployeeSet
         Dim lstEmployee As List(Of EmployeeSet)
         Dim objEmployees As New List(Of Employee)
@@ -189,7 +190,7 @@ Public Class EmployeeManagement
 
         Try
 
-            lstEmployee = empSet.GetMissingAttendanceForToday(empID)
+            lstEmployee = empSet.GetMissingAttendanceForToday(empID, choice)
 
             If Not IsNothing(lstEmployee) Then
                 For Each objEmployee As EmployeeSet In lstEmployee

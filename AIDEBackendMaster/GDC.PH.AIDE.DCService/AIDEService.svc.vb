@@ -630,9 +630,9 @@ Public Class AIDEService
         MyBase.GetNicknameByDeptID(email, objEmployees)
         Return objEmployees
     End Function
-    Public Function GetMissingAttendanceForTodays(empID As Integer) As List(Of Employee) Implements IAideService.GetMissingAttendanceForToday
+    Public Function GetMissingAttendanceForTodays(empID As Integer, choice As Integer) As List(Of Employee) Implements IAideService.GetMissingAttendanceForToday
         Dim objEmployees As List(Of Employee) = Nothing
-        MyBase.GetMissingAttendanceForToday(empID, objEmployees)
+        MyBase.GetMissingAttendanceForToday(empID, choice, objEmployees)
         Return objEmployees
     End Function
 

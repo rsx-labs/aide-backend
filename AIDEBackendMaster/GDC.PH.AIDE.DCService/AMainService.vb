@@ -48,7 +48,7 @@
     MustOverride Function GetNicknameByDeptID(ByVal email As String, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetEmployee(ByVal empId As Integer, ByRef objResult As Employee) As Boolean
     MustOverride Function UpdateEmployee(ByVal emp As Employee) As Boolean
-    MustOverride Function GetMissingAttendanceForToday(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
+    MustOverride Function GetMissingAttendanceForToday(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetSkillAndContactsNotUpdated(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As List(Of Employee)) As Boolean
     MustOverride Function GetWorkPlaceAuditor(ByVal empID As Integer, ByVal choice As Integer, ByRef objResult As Employee) As Boolean

@@ -123,9 +123,9 @@ namespace GDC.PH.AIDE.BusinessLayer
         /// <param name="fieldName">field name</param>
         /// <param name="value">value</param>
         /// <returns>list</returns>
-        public List<clsEmployee> GetMissingAttendanceForToday(int empID)
+        public List<clsEmployee> GetMissingAttendanceForToday(int empID, int choice)
         {
-            return _dataObject.GetMissingAttendanceForToday(empID);
+            return _dataObject.GetMissingAttendanceForToday(empID, choice);
         }
         /// <summary>
         /// get the emails of the employees for asset inventory movement.
