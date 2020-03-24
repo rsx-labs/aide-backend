@@ -213,6 +213,15 @@ Public Class EmployeeSet
         End Set
     End Property
 
+    Public Property WeekDate As String Implements IEmployeeSet.WeekDate
+        Get
+            Return Me.cEmployee.WEEK_DATE
+        End Get
+        Set(value As String)
+            Me.cEmployee.WEEK_DATE = value
+        End Set
+    End Property
+
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     Private Sub NotifyPropertyChanged(<CallerMemberName> Optional propertyName As [String] = "")
@@ -301,11 +310,11 @@ Public Class EmployeeSet
         End Try
     End Function
 
-    Public Function GetMissingAttendanceForToday(empID As Integer) As List(Of EmployeeSet) Implements IEmployeeSet.GetMissingAttendanceForToday
+    Public Function GetMissingAttendanceForToday(empID As Integer, choice As Integer) As List(Of EmployeeSet) Implements IEmployeeSet.GetMissingAttendanceForToday
         Try
             Dim lstEmployee As List(Of clsEmployee)
             Dim lstEmployeeSet As New List(Of EmployeeSet)
-            lstEmployee = cEmployeeFactory.GetMissingAttendanceForToday(empID)
+            lstEmployee = cEmployeeFactory.GetMissingAttendanceForToday(empID, choice)
             If Not IsNothing(lstEmployee) Then
                 For Each cEmp As clsEmployee In lstEmployee
                     lstEmployeeSet.Add(New EmployeeSet(cEmp))

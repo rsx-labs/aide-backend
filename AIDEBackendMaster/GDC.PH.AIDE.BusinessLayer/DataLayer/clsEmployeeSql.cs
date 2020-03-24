@@ -354,7 +354,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         }
 
-        public List<clsEmployee> GetMissingAttendanceForToday(int empID)
+        public List<clsEmployee> GetMissingAttendanceForToday(int empID, int choice)
         {
             SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.CommandText = "dbo.[sp_GetMissingAttendanceForToday]";
@@ -366,7 +366,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, empID));
-                
+                sqlCommand.Parameters.Add(new SqlParameter("@CHOICE", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, choice));
                 MainConnection.Open();
                 IDataReader dataReader = sqlCommand.ExecuteReader();
                 return PopulateObjectsFromReader3(dataReader);
@@ -556,6 +556,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
         internal void PopulateBusinessObjectFromReader3(clsEmployee businessObject, IDataReader dataReader)
         {
+            businessObject.WEEK_DATE = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.WEEK_DATE.ToString()));
+
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
 
             businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMAIL_ADDRESS.ToString()));

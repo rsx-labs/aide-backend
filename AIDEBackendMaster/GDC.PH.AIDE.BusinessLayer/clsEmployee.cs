@@ -29,7 +29,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             HOMEPHONE,
             OTHER_PHONE,
             DT_REVIEWED,
-			MANAGER_EMAIL
+			MANAGER_EMAIL,
+			WEEK_DATE
         }
 		#endregion
 
@@ -56,6 +57,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         string _oTHER_PHONE;
         DateTime? _dT_REVIEWED;
 		string _managerEmail;
+		string _weekdate;
 
         #endregion
 
@@ -330,6 +332,18 @@ namespace GDC.PH.AIDE.BusinessLayer
 				{
 					_managerEmail = value;
 					PropertyHasChanged("MANAGER_EMAIL");
+				}
+			}
+		}
+		public string WEEK_DATE
+		{
+			get { return _weekdate; }
+			set
+			{
+				if (_weekdate != value)
+				{
+					_weekdate = value;
+					PropertyHasChanged("WEEK_DATE");
 				}
 			}
 		}

@@ -24,6 +24,7 @@ Public Interface IEmployeeSet
     Property Other_Phone As String
     Property DtReviewed As DateTime
     Property ManagerEmail As String
+    Property WeekDate As String
 
     Function GetEmployeeList() As List(Of EmployeeSet)
 
@@ -34,7 +35,7 @@ Public Interface IEmployeeSet
 
     Function UpdateEmployee() As Boolean
 
-    Function GetMissingAttendanceForToday(ByVal empID As Integer) As List(Of EmployeeSet)
+    Function GetMissingAttendanceForToday(ByVal empID As Integer, ByVal choice As Integer) As List(Of EmployeeSet)
 
     Function GetEmployeeEmailForAssetMovement(ByVal empID As Integer) As List(Of EmployeeSet)
 
