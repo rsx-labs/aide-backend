@@ -12,14 +12,14 @@ INSERT INTO [dbo].[OPTION]([ModuleID],[FunctionID],[Description],[Value])
 			(3,	3,	'Missing Weekly Report - Email notification data [2 arguments]',	'Weekly report from week, was not yet submitted. Please submit it immediately'),
 			(2, 4,	'Attendance - Checking of Afternoon time', '14:00:00'),
 			(2, 5,	'Attendance - Checking of Afternoon time end','13:59:59.000'),
-			(1, 1,	'Email Notification - Allow sending of email notification in Resource Planner [0=False 1=True]', '1'),
+			(1, 1,	'Email Notification - Allow sending of email notification in Resource Planner [0=False 1=True]', '0'),
 			(1, 1,	'Email Notification - Allow sending of email notification in Weekly Report [0=False 1=True]', '0'),
 			(1, 1,	'Email Notification - Allow sending of email notification in Asset Inventory, [0=False 1=True]', '0'),
 			(1, 1,	'Email Notification - Allow sending of email notification in Contacts [0=False 1=True]', '0'),
 			(1, 1,	'Email Notification - Allow sending of email notification in Skills Matrix [0=False 1=True]', '0'),
 			(2,	2,	'Missing Resource Plan - Checking day config [1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun]',	'1,2,3,4,5'),
 			(4, 6,	'App Config - Event Startup ID from Event Viewer', '1'),
-			(4, 8,	'App Config - Default email address used for login.', 'ja.sanchez@fujitsu.com'),
+			(4, 8,	'App Config - Default email address used for login.', 'retail.dev@fujitsu.com'),
 			(5,	9,	'Asset Inventory - Email notification data for assigning asset [1 argument]',	'An asset has been assigned to you. Please verify if the information is correct. Login to AIDE and go to Assets - Asset Assignment - My Asset - Search for the asset that is partially assign with the details below. Click the verify button.'),
 			(5,	10,	'Asset Inventory - Email notification data for verifying asset [2 arguments]',	'The asset below assigned to,has been verified. It is now waiting for your approval.'),
 			(5,	11,	'Asset Inventory - Email notification data for approving asset [3 arguments]',	'The asset below assigned to,has been,by'),
@@ -49,7 +49,8 @@ INSERT INTO [dbo].[OPTION]([ModuleID],[FunctionID],[Description],[Value])
 			(18, 15, 'Update Workplace Audit - Update Workplace Audit data [2 arguments]',	'You are assigned as the,. Please check the Workplace Audit board for more details.'),
 			(2,	2,	'Missing Resource Plan - Checking Time config for Flexi [Time]',	'02:00:00 PM'),
 			(2,	2,	'Missing Resource Plan - Checking Time config for Dispatch [Time]',	'02:00:00 AM'),
-			(2,	2,	'Missing Resource Plan - Checking day config for dispatch [1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun]',	'2,3,4,5,6')
+			(2,	2,	'Missing Resource Plan - Checking day config for dispatch [1=Mon 2=Tue 3=Wed 4=Thu 5=Fri 6=Sat 7=Sun]',	'2,3,4,5,6'),
+			(6, 16, 'Contact List - Default employee photo path', '\\FPI-HYPERV-002\Users\Public\Pictures\AIDE\EmployeePhotos\')
 
 DELETE FROM [dbo].[OPTION_MODULE]
 DBCC CHECKIDENT ('OPTION_MODULE', RESEED, 0)
@@ -92,7 +93,8 @@ INSERT INTO [dbo].[OPTION_FUNCTION]([Description])
 			('Default Number of records in Datagrid'),
 			('Update Contact List'),
 			('Update Skills Matrix'),
-			('Update Workplace Audit')
+			('Update Workplace Audit'),
+			('Default employee photo path')
 
 
 
