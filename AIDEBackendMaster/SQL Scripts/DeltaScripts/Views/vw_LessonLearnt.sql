@@ -26,7 +26,7 @@ GO
 			(emp.LAST_NAME + ', ' + emp.FIRST_NAME + ' ' +emp.MIDDLE_NAME) as [EmployeeName],
 			lesson.PROBLEM as [Problem],
 			lesson.RESOLUTION as [Resolution],
-			Convert(date,lesson.DATE_CREATED) as [DateCreated],
+			format(Convert(date,lesson.DATE_CREATED),'MM/dd/yyyy') as [DateCreated],
 			Case 
 				When act.ACT_MESSAGE is Null Then ''
 				Else act.ACTREF + ' : ' + act.ACT_MESSAGE

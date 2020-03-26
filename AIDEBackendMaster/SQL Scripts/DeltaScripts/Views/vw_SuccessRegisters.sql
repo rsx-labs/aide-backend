@@ -24,7 +24,7 @@ GO
 	Select success.ID as SuccessID,
 			success.EMP_ID as RaisedByID,
 			(emp.LAST_NAME + ', '+ emp.FIRST_NAME + ' ' + emp.MIDDLE_NAME) as RaisedBy,
-			success.DATE_INPUT as DateSubmitted,
+			format(convert(date,success.DATE_INPUT,10),'MM/dd/yyyy') as DateSubmitted,
 			success.WHOSINVOLVE as Participants,
 			success.DETAILSOFSUCCESS as Details,
 			success.ADDITIONALINFORMATION as AdditionalInformation,
