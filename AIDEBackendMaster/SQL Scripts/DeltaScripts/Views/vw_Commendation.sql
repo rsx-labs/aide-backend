@@ -20,10 +20,11 @@ GO
 		Employee as Employee,
 		Project as Project,
 		SENT_BY as SentBy,
-		Date_Sent as DateSent,
+		format(convert(date,date_sent,10),'MM/dd/yyyy') as DateSent,
 		Month(Date_Sent) as [Month],
 		Year(Date_Sent) as [Year],
-		REASON as Reason
+		REASON as Reason,	
+		dbo.fn_getFiscalYear(Date_Sent, Date_Sent) as FiscalYear
 	FROM Commendations
 	
 

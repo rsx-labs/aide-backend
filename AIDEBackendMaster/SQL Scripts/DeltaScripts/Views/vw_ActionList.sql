@@ -22,8 +22,8 @@ GO
 			act.ACT_MESSAGE as [Action],
 			emp.EMP_ID as EmployeeID,
 			(emp.LAST_NAME + ', ' + emp.FIRST_NAME + ' ' + emp.MIDDLE_NAME) as EmployeeName,
-			act.DATE_CREATED as DateCreated,
-			act.DUE_DATE as DueDate,
+			format(convert(date,act.DATE_CREATED,10),'MM/dd/yyyy') as DateCreated,
+			format(convert(date,act.DUE_DATE,10),'MM/dd/yyyyy') as DueDate,
 			act.DATE_CLOSED as DateClosed,
 			emp.DIV_ID as DivisionID,
 			div.DESCR as Division,
@@ -41,7 +41,6 @@ GO
 			on dept.DEPT_ID = emp.DEPT_ID
 		inner join DIVISION div
 			on emp.DIV_ID = div.DIV_ID
-
 
 GO
 
