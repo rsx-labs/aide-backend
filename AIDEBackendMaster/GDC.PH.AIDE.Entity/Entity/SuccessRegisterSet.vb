@@ -245,7 +245,6 @@ End Class
 Public Class NicknameSet
     Implements INotifyPropertyChanged, INicknameSet
 
-
     Private cNickname As clsNickname
     Private cNicknamefactory As clsNicknameFactory
 
@@ -308,6 +307,16 @@ Public Class NicknameSet
         Set(value As String)
             Me.cNickname.EMPLOYEE_NAME = value
             NotifyPropertyChanged()
+        End Set
+    End Property
+
+    Public Property Image_Path As String Implements INicknameSet.Image_Path
+        Get
+            Return Me.cNickname.IMAGE_PATH
+        End Get
+        Set(value As String)
+            Me.cNickname.IMAGE_PATH = value
+            NotifyPropertyChanged("Image_Path")
         End Set
     End Property
 

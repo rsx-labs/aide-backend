@@ -38,6 +38,7 @@ Public MustInherit Class MainService
     Private Shared KPITargetsMgmt As KPITargetsManagement
     Private Shared KPISummaryMgmt As KPISummaryManagement
     Private Shared OptionMgmt As OptionManagement
+    Private Shared ProblemMgmt As ProblemManagement
     Private _getActionLstByMessage As List(Of Action)
 
     Public Delegate Sub ResponseReceivedEventHandler(sender As Object, e As ResponseReceivedEventArgs)
@@ -78,6 +79,7 @@ Public MustInherit Class MainService
         KPITargetsMgmt = New KPITargetsManagement()
         KPISummaryMgmt = New KPISummaryManagement()
         OptionMgmt = New OptionManagement()
+        ProblemMgmt = New ProblemManagement()
     End Sub
 
     Protected Overridable Sub OnReceivedResponse(e As ResponseReceivedEventArgs)
@@ -455,6 +457,7 @@ Public MustInherit Class MainService
                 item.Nick_Name = _list.Nick_Name
                 item.First_Name = _list.First_Name
                 item.Employee_Name = _list.Employee_Name
+                item.Image_Path = _list.Image_Path
 
                 lstNicknameList.Add(item)
             Next
@@ -3400,6 +3403,249 @@ Public MustInherit Class MainService
             Next
         End If
         Return lstOptions
+    End Function
+#End Region
+
+#Region "Problem"
+
+    Public Overrides Function InsertProblem(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblem(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateProblem(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.UpdateProblem(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAllProblems(ByRef objResult As List(Of Problem), ByVal EmpID As Integer) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblems(EmpID)
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.EmployeeID = _list.EmployeeID
+                item.EmployeeName = _list.EmployeeName
+                item.ProblemID = _list.ProblemID
+                item.ProblemDescr = _list.ProblemDescr
+                item.ProblemInvolve = _list.ProblemInvolve
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
+    End Function
+
+    Public Overrides Function InsertProblemCause(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblemCause(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateProblemCause(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.UpdateProblemCause(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAllProblemCause(ByRef objResult As List(Of Problem)) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblemCause()
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.CauseID = _list.CauseID
+                item.ProblemID = _list.ProblemID
+                item.CauseDescr = _list.CauseDescr
+                item.CauseWhy = _list.CauseWhy
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
+    End Function
+    Public Overrides Function InsertProblemOption(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblemOption(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateProblemOption(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.UpdateProblemOption(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+    Public Overrides Function GetAllProblemOption(ByRef objResult As List(Of Problem)) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblemOption()
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.OptionID = _list.OptionID
+                item.ProblemID = _list.ProblemID
+                item.OptionDescr = _list.OptionDescr
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
+    End Function
+    Public Overrides Function InsertProblemSolution(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblemSolution(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+    Public Overrides Function UpdateProblemSolution(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.UpdateProblemSolution(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAllProblemSolution(ByRef objResult As List(Of Problem)) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblemSolution()
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.SolutionID = _list.SolutionID
+                item.OptionID = _list.OptionID
+                item.ProblemID = _list.ProblemID
+                item.SolutionDescr = _list.SolutionDescr
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
+    End Function
+
+    Public Overrides Function InsertProblemImplement(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblemImplement(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function UpdateProblemImplement(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.UpdateProblemImplement(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+    Public Overrides Function GetAllProblemImplement(ByRef objResult As List(Of Problem)) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblemImplement()
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.ImplementID = _list.ImplementID
+                item.OptionID = _list.OptionID
+                item.ProblemID = _list.ProblemID
+                item.ImplementDescr = _list.ImplementDescr
+                item.ImplementAssignee = _list.ImplementAssignee
+                item.ImplementValue = _list.ImplementValue
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
+    End Function
+
+    Public Overrides Function InsertProblemResult(problem As Problem) As Boolean
+        Dim state As StateData = ProblemMgmt.InsertProblemResult(problem)
+        Dim bSuccess As Boolean = False
+        If state.NotifyType = NotifyType.IsSuccess Then
+            bSuccess = True
+        End If
+        ReceivedData(state)
+        Return bSuccess
+    End Function
+
+    Public Overrides Function GetAllProblemResult(ByRef objResult As List(Of Problem), ByVal ProblemID As Integer, ByVal OptionID As Integer) As List(Of Problem)
+        Dim state As StateData = ProblemMgmt.GetAllProblemResult(ProblemID, OptionID)
+        Dim listProblemLst As New List(Of Problem)
+
+        If Not IsNothing(state.Data) Then
+            Dim lstProblem As List(Of Problem) = DirectCast(state.Data, List(Of Problem))
+            For Each _list As Problem In lstProblem
+                Dim item As New Problem
+
+                item.ResultID = _list.ResultID
+                item.OptionID = _list.OptionID
+                item.ProblemID = _list.ProblemID
+                item.ResultDescr = _list.ResultDescr
+                item.ResultValue = _list.ResultValue
+
+                listProblemLst.Add(item)
+            Next
+            objResult = listProblemLst
+        End If
+        Return objResult
+
     End Function
 #End Region
 End Class

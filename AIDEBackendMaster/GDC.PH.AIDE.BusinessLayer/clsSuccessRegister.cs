@@ -196,7 +196,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             NICK_NAME,
             FIRST_NAME,
             TO_DISPLAY,
-            EMPLOYEE_NAME
+            EMPLOYEE_NAME,
+            IMAGE_PATH
         }
 
         #endregion
@@ -208,6 +209,7 @@ namespace GDC.PH.AIDE.BusinessLayer
         private string _firstname;
         private int _TO_DISPLAY;
         private string _employeename;
+        private string _imagePath;
         #endregion
 
         #region "Properties"
@@ -273,6 +275,19 @@ namespace GDC.PH.AIDE.BusinessLayer
                 {
                     _employeename = value;
                     PropertyHasChanged("EMPLOYEE_NAME");
+                }
+            }
+        }
+
+        public string IMAGE_PATH
+        {
+            get { return _imagePath; }
+            set
+            {
+                if (_imagePath != value)
+                {
+                    _imagePath = value;
+                    PropertyHasChanged("IMAGE_PATH");
                 }
             }
         }

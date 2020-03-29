@@ -31,6 +31,7 @@ Public Interface INicknameSet
     Property ToDisplay As Integer
     Property First_Name As String
     Property Employee_Name As String
+    Property Image_Path As String
 
     Function GetNicknameByDeptID(ByVal email As String, ByVal ToDisplay As Integer) As List(Of NicknameSet)
     Function GetEmployeePerProject(ByVal empID As Integer, ByVal projID As Integer) As List(Of NicknameSet)

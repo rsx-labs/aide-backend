@@ -786,6 +786,64 @@ Public Interface IAideService
     Function GetOptions(ByVal OptionID As Integer, ByVal ModuleID As Integer, ByVal FunctionId As Integer) As List(Of Options)
 #End Region
 
+#Region "Problem Operation Contracts"
+    ''' <summary>
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    <OperationContract()>
+    Function GetAllProblem(ByVal empID As Integer) As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblem(ByVal objProblem As Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateProblem(ByVal objProblem As Problem)
+
+    <OperationContract()>
+    Function GetAllProblemCause() As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblemCause(ByVal objProblem As Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateProblemCause(ByVal objProblem As Problem)
+
+    <OperationContract()>
+    Function GetAllProblemOption() As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblemOption(ByVal objProblem As Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateProblemOption(ByVal objProblem As Problem)
+
+    <OperationContract()>
+    Function GetAllProblemSolution() As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblemSolution(ByVal objProblem As Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateProblemSolution(ByVal objProblem As Problem)
+
+    <OperationContract()>
+    Function GetAllProblemImplement() As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblemImplement(ByVal objProblem As Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub UpdateProblemImplement(ByVal objProblem As Problem)
+
+    <OperationContract()>
+    Function GetAllProblemResult(ByVal problemID As Integer, ByVal optionID As Integer) As List(Of Problem)
+
+    <OperationContract(IsOneWay:=True)>
+    Sub InsertProblemResult(ByVal objProblem As Problem)
+
+#End Region
+
 End Interface
 #End Region
 
@@ -1353,6 +1411,8 @@ Public Class Nickname
     Public Property First_Name As String
     <DataMember()>
     Public Property Employee_Name As String
+    <DataMember()>
+    Public Property Image_Path As String
 
 End Class
 #End Region
@@ -2501,6 +2561,75 @@ Public Class Options
 End Class
 
 #End Region
+
+#Region "Problem Data Contracts"
+''' <summary>
+''' </summary>
+''' <remarks></remarks>
+<DataContract()>
+Public Class Problem
+
+    <DataMember()>
+    Public Property EmployeeID As Integer
+
+    <DataMember()>
+    Public Property EmployeeName As String
+
+    <DataMember()>
+    Public Property ProblemID As Integer
+
+    <DataMember()>
+    Public Property ProblemDescr As String
+
+    <DataMember()>
+    Public Property ProblemInvolve As String
+
+    <DataMember()>
+    Public Property CauseID As Integer
+
+    <DataMember()>
+    Public Property CauseDescr As String
+
+    <DataMember()>
+    Public Property CauseWhy As String
+
+    <DataMember()>
+    Public Property OptionID As Integer
+
+    <DataMember()>
+    Public Property OptionDescr As String
+
+    <DataMember()>
+    Public Property SolutionID As Integer
+
+    <DataMember()>
+    Public Property SolutionDescr As String
+
+    <DataMember()>
+    Public Property ImplementID As Integer
+
+    <DataMember()>
+    Public Property ImplementDescr As String
+
+    <DataMember()>
+    Public Property ImplementAssignee As Integer
+
+    <DataMember()>
+    Public Property ImplementValue As String
+
+    <DataMember()>
+    Public Property ResultID As Integer
+
+    <DataMember()>
+    Public Property ResultDescr As String
+
+    <DataMember()>
+    Public Property ResultValue As String
+
+
+End Class
+#End Region
+
 #End Region
 
 <ServiceContract()>

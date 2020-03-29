@@ -442,4 +442,29 @@
 #Region "Options Method"
     MustOverride Function GetOption(ByVal optionID As Integer, ByVal moduleID As Integer, ByVal functionID As Integer) As List(Of Options)
 #End Region
+
+#Region "Problems method"
+    ''' <summary>
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    MustOverride Function GetAllProblems(ByRef objResult As List(Of Problem), ByVal EmpID As Integer) As List(Of Problem)
+    MustOverride Function InsertProblem(ByVal problem As Problem) As Boolean
+    MustOverride Function UpdateProblem(ByVal problem As Problem) As Boolean
+    MustOverride Function GetAllProblemCause(ByRef objResult As List(Of Problem)) As List(Of Problem)
+    MustOverride Function InsertProblemCause(ByVal problem As Problem) As Boolean
+    MustOverride Function UpdateProblemCause(ByVal problem As Problem) As Boolean
+    MustOverride Function GetAllProblemOption(ByRef objResult As List(Of Problem)) As List(Of Problem)
+    MustOverride Function InsertProblemOption(ByVal problem As Problem) As Boolean
+    MustOverride Function UpdateProblemOption(ByVal problem As Problem) As Boolean
+    MustOverride Function GetAllProblemSolution(ByRef objResult As List(Of Problem)) As List(Of Problem)
+    MustOverride Function InsertProblemSolution(ByVal problem As Problem) As Boolean
+    MustOverride Function UpdateProblemSolution(ByVal problem As Problem) As Boolean
+    MustOverride Function GetAllProblemImplement(ByRef objResult As List(Of Problem)) As List(Of Problem)
+    MustOverride Function InsertProblemImplement(ByVal problem As Problem) As Boolean
+    MustOverride Function UpdateProblemImplement(ByVal problem As Problem) As Boolean
+    MustOverride Function GetAllProblemResult(ByRef objResult As List(Of Problem), ByVal ProblemID As Integer, ByVal OptionID As Integer) As List(Of Problem)
+    MustOverride Function InsertProblemResult(ByVal problem As Problem) As Boolean
+
+#End Region
 End Class

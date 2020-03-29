@@ -89,6 +89,7 @@
     <Compile Include="Entity\MessageSet.vb" />
     <Compile Include="Entity\OptionSet.vb" />
     <Compile Include="Entity\PositionListSet.vb" />
+    <Compile Include="Entity\ProblemSet.vb" />
     <Compile Include="Entity\ProfileSet.vb" />
     <Compile Include="Entity\ProjectSet.vb" />
     <Compile Include="Entity\ResourcePlannerSet.vb" />
@@ -138,6 +139,7 @@
     <Compile Include="Interface\IMessageSet.vb" />
     <Compile Include="Interface\IOptionSet.vb" />
     <Compile Include="Interface\IPositionListSet.vb" />
+    <Compile Include="Interface\IProblemSet.vb" />
     <Compile Include="Interface\IProfileSet.vb" />
     <Compile Include="Interface\IProject.vb" />
     <Compile Include="Interface\IResourcePlanner.vb" />
