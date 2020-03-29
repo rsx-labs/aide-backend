@@ -31,7 +31,7 @@ Public Class SuccessRegisterManagement
         nicknamedata.Nick_Name = objNickname.Nick_Name
         nicknamedata.First_Name = objNickname.First_Name
         nicknamedata.Employee_Name = objNickname.Employee_Name
-
+        nicknamedata.Image_Path = objNickname.Image_Path
         Return nicknamedata
     End Function
 

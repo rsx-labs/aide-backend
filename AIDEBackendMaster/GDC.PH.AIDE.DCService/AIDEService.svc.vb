@@ -1241,7 +1241,83 @@ Public Class AIDEService
     Public Function GetOptions(OptionID As Integer, ModuleID As Integer, FunctionId As Integer) As List(Of Options) Implements IAideService.GetOptions
         Return MyBase.GetOption(OptionID, ModuleID, FunctionId)
     End Function
+
+
 #End Region
 
+#Region "Problem"
+    Private Function GetAllProblem(empID As Integer) As List(Of Problem) Implements IAideService.GetAllProblem
+        Dim lstProblem As List(Of Problem) = Nothing
+        Return MyBase.GetAllProblems(lstProblem, empID)
+        Return lstProblem
+    End Function
+    Public Sub InsertProblems(objProblem As Problem) Implements IAideService.InsertProblem
+        MyBase.InsertProblem(objProblem)
+    End Sub
+    Public Sub UpdateProblems(objProblem As Problem) Implements IAideService.UpdateProblem
+        MyBase.UpdateProblem(objProblem)
+    End Sub
+
+    Public Function GetAllProblemCauses() As List(Of Problem) Implements IAideService.GetAllProblemCause
+        Dim lstProblem As List(Of Problem) = Nothing
+        MyBase.GetAllProblemCause(lstProblem)
+        Return lstProblem
+    End Function
+
+    Private Sub InsertProblemCauses(objProblem As Problem) Implements IAideService.InsertProblemCause
+        MyBase.InsertProblemCause(objProblem)
+    End Sub
+
+    Public Sub UpdateProblemsCause(objProblem As Problem) Implements IAideService.UpdateProblemCause
+        MyBase.UpdateProblemCause(objProblem)
+    End Sub
+
+    Public Function GetAllProblemOptions() As List(Of Problem) Implements IAideService.GetAllProblemOption
+        Dim lstProblem As List(Of Problem) = Nothing
+        MyBase.GetAllProblemOption(lstProblem)
+        Return lstProblem
+    End Function
+
+    Private Sub InsertProblemOptions(objProblem As Problem) Implements IAideService.InsertProblemOption
+        MyBase.InsertProblemOption(objProblem)
+    End Sub
+    Public Sub UpdateProblemsOption(objProblem As Problem) Implements IAideService.UpdateProblemOption
+        MyBase.UpdateProblemOption(objProblem)
+    End Sub
+    Public Function GetAllProblemSolutions() As List(Of Problem) Implements IAideService.GetAllProblemSolution
+        Dim lstProblem As List(Of Problem) = Nothing
+        MyBase.GetAllProblemSolution(lstProblem)
+        Return lstProblem
+    End Function
+
+    Private Sub InsertProblemSolutions(objProblem As Problem) Implements IAideService.InsertProblemSolution
+        MyBase.InsertProblemSolution(objProblem)
+    End Sub
+    Public Sub UpdateProblemsSolution(objProblem As Problem) Implements IAideService.UpdateProblemSolution
+        MyBase.UpdateProblemSolution(objProblem)
+    End Sub
+    Public Function GetAllProblemImplements() As List(Of Problem) Implements IAideService.GetAllProblemImplement
+        Dim lstProblem As List(Of Problem) = Nothing
+        MyBase.GetAllProblemImplement(lstProblem)
+        Return lstProblem
+    End Function
+
+    Private Sub InsertProblemImplements(objProblem As Problem) Implements IAideService.InsertProblemImplement
+        MyBase.InsertProblemImplement(objProblem)
+    End Sub
+    Public Sub UpdateProblemsImplement(objProblem As Problem) Implements IAideService.UpdateProblemImplement
+        MyBase.UpdateProblemImplement(objProblem)
+    End Sub
+
+    Public Function GetAllProblemResults(problemID As Integer, optionID As Integer) As List(Of Problem) Implements IAideService.GetAllProblemResult
+        Dim lstProblem As List(Of Problem) = Nothing
+        MyBase.GetAllProblemResult(lstProblem, problemID, optionID)
+        Return lstProblem
+    End Function
+
+    Private Sub InsertProblemResults(objProblem As Problem) Implements IAideService.InsertProblemResult
+        MyBase.InsertProblemResult(objProblem)
+    End Sub
+#End Region
 
 End Class
