@@ -396,7 +396,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
                 MainConnection.Open();
                 IDataReader dataReader = sqlCommand.ExecuteReader();
-                return PopulateObjectsFromReader3(dataReader);
+                return PopulateObjectsFromReader6(dataReader);
             }
             catch (Exception ex)
             {
@@ -564,6 +564,15 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
 
             businessObject.MANAGER_EMAIL = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.MANAGER_EMAIL.ToString()));
         }
+        internal void PopulateBusinessObjectFromReader6(clsEmployee businessObject, IDataReader dataReader)
+        {
+
+            businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
+
+            businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMAIL_ADDRESS.ToString()));
+
+            businessObject.MANAGER_EMAIL = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.MANAGER_EMAIL.ToString()));
+        }
         internal void PopulateBusinessObjectFromReader4(clsEmployee businessObject, IDataReader dataReader)
         {
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
@@ -639,6 +648,19 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
         {
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMPLOYEE_NAME.ToString()));
             businessObject.EMAIL_ADDRESS = dataReader.GetString(dataReader.GetOrdinal(clsEmployee.clsEmployeeFields.EMAIL_ADDRESS.ToString()));
+        }
+
+        internal List<clsEmployee> PopulateObjectsFromReader6(IDataReader dataReader)
+        {
+            List<clsEmployee> list = new List<clsEmployee>();
+
+            while (dataReader.Read())
+            {
+                clsEmployee businessObject = new clsEmployee();
+                PopulateBusinessObjectFromReader6(businessObject, dataReader);
+                list.Add(businessObject);
+            }
+            return list;
         }
 
         #endregion
