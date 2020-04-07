@@ -332,7 +332,6 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.NICK_NAME = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.NICK_NAME.ToString()));
             businessObject.FIRST_NAME = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.FIRST_NAME.ToString()));
             businessObject.EMPLOYEE_NAME = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.EMPLOYEE_NAME.ToString()));
-            businessObject.IMAGE_PATH = dataReader.GetString(dataReader.GetOrdinal(clsNickname.clsNicknameFields.IMAGE_PATH.ToString()));
         }
 
         internal List<clsNickname> PopulateObjectsFromReaderForNickname(IDataReader dataReader)
