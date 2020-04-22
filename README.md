@@ -6,6 +6,8 @@ This is the backend component of AIDE
 
 ## Overview
 
+NOTE : DB related codes are now being moved to the AIDE-DBComp repo.
+
 ## Technology Stack
 
 ### Frontend
