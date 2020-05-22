@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension"
+     xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+  <?define GDC.PH.AIDE.DCService_TargetDir=$(var.GDC.PH.AIDE.DCService.TargetDir)?>
+	<Product Id="*" 
+           Name="AIDE Backend Service" 
+           Language="1033" 
+           Version="!(bind.FileVersion.GDC.PH.AIDE.DCService.dll)"
+           Manufacturer="RS Experimental Labs" 
+           UpgradeCode="7e7b84f4-4a47-4a3c-80ea-adc376935f87">
+		
+    <Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine" />
+
+    <!--Application logo-->
+    <Icon Id="Icon" SourceFile="$(var.GDC.PH.AIDE.DCService_TargetDir)favicon.ico" />
+
+    <!--Application logo for Control Panel-->
+    <Property Id="ARPPRODUCTICON" Value="Icon" />
+    
+    <MediaTemplate EmbedCab="yes" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed."
+                  AllowSameVersionUpgrades="yes" />
+
+    <iis:WebSite Id="DefaultWebSite"
+                 Description="Default Web Site"
+                 Directory="WWW_FOLDER">
+      <iis:WebAddress Id="AllUnassigned" Port="80"/>
+    </iis:WebSite>
+    <DirectoryRef Id="AIDE_FOLDER" >
+      <Component Id="VirtualDir" Guid="343200D9-F671-4324-927C-D60265F74C26">
+        <iis:WebVirtualDir Id="AIDE"
+                           Alias="AIDE"
+                           Directory="AIDE_FOLDER"
+                           WebSite="DefaultWebSite">
+          <iis:WebApplication Id="AideApplication"
+                              Name="AIDE" />
+        </iis:WebVirtualDir>
+        <CreateFolder/>
+      </Component>
+    </DirectoryRef>
+		<Feature Id="ProductFeature" Title="AIDE Backend Service" Level="1">
+			<ComponentGroupRef Id="WebFileComponents" />
+      <ComponentGroupRef Id="ServiceComponents" />
+      <ComponentRef Id="VirtualDir" />
+      <!--ComponentGroupRef Id="DocumentComponents"/-->
+		</Feature>
+    
+    <!--Custom UI for installer-->
+    <Property Id="WIXUI_INSTALLDIR" Value="AIDE_FOLDER" />
+    <UIRef Id="WixUI_InstallDir" />
+    <!--EndUser License aggrement-->
+    <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="Resources\license.rtf" />
+    <!--Top Banner UI Logo-->
+    <WixVariable Id="WixUIBannerBmp" Overridable="yes" Value="Resources\TopBanner.jpg" />
+    <!--Verticle Banner UI Logo-->
+    <WixVariable Id="WixUIDialogBmp" Overridable="yes" Value="Resources\BackgroundLogo.jpg" />
+	</Product>
+
+  <!--Directory Structure -->
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			  <Directory Id="IIS_DIR" Name="inetpub">
+          <Directory Id="WWW_FOLDER" Name="wwwroot">
+            <Directory Id="AIDE_FOLDER" Name="AIDE">        
+              <Directory Id="INSTALL_FOLDER" Name="bin"/>
+            </Directory>
+          </Directory>
+        </Directory>
+		</Directory>
+  </Fragment>
+  <!-- Doc Files-->
+  <!--Fragment>
+    <ComponentGroup Id="DocumentComponents" Directory="AIDE_FOLDER">
+      <Component Id="Readme.md" Guid="300345C2-8DD6-4113-AABE-CA1EBC652D56">
+        <File Id="Readme.md" Name="Readme.md" Source="$(var.GDC.PH.AIDE.DCService_TargetDir)Readme.md" />
+      </Component>
+      <Component Id="license" Guid="11C167CC-7F63-44E2-8533-4AB64253465A">
+        <File Id="license" Name="license" Source="$(var.GDC.PH.AIDE.DCService_TargetDir)license" />
+      </Component>
+    </ComponentGroup>
+  </Fragment-->
+	<!-- Web Files-->
+  <Fragment>
+		<ComponentGroup Id="WebFileComponents" Directory="INSTALL_FOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+        
+			<!-- </Component> -->
+			<Component Id="GDC.PH.AIDE.DCService" Guid="A37B891F-8256-427B-89DE-219BD6A7489E">
+			  <File Id="GDC.PH.AIDE.DCService.dll" 
+              Name="GDC.PH.AIDE.DCService.dll" 
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)GDC.PH.AIDE.DCService.dll" />
+			</Component>
+      <Component Id="GDC.PH.AIDE.Entity" Guid="D5F56010-17DF-40C0-BCB7-0237FB319732">
+        <File Id="GDC.PH.AIDE.Entity.dll"
+              Name="GDC.PH.AIDE.Entity.dll"
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)GDC.PH.AIDE.Entity.dll" />
+      </Component>
+      <Component Id="GDC.Weserv.DCSFramework.BusinessLayer" Guid="CEA97076-79A2-47B9-A83F-BFFA9A48182A">
+        <File Id="GDC.Weserv.DCSFramework.BusinessLayer.dll"
+              Name="GDC.Weserv.DCSFramework.BusinessLayer.dll"
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)GDC.Weserv.DCSFramework.BusinessLayer.dll" />
+      </Component>	
+    </ComponentGroup>
+	</Fragment>
+  <!--Service Files-->
+  <Fragment>
+    <ComponentGroup Id="ServiceComponents" Directory="AIDE_FOLDER">
+      <Component Id="AIDEService" Guid="EF0E713B-2BF6-45D3-9653-BECCEE773780">
+        <File Id="AIDEService.svc"
+              Name="AIDEService.svc"
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)AIDEService.svc" />
+      </Component>
+      <Component Id="Web.config" Guid="04C03351-2929-4D4D-9EA2-6A7F75DDBC54">
+        <File Id="Web.config"
+              Name="Web.config"
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)Web.config" />
+      </Component>
+      <Component Id="Favicon" Guid="F55440F7-E1BB-414E-B0E7-80472F7120CA">
+        <File Id="favicon.ico"
+              Name="favicon.ico"
+              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)favicon.ico" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

@@ -250,3 +250,6 @@ ModelManifest.xml
 
 # exclude prod config
 *.config.prod
+Web.config
+/AIDEBackendMaster/GDC.PH.AIDE.DCService/Web.Debug.config
+/AIDEBackendMaster/GDC.PH.AIDE.DCService/Web.Release.config

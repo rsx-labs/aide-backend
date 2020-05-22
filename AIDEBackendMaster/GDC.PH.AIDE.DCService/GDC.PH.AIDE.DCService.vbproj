@@ -34,7 +34,9 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
     <IncludeIisSettings>true</IncludeIisSettings>
-    <DeployEncryptKey>kmkmk</DeployEncryptKey>
+    <DeployEncryptKey>aide</DeployEncryptKey>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -100,9 +102,8 @@
     <Import Include="System.Web.UI.HtmlControls" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AIDEService.svc" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
+    <Content Include="AIDEService.svc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +127,7 @@
     <Compile Include="Management\EmployeeManagement.vb" />
     <Compile Include="AIDEService.svc.vb">
       <DependentUpon>AIDEService.svc</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="IAideService.vb" />
     <Compile Include="IAIDEServiceCallback.vb" />
@@ -185,6 +187,10 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -242,6 +248,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(ProjectDir)Web.config $(ProjectDir)bin\* /q /y
+xcopy $(ProjectDir)Web.Debug.config $(ProjectDir)bin\* /q /y
+xcopy $(ProjectDir)Web.Release.config $(ProjectDir)bin\* /q /y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
