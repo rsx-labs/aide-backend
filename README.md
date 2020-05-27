@@ -3,9 +3,10 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 
 
 
-|Main Dev Branch |[![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-ci-build?branchName=master)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=9&branchName=master)  |
+| Branch | CI Status |
 |---|:---|
 |Release Branch |[![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-release-build?branchName=release)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=8&branchName=release) ![release version](https://img.shields.io/badge/release%20version-3.3.3.0-blue)  |
+| Main Dev Branch | [![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-ci-build?branchName=master)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=9&branchName=master) |
 
 
 This is the backend component of AIDE
