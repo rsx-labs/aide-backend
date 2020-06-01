@@ -46,7 +46,13 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Configurations" />
     <Folder Include="Resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configurations\Web.config" />
+    <Content Include="Configurations\Web.Debug.config" />
+    <Content Include="Configurations\Web.Release.config" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
