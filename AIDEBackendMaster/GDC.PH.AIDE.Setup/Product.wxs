@@ -119,7 +119,7 @@
       <Component Id="Web.config" Guid="04C03351-2929-4D4D-9EA2-6A7F75DDBC54">
         <File Id="Web.config"
               Name="Web.config"
-              Source="$(var.GDC.PH.AIDE.DCService_TargetDir)Web.config" />
+              Source="Configurations\Web.config" />
       </Component>
       <Component Id="Favicon" Guid="F55440F7-E1BB-414E-B0E7-80472F7120CA">
         <File Id="favicon.ico"
