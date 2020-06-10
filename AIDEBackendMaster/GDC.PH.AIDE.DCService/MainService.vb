@@ -2749,6 +2749,8 @@ Public MustInherit Class MainService
                 item.FY_END = _list.FY_END
                 item.FACILITATOR_NAME = _list.FACILITATOR_NAME
                 item.MINUTES_TAKER_NAME = _list.MINUTES_TAKER_NAME
+                item.WEEK = _list.WEEK
+                item.WEEK_START = _list.WEEK_START
                 comcellLst.Add(item)
             Next
         End If

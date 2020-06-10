@@ -2097,6 +2097,11 @@ Public Class Comcell
 
     <DataMember()>
     Public Property MINUTES_TAKER_NAME As String
+    <DataMember()>
+    Public Property WEEK As Integer
+    <DataMember()>
+    Public Property WEEK_START As DateTime
+
 End Class
 #End Region
 

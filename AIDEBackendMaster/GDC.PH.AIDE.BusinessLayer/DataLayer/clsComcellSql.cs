@@ -50,6 +50,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@FACILITATOR", SqlDbType.VarChar, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FACILITATOR));
                 sqlCommand.Parameters.Add(new SqlParameter("@MINUTES_TAKER", SqlDbType.VarChar, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MINUTES_TAKER));
                 sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEK", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WEEK));
 
                 MainConnection.Open();
 
@@ -164,6 +165,17 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             businessObject.FY_END = dataReader.GetDateTime(dataReader.GetOrdinal(clsComcell.clsComcellFields.FY_END.ToString()));
             businessObject.FACILITATOR_NAME = dataReader.GetString(dataReader.GetOrdinal(clsComcell.clsComcellFields.FAC_NAME.ToString()));
             businessObject.MINUTES_TAKER_NAME = dataReader.GetString(dataReader.GetOrdinal(clsComcell.clsComcellFields.MIN_NAME.ToString()));
+            try
+            {
+                businessObject.WEEK = dataReader.GetInt32(dataReader.GetOrdinal(clsComcell.clsComcellFields.WEEK.ToString()));
+                businessObject.WEEK_START = dataReader.GetDateTime(dataReader.GetOrdinal(clsComcell.clsComcellFields.WEEK_START.ToString()));
+            }
+            catch(Exception ex)
+            {
+                businessObject.WEEK = 0;
+            }
+            
+            
         }
 
         /// <summary>
