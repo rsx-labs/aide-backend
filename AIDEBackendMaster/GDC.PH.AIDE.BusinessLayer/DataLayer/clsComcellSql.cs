@@ -90,7 +90,8 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
                 sqlCommand.Parameters.Add(new SqlParameter("@FACILITATOR", SqlDbType.VarChar, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.FACILITATOR));
                 sqlCommand.Parameters.Add(new SqlParameter("@MINUTES_TAKER", SqlDbType.VarChar, 25, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.MINUTES_TAKER));
                 sqlCommand.Parameters.Add(new SqlParameter("@YEAR", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.YEAR));
-                
+                sqlCommand.Parameters.Add(new SqlParameter("@WEEK", SqlDbType.Int, 10, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.WEEK));
+
                 MainConnection.Open();
 
                 sqlCommand.ExecuteNonQuery();
