@@ -120,6 +120,24 @@ Public Class ComcellSet
         End Set
     End Property
 
+    Public Property WEEK As Integer Implements IComcellSet.WEEK
+        Get
+            Return Me.cComcell.WEEK
+        End Get
+        Set(value As Integer)
+            Me.cComcell.WEEK = value
+        End Set
+    End Property
+
+    Public Property WEEK_START As DateTime Implements IComcellSet.WEEK_START
+        Get
+            Return Me.cComcell.WEEK_START
+        End Get
+        Set(value As DateTime)
+            Me.cComcell.WEEK_START = value
+        End Set
+    End Property
+
     Public Function GetComcellMeeting(empID As Integer, year As Integer) As List(Of ComcellSet) Implements IComcellSet.GetComcellMeeting
         Dim cList As List(Of clsComcell)
         Dim cListSet As New List(Of ComcellSet)

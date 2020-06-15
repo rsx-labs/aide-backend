@@ -46,7 +46,7 @@
 			<ComponentGroupRef Id="WebFileComponents" />
       <ComponentGroupRef Id="ServiceComponents" />
       <ComponentRef Id="VirtualDir" />
-      <!--ComponentGroupRef Id="DocumentComponents"/-->
+      <ComponentGroupRef Id="RegistryComponents" />
 		</Feature>
     
     <!--Custom UI for installer-->
@@ -127,5 +127,19 @@
               Source="$(var.GDC.PH.AIDE.DCService_TargetDir)favicon.ico" />
       </Component>
     </ComponentGroup>
+  </Fragment>
+
+  <!--Registry Entries-->
+  <Fragment>
+    <ComponentGroup Id="RegistryComponents" Directory="TARGETDIR">
+      <Component Id="RegistryEntries" Guid="DB776BC0-7270-484C-B0C1-B1B2B71740F6">
+        <RegistryKey Root="HKCU"
+                     Key="Software\RS Experimental Labs\AIDE Backend"
+                     Action="createAndRemoveOnUninstall">
+          <RegistryValue Name="version" Type="string" Value="!(bind.FileVersion.GDC.PH.AIDE.DCService.dll)"/>
+          
+        </RegistryKey>
+      </Component>
+    </ComponentGroup> 
   </Fragment>
 </Wix>

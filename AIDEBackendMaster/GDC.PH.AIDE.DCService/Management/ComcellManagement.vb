@@ -23,6 +23,8 @@ Public Class ComcellManagement
         comcellData.FY_END = objComcell.FY_END
         comcellData.FACILITATOR_NAME = objComcell.FACILITATOR_NAME
         comcellData.MINUTES_TAKER_NAME = objComcell.MINUTES_TAKER_NAME
+        comcellData.WEEK = objComcell.WEEK
+        comcellData.WEEK_START = objComcell.WEEK_START
         Return comcellData
     End Function
 
@@ -118,6 +120,7 @@ Public Class ComcellManagement
         comcellData.FY_END = objComcell.FY_END
         comcellData.FACILITATOR_NAME = objComcell.FACILITATOR_NAME
         comcellData.MINUTES_TAKER_NAME = objComcell.MINUTES_TAKER_NAME
+        comcellData.WEEK = objComcell.WEEK
         objResult = comcellData
     End Sub
 End Class

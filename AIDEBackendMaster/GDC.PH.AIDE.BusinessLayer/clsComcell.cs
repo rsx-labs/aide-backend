@@ -22,7 +22,9 @@ namespace GDC.PH.AIDE.BusinessLayer
             FY_START,
             FY_END,
             FAC_NAME,
-            MIN_NAME
+            MIN_NAME,
+            WEEK,
+            WEEK_START
         }
         #endregion
 
@@ -39,6 +41,8 @@ namespace GDC.PH.AIDE.BusinessLayer
         DateTime _fyEnd;
         string _facilitatorName;
         string _minTakerName;
+        int _week;
+        DateTime _weekStart;
 
         #endregion
 
@@ -186,6 +190,33 @@ namespace GDC.PH.AIDE.BusinessLayer
                 }
             }
         }
+
+        public int WEEK
+        {
+            get { return _week; }
+            set
+            {
+                if (_week != value)
+                {
+                    _week = value;
+                    PropertyHasChanged("WEEK");
+                }
+            }
+        }
+
+        public DateTime WEEK_START
+        {
+            get { return _weekStart; }
+            set
+            {
+                if (_weekStart != value)
+                {
+                    _weekStart = value;
+                    PropertyHasChanged("WEEK_START");
+                }
+            }
+        }
+
         #endregion
 
         #region Validation
@@ -199,6 +230,8 @@ namespace GDC.PH.AIDE.BusinessLayer
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("MINUTES_TAKER", "MINUTES_TAKER"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_START", "FY_START"));
             ValidationRules.AddRules(new Validation.ValidateRuleNotNull("FY_END", "FY_END"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEK", "WEEK"));
+            ValidationRules.AddRules(new Validation.ValidateRuleNotNull("WEEK_START", "WEEK_START"));
         }
         #endregion
 
