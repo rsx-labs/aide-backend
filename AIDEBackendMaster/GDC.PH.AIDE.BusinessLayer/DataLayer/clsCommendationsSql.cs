@@ -46,7 +46,7 @@ namespace GDC.PH.AIDE.BusinessLayer.DataLayer
             try
             {
                 sqlCommand.Parameters.Add(new SqlParameter("@EMP_ID", SqlDbType.Int, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMP_ID));
-                sqlCommand.Parameters.Add(new SqlParameter("@EMPLOYEE", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMPLOYEE));
+                sqlCommand.Parameters.Add(new SqlParameter("@EMPLOYEE", SqlDbType.VarChar, 500, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.EMPLOYEE));
                 sqlCommand.Parameters.Add(new SqlParameter("@PROJECT", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.PROJECT));
                 sqlCommand.Parameters.Add(new SqlParameter("@DATE_SENT", SqlDbType.Date, 20, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.DATE_SENT));
                 sqlCommand.Parameters.Add(new SqlParameter("@SENT_BY", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Proposed, businessObject.SENT_BY));
