@@ -5,7 +5,7 @@
 
 | Branch | CI Status |
 |---|:---|
-|Release Branch |[![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-release-build?branchName=release)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=8&branchName=release) ![release version](https://img.shields.io/badge/release%20version-3.3.8.0-blue)  |
+|Release Branch |[![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-release-build?branchName=release)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=8&branchName=release) ![release version](https://img.shields.io/badge/release%20version-3.3.9.0-blue)  |
 | Main Dev Branch | [![Build Status](https://dev.azure.com/rsx-labs/aide/_apis/build/status/rsx-labs.aide-backend-ci-build?branchName=master)](https://dev.azure.com/rsx-labs/aide/_build/latest?definitionId=9&branchName=master) |
 
 
